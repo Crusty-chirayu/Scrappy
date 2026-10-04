@@ -14,6 +14,8 @@
   "dependencies": {
     "@scrappy/brand": "workspace:*",
     "@scrappy/core": "workspace:*",
+    "@scrappy/db": "workspace:*",
+    "@scrappy/pricing": "workspace:*",
     "@scrappy/ui": "workspace:*",
     "next": "^15.1.7",
     "react": "^19.0.0",

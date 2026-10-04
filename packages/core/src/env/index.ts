@@ -6,6 +6,7 @@ export const BaseEnvSchema = z.object({
   NODE_ENV: NodeEnvSchema,
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
+  INTEGRATION_MODE: z.enum(["local", "live"]).default("local"),
 });
 
 export const DatabaseEnvSchema = z.object({

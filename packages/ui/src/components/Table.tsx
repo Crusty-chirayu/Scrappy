@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, forwardRef, type HTMLAttributes, type ThHTMLAttributes, type TdHTMLAttributes } from "react";
 
 export type TableDensity = "compact" | "comfortable";
