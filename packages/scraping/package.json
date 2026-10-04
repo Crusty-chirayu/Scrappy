@@ -19,7 +19,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@scrappy/core": "workspace:*"
+    "@scrappy/core": "workspace:*",
+    "cheerio": "^1.2.0"
   },
   "devDependencies": {
     "@scrappy/config": "workspace:*",

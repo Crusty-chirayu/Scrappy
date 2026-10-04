@@ -6,3 +6,4 @@ export * from "./robots.js";
 export * from "./http-fetcher.js";
 export * from "./drift-detector.js";
 export * from "./browser-renderer.js";
+export * from "./extract/index.js";

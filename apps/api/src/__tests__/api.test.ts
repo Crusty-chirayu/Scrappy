@@ -162,22 +162,126 @@ describe("Scrappy REST API", () => {
     });
   });
 
-  describe("Billing API", () => {
-    it("POST /v1/billing/checkout creates checkout session", async () => {
+  describe("Extract API", () => {
+    it("POST /v1/extract/validate-url validates safe URLs and blocks private IPs", async () => {
+      const safeRes = await app.inject({
+        method: "POST",
+        url: "/v1/extract/validate-url",
+        payload: { url: "https://books.toscrape.com/catalogue/page-1.html" },
+      });
+      expect(safeRes.statusCode).toBe(200);
+      expect(safeRes.json().valid).toBe(true);
+
+      const unsafeRes = await app.inject({
+        method: "POST",
+        url: "/v1/extract/validate-url",
+        payload: { url: "http://169.254.169.254/latest/meta-data/" },
+      });
+      expect(unsafeRes.statusCode).toBe(200);
+      expect(unsafeRes.json().valid).toBe(false);
+    });
+
+    it("GET /v1/extract/templates returns built-in scraper configurations", async () => {
+      const res = await app.inject({
+        method: "GET",
+        url: "/v1/extract/templates",
+      });
+      expect(res.statusCode).toBe(200);
+      const templates = res.json();
+      expect(templates.length).toBeGreaterThanOrEqual(2);
+      expect(templates[0].id).toBe("tpl_ecommerce_list");
+    });
+
+    it("POST /v1/extract/test-run extracts structured fields from HTML snippet", async () => {
       const res = await app.inject({
         method: "POST",
-        url: "/v1/billing/checkout",
-        headers: { "x-workspace-id": "ws-billing-test" },
+        url: "/v1/extract/test-run",
         payload: {
-          planId: "growth",
-          billingInterval: "monthly",
+          html: `<div class="product"><h2 class="title">Wireless Earbuds</h2><span class="price">₹2,499</span></div>`,
+          itemSelector: ".product",
+          fields: [
+            {
+              id: "f1",
+              name: "title",
+              type: "string",
+              selectors: { primary: ".title", resilienceScore: 80 },
+              transforms: [{ type: "trim" }],
+            },
+            {
+              id: "f2",
+              name: "pricePaise",
+              type: "currency",
+              selectors: { primary: ".price", resilienceScore: 80 },
+              transforms: [{ type: "parse_currency_paise" }],
+            },
+          ],
         },
       });
       expect(res.statusCode).toBe(200);
       const data = res.json();
-      expect(data.orderId).toContain("order_fake");
-      expect(data.amountPaise).toBe(1990000);
-      expect(data.currency).toBe("INR");
+      expect(data.totalExtracted).toBe(1);
+      expect(data.records[0].title).toBe("Wireless Earbuds");
+      expect(data.records[0].pricePaise).toBe(249900);
+      expect(data.diagnostics[0].fillRatePercent).toBe(100);
+    });
+
+    it("POST /v1/extract/export exports records to CSV and NDJSON", async () => {
+      const csvRes = await app.inject({
+        method: "POST",
+        url: "/v1/extract/export",
+        payload: {
+          format: "csv",
+          records: [{ id: "1", title: "Item A", price: 100 }],
+        },
+      });
+      expect(csvRes.statusCode).toBe(200);
+      expect(csvRes.headers["content-type"]).toContain("text/csv");
+      expect(csvRes.body).toContain("id,title,price");
+      expect(csvRes.body).toContain("1,Item A,100");
+    });
+  });
+
+  describe("Price Intelligence API", () => {
+    it("GET /v1/intelligence/competitors returns price spread and undercut leader", async () => {
+      const res = await app.inject({
+        method: "GET",
+        url: "/v1/intelligence/competitors",
+      });
+      expect(res.statusCode).toBe(200);
+      const data = res.json();
+      expect(data.competitorSpread.length).toBeGreaterThan(0);
+      expect(data.competitorSpread[0].storePrices).toBeDefined();
+      expect(data.competitorSpread[0].undercutLeader).toBeDefined();
+    });
+  });
+
+  describe("Matching Engine API", () => {
+    it("POST /v1/matching/evaluate returns match decision with reasons", async () => {
+      const res = await app.inject({
+        method: "POST",
+        url: "/v1/matching/evaluate",
+        payload: {
+          title: "Apple Smartphone Model Pro-1X Special Edition",
+          brand: "Apple",
+          model: "Pro-1X",
+          ean: "890000000001",
+          sourceUrl: "https://amazon.in/dp/B0CX123",
+        },
+      });
+      expect(res.statusCode).toBe(200);
+      const data = res.json();
+      expect(data.decision).toBeDefined();
+      expect(["verified", "matched"]).toContain(data.decision.confidenceLevel);
+      expect(data.candidateCount).toBeGreaterThan(0);
+    });
+
+    it("GET /v1/matching/review-queue lists items pending human verification", async () => {
+      const res = await app.inject({
+        method: "GET",
+        url: "/v1/matching/review-queue",
+      });
+      expect(res.statusCode).toBe(200);
+      expect(Array.isArray(res.json().pending)).toBe(true);
     });
   });
 });

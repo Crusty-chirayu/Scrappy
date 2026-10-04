@@ -9,9 +9,11 @@ import {
   jsonSchemaTransform,
 } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { validateEnv, ApiEnvSchema, formatINR } from "@scrappy/core";
+import { validateEnv, ApiEnvSchema, formatINR, validateTargetUrl } from "@scrappy/core";
 import { defaultCatalogRepository } from "@scrappy/db";
 import { calculateDealScore, analyzeFakeDiscount } from "@scrappy/pricing";
+import { extractRecordsFromHtml, exportToCsv, exportToNdjson, ExtractorField } from "@scrappy/scraping";
+import { DeterministicMatchingEngine, MatchReviewQueue } from "@scrappy/matching";
 
 const env = validateEnv(ApiEnvSchema, process.env, "API Service");
 
@@ -399,6 +401,335 @@ export async function buildApp() {
         formatted: formatted.formatted,
         rupees: formatted.rupees,
         paise: formatted.paise,
+      };
+    },
+  );
+
+  // --- Extract Endpoints (Prompt 11) ---
+  app.post(
+    "/v1/extract/validate-url",
+    {
+      schema: {
+        tags: ["Extract"],
+        summary: "Validate a target URL against SSRF rules and restrictions",
+        body: z.object({
+          url: z.string().min(1),
+        }),
+        response: {
+          200: z.object({
+            valid: z.boolean(),
+            sanitizedUrl: z.string().optional(),
+            reason: z.string().optional(),
+          }),
+        },
+      },
+    },
+    async (request) => {
+      const res = validateTargetUrl(request.body.url);
+      return res;
+    },
+  );
+
+  app.get(
+    "/v1/extract/templates",
+    {
+      schema: {
+        tags: ["Extract"],
+        summary: "List built-in extraction templates",
+      },
+    },
+    async () => {
+      return [
+        {
+          id: "tpl_ecommerce_list",
+          name: "E-Commerce Product Listing",
+          description: "Extract titles, prices, ratings, and URLs from catalog listing pages",
+          itemSelector: ".product-item, [data-component-type='s-search-result'], ._1AtVbE",
+          fields: [
+            {
+              id: "f_title",
+              name: "title",
+              type: "string",
+              required: true,
+              selectors: {
+                primary: "h2, .product-title, ._4rR01T",
+                fallback1: "[data-title]",
+                resilienceScore: 85,
+              },
+              transforms: [{ type: "trim" }],
+            },
+            {
+              id: "f_price",
+              name: "pricePaise",
+              type: "currency",
+              required: true,
+              selectors: {
+                primary: ".a-price-whole, .price, ._30jeq3",
+                fallback1: "[data-price]",
+                resilienceScore: 90,
+              },
+              transforms: [{ type: "parse_currency_paise" }],
+            },
+            {
+              id: "f_url",
+              name: "productUrl",
+              type: "url",
+              required: true,
+              selectors: {
+                primary: "a.a-link-normal, a._1fQZEK, a[href*='/dp/']",
+                resilienceScore: 80,
+              },
+              transforms: [{ type: "absolute_url" }],
+            },
+          ],
+        },
+        {
+          id: "tpl_product_detail",
+          name: "Product Detail & Specifications",
+          description: "Single-item extractor for canonical specifications, MRP, and stock",
+          itemSelector: "body",
+          fields: [
+            {
+              id: "f_title",
+              name: "title",
+              type: "string",
+              required: true,
+              selectors: {
+                primary: "#productTitle, h1.product-name",
+                resilienceScore: 95,
+              },
+              transforms: [{ type: "trim" }],
+            },
+            {
+              id: "f_price",
+              name: "currentPricePaise",
+              type: "currency",
+              required: true,
+              selectors: {
+                primary: ".priceToPay span.a-price-whole, span.price",
+                resilienceScore: 90,
+              },
+              transforms: [{ type: "parse_currency_paise" }],
+            },
+            {
+              id: "f_mrp",
+              name: "mrpPricePaise",
+              type: "currency",
+              required: false,
+              selectors: {
+                primary: ".a-price.a-text-price span[aria-hidden='true']",
+                resilienceScore: 75,
+              },
+              transforms: [{ type: "parse_currency_paise" }],
+            },
+          ],
+        },
+      ];
+    },
+  );
+
+  app.post(
+    "/v1/extract/test-run",
+    {
+      schema: {
+        tags: ["Extract"],
+        summary: "Execute an extraction test against provided HTML or URL",
+        body: z.object({
+          html: z.string().min(1),
+          itemSelector: z.string().optional(),
+          baseUrl: z.string().url().optional(),
+          fields: z.array(
+            z.object({
+              id: z.string(),
+              name: z.string(),
+              type: z.enum([
+                "string",
+                "number",
+                "boolean",
+                "date",
+                "currency",
+                "url",
+                "image",
+                "array",
+                "object",
+              ]),
+              required: z.boolean().default(false),
+              selectors: z.object({
+                primary: z.string(),
+                fallback1: z.string().optional(),
+                fallback2: z.string().optional(),
+                textAnchor: z.string().optional(),
+                resilienceScore: z.number().default(75),
+              }),
+              transforms: z.array(
+                z.object({
+                  type: z.enum([
+                    "trim",
+                    "lowercase",
+                    "uppercase",
+                    "parse_number",
+                    "parse_currency_paise",
+                    "clean_whitespace",
+                    "absolute_url",
+                    "regex_replace",
+                    "date_iso",
+                  ]),
+                  param: z.string().optional(),
+                }),
+              ).default([]),
+            }),
+          ),
+        }),
+      },
+    },
+    async (request) => {
+      const { html, fields, itemSelector, baseUrl } = request.body;
+      const { records, diagnostics } = extractRecordsFromHtml(
+        html,
+        fields as unknown as ExtractorField[],
+        itemSelector,
+        baseUrl,
+      );
+      return {
+        totalExtracted: records.length,
+        records,
+        diagnostics,
+      };
+    },
+  );
+
+  app.post(
+    "/v1/extract/export",
+    {
+      schema: {
+        tags: ["Extract"],
+        summary: "Export extracted records to CSV, JSON, or NDJSON",
+        body: z.object({
+          format: z.enum(["csv", "json", "ndjson"]),
+          records: z.array(z.record(z.unknown())),
+        }),
+      },
+    },
+    async (request, reply) => {
+      const { format, records } = request.body;
+      if (format === "csv") {
+        const csv = exportToCsv(records);
+        reply.header("Content-Type", "text/csv; charset=utf-8");
+        return csv;
+      }
+      if (format === "ndjson") {
+        const ndjson = exportToNdjson(records);
+        reply.header("Content-Type", "application/x-ndjson; charset=utf-8");
+        return ndjson;
+      }
+      return records;
+    },
+  );
+
+  // --- Intelligence Endpoints (Prompt 12) ---
+  app.get(
+    "/v1/intelligence/competitors",
+    {
+      schema: {
+        tags: ["Intelligence"],
+        summary: "Get competitor price spread, undercuts, and stock health",
+      },
+    },
+    async () => {
+      const topItems = defaultCatalogRepository.search({ limit: 10 }).items;
+      return {
+        timestamp: new Date().toISOString(),
+        trackedCatalogSize: 500,
+        competitorSpread: topItems.map((item) => {
+          const detail = defaultCatalogRepository.getProductDetail(item.id);
+          const offers = detail?.offers ?? [];
+          const amazonOffer = offers.find((o) => o.source === "amazon-in");
+          const flipkartOffer = offers.find((o) => o.source === "flipkart");
+          const minPrice = item.lowestPricePaise;
+          const maxPrice = offers.reduce((max, o) => Math.max(max, o.currentPricePaise), minPrice);
+          const spreadPercent = minPrice > 0 ? Math.round(((maxPrice - minPrice) / minPrice) * 100) : 0;
+
+          return {
+            productId: item.id,
+            productTitle: item.title,
+            brand: item.brand,
+            lowestPricePaise: minPrice,
+            retailerSpreadPercent: spreadPercent,
+            storePrices: {
+              amazonPaise: amazonOffer?.currentPricePaise ?? null,
+              flipkartPaise: flipkartOffer?.currentPricePaise ?? null,
+            },
+            undercutLeader: amazonOffer && flipkartOffer
+              ? amazonOffer.currentPricePaise < flipkartOffer.currentPricePaise
+                ? "Amazon.in"
+                : "Flipkart"
+              : "Tie",
+          };
+        }),
+      };
+    },
+  );
+
+  // --- Matching Engine Endpoints (Prompt 11) ---
+  const matchingEngine = new DeterministicMatchingEngine(
+    defaultCatalogRepository.search({ limit: 500 }).items.map((i) => ({
+      id: i.id,
+      title: i.title,
+      brand: i.brand,
+      category: i.category,
+      model: i.model,
+      ean: i.ean,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    })),
+  );
+  const reviewQueue = new MatchReviewQueue();
+
+  app.post(
+    "/v1/matching/evaluate",
+    {
+      schema: {
+        tags: ["Matching"],
+        summary: "Evaluate a candidate offer against canonical catalog (Constitution Rule 4)",
+        body: z.object({
+          title: z.string().min(1),
+          brand: z.string().optional(),
+          model: z.string().optional(),
+          ean: z.string().optional(),
+          upc: z.string().optional(),
+          sourceUrl: z.string().url().default("https://example.com/offer"),
+        }),
+      },
+    },
+    async (request) => {
+      const candidates = await matchingEngine.findCandidateMatches(request.body);
+      const decision = matchingEngine.resolveMatch(request.body, candidates);
+
+      // If uncertain match (possible_match), submit to review queue
+      if (decision.confidenceLevel === "possible_match" && candidates[0]) {
+        reviewQueue.enqueue(request.body, candidates[0], decision);
+      }
+
+      return {
+        decision,
+        candidateCount: candidates.length,
+        topCandidateTitle: candidates[0]?.title ?? null,
+      };
+    },
+  );
+
+  app.get(
+    "/v1/matching/review-queue",
+    {
+      schema: {
+        tags: ["Matching"],
+        summary: "Get pending matches awaiting human reviewer verification",
+      },
+    },
+    async () => {
+      return {
+        pending: reviewQueue.getPending(),
+        totalPending: reviewQueue.getPending().length,
       };
     },
   );

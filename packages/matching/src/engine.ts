@@ -45,6 +45,18 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
       if (upcMatches.length > 0) return upcMatches;
     }
 
+    // 2. Direct Brand & Model lookup
+    if (offer.brand && offer.model) {
+      const normBrand = offer.brand.toLowerCase();
+      const normModel = offer.model.toLowerCase();
+      const modelMatches = this.catalog.filter(
+        (c) =>
+          c.brand?.toLowerCase() === normBrand &&
+          (c.model?.toLowerCase() === normModel || c.title.toLowerCase().includes(normModel)),
+      );
+      if (modelMatches.length > 0) return modelMatches;
+    }
+
     // 2. Token overlap lookup
     const offerTokens = tokenize(offer.title);
     return this.catalog.filter((p) => {

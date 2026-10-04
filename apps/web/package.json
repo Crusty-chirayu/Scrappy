@@ -16,6 +16,7 @@
     "@scrappy/core": "workspace:*",
     "@scrappy/db": "workspace:*",
     "@scrappy/pricing": "workspace:*",
+    "@scrappy/scraping": "workspace:*",
     "@scrappy/ui": "workspace:*",
     "next": "^15.1.7",
     "react": "^19.0.0",
