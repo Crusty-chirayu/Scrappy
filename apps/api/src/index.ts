@@ -12,7 +12,7 @@ import { z } from "zod";
 import { validateEnv, ApiEnvSchema, formatINR, validateTargetUrl } from "@scrappy/core";
 import { defaultCatalogRepository } from "@scrappy/db";
 import { calculateDealScore, analyzeFakeDiscount } from "@scrappy/pricing";
-import { extractRecordsFromHtml, exportToCsv, exportToNdjson, ExtractorField } from "@scrappy/scraping";
+import { extractRecordsFromHtml, exportToCsv, exportToNdjson, type ExtractorField } from "@scrappy/scraping";
 import { DeterministicMatchingEngine, MatchReviewQueue } from "@scrappy/matching";
 
 const env = validateEnv(ApiEnvSchema, process.env, "API Service");
