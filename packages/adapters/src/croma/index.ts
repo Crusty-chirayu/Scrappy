@@ -1,19 +1,32 @@
-import { SourceAdapter, FetchResult, ExtractedOffer, AdapterHealth } from "@scrappy/scraping";
+import {
+  SourceAdapter,
+  FetchResult,
+  FetchOptions,
+  ExtractedOffer,
+  AdapterHealth,
+  SourceCircuitBreaker,
+} from "@scrappy/scraping";
 import { ScrappyError } from "@scrappy/core";
 
 export class CromaAdapter implements SourceAdapter {
   public readonly id = "croma";
   public readonly name = "Croma";
-  public readonly version = "0.1.0";
+  public readonly version = "0.2.0";
+  public readonly circuitBreaker: SourceCircuitBreaker;
 
-  public canHandle(url: string): boolean {
-    return /^https?:\/\/(www\.)?croma\.com/i.test(url);
+  constructor() {
+    this.circuitBreaker = new SourceCircuitBreaker(this.id);
   }
 
-  public async fetch(url: string): Promise<FetchResult> {
-    // In accordance with research findings, Croma currently lacks affiliate feed/API
+  public canHandle(url: string): boolean {
+    return /^https?:\/\/(www\.)?croma\.com\b/i.test(url);
+  }
+
+  public async fetch(url: string, _options?: FetchOptions): Promise<FetchResult> {
+    // In accordance with Constitution Rule 6 & research findings,
+    // Croma currently lacks an affiliate feed and prohibits automated scraping in ToS.
     throw new ScrappyError(
-      "Croma source is currently unsupported due to policy restrictions",
+      "Croma source is currently unsupported due to policy restrictions (honest 'Source unavailable' state)",
       "ADAPTER_ERROR",
       501,
       { source: this.id, url },

@@ -1,18 +1,32 @@
-import { SourceAdapter, FetchResult, ExtractedOffer, AdapterHealth } from "@scrappy/scraping";
+import {
+  SourceAdapter,
+  FetchResult,
+  FetchOptions,
+  ExtractedOffer,
+  AdapterHealth,
+  SourceCircuitBreaker,
+} from "@scrappy/scraping";
 import { ScrappyError } from "@scrappy/core";
 
 export class RelianceDigitalAdapter implements SourceAdapter {
   public readonly id = "reliance-digital";
   public readonly name = "Reliance Digital";
-  public readonly version = "0.1.0";
+  public readonly version = "0.2.0";
+  public readonly circuitBreaker: SourceCircuitBreaker;
 
-  public canHandle(url: string): boolean {
-    return /^https?:\/\/(www\.)?reliancedigital\.in/i.test(url);
+  constructor() {
+    this.circuitBreaker = new SourceCircuitBreaker(this.id);
   }
 
-  public async fetch(url: string): Promise<FetchResult> {
+  public canHandle(url: string): boolean {
+    return /^https?:\/\/(www\.)?reliancedigital\.in\b/i.test(url);
+  }
+
+  public async fetch(url: string, _options?: FetchOptions): Promise<FetchResult> {
+    // In accordance with Constitution Rule 6 & research findings,
+    // Reliance Digital currently lacks an affiliate feed and prohibits scraping in ToS.
     throw new ScrappyError(
-      "Reliance Digital source is currently unsupported due to policy restrictions",
+      "Reliance Digital source is currently unsupported due to policy restrictions (honest 'Source unavailable' state)",
       "ADAPTER_ERROR",
       501,
       { source: this.id, url },

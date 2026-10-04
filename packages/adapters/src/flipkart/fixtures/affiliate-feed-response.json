@@ -1,0 +1,37 @@
+{
+  "productBaseInfoV1": {
+    "title": "APPLE iPhone 16 (Black, 128 GB)",
+    "productDescription": "Experience next generation performance with the A18 Bionic Chip and 48MP fusion camera.",
+    "productIdentifier": {
+      "productId": "MOBH2GXYZ123456",
+      "categoryPaths": {
+        "categoryPath": [["Mobiles & Accessories", "Mobiles"]]
+      }
+    },
+    "productShippingBaseInfo": {
+      "shippingOptions": []
+    },
+    "flipkartSellingPrice": {
+      "amount": 78999.0,
+      "currency": "INR"
+    },
+    "flipkartSpecialPrice": {
+      "amount": 78999.0,
+      "currency": "INR"
+    },
+    "maximumRetailPrice": {
+      "amount": 79900.0,
+      "currency": "INR"
+    },
+    "productBrand": "Apple",
+    "inStock": true,
+    "codAvailable": true,
+    "offers": [],
+    "discount": 1.0,
+    "attributes": {
+      "model": "iPhone 16",
+      "color": "Black",
+      "storage": "128 GB"
+    }
+  }
+}

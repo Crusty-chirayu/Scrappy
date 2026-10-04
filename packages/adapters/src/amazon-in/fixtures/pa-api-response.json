@@ -1,0 +1,61 @@
+{
+  "ItemInfo": {
+    "Title": {
+      "DisplayValue": "Apple iPhone 16 (128 GB) - Black"
+    },
+    "ByLineInfo": {
+      "Brand": {
+        "DisplayValue": "Apple"
+      },
+      "Manufacturer": {
+        "DisplayValue": "Apple Inc."
+      }
+    },
+    "Classifications": {
+      "ProductGroup": {
+        "DisplayValue": "Wireless"
+      }
+    },
+    "ExternalIds": {
+      "EANs": {
+        "DisplayValues": ["0195949038235"]
+      },
+      "UPCs": {
+        "DisplayValues": ["195949038235"]
+      }
+    },
+    "Features": {
+      "DisplayValues": [
+        "Dynamic Island bubbles up alerts and Live Activities",
+        "48MP Fusion camera with 2x Telephoto",
+        "A18 Bionic chip with 5-core GPU"
+      ]
+    }
+  },
+  "Offers": {
+    "Listings": [
+      {
+        "Id": "B0DGJ9M8V2",
+        "Price": {
+          "Amount": 79900.0,
+          "Currency": "INR",
+          "DisplayAmount": "₹79,900"
+        },
+        "SavingBasis": {
+          "Amount": 79900.0,
+          "Currency": "INR",
+          "DisplayAmount": "₹79,900"
+        },
+        "Availability": {
+          "Type": "NOW",
+          "Message": "In stock"
+        },
+        "MerchantInfo": {
+          "Name": "Appario Retail Private Ltd",
+          "Id": "A14CZOWI00E265"
+        }
+      }
+    ]
+  },
+  "ASIN": "B0DGJ9M8V2"
+}

@@ -6,12 +6,13 @@
 
 ---
 
-## Current Status: **PHASE 2 (DATA LAYER + DESIGN SYSTEM) COMPLETE — EXECUTING PHASE 3**
+## Current Status: **PHASE 3 (SCRAPING ENGINE) COMPLETE — EXECUTING PHASE 4**
 
 Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on every table, pgTAP tests, generated types, and all gates) is complete.
-Phase 2 (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification) is complete and verified green.
+Phase 2 (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification) is complete.
+Phase 3 (Scraping engine: HTTP fetcher, robots.txt, host rate limiter, circuit breakers, Amazon India & Flipkart adapters with fixtures, Croma & Reliance stubs, worker handlers, chaos test, matching stub, docs/sources/) is complete and verified green.
 
-**NEXT ACTION**: Phase 3 — Scraping Engine (Adapter contract, HTTP fetcher with robots.txt & per-host rate limiting, Playwright browser renderer, schema drift detector, Amazon India adapter, Flipkart adapter, Croma & Reliance Digital unsupported stubs, fixture test suite, and pg-boss queue integration).
+**NEXT ACTION**: Phase 4 — Compare + Alerts + Auth + Billing (Search UI & API with autocomplete + Postgres FTS, product page UI with offers table & price history chart, watchlist UI & API, alert evaluator & notification center, Supabase Auth integration, Razorpay billing adapter, and email templates).
 
 ---
 
@@ -46,7 +47,7 @@ Phase 2 (500 synthetic product seed generator, design system tokens, core compon
 | 1     | Foundation (P1 Rework)      | ✅ done     | Monorepo, Supabase CLI, RLS on every table, pgTAP tests, generated types  |
 | 2     | Data Layer + Design System  | ✅ done     | Schema seed (500 products), tokens, @scrappy/ui components, contrast, axe |
 | 03     | Design System                          | todo   | Phase 2                                                    |
-| 04     | Scraping Engine (Compare)              | todo   | Phase 3                                                    |
+| 3     | Scraping Engine             | ✅ done     | Adapter contracts, HTTP fetcher, robots, rate limit, Amazon/Flipkart fixtures, Croma/Reliance stubs, chaos test |
 | 05     | Compare UI                             | todo   | Phase 4                                                    |
 | 06     | Alerts & Notifications                 | todo   | Phase 4                                                    |
 | 07     | Auth, Workspace, Billing               | todo   | Phase 4                                                    |

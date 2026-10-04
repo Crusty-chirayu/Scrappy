@@ -1,4 +1,14 @@
 import { SourceId, Provenance, ExtractionMethod } from "@scrappy/core";
+import { SourceCircuitBreaker } from "./circuit-breaker.js";
+
+export interface FetchOptions {
+  headers?: Record<string, string>;
+  timeoutMs?: number;
+  maxRetries?: number;
+  etag?: string;
+  ifModifiedSince?: string;
+  allowRedirects?: boolean;
+}
 
 export interface FetchResult {
   url: string;
@@ -9,6 +19,7 @@ export interface FetchResult {
   fetchedAt: string;
   extractionMethod: ExtractionMethod;
   durationMs: number;
+  isNotModified?: boolean;
 }
 
 export interface ExtractedOffer {
@@ -34,12 +45,20 @@ export interface AdapterHealth {
   lastError?: string;
 }
 
+export interface DriftAnalysisResult {
+  driftScore: number; // 0.0 to 1.0
+  isDrifted: boolean;
+  missingFields: string[];
+  anomalies: string[];
+}
+
 export interface SourceAdapter {
   readonly id: SourceId;
   readonly name: string;
   readonly version: string;
+  readonly circuitBreaker: SourceCircuitBreaker;
   canHandle(url: string): boolean;
-  fetch(url: string): Promise<FetchResult>;
+  fetch(url: string, options?: FetchOptions): Promise<FetchResult>;
   parse(fetchResult: FetchResult): Promise<ExtractedOffer>;
   getHealth(): Promise<AdapterHealth>;
 }
