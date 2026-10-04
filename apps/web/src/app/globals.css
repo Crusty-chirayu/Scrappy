@@ -8,6 +8,7 @@
   --signal-green: #C6F135;
 }
 
+html,
 body {
   background-color: var(--bg-dark);
   color: var(--text-dark);
@@ -15,4 +16,19 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
+
+/* WCAG 2.2 AA & Constitution Rule 9: Reduced-motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

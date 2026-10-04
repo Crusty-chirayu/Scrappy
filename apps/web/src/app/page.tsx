@@ -106,7 +106,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12 md:py-20">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20 overflow-x-hidden">
       {/* Precision Instrument Badge */}
       <div className="flex justify-center mb-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#262E3C] bg-[#0F1217] text-xs font-mono text-[#C6F135]">
@@ -117,30 +117,30 @@ export default function HomePage() {
 
       {/* Hero Headline */}
       <div className="text-center max-w-4xl mx-auto mb-10">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
           The verified, historical graph of products, merchants, and prices.
         </h1>
-        <p className="text-base md:text-xl text-[#98A2B3] max-w-3xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base md:text-xl text-[#98A2B3] max-w-3xl mx-auto leading-relaxed">
           Scrappy turns the chaotic web into structured, provable truth. Honest price comparison for consumers,
           market intelligence for brands, and headless resilient extraction for developers — all on one unified platform.
         </p>
       </div>
 
       {/* Trust & Provenance Telemetry Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16 p-4 rounded bg-[#0F1217] border border-[#262E3C]">
-        <div className="text-center border-r border-[#262E3C] last:border-r-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-16 p-4 rounded bg-[#0F1217] border border-[#262E3C]">
+        <div className="text-center sm:border-r border-[#262E3C] pb-2 sm:pb-0">
           <div className="text-xl md:text-2xl font-bold font-mono text-white">500+</div>
           <div className="text-xs font-mono text-[#98A2B3] mt-0.5">Active Products Indexed</div>
         </div>
-        <div className="text-center border-r border-[#262E3C] last:border-r-0">
+        <div className="text-center md:border-r border-[#262E3C] pb-2 sm:pb-0">
           <div className="text-xl md:text-2xl font-bold font-mono text-[#C6F135]">0.0%</div>
           <div className="text-xs font-mono text-[#98A2B3] mt-0.5">False Positive Match Rate</div>
         </div>
-        <div className="text-center border-r border-[#262E3C] last:border-r-0">
+        <div className="text-center sm:border-r border-[#262E3C] pb-2 sm:pb-0">
           <div className="text-xl md:text-2xl font-bold font-mono text-white">4 Adapters</div>
           <div className="text-xs font-mono text-[#98A2B3] mt-0.5">Amazon, Flipkart, Croma, Reliance</div>
         </div>
-        <div className="text-center">
+        <div className="text-center pt-2 sm:pt-0">
           <div className="text-xl md:text-2xl font-bold font-mono text-[#70E000]">&lt; 150ms</div>
           <div className="text-xs font-mono text-[#98A2B3] mt-0.5">Search API p95 Latency</div>
         </div>
@@ -182,7 +182,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Search bar inside demo */}
           <div className="mb-6 flex flex-col sm:flex-row gap-3">
             <input
@@ -193,7 +193,7 @@ export default function HomePage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 px-4 py-2.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
             />
-            <div className="flex items-center gap-2 overflow-x-auto">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
               {(filteredProducts.length > 0 ? filteredProducts : DEMO_PRODUCTS).map((p) => (
                 <button
                   key={p.id}
@@ -211,27 +211,27 @@ export default function HomePage() {
           </div>
 
           {/* Active Product Card with Provenance & Offers */}
-          <div className="bg-[#0A0C0F] border border-[#262E3C] rounded p-6">
+          <div className="bg-[#0A0C0F] border border-[#262E3C] rounded p-4 sm:p-6 overflow-hidden">
             <div className="flex flex-col lg:flex-row justify-between gap-6 pb-6 border-b border-[#262E3C]">
               <div>
                 <span className="text-xs font-mono text-[#C6F135] uppercase">{selectedProduct.category}</span>
-                <h3 className="text-xl md:text-2xl font-bold text-white mt-1">{selectedProduct.title}</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mt-1">{selectedProduct.title}</h3>
                 <p className="text-xs text-[#98A2B3] mt-2 font-mono">{selectedProduct.fakeDiscountAnalysis}</p>
               </div>
 
-              <div className="flex items-center gap-4 bg-[#0F1217] p-4 rounded border border-[#262E3C] self-start">
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4 bg-[#0F1217] p-3 sm:p-4 rounded border border-[#262E3C] w-full sm:w-auto self-start">
                 <div>
                   <div className="text-xs font-mono text-[#98A2B3]">BEST CURRENT PRICE</div>
-                  <div className="text-2xl font-mono font-bold text-[#C6F135]">
+                  <div className="text-xl sm:text-2xl font-mono font-bold text-[#C6F135]">
                     ₹{selectedProduct.bestPrice.toLocaleString("en-IN")}
                   </div>
                   <div className="text-xs text-[#98A2B3] line-through">
                     MRP: ₹{selectedProduct.originalPrice.toLocaleString("en-IN")}
                   </div>
                 </div>
-                <div className="border-l border-[#262E3C] pl-4 text-center">
+                <div className="border-l border-[#262E3C] pl-3 sm:pl-4 text-center">
                   <div className="text-xs font-mono text-[#98A2B3]">DEAL SCORE</div>
-                  <div className="text-2xl font-mono font-bold text-white">{selectedProduct.dealScore}/10</div>
+                  <div className="text-xl sm:text-2xl font-mono font-bold text-white">{selectedProduct.dealScore}/10</div>
                   <div className="text-[10px] font-mono text-[#70E000] font-semibold">
                     {selectedProduct.dealRating}
                   </div>
@@ -240,7 +240,7 @@ export default function HomePage() {
             </div>
 
             {/* Provenance Badge Section */}
-            <div className="py-4 border-b border-[#262E3C] grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono bg-[#0D1015] px-4 -mx-6">
+            <div className="py-4 border-b border-[#262E3C] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono bg-[#0D1015] px-4 -mx-4 sm:-mx-6">
               <div>
                 <span className="text-[#98A2B3]">Primary Source: </span>
                 <span className="text-white font-medium">{selectedProduct.provenance.source}</span>
@@ -268,9 +268,9 @@ export default function HomePage() {
                 {selectedProduct.offers.map((offer, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-3 rounded bg-[#0F1217] border border-[#262E3C]"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded bg-[#0F1217] border border-[#262E3C]"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                       <span className="w-2 h-2 rounded-full bg-[#70E000]"></span>
                       <span className="text-sm font-medium text-white">{offer.store}</span>
                       {offer.freeDelivery && (
@@ -279,7 +279,7 @@ export default function HomePage() {
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto">
                       <span className="text-base font-mono font-bold text-white">
                         ₹{offer.price.toLocaleString("en-IN")}
                       </span>
@@ -493,7 +493,7 @@ export default function HomePage() {
       </div>
 
       {/* Trust & Constitutional Manifesto */}
-      <div className="border border-[#262E3C] rounded p-8 bg-[#0F1217]">
+      <div className="border border-[#262E3C] rounded p-4 sm:p-8 bg-[#0F1217]">
         <div className="inline-flex items-center gap-2 text-xs font-mono text-[#C6F135] mb-2">
           ● THE SCRAPPY COMMITMENT
         </div>

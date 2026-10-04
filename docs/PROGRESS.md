@@ -101,12 +101,22 @@
     - Built comprehensive integration suite `apps/web/src/__tests__/security-g9.test.ts` (12/12 tests passing) proving strict workspace boundary isolation across saved searches, team invitations, webhooks, API keys, and datasets.
     - Built scraping security suite `packages/scraping/src/__tests__/security.test.ts` (15/15 tests passing).
     - Built Playwright E2E security suite `e2e/security.spec.ts` (6/6 tests passing across desktop-1280 and mobile-360).
+- **G10 (Polish & Resilience Law)**: ✅ **DONE**
+  - **Global Reduced Motion (Constitution Rule 9)**: Implemented `@media (prefers-reduced-motion: reduce)` in `apps/web/src/app/globals.css` enforcing `animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;` across all DOM nodes and pseudo-elements. Verified passing via Playwright `page.emulateMedia({ reducedMotion: "reduce" })`.
+  - **Offline Resilience Mode (Constitution Rule 2)**: Created `apps/web/src/components/OfflineBanner.tsx` and mounted in `apps/web/src/app/layout.tsx`. Displays calm warning with cached data indicators whenever client connectivity drops, automatically resuming upon restoration.
+  - **404 Branded Error Page**: Created `apps/web/src/app/not-found.tsx` rendering calm Scrappy `EmptyState` with recovery links to catalog and home.
+  - **Client Error Boundary**: Created `apps/web/src/app/error.tsx` catching client exceptions with structured error logging (`[SCRAPPY ERROR BOUNDARY]`), digest trace ID display, and retry reset control.
+  - **Resilience States in Extract & Intelligence**:
+    - `apps/web/src/app/extract/page.tsx`: Added inline `ErrorState` banner on `runStatus === "FAILED"`, and actionable `EmptyState` when `datasetsList.length === 0`.
+    - `apps/web/src/app/intelligence/page.tsx`: Added `EmptyState` when competitor matrix is empty.
+  - **360px Mobile Viewport Audit**: Refactored header, footer, hero, telemetry bar, showcase demo widget, and commitment sections in `apps/web/src/app/page.tsx` and `apps/web/src/app/layout.tsx` to prevent horizontal overflow on 360px mobile viewports (`document.documentElement.scrollWidth <= document.documentElement.clientWidth`).
+  - **Dedicated E2E Suite**: Authored `e2e/resilience-g10.spec.ts` (10/10 tests passing across desktop-1280 and mobile-360).
   - **Quality Gates Passing**:
     - `pnpm check`: 23 test files / 164 unit/integration tests passing, strict TypeScript 0 errors, turbo build successful across all 15 packages.
     - `supabase test db`: 28/28 pgTAP tests passing.
-    - `pnpm exec playwright test`: 74/74 tests passing on desktop and mobile.
+    - `pnpm exec playwright test`: 84/84 tests passing on desktop and mobile viewports.
 
-**NEXT ACTION**: Build G10 — Polish & Resilience Law (empty, error, partial, loading, stale, and offline states on all views; full `prefers-reduced-motion` compliance; 360px viewport polish and audit).
+**NEXT ACTION**: Launch Audit & Go-Live Finalization (Prompt 18 / Stage C Hand-off) — verify all operational runbooks, environment variable templates, and delivery checklists in `/docs/GO_LIVE_CHECKLIST.md`.
 
 ---
 

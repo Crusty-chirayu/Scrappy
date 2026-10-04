@@ -4,6 +4,8 @@ import React, { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import {
   Button,
+  EmptyState,
+  ErrorState,
   ToastProvider,
   useToast,
 } from "@scrappy/ui";
@@ -541,6 +543,18 @@ function ExtractStudio() {
         </div>
       )}
 
+      {/* EXECUTION ERROR RESILIENCE BANNER */}
+      {runStatus === "FAILED" && (
+        <div className="mb-6">
+          <ErrorState
+            title="Extraction Execution Fault"
+            message="The extraction worker was unable to complete the run. Check that the target webpage is accessible and selector definitions match the DOM structure."
+            errorCode="ERR_EXTRACT_WORKER_FAILED"
+            onRetry={handleRunExtraction}
+          />
+        </div>
+      )}
+
       {/* CODE-SPLIT LAZY LOADED PREVIEW & DIAGNOSTICS */}
       {(activeTab === "preview" || activeTab === "diagnostics") && (
         <ExtractionResultsPreview
@@ -602,8 +616,16 @@ function ExtractStudio() {
             </Button>
           </div>
           {datasetsList.length === 0 ? (
-            <div className="text-center py-10 text-[#5B677C]">
-              No datasets extracted yet. Run an extraction above to persist verified records.
+            <div className="p-8">
+              <EmptyState
+                title="No datasets extracted yet"
+                description="Run an extraction job from the Studio above to persist verified canonical records."
+                action={
+                  <Button variant="primary" size="sm" onClick={handleRunExtraction}>
+                    Run Extraction Now
+                  </Button>
+                }
+              />
             </div>
           ) : (
             <div className="divide-y divide-[#1A202B]">

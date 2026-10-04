@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import {
   Button,
+  EmptyState,
   Table,
   TableHeader,
   TableBody,
@@ -243,6 +244,19 @@ function IntelligenceStudio() {
           </div>
 
           <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
+            {competitorMatrix.length === 0 ? (
+              <div className="p-8">
+                <EmptyState
+                  title="No competitor pricing data found"
+                  description="Try switching back to 'All Categories' to view active competitor price spreads."
+                  action={
+                    <Button variant="secondary" size="sm" onClick={() => setSelectedCategory("all")}>
+                      Show All Categories
+                    </Button>
+                  }
+                />
+              </div>
+            ) : (
             <Table>
               <TableHeader>
                 <TableRow>
@@ -322,6 +336,7 @@ function IntelligenceStudio() {
                 ))}
               </TableBody>
             </Table>
+            )}
           </div>
         </div>
       )}
