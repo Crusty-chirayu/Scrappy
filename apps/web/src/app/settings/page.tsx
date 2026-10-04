@@ -385,11 +385,13 @@ function SettingsConsole() {
             <input
               type="email"
               placeholder="colleague@company.com"
+              aria-label="Colleague Email Address"
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
               className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"
             />
             <select
+              aria-label="Role"
               value={inviteRole}
               onChange={(e) => setInviteRole(e.target.value as "admin" | "member")}
               className="bg-[#141922] border border-[#262E3C] text-xs text-[#D6DBE3] rounded px-3 py-2 outline-none focus:border-[#C6F135]"
@@ -543,6 +545,7 @@ function SettingsConsole() {
             <input
               type="text"
               placeholder="e.g. Production Data Ingestion Worker"
+              aria-label="Secret Key Name"
               value={newKeyName}
               onChange={(e) => setNewKeyName(e.target.value)}
               className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"
@@ -624,6 +627,7 @@ function SettingsConsole() {
             <input
               type="url"
               placeholder="https://api.your-service.com/webhooks/pricing"
+              aria-label="Webhook Destination URL"
               value={newWebhookUrl}
               onChange={(e) => setNewWebhookUrl(e.target.value)}
               className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"

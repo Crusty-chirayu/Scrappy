@@ -297,6 +297,7 @@ function ExtractStudio() {
             </label>
             <input
               type="url"
+              aria-label="Target Webpage URL"
               value={targetUrl}
               onChange={(e) => setTargetUrl(e.target.value)}
               className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] font-mono outline-none focus:border-[#9A7BFF]"

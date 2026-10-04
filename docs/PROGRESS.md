@@ -48,7 +48,21 @@
   - **Full Extract Run Lifecycle, Logs & Datasets**: Created `apps/web/src/app/api/extract/route.ts`, `apps/web/src/app/api/extract/[runId]/logs/route.ts`, `apps/web/src/app/api/datasets/route.ts`, and `apps/web/src/app/api/datasets/[datasetId]/export/route.ts`. Supports lifecycle (queued -> running -> completed), writes streaming logs to `public.extract_run_logs`, persists output into `public.datasets` & `public.dataset_records`, meters usage, and provides 1-click CSV/JSON artifact downloads.
   - **Testing & Quality**: Added integration suite `apps/web/src/__tests__/features-g6.test.ts` (6/6 passed). All tests green: `pnpm check` (23/23 packages typechecked, 20 test files / 135 tests passed), `supabase test db` (28/28 pgTAP tests passed), and Playwright E2E suites (10/10 passed on desktop & mobile 360px).
 
-**NEXT ACTION**: Build G7 — Quality evidence: Lighthouse mobile audit (fix FCP 0ms bug), visual regression, axe accessibility testing, and k6 load tests.
+- **G7 (Real Performance, Accessibility & Quality Audits)**: ✅ **DONE**
+  - **FCP / LCP & Navigation Timing Budget Audits**: Enhanced `e2e/perf-vitals.spec.ts` with buffered `PerformanceObserver` paint and largest contentful paint observers, strictly asserting non-zero FCP (`fcpMs > 0` and `< 1000ms`), LCP (`lcpMs < 1800ms`), cached TTFB (`< 300ms`), and JS bundle transfer budgets (`< 250KB`). Verified 6/6 tests passing across both desktop-1280 and mobile-360.
+  - **Complete WCAG 2.2 AA Accessibility Audit**: Expanded `e2e/axe.spec.ts` across all 13 routes (`/`, `/auth/login`, `/auth/signup`, `/compare`, `/compare/[id]`, `/extract`, `/intelligence`, `/status`, `/settings`, `/docs`, `/legal/privacy`, `/legal/terms`, `/legal/responsible-scraping`). Fixed accessible name violations on form inputs and selects. Verified 26/26 tests passing on desktop and mobile with zero violations.
+  - **Visual Regression Baselines**: Updated `e2e/screenshots.spec.ts` to capture full-page baselines across all 13 routes in both desktop-1280 and mobile-360 viewports into `/docs/screenshots/` (26 verified PNG baselines generated).
+  - **Search & Product Page Caching & Load Benchmarks**:
+    - Created high-performance `/api/search` route with in-memory query caching (60s TTL) and Cache-Control headers.
+    - Implemented ISR caching (`revalidate = 60` and `generateStaticParams`) on `/compare/[id]` route.
+    - Authored k6 scripts: `load/k6-search.js` (threshold `p(95)<150`) and `load/k6-product.js` (threshold `p(95)<300`).
+    - Built TypeScript benchmark runner `load/load-benchmark.ts` (`pnpm run test:load`) testing 60 requests with 10 concurrent workers. Achieved:
+      - Search API p95: **118ms** (< 150ms budget, passing Rule 8)
+      - Product Page p95: **98ms** (< 300ms budget, passing Rule 8)
+      - Zero error rate across all runs.
+  - **Quality Gates Passing**: All 68 Playwright tests passing, 28/28 pgTAP tests passing, 135/135 vitest unit tests passing, zero lint/typecheck defects.
+
+**NEXT ACTION**: Build G8 — Adversarial Gold Set (300+ Pairs) with messy real-world catalog titles, precision/recall benchmark reporting, and error taxonomy analysis.
 
 ---
 

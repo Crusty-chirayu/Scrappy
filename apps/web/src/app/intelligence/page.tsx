@@ -452,7 +452,10 @@ function IntelligenceStudio() {
                 <label className="block text-[11px] font-mono text-[#5B677C] mb-1">
                   ALERT TRIGGER CONDITION
                 </label>
-                <select className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none">
+                <select
+                  aria-label="Alert trigger condition"
+                  className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none"
+                >
                   <option value="undercut">Competitor undercuts current best price</option>
                   <option value="mrp_inflation">Competitor inflates MRP before sale</option>
                   <option value="stock_out">Competitor runs out of stock</option>
@@ -467,6 +470,7 @@ function IntelligenceStudio() {
                   type="number"
                   min="1"
                   max="50"
+                  aria-label="Minimum threshold percentage"
                   value={undercutThreshold}
                   onChange={(e) => setUndercutThreshold(e.target.value)}
                   className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] font-mono outline-none focus:border-[#5AA9FF]"

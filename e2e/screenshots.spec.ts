@@ -4,6 +4,8 @@ import path from "node:path";
 
 const PAGES = [
   { name: "home", path: "/" },
+  { name: "auth-login", path: "/auth/login" },
+  { name: "auth-signup", path: "/auth/signup" },
   { name: "compare", path: "/compare" },
   { name: "product-detail", path: "/compare/b2000000-0000-0000-0000-000000000001" },
   { name: "extract", path: "/extract" },
@@ -11,6 +13,9 @@ const PAGES = [
   { name: "status", path: "/status" },
   { name: "settings", path: "/settings" },
   { name: "docs", path: "/docs" },
+  { name: "legal-privacy", path: "/legal/privacy" },
+  { name: "legal-terms", path: "/legal/terms" },
+  { name: "legal-responsible-scraping", path: "/legal/responsible-scraping" },
 ];
 
 test.describe("Visual Review & Page Screenshots", () => {

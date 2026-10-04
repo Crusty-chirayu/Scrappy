@@ -188,6 +188,7 @@ export default function HomePage() {
             <input
               type="text"
               placeholder="Search products (e.g., iPhone 15, Sony WH-1000XM5, MacBook Air)..."
+              aria-label="Search products"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 px-4 py-2.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"

@@ -22,10 +22,53 @@ test.describe("Real Web Vitals & Performance Budget Tests", () => {
         const paints = performance.getEntriesByType("paint");
         const fcpEntry = paints.find((p) => p.name === "first-contentful-paint");
 
+        let fcp = fcpEntry ? fcpEntry.startTime : 0;
+        if (fcp === 0) {
+          fcp = await new Promise<number>((resolve) => {
+            try {
+              const obs = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                for (const entry of entries) {
+                  if (entry.name === "first-contentful-paint") {
+                    obs.disconnect();
+                    resolve(entry.startTime);
+                    return;
+                  }
+                }
+              });
+              obs.observe({ type: "paint", buffered: true });
+              setTimeout(() => {
+                obs.disconnect();
+                resolve(0);
+              }, 300);
+            } catch {
+              resolve(0);
+            }
+          });
+        }
+
+        const lcp = await new Promise<number>((resolve) => {
+          let latestLcp = fcp;
+          try {
+            const obs = new PerformanceObserver((list) => {
+              const entries = list.getEntries();
+              if (entries.length > 0) {
+                latestLcp = entries[entries.length - 1].startTime;
+              }
+            });
+            obs.observe({ type: "largest-contentful-paint", buffered: true });
+            setTimeout(() => {
+              obs.disconnect();
+              resolve(latestLcp);
+            }, 300);
+          } catch {
+            resolve(latestLcp);
+          }
+        });
+
         const ttfb = nav ? nav.responseStart - nav.requestStart : 0;
         const domContentLoaded = nav ? nav.domContentLoadedEventEnd - nav.startTime : 0;
         const loadComplete = nav ? nav.loadEventEnd - nav.startTime : 0;
-        const fcp = fcpEntry ? fcpEntry.startTime : 0;
 
         // Resource payload total
         const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
@@ -37,6 +80,7 @@ test.describe("Real Web Vitals & Performance Budget Tests", () => {
         return {
           ttfbMs: Math.round(ttfb),
           fcpMs: Math.round(fcp),
+          lcpMs: Math.round(lcp),
           domContentLoadedMs: Math.round(domContentLoaded),
           loadCompleteMs: Math.round(loadComplete),
           totalTransferKb: Math.round(totalTransferBytes / 1024),
@@ -49,8 +93,11 @@ test.describe("Real Web Vitals & Performance Budget Tests", () => {
       // Assert Constitution Rule 8 Budgets:
       // Product page / cached TTFB < 300ms
       expect(metrics.ttfbMs).toBeLessThan(300);
-      // FCP < 1000ms
+      // FCP > 0 and < 1000ms (proves non-zero timing)
+      expect(metrics.fcpMs).toBeGreaterThan(0);
       expect(metrics.fcpMs).toBeLessThan(1000);
+      // LCP < 1800ms (Constitution Rule 8: LCP < 1.8s)
+      expect(metrics.lcpMs).toBeLessThan(1800);
       // JS per route < 170KB gz for public routes (Constitution Rule 8). Localhost uncompressed transfers are ~200KB.
       expect(metrics.jsTransferKb).toBeLessThan(250);
     });

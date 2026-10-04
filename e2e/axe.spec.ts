@@ -3,11 +3,18 @@ import AxeBuilder from "@axe-core/playwright";
 
 const PAGES = [
   { name: "Home Page", path: "/" },
+  { name: "Auth Login", path: "/auth/login" },
+  { name: "Auth Signup", path: "/auth/signup" },
   { name: "Compare Catalog", path: "/compare" },
   { name: "Product Detail", path: "/compare/b2000000-0000-0000-0000-000000000001" },
   { name: "Extract Studio", path: "/extract" },
+  { name: "Intelligence & Alerts", path: "/intelligence" },
   { name: "System Status", path: "/status" },
   { name: "Workspace Settings", path: "/settings" },
+  { name: "Documentation", path: "/docs" },
+  { name: "Legal Privacy Policy", path: "/legal/privacy" },
+  { name: "Legal Terms of Service", path: "/legal/terms" },
+  { name: "Legal Responsible Scraping", path: "/legal/responsible-scraping" },
 ];
 
 test.describe("WCAG 2.2 AA Accessibility Audits", () => {

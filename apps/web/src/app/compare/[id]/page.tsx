@@ -14,6 +14,13 @@ import { defaultCatalogRepository } from "@scrappy/db";
 import { calculateDealScore, analyzeFakeDiscount } from "@scrappy/pricing";
 import { ProductClientActions } from "./actions";
 
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const result = defaultCatalogRepository.search({});
+  return result.items.map((item) => ({ id: item.id }));
+}
+
 interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
