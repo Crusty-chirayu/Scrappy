@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@scrappy/core": "workspace:*",
+    "@supabase/supabase-js": "^2.117.2",
     "drizzle-orm": "^0.39.3",
     "postgres": "^3.4.5"
   },

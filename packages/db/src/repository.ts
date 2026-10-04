@@ -57,7 +57,19 @@ export interface AlertItem {
   createdAt: string;
 }
 
-export class CatalogRepository {
+export interface ICatalogRepository {
+  search(filters: SearchFilters): Promise<{ items: SearchResultItem[]; total: number; page: number; limit: number }> | { items: SearchResultItem[]; total: number; page: number; limit: number };
+  autocomplete(prefix: string, limit?: number): Promise<Array<{ id: string; title: string; brand: string; category: string; lowestPricePaise: number }>> | Array<{ id: string; title: string; brand: string; category: string; lowestPricePaise: number }>;
+  getProductDetail(id: string): Promise<ProductDetail | null> | (ProductDetail | null);
+  getWatchlist(workspaceId: string): Promise<WatchlistItem[]> | WatchlistItem[];
+  addToWatchlist(workspaceId: string, userId: string, productId: string): Promise<WatchlistItem> | WatchlistItem;
+  removeFromWatchlist(workspaceId: string, productId: string): Promise<boolean> | boolean;
+  getAlerts(workspaceId: string): Promise<AlertItem[]> | AlertItem[];
+  createAlert(data: { workspaceId: string; userId: string; productId: string; targetPricePaise: number; notificationChannel?: "email" | "in_app" | "webhook" }): Promise<AlertItem> | AlertItem;
+  deleteAlert(workspaceId: string, alertId: string): Promise<boolean> | boolean;
+}
+
+export class CatalogRepository implements ICatalogRepository {
   private products: ProductSeed[];
   private offers: OfferSeed[];
   private categories: CategorySeed[];

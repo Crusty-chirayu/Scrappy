@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Input, ToastProvider, useToast } from "@scrappy/ui";
 import { ProductDetail } from "@scrappy/db";
 
@@ -13,23 +13,61 @@ function ProductActionsInner({ product }: { product: ProductDetail }) {
   );
   const [channel, setChannel] = useState<"in_app" | "email">("in_app");
 
-  const toggleWatchlist = () => {
-    setIsSaved((prev) => !prev);
-    if (!isSaved) {
+  // Load persisted watchlist state on mount from Supabase
+  useEffect(() => {
+    let mounted = true;
+    fetch(`/api/watchlist?productId=${encodeURIComponent(product.id)}`)
+      .then((res) => (res.ok ? res.json() : { isWatchlisted: false }))
+      .then((data) => {
+        if (mounted && data.isWatchlisted !== undefined) {
+          setIsSaved(data.isWatchlisted);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      mounted = false;
+    };
+  }, [product.id]);
+
+  const toggleWatchlist = async () => {
+    const nextSaved = !isSaved;
+    setIsSaved(nextSaved);
+
+    try {
+      if (nextSaved) {
+        const res = await fetch("/api/watchlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: product.id }),
+        });
+        if (!res.ok) throw new Error("Persistence error");
+        showToast({
+          type: "success",
+          title: "Added to Watchlist",
+          description: `Persisted to Supabase: tracking ${product.title}`,
+        });
+      } else {
+        const res = await fetch(`/api/watchlist?productId=${encodeURIComponent(product.id)}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) throw new Error("Persistence error");
+        showToast({
+          type: "info",
+          title: "Removed from Watchlist",
+        });
+      }
+    } catch {
+      setIsSaved(!nextSaved);
       showToast({
-        type: "success",
-        title: "Added to Watchlist",
-        description: `Now tracking ${product.title}`,
-      });
-    } else {
-      showToast({
-        type: "info",
-        title: "Removed from Watchlist",
+        type: "error",
+        title: "Sync Error",
+        description: "Could not update watchlist in database",
       });
     }
   };
 
-  const handleCreateAlert = (e: React.FormEvent) => {
+  const handleCreateAlert = async (e: React.FormEvent) => {
     e.preventDefault();
     const priceNum = parseFloat(targetPrice);
     if (isNaN(priceNum) || priceNum <= 0) {
@@ -41,12 +79,32 @@ function ProductActionsInner({ product }: { product: ProductDetail }) {
       return;
     }
 
-    setIsAlertModalOpen(false);
-    showToast({
-      type: "success",
-      title: "Price Alert Active",
-      description: `We'll notify you via ${channel} when price drops below ₹${priceNum.toLocaleString("en-IN")}`,
-    });
+    try {
+      const res = await fetch("/api/alerts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product.id,
+          targetPricePaise: Math.round(priceNum * 100),
+          notificationChannel: channel,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Alert creation error");
+
+      setIsAlertModalOpen(false);
+      showToast({
+        type: "success",
+        title: "Price Alert Active",
+        description: `Persisted to Supabase: Alert active when price drops below ₹${priceNum.toLocaleString("en-IN")}`,
+      });
+    } catch {
+      showToast({
+        type: "error",
+        title: "Alert Error",
+        description: "Could not persist alert to database",
+      });
+    }
   };
 
   return (

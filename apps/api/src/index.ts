@@ -10,14 +10,24 @@ import {
 } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { validateEnv, ApiEnvSchema, formatINR, validateTargetUrl } from "@scrappy/core";
-import { defaultCatalogRepository } from "@scrappy/db";
+import {
+  defaultCatalogRepository,
+  defaultSupabaseRepository,
+  type ICatalogRepository,
+} from "@scrappy/db";
 import { calculateDealScore, analyzeFakeDiscount } from "@scrappy/pricing";
 import { extractRecordsFromHtml, exportToCsv, exportToNdjson, type ExtractorField } from "@scrappy/scraping";
 import { DeterministicMatchingEngine, MatchReviewQueue } from "@scrappy/matching";
 
 const env = validateEnv(ApiEnvSchema, process.env, "API Service");
 
-export async function buildApp() {
+export async function buildApp(customRepo?: ICatalogRepository) {
+  const repo =
+    customRepo ||
+    (process.env.NODE_ENV === "test" && !process.env.USE_REAL_DB
+      ? defaultCatalogRepository
+      : defaultSupabaseRepository);
+
   const app = Fastify({
     logger: {
       level: env.LOG_LEVEL,
@@ -95,7 +105,7 @@ export async function buildApp() {
     },
     async (request) => {
       const q = request.query;
-      const res = defaultCatalogRepository.search({
+      const res = await repo.search({
         query: q.q,
         category: q.category,
         brand: q.brand,
@@ -123,7 +133,7 @@ export async function buildApp() {
       },
     },
     async (request) => {
-      const suggestions = defaultCatalogRepository.autocomplete(request.query.q, request.query.limit);
+      const suggestions = await repo.autocomplete(request.query.q, request.query.limit);
       return { suggestions };
     },
   );
@@ -141,7 +151,7 @@ export async function buildApp() {
       },
     },
     async (request, reply) => {
-      const product = defaultCatalogRepository.getProductDetail(request.params.id);
+      const product = await repo.getProductDetail(request.params.id);
       if (!product) {
         return reply.status(404).send({
           statusCode: 404,
@@ -165,7 +175,7 @@ export async function buildApp() {
       },
     },
     async (request, reply) => {
-      const product = defaultCatalogRepository.getProductDetail(request.params.id);
+      const product = await repo.getProductDetail(request.params.id);
       if (!product) {
         return reply.status(404).send({
           statusCode: 404,
@@ -178,11 +188,11 @@ export async function buildApp() {
       const claimedOriginal = product.originalPricePaise ?? lowestPrice;
 
       // Calculate stats from 30d history
-      const prices = product.priceHistory.map((h) => h.pricePaise);
-      const avgPrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
-      const sorted = [...prices].sort((a, b) => a - b);
+      const prices = (product.priceHistory || []).map((h) => h.pricePaise);
+      const avgPrice = Math.round(prices.reduce((a: number, b: number) => a + b, 0) / (prices.length || 1));
+      const sorted = [...prices].sort((a: number, b: number) => a - b);
       const medianPrice = sorted[Math.floor(sorted.length / 2)] ?? lowestPrice;
-      const allTimeLow = Math.min(...prices);
+      const allTimeLow = prices.length > 0 ? Math.min(...prices) : lowestPrice;
 
       const dealScore = calculateDealScore(lowestPrice, {
         productId: product.id,
@@ -220,7 +230,7 @@ export async function buildApp() {
     },
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
-      const items = defaultCatalogRepository.getWatchlist(workspaceId);
+      const items = await repo.getWatchlist(workspaceId);
       return { items };
     },
   );
@@ -243,7 +253,7 @@ export async function buildApp() {
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
       const userId = request.headers["x-user-id"] as string;
-      const item = defaultCatalogRepository.addToWatchlist(workspaceId, userId, request.body.productId);
+      const item = await repo.addToWatchlist(workspaceId, userId, request.body.productId);
       return { item };
     },
   );
@@ -264,7 +274,7 @@ export async function buildApp() {
     },
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
-      const success = defaultCatalogRepository.removeFromWatchlist(workspaceId, request.params.productId);
+      const success = await repo.removeFromWatchlist(workspaceId, request.params.productId);
       return { success };
     },
   );
@@ -283,7 +293,7 @@ export async function buildApp() {
     },
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
-      const alerts = defaultCatalogRepository.getAlerts(workspaceId);
+      const alerts = await repo.getAlerts(workspaceId);
       return { alerts };
     },
   );
@@ -308,7 +318,7 @@ export async function buildApp() {
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
       const userId = request.headers["x-user-id"] as string;
-      const alert = defaultCatalogRepository.createAlert({
+      const alert = await repo.createAlert({
         workspaceId,
         userId,
         productId: request.body.productId,
@@ -335,7 +345,7 @@ export async function buildApp() {
     },
     async (request) => {
       const workspaceId = request.headers["x-workspace-id"] as string;
-      const success = defaultCatalogRepository.deleteAlert(workspaceId, request.params.id);
+      const success = await repo.deleteAlert(workspaceId, request.params.id);
       return { success };
     },
   );
@@ -636,12 +646,13 @@ export async function buildApp() {
       },
     },
     async () => {
-      const topItems = defaultCatalogRepository.search({ limit: 10 }).items;
+      const topItems = (await repo.search({ limit: 10 })).items;
+      const details = await Promise.all(topItems.map((item) => repo.getProductDetail(item.id)));
       return {
         timestamp: new Date().toISOString(),
         trackedCatalogSize: 500,
-        competitorSpread: topItems.map((item) => {
-          const detail = defaultCatalogRepository.getProductDetail(item.id);
+        competitorSpread: topItems.map((item, idx) => {
+          const detail = details[idx];
           const offers = detail?.offers ?? [];
           const amazonOffer = offers.find((o) => o.source === "amazon-in");
           const flipkartOffer = offers.find((o) => o.source === "flipkart");
@@ -671,8 +682,9 @@ export async function buildApp() {
   );
 
   // --- Matching Engine Endpoints (Prompt 11) ---
+  const catalogSearch = await repo.search({ limit: 500 });
   const matchingEngine = new DeterministicMatchingEngine(
-    defaultCatalogRepository.search({ limit: 500 }).items.map((i) => ({
+    catalogSearch.items.map((i) => ({
       id: i.id,
       title: i.title,
       brand: i.brand,

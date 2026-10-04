@@ -4,6 +4,10 @@
 -- Valid RFC4122 hex UUIDs only + is_synthetic flag enabled on all records
 -- ==============================================================================
 
+-- Workspaces
+INSERT INTO public.workspaces (id, name, slug, plan) VALUES ('e0000000-0000-0000-0000-000000000001', 'Default Workspace', 'default', 'pro') ON CONFLICT (slug) DO NOTHING;
+INSERT INTO public.workspace_members (id, workspace_id, user_id, role) VALUES ('e1000000-0000-0000-0000-000000000001', 'e0000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', 'owner') ON CONFLICT DO NOTHING;
+
 -- Categories
 INSERT INTO public.categories (id, name, slug) VALUES ('c1000000-0000-0000-0000-000000000001', 'Smartphones', 'smartphones') ON CONFLICT (slug) DO NOTHING;
 INSERT INTO public.categories (id, name, slug) VALUES ('c1000000-0000-0000-0000-000000000002', 'Laptops', 'laptops') ON CONFLICT (slug) DO NOTHING;

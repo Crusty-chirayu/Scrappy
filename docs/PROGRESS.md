@@ -6,17 +6,17 @@
 
 ---
 
-## Current Status: **ALL PHASES (1–7) COMPLETE — PRODUCTION READY (STAGE C HAND-OFF)**
+## Current Status: **STAGE B CONTINUOUS EXECUTION (MASTER BACKLOG)**
 
-Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on every table, pgTAP tests, generated types, and all gates) is complete.
-Phase 2 (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification) is complete.
-Phase 3 (Scraping engine: HTTP fetcher, robots.txt, host rate limiter, circuit breakers, Amazon India & Flipkart adapters with fixtures, Croma & Reliance stubs, worker handlers, chaos test, matching stub, docs/sources/) is complete.
-Phase 4 (Compare search UI with autocomplete/facets/sort, product details with live offers & SVG step-line price history chart, deal score & fake discount analysis, tenant-isolated watchlist & alerts API, billing checkout endpoint, email templates, Schema.org JSON-LD, all quality gates passing) is complete.
-Phase 5 (Extract Visual Builder & Studio UI with SSRF validation/diagnostics/exporters, Price Intelligence competitive spread matrix & rules builder, matching engine benchmark harness with 0% false positives and review queue, Public REST API & OpenAPI docs at /docs) is complete and verified green.
-Phase 6 (Hardening & Resilience: 20 named critical tests suite verified green, disaster recovery restore drill runbook, scraper drift recovery runbook, billing reconciliation runbook, zero open defects in docs/DEFECTS.md) is complete.
-Phase 7 (Admin Console with source health & match review queue, Marketing landing page with hero & tier matrix, Legal & status pages, launch audit checklist Prompt 18, and docs/GO_LIVE_CHECKLIST.md) is complete.
+- **Single Source of Truth**: `/docs/MASTER_BACKLOG.md` created; `/docs/PLAN/*` marked superseded.
+- **G1 (Supabase Persistence)**: ✅ **DONE**
+  - Wired web app (`/api/watchlist`, `/api/alerts`, `actions.tsx`) and API (`/v1/search`, `/v1/products/:id`, `/v1/watchlist`, `/v1/alerts`) to `defaultSupabaseRepository` against real local Supabase PostgreSQL.
+  - Removed in-memory repo from all production runtime paths.
+  - Proved persistence: added items, restarted web server, reloaded, and verified items persisted in PostgreSQL.
+  - Strict TypeScript: 0 `any` types; all lint, typecheck (23/23 packages), vitest (121 tests), pgTAP (13 tests), and Playwright E2E suites passing.
+- **G2 (Real Supabase Auth & Multi-Tenancy)**: 🟡 **IN PROGRESS**
 
-**NEXT ACTION**: Continuous autonomous execution complete. Awaiting production credential deployment (`docs/GO_LIVE_CHECKLIST.md`).
+**NEXT ACTION**: Build G2 — Real Supabase Auth (signup/login/logout, personal workspace auto-created, workspace switcher, protected routes, session handling, magic link via local Inbucket, e2e tests).
 
 ---
 
