@@ -6,10 +6,9 @@
 
 ---
 
-## Current Status: **PROMPT 01 COMPLETE — STAGE B IN PROGRESS**
+## Current Status: **STAGE A PLANNING COMPLETE (WITH PROMPT 01 REWORK PLAN) — AWAITING WRITTEN APPROVAL**
 
-The monorepo foundation, packages, tooling, and CI pipeline are fully set up.
-All phase gate checks (lint, strict typecheck, tests, build) are green.
+The 16-document development plan is complete, incorporating the Binding Addendum (Supabase + Autonomy + Plan-First) and a complete Prompt 01 Rework plan. No feature code proceeds until written approval is received.
 
 ---
 
@@ -39,26 +38,28 @@ All phase gate checks (lint, strict typecheck, tests, build) are green.
 
 ## Stage B: Implementation Prompts
 
-| Prompt | Title                         | Status  | Notes                                      |
-| ------ | ----------------------------- | ------- | ------------------------------------------ |
-| 01     | Tooling Setup                 | ✅ done | Phase 1 of roadmap — Monorepo, Tooling, CI |
-| 02     | Brand & Design System Tokens  | todo    | Phase 2 (@scrappy/ui & @scrappy/brand)     |
-| 03     | Design System                 | todo        | Phase 2                                    |
-| 04     | Scraping Engine (Compare)     | todo        | Phase 3                                    |
-| 05     | Compare UI                    | todo        | Phase 4                                    |
-| 06     | Alerts & Notifications        | todo        | Phase 4                                    |
-| 07     | Auth, Workspace, Billing      | todo        | Phase 4                                    |
-| 08     | Extract Engine                | todo        | Phase 5                                    |
-| 09     | Extract UI                    | todo        | Phase 5                                    |
-| 10     | Intelligence                  | todo        | Phase 5                                    |
-| 11     | Matching & AI                 | todo        | Phase 5                                    |
-| 12     | Public API & Developer Portal | todo        | Phase 5                                    |
-| 13     | Admin Console                 | todo        | Phase 7                                    |
-| 14     | Marketing Site & Legal Pages  | todo        | Phase 7                                    |
-| 15     | Hardening                     | todo        | Phase 6                                    |
-| 16     | Launch Audit                  | todo        | Phase 7                                    |
-| 17     | Observability                 | todo        | Phase 7                                    |
-| 18     | Retrospective                 | todo        | Phase 7                                    |
+**NOT STARTED. Blocked on written approval of Stage A plan.**
+
+| Prompt | Title                                  | Status | Notes                                                      |
+| ------ | -------------------------------------- | ------ | ---------------------------------------------------------- |
+| 01     | Foundation: Monorepo & Supabase Rework | todo   | Phase 1: Supabase CLI migration, RLS policies, clean gates |
+| 02     | Brand & Design System Tokens           | todo   | Phase 2 (@scrappy/ui & @scrappy/brand)                     |
+| 03     | Design System                          | todo   | Phase 2                                                    |
+| 04     | Scraping Engine (Compare)              | todo   | Phase 3                                                    |
+| 05     | Compare UI                             | todo   | Phase 4                                                    |
+| 06     | Alerts & Notifications                 | todo   | Phase 4                                                    |
+| 07     | Auth, Workspace, Billing               | todo   | Phase 4                                                    |
+| 08     | Extract Engine                         | todo   | Phase 5                                                    |
+| 09     | Extract UI                             | todo   | Phase 5                                                    |
+| 10     | Intelligence                           | todo   | Phase 5                                                    |
+| 11     | Matching & AI                          | todo   | Phase 5                                                    |
+| 12     | Public API & Developer Portal          | todo   | Phase 5                                                    |
+| 13     | Admin Console                          | todo   | Phase 7                                                    |
+| 14     | Marketing Site & Legal Pages           | todo   | Phase 7                                                    |
+| 15     | Hardening                              | todo   | Phase 6                                                    |
+| 16     | Launch Audit                           | todo   | Phase 7                                                    |
+| 17     | Observability                          | todo   | Phase 7                                                    |
+| 18     | Retrospective                          | todo   | Phase 7                                                    |
 
 ---
 

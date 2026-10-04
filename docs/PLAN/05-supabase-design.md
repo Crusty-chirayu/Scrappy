@@ -669,3 +669,62 @@ SELECT cron.schedule('hourly-usage-rollup', '5 * * * *',
 SELECT cron.schedule('source-health-snapshot', '*/15 * * * *',
   $$CALL snapshot_source_health()$$);
 ```
+
+---
+
+## pgTAP Cross-Tenant Attack Test Suite
+
+To guarantee that Row Level Security (RLS) is airtight and cannot be bypassed, the codebase includes automated SQL tests executed via `supabase test db` (pgTAP):
+
+```sql
+-- supabase/tests/database/01_tenancy_rls.test.sql
+BEGIN;
+SELECT plan(12);
+
+-- Setup test extensions and tenants
+SELECT has_extension('pgtap');
+SELECT tables_have_rls();
+
+-- Create Tenant A and Tenant B test workspaces
+INSERT INTO workspaces (id, name, slug) VALUES
+  ('a0000000-0000-0000-0000-000000000001', 'Tenant Alpha', 'alpha'),
+  ('b0000000-0000-0000-0000-000000000002', 'Tenant Beta', 'beta');
+
+-- Simulate authenticated user session for Tenant Alpha
+SELECT tests.authenticate_as('user-alpha@scrappy.in');
+
+-- TEST: Tenant Alpha can view their own extraction tasks
+SELECT is_empty(
+  $$ SELECT * FROM extraction_tasks WHERE workspace_id = 'b0000000-0000-0000-0000-000000000002' $$,
+  'Tenant Alpha MUST NOT be able to select Tenant Beta tasks'
+);
+
+-- TEST: Cross-tenant INSERT attack blocked
+PREPARE cross_tenant_insert AS
+  INSERT INTO extraction_tasks (workspace_id, url, schema)
+  VALUES ('b0000000-0000-0000-0000-000000000002', 'https://victim.com', '[]'::jsonb);
+
+SELECT throws_ok(
+  'cross_tenant_insert',
+  '42501', -- insufficient_privilege / RLS policy violation
+  NULL,
+  'Tenant Alpha MUST NOT be able to insert rows into Tenant Beta workspace'
+);
+
+SELECT * FROM finish();
+ROLLBACK;
+```
+
+---
+
+## Supabase CLI Workflow & Type Generation
+
+1. **Local Stack**: `supabase start` boots the entire local stack (Postgres, Auth, Storage, Realtime, Inbucket, Studio).
+2. **Schema Migrations**: Written in `/supabase/migrations/`. Applied with `supabase db reset`.
+3. **Type Generation**:
+   ```bash
+   supabase gen types typescript --local > packages/db/src/supabase.types.ts
+   ```
+4. **CI Integration**:
+   - `supabase test db` executes the pgTAP test suite.
+   - `supabase db diff --check` fails CI if local migrations are out of sync with schema.
