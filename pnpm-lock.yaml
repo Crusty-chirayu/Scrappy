@@ -387,6 +387,12 @@ importers:
       '@scrappy/core':
         specifier: workspace:*
         version: link:../core
+      '@scrappy/db':
+        specifier: workspace:*
+        version: link:../db
+      '@supabase/supabase-js':
+        specifier: ^2.117.2
+        version: 2.117.2
     devDependencies:
       '@scrappy/config':
         specifier: workspace:*

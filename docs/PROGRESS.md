@@ -32,7 +32,15 @@
   - Proved end-to-end with comprehensive test `apps/worker/src/__tests__/worker-pipeline-e2e.test.ts`: verified price drop triggers alert, records immutable price observation, writes match evidence, publishes live via Supabase Realtime channel, and delivers alert email to local Mailpit (HTTP API 200).
   - All quality gates green: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 18 test files / 122 tests passing, builds succeeding), and Playwright E2E suites (10/10 tests passing).
 
-**NEXT ACTION**: Build G5 — Billing: Razorpay test-mode adapter, subscription state machine, usage metering with idempotency, grace period and dunning, with tests.
+- **G5 (Billing, Subscriptions, Dunning & Metering Engine)**: ✅ **DONE**
+  - Applied migration `20261004000005_billing_subscriptions.sql` creating `public.subscriptions` and `public.invoices` with RLS, updated `workspaces_plan_check` constraint with 'business' tier, and enabled Realtime.
+  - Implemented `FakeRazorpayAdapter` and `RazorpayAdapter` (`packages/pricing/src/billing/razorpay-adapter.ts`) behind `BillingProvider` interface with HMAC webhook verification.
+  - Implemented `SubscriptionStateMachine` (`packages/pricing/src/billing/subscription-machine.ts`) with lifecycle transitions: `subscription.charged` -> active, `payment.failed` -> past_due (7-day grace period), hourly dunning cycle reminders (Day 1, 3, 6), and automatic downgrade to free upon expiration.
+  - Implemented `UsageMeteringService` (`packages/pricing/src/billing/usage-metering.ts`) with idempotency key deduplication on `public.usage_events` (guaranteeing zero double-billing on retries) and soft (80%) / hard (100%) quota tracking.
+  - Added comprehensive test suite `packages/pricing/src/__tests__/billing.test.ts` (7/7 passed).
+  - All quality gates green: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 19 test files / 129 tests passing, builds successful), and Playwright E2E suites (10/10 tests passing).
+
+**NEXT ACTION**: Build G6 — Remaining product features from backlog: saved searches, team invites and roles, webhooks with HMAC delivery and replay log, usage UI, full Extract run lifecycle (queued -> running -> partial/succeeded/failed) with logs streaming, scheduling, and datasets/export.
 
 ---
 

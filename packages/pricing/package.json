@@ -19,7 +19,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@scrappy/core": "workspace:*"
+    "@scrappy/core": "workspace:*",
+    "@scrappy/db": "workspace:*",
+    "@supabase/supabase-js": "^2.117.2"
   },
   "devDependencies": {
     "@scrappy/config": "workspace:*",
