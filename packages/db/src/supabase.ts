@@ -1144,26 +1144,327 @@ export class SupabaseCatalogRepository implements ICatalogRepository {
       .limit(limit);
 
     if (error || !data) return [];
-    return data.map((d) => (d.data as Record<string, unknown>) || {});
+    return data.map((r: { id: string; data: Record<string, unknown>; created_at: string }) => ({
+      id: r.id,
+      ...r.data,
+      createdAt: r.created_at,
+    }));
+  }
+
+  public async createApiKey(params: {
+    workspaceId: string;
+    name: string;
+    scopes?: string[];
+  }): Promise<{ apiKey: ApiKeyItem; plainSecret: string }> {
+    const rawBytes = generateHexToken(24);
+    const plainSecret = `scrappy_live_${rawBytes}`;
+    const keyPrefix = plainSecret.substring(0, 16);
+    const keyHash = await sha256Hex(plainSecret);
+
+    const { data: res, error } = await this.client
+      .from("api_keys")
+      .insert({
+        workspace_id: params.workspaceId,
+        name: params.name,
+        key_hash: keyHash,
+        key_prefix: keyPrefix,
+        scopes: params.scopes || ["read", "extract"],
+      })
+      .select("id, workspace_id, name, key_prefix, scopes, created_at, last_used_at, expires_at, revoked_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create API key: ${error?.message || "Unknown error"}`);
+    }
+
+    const apiKey: ApiKeyItem = {
+      id: res.id,
+      workspaceId: res.workspace_id,
+      name: res.name,
+      keyPrefix: res.key_prefix,
+      scopes: (res.scopes as string[]) || ["read", "extract"],
+      createdAt: res.created_at,
+      lastUsedAt: res.last_used_at,
+      expiresAt: res.expires_at,
+      revokedAt: res.revoked_at || null,
+    };
+
+    return { apiKey, plainSecret };
+  }
+
+  public async getApiKeys(workspaceId: string): Promise<ApiKeyItem[]> {
+    const { data, error } = await this.client
+      .from("api_keys")
+      .select("id, workspace_id, name, key_prefix, scopes, created_at, last_used_at, expires_at, revoked_at")
+      .eq("workspace_id", workspaceId)
+      .is("revoked_at", null)
+      .order("created_at", { ascending: false });
+
+    if (error || !data) return [];
+    return data.map((d) => ({
+      id: d.id,
+      workspaceId: d.workspace_id,
+      name: d.name,
+      keyPrefix: d.key_prefix,
+      scopes: d.scopes as string[],
+      createdAt: d.created_at,
+      lastUsedAt: d.last_used_at,
+      expiresAt: d.expires_at,
+      revokedAt: d.revoked_at,
+    }));
+  }
+
+  public async revokeApiKey(workspaceId: string, id: string): Promise<boolean> {
+    const { data, error } = await this.client
+      .from("api_keys")
+      .update({ revoked_at: new Date().toISOString() })
+      .eq("workspace_id", workspaceId)
+      .eq("id", id)
+      .select("id");
+
+    return !error && Array.isArray(data) && data.length > 0;
+  }
+
+  public async validateApiKey(plainKey: string): Promise<{
+    valid: boolean;
+    isValid: boolean;
+    apiKey?: { id: string; workspaceId: string; scopes: string[] };
+    workspaceId?: string;
+    scopes?: string[];
+    reason?: string;
+  }> {
+    if (!plainKey || !plainKey.startsWith("scrappy_live_")) {
+      return { valid: false, isValid: false, reason: "invalid_key" };
+    }
+
+    const keyHash = await sha256Hex(plainKey);
+
+    const { data, error } = await this.client
+      .from("api_keys")
+      .select("id, workspace_id, scopes, expires_at, revoked_at")
+      .eq("key_hash", keyHash)
+      .maybeSingle();
+
+    if (error || !data) {
+      return { valid: false, isValid: false, reason: "invalid_key" };
+    }
+
+    if (data.revoked_at) {
+      return { valid: false, isValid: false, reason: "revoked" };
+    }
+
+    if (data.expires_at && new Date(data.expires_at) < new Date()) {
+      return { valid: false, isValid: false, reason: "expired" };
+    }
+
+    // Touch last_used_at asynchronously
+    void this.client
+      .from("api_keys")
+      .update({ last_used_at: new Date().toISOString() })
+      .eq("id", data.id);
+
+    const scopes = (data.scopes as string[]) || ["read"];
+    return {
+      valid: true,
+      isValid: true,
+      apiKey: {
+        id: data.id,
+        workspaceId: data.workspace_id,
+        scopes,
+      },
+      workspaceId: data.workspace_id,
+      scopes,
+    };
   }
 }
 
-export function signWebhookPayload(payload: string | Record<string, unknown>, secret: string): string {
+export function signWebhookPayload(
+  payload: string | Record<string, unknown>,
+  secret: string,
+  timestamp?: number,
+): string {
   const content = typeof payload === "string" ? payload : JSON.stringify(payload);
+  const ts = timestamp !== undefined ? timestamp : Math.floor(Date.now() / 1000);
+  const toSign = timestamp !== undefined ? `${ts}.${content}` : content;
+
+  let hex = "";
   try {
     const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
     if (nodeCrypto && typeof nodeCrypto.createHmac === "function") {
-      return nodeCrypto.createHmac("sha256", secret).update(content).digest("hex");
+      hex = nodeCrypto.createHmac("sha256", secret).update(toSign).digest("hex");
     }
   } catch {
     // fallback
   }
-  let hash = 0;
-  for (let i = 0; i < content.length; i++) {
-    hash = (hash << 5) - hash + content.charCodeAt(i);
-    hash |= 0;
+
+  if (!hex) {
+    let hash = 0;
+    for (let i = 0; i < toSign.length; i++) {
+      hash = (hash << 5) - hash + toSign.charCodeAt(i);
+      hash |= 0;
+    }
+    hex = `sig_${Math.abs(hash).toString(16)}`;
   }
-  return `sig_${Math.abs(hash).toString(16)}`;
+
+  return timestamp !== undefined ? `t=${ts},v1=${hex}` : hex;
+}
+
+export interface VerifyWebhookOptions {
+  payload: string | Record<string, unknown>;
+  signatureHeader?: string;
+  signature?: string;
+  secret: string;
+  toleranceSeconds?: number;
+}
+
+export function verifyWebhookSignature(
+  optionsOrPayload: VerifyWebhookOptions | string | Record<string, unknown>,
+  signatureOrSecret?: string,
+  secretOrTimestamp?: string | number,
+  timestamp?: number | string,
+  toleranceSeconds = 300,
+): { valid: boolean; isValid: boolean; reason?: string } {
+  let payload: string;
+  let signatureHeader: string;
+  let secret: string;
+  let tolerance = toleranceSeconds;
+
+  if (typeof optionsOrPayload === "object" && optionsOrPayload !== null && "secret" in optionsOrPayload) {
+    const opts = optionsOrPayload as VerifyWebhookOptions;
+    payload = typeof opts.payload === "string" ? opts.payload : JSON.stringify(opts.payload);
+    signatureHeader = opts.signatureHeader || opts.signature || "";
+    secret = opts.secret;
+    tolerance = opts.toleranceSeconds ?? 300;
+  } else {
+    payload = typeof optionsOrPayload === "string" ? optionsOrPayload : JSON.stringify(optionsOrPayload);
+    signatureHeader = (signatureOrSecret as string) || "";
+    secret = (secretOrTimestamp as string) || "";
+    if (typeof timestamp === "number") {
+      tolerance = toleranceSeconds;
+    }
+  }
+
+  if (!signatureHeader || !secret) {
+    return { valid: false, isValid: false, reason: "missing_parameter" };
+  }
+
+  // Check if header is in t=...,v1=... format
+  if (signatureHeader.includes("t=") && signatureHeader.includes("v1=")) {
+    const parts = signatureHeader.split(",");
+    let tVal: number | null = null;
+    let v1Val: string | null = null;
+
+    for (const part of parts) {
+      const [k, v] = part.trim().split("=");
+      if (k === "t" && v) tVal = parseInt(v, 10);
+      if (k === "v1" && v) v1Val = v;
+    }
+
+    if (tVal === null || isNaN(tVal) || !v1Val) {
+      return { valid: false, isValid: false, reason: "malformed_signature_header" };
+    }
+
+    const nowSec = Math.floor(Date.now() / 1000);
+
+    // Replay window: signatures older than tolerance seconds rejected
+    if (nowSec - tVal > tolerance) {
+      return { valid: false, isValid: false, reason: "timestamp_expired" };
+    }
+
+    // Future timestamps beyond 60s tolerance rejected
+    if (tVal - nowSec > 60) {
+      return { valid: false, isValid: false, reason: "future_timestamp" };
+    }
+
+    const toSign = `${tVal}.${payload}`;
+    let expectedHex = "";
+    try {
+      const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
+      if (nodeCrypto && typeof nodeCrypto.createHmac === "function") {
+        expectedHex = nodeCrypto.createHmac("sha256", secret).update(toSign).digest("hex");
+      }
+    } catch {
+      // fallback
+    }
+
+    if (!expectedHex) {
+      let hash = 0;
+      for (let i = 0; i < toSign.length; i++) {
+        hash = (hash << 5) - hash + toSign.charCodeAt(i);
+        hash |= 0;
+      }
+      expectedHex = `sig_${Math.abs(hash).toString(16)}`;
+    }
+
+    // Timing safe comparison
+    try {
+      const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
+      if (nodeCrypto && typeof nodeCrypto.timingSafeEqual === "function") {
+        const sigBuf = Buffer.from(v1Val);
+        const expBuf = Buffer.from(expectedHex);
+        if (sigBuf.length === expBuf.length && nodeCrypto.timingSafeEqual(sigBuf, expBuf)) {
+          return { valid: true, isValid: true };
+        }
+        return { valid: false, isValid: false, reason: "signature_mismatch" };
+      }
+    } catch {
+      // fallback
+    }
+
+    return v1Val === expectedHex
+      ? { valid: true, isValid: true }
+      : { valid: false, isValid: false, reason: "signature_mismatch" };
+  }
+
+  // Raw signature format (no t=)
+  let expectedSig = "";
+  try {
+    const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
+    if (nodeCrypto && typeof nodeCrypto.createHmac === "function") {
+      expectedSig = nodeCrypto.createHmac("sha256", secret).update(payload).digest("hex");
+    }
+  } catch {
+    // fallback
+  }
+
+  if (!expectedSig) {
+    let hash = 0;
+    for (let i = 0; i < payload.length; i++) {
+      hash = (hash << 5) - hash + payload.charCodeAt(i);
+      hash |= 0;
+    }
+    expectedSig = `sig_${Math.abs(hash).toString(16)}`;
+  }
+
+  try {
+    const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
+    if (nodeCrypto && typeof nodeCrypto.timingSafeEqual === "function") {
+      const sigBuf = Buffer.from(signatureHeader);
+      const expBuf = Buffer.from(expectedSig);
+      if (sigBuf.length === expBuf.length && nodeCrypto.timingSafeEqual(sigBuf, expBuf)) {
+        return { valid: true, isValid: true };
+      }
+      return { valid: false, isValid: false, reason: "signature_mismatch" };
+    }
+  } catch {
+    // fallback
+  }
+
+  return signatureHeader === expectedSig
+    ? { valid: true, isValid: true }
+    : { valid: false, isValid: false, reason: "signature_mismatch" };
+}
+
+export interface ApiKeyItem {
+  id: string;
+  workspaceId: string;
+  name: string;
+  keyPrefix: string;
+  scopes: string[];
+  createdAt: string;
+  lastUsedAt?: string | null;
+  expiresAt?: string | null;
+  revokedAt?: string | null;
 }
 
 export interface SavedSearchItem {

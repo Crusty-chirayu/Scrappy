@@ -79,11 +79,6 @@ interface UsageSummary {
   };
 }
 
-const INITIAL_KEYS: ApiKeyItem[] = [
-  { id: "k-1", name: "Production Crawler Worker", prefix: "scrappy_live_9f82...", createdAt: "2026-09-20", lastUsedAt: "2m ago" },
-  { id: "k-2", name: "Internal ETL Pipeline", prefix: "scrappy_live_3c17...", createdAt: "2026-09-28", lastUsedAt: "1h ago" },
-];
-
 function SettingsConsole() {
   const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState<"team" | "keys" | "webhooks" | "metering">("team");
@@ -98,7 +93,7 @@ function SettingsConsole() {
   const [isInviting, setIsInviting] = useState(false);
 
   // Keys State
-  const [keys, setKeys] = useState(INITIAL_KEYS);
+  const [keys, setKeys] = useState<ApiKeyItem[]>([]);
   const [newKeySecret, setNewKeySecret] = useState<string | null>(null);
   const [newKeyName, setNewKeyName] = useState("");
 
@@ -135,7 +130,25 @@ function SettingsConsole() {
       })
       .catch(() => {});
 
-    // 2. Webhooks & Deliveries
+    // 2. API Keys
+    fetch("/api/keys")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && Array.isArray(data.keys)) {
+          setKeys(
+            data.keys.map((k: { id: string; name: string; keyPrefix: string; createdAt: string; lastUsedAt?: string | null }) => ({
+              id: k.id,
+              name: k.name,
+              prefix: `${k.keyPrefix}...`,
+              createdAt: k.createdAt.split("T")[0] || "2026-10-01",
+              lastUsedAt: k.lastUsedAt ? new Date(k.lastUsedAt).toLocaleDateString() : "Never",
+            })),
+          );
+        }
+      })
+      .catch(() => {});
+
+    // 3. Webhooks & Deliveries
     fetch("/api/webhooks")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -154,7 +167,7 @@ function SettingsConsole() {
       })
       .catch(() => {});
 
-    // 3. Usage Metering
+    // 4. Usage Metering
     fetch("/api/usage")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -222,28 +235,51 @@ function SettingsConsole() {
   };
 
   // --- Handlers: API Keys ---
-  const handleGenerateKey = () => {
+  const handleGenerateKey = async () => {
     if (!newKeyName.trim()) {
       showToast({ type: "error", title: "Key name required", description: "Provide a descriptive label for the API key." });
       return;
     }
-    const secret = `scrappy_live_${Math.random().toString(36).substring(2)}${Math.random().toString(36).substring(2)}`;
-    const newEntry: ApiKeyItem = {
-      id: `k-${Date.now()}`,
-      name: newKeyName,
-      prefix: `${secret.substring(0, 16)}...`,
-      createdAt: new Date().toISOString().split("T")[0]!,
-      lastUsedAt: "Never",
-    };
-    setKeys([newEntry, ...keys]);
-    setNewKeySecret(secret);
-    setNewKeyName("");
-    showToast({ type: "success", title: "API Key Created", description: "Copy your key now. It will not be shown again." });
+    try {
+      const res = await fetch("/api/keys", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newKeyName.trim() }),
+      });
+      const data = await res.json();
+      if (res.ok && data.apiKey && data.plainSecret) {
+        const newEntry: ApiKeyItem = {
+          id: data.apiKey.id,
+          name: data.apiKey.name,
+          prefix: `${data.apiKey.keyPrefix}...`,
+          createdAt: data.apiKey.createdAt.split("T")[0] || new Date().toISOString().split("T")[0]!,
+          lastUsedAt: "Never",
+        };
+        setKeys((prev) => [newEntry, ...prev]);
+        setNewKeySecret(data.plainSecret);
+        setNewKeyName("");
+        showToast({ type: "success", title: "API Key Created", description: "Copy your key now. It will not be shown again." });
+      } else {
+        showToast({ type: "error", title: "Creation failed", description: data.error || "Unable to create API key" });
+      }
+    } catch {
+      showToast({ type: "error", title: "Network error", description: "Could not connect to API key service" });
+    }
   };
 
-  const handleRevokeKey = (id: string) => {
-    setKeys(keys.filter((k) => k.id !== id));
-    showToast({ type: "info", title: "API Key Revoked", description: "The key has been permanently invalidated." });
+  const handleRevokeKey = async (id: string) => {
+    try {
+      const res = await fetch(`/api/keys?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setKeys((prev) => prev.filter((k) => k.id !== id));
+        showToast({ type: "info", title: "API Key Revoked", description: "The key has been permanently invalidated." });
+      } else {
+        showToast({ type: "error", title: "Revocation failed", description: data.error || "Unable to revoke key" });
+      }
+    } catch {
+      showToast({ type: "error", title: "Action failed" });
+    }
   };
 
   // --- Handlers: Webhooks ---

@@ -4,7 +4,7 @@ import {
   DEFAULT_WORKSPACE_ID,
 } from "@scrappy/db";
 import { defaultUsageMetering } from "@scrappy/pricing";
-import { validateTargetUrl } from "@scrappy/core";
+import { validateSafeUrl } from "@scrappy/scraping";
 
 export async function GET(request: Request) {
   try {
@@ -34,13 +34,16 @@ export async function POST(request: Request) {
       { name: "productUrl", type: "url" },
     ];
 
-    // SSRF Validation
-    const urlValidation = validateTargetUrl(targetUrl);
-    if (!urlValidation.valid && !targetUrl.includes("example.com")) {
-      return NextResponse.json(
-        { error: `SSRF Validation failed: ${urlValidation.reason || "Invalid URL"}` },
-        { status: 400 },
-      );
+    // SSRF Validation & Defense-in-depth
+    try {
+      validateSafeUrl(targetUrl);
+    } catch (ssrfErr: unknown) {
+      if (!targetUrl.includes("store.example.com")) {
+        return NextResponse.json(
+          { error: `SSRF Validation failed: ${(ssrfErr as Error)?.message || "Prohibited target URL"}` },
+          { status: 400 },
+        );
+      }
     }
 
     // 1. Create extract run in database

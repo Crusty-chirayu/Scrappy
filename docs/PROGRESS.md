@@ -87,8 +87,26 @@
     - Recall: **99.17%** (119/120 positive pairs correctly resolved)
     - F1-Score: **99.58%**
   - **Quality Gates Passing**: All 4 matching test suites passing (10 tests), monorepo check passing (21 test files / 137 tests), zero ESLint warnings, zero typecheck errors.
+- **G9 (Security & Defense-in-Depth Pass)**: ✅ **DONE**
+  - **SSRF Hardening**: Implemented `packages/scraping/src/ssrf.ts` detecting IPv4/IPv6 loopback, RFC1918 private subnets, cloud metadata (`169.254.169.254`), decimal/hex obfuscated IP representations, and IPv6 ULA/link-local ranges. Built async DNS rebinding protection via `resolveAndValidateHostname` and `safeFetch` enforcing manual redirect inspection and destination re-validation.
+  - **HTML XSS Sanitization**: Implemented `packages/scraping/src/html-sanitizer.ts` with `sanitizeScrapedHtml` stripping dangerous executable blocks (`<script>`, `<iframe>`, `<object>`, `<embed>`, `<style>`), inline event handlers (`onerror=`, `onload=`, `onclick=`), and dangerous protocols (`javascript:`, `vbscript:`, `data:text/html`). Built `sanitizePlainText` escaping.
+  - **Cryptographic API Key Management**:
+    - Created migration `20261004000006_api_keys_revoked_at.sql` adding `revoked_at` soft revocation timestamp.
+    - Implemented `createApiKey`, `getApiKeys`, `revokeApiKey`, and `validateApiKey` on `defaultSupabaseRepository` in `packages/db/src/supabase.ts` (Constitution Rule 7: show-once plaintext key `scrappy_live_...`, storing only SHA-256 hex hash).
+    - Wired `/api/keys` endpoint and Settings API Keys UI with show-once secret alert banner and key lifecycle controls.
+  - **Webhook HMAC & 5-Minute Replay Window**:
+    - Enhanced `signWebhookPayload` with timestamped header format `t={timestamp},v1={hmac}`.
+    - Enhanced `verifyWebhookSignature` enforcing 300-second (5 min) replay tolerance, future timestamp clock skew rejection (> 60s), payload integrity verification, and timing-safe comparison.
+  - **Multi-Tenant IDOR Protection**:
+    - Built comprehensive integration suite `apps/web/src/__tests__/security-g9.test.ts` (12/12 tests passing) proving strict workspace boundary isolation across saved searches, team invitations, webhooks, API keys, and datasets.
+    - Built scraping security suite `packages/scraping/src/__tests__/security.test.ts` (15/15 tests passing).
+    - Built Playwright E2E security suite `e2e/security.spec.ts` (6/6 tests passing across desktop-1280 and mobile-360).
+  - **Quality Gates Passing**:
+    - `pnpm check`: 23 test files / 164 unit/integration tests passing, strict TypeScript 0 errors, turbo build successful across all 15 packages.
+    - `supabase test db`: 28/28 pgTAP tests passing.
+    - `pnpm exec playwright test`: 74/74 tests passing on desktop and mobile.
 
-**NEXT ACTION**: Build G9 — Security & Defense-in-Depth Pass (automated IDOR tests on every `:id` route, API key SHA-256 validation, webhook 5-minute replay window, HTML XSS sanitization, SSRF DNS-rebinding/redirect protection).
+**NEXT ACTION**: Build G10 — Polish & Resilience Law (empty, error, partial, loading, stale, and offline states on all views; full `prefers-reduced-motion` compliance; 360px viewport polish and audit).
 
 ---
 
