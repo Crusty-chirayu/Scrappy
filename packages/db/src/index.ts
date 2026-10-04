@@ -1,2 +1,2 @@
 export * from "./schema/index.js";
-export * from "./tenancy/index.js";
+export * from "./supabase.types.js";

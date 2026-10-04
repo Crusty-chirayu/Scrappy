@@ -15,9 +15,9 @@
       "types": "./dist/schema/index.d.ts",
       "import": "./dist/schema/index.js"
     },
-    "./tenancy": {
-      "types": "./dist/tenancy/index.d.ts",
-      "import": "./dist/tenancy/index.js"
+    "./types": {
+      "types": "./dist/supabase.types.d.ts",
+      "import": "./dist/supabase.types.js"
     }
   },
   "scripts": {

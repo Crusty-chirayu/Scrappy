@@ -5,7 +5,7 @@ import swaggerUi from "@fastify/swagger-ui";
 import {
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
+  type ZodTypeProvider,
   jsonSchemaTransform,
 } from "fastify-type-provider-zod";
 import { z } from "zod";

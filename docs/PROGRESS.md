@@ -6,9 +6,12 @@
 
 ---
 
-## Current Status: **STAGE A PLANNING COMPLETE (WITH PROMPT 01 REWORK PLAN) — AWAITING WRITTEN APPROVAL**
+## Current Status: **PHASE 1 (FOUNDATION & PROMPT 01 REWORK) COMPLETE — EXECUTING PHASE 2**
 
-The 16-document development plan is complete, incorporating the Binding Addendum (Supabase + Autonomy + Plan-First) and a complete Prompt 01 Rework plan. No feature code proceeds until written approval is received.
+Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on every table, pgTAP tests, generated types, and all gates) is complete and verified live.
+`pnpm dev` boots all 5 services simultaneously; `pnpm check` is completely green.
+
+**NEXT ACTION**: Phase 2 — Data Layer + Design System (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification).
 
 ---
 
@@ -36,14 +39,12 @@ The 16-document development plan is complete, incorporating the Binding Addendum
 
 ---
 
-## Stage B: Implementation Prompts
+## Stage B: Implementation Roadmap (Single Source of Truth: 13-roadmap.md)
 
-**NOT STARTED. Blocked on written approval of Stage A plan.**
-
-| Prompt | Title                                  | Status | Notes                                                      |
-| ------ | -------------------------------------- | ------ | ---------------------------------------------------------- |
-| 01     | Foundation: Monorepo & Supabase Rework | todo   | Phase 1: Supabase CLI migration, RLS policies, clean gates |
-| 02     | Brand & Design System Tokens           | todo   | Phase 2 (@scrappy/ui & @scrappy/brand)                     |
+| Phase | Name                        | Status      | Key Deliverables & Notes                                                  |
+| ----- | --------------------------- | ----------- | ------------------------------------------------------------------------- |
+| 1     | Foundation (P1 Rework)      | ✅ done     | Monorepo, Supabase CLI, RLS on every table, pgTAP tests, generated types  |
+| 2     | Data Layer + Design System  | in-progress | Schema seed (500 products), tokens, @scrappy/ui components, contrast, axe |
 | 03     | Design System                          | todo   | Phase 2                                                    |
 | 04     | Scraping Engine (Compare)              | todo   | Phase 3                                                    |
 | 05     | Compare UI                             | todo   | Phase 4                                                    |
