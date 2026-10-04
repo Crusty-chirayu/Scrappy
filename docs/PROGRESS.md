@@ -25,7 +25,14 @@
   - Implemented automated pgTAP test suite `02_rls_coverage.test.sql` (15 tests) including dynamic PostgreSQL catalog audit (`pg_class.relrowsecurity`) confirming zero unprotected public tables, plus cross-tenant dataset attack tests.
   - Tested: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 121 unit tests passing, all builds successful), and Playwright E2E suites (10/10 tests passing).
 
-**NEXT ACTION**: Build G4 — Workers on pg-boss against Supabase: scrape -> parse -> match -> price observation -> alert evaluation -> notification -> email via local Inbucket/Mailpit. Prove end to end with a fixture: price change in a fixture, watch target triggers, email arrives in Mailpit, and in-app notification appears via Realtime.
+- **G4 (pg-boss Queue, Pipeline & Realtime E2E)**: ✅ **DONE**
+  - Applied migration `20261004000004_realtime_publications.sql` adding `public.notifications`, `public.alerts`, and `public.extract_runs` to `supabase_realtime`.
+  - Built pg-boss daemon (`apps/worker/src/boss.ts`) connecting directly to PostgreSQL (port 55322, session mode) with queues `job:scrape-and-ingest`, `job:fetch-http`, `job:fetch-browser`, `job:parse`, `job:match`, `job:alert`, `job:notify`.
+  - Built full ingestion pipeline (`apps/worker/src/pipeline.ts`) covering scrape -> parse (adapter) -> match (`DeterministicMatchingEngine` + `match_evidence`) -> price observation (`price_observations` + `offers` update) -> alert evaluation -> in-app notification (`public.notifications` via Realtime) -> email delivery via local Mailpit (`apps/worker/src/mailer.ts`).
+  - Proved end-to-end with comprehensive test `apps/worker/src/__tests__/worker-pipeline-e2e.test.ts`: verified price drop triggers alert, records immutable price observation, writes match evidence, publishes live via Supabase Realtime channel, and delivers alert email to local Mailpit (HTTP API 200).
+  - All quality gates green: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 18 test files / 122 tests passing, builds succeeding), and Playwright E2E suites (10/10 tests passing).
+
+**NEXT ACTION**: Build G5 — Billing: Razorpay test-mode adapter, subscription state machine, usage metering with idempotency, grace period and dunning, with tests.
 
 ---
 
