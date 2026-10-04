@@ -23,6 +23,7 @@
     "@commitlint/config-conventional": "^19.7.1",
     "@playwright/test": "^1.63.0",
     "@scrappy/config": "workspace:*",
+    "@supabase/supabase-js": "^2.117.2",
     "@types/node": "^22.13.4",
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "@typescript-eslint/parser": "^8.24.0",

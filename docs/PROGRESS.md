@@ -14,9 +14,14 @@
   - Removed in-memory repo from all production runtime paths.
   - Proved persistence: added items, restarted web server, reloaded, and verified items persisted in PostgreSQL.
   - Strict TypeScript: 0 `any` types; all lint, typecheck (23/23 packages), vitest (121 tests), pgTAP (13 tests), and Playwright E2E suites passing.
-- **G2 (Real Supabase Auth & Multi-Tenancy)**: 🟡 **IN PROGRESS**
+- **G2 (Real Supabase Auth & Multi-Tenancy)**: ✅ **DONE**
+  - PostgreSQL trigger `handle_new_user()` in migration `20261004000002_auth_workspace_trigger.sql` automatically provisions a personal workspace with owner role in `public.workspace_members` whenever a user signs up.
+  - Implemented `/auth/login` (password & magic link OTP), `/auth/signup`, `/auth/callback`, `/api/workspaces`, and `WorkspaceSwitcher` component.
+  - Verified end-to-end with Playwright suite `e2e/auth-flow.spec.ts` (4/4 passed on desktop and mobile 360px) including verification of local Mailpit magic link receipt.
+  - Zero open defects in `docs/DEFECTS.md`; all quality gates green.
+- **G3 (Complete Schema, Partitioning & RLS-Coverage pgTAP)**: 🟡 **IN PROGRESS**
 
-**NEXT ACTION**: Build G2 — Real Supabase Auth (signup/login/logout, personal workspace auto-created, workspace switcher, protected routes, session handling, magic link via local Inbucket, e2e tests).
+**NEXT ACTION**: Build G3 — Complete the schema from plan (match evidence, runs/tasks/run_logs, datasets, webhook deliveries, usage_events, notifications, audit_log, price_observations partitioning & rollups, source health, saved searches, invitations), ensure RLS enabled on EVERY table, and add an automated pgTAP RLS-coverage test that queries `pg_tables` and fails if any public table lacks RLS.
 
 ---
 
