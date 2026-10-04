@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useMemo } from "react";
+import { useState, useTransition, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   Input,
@@ -39,6 +39,66 @@ function CompareView() {
     { id: "ss-1", label: "Smartphones under ₹80k", query: "iPhone" },
     { id: "ss-2", label: "Noise Cancelling Audio", query: "Sony" },
   ]);
+
+  useEffect(() => {
+    fetch("/api/saved-searches")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && Array.isArray(data.searches) && data.searches.length > 0) {
+          setSavedSearches(
+            data.searches.map((s: { id: string; query: string }) => ({
+              id: s.id,
+              label: s.query,
+              query: s.query,
+            })),
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleSaveSearch = async () => {
+    if (!query.trim()) return;
+    const currentQuery = query.trim();
+    try {
+      const res = await fetch("/api/saved-searches", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: currentQuery }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSavedSearches((prev) => [
+          ...prev,
+          { id: data.search.id, label: currentQuery, query: currentQuery },
+        ]);
+        showToast({ type: "success", title: "Search saved", description: currentQuery });
+      } else {
+        setSavedSearches((prev) => [
+          ...prev,
+          { id: `ss-${Date.now()}`, label: currentQuery, query: currentQuery },
+        ]);
+        showToast({ type: "success", title: "Search saved locally", description: currentQuery });
+      }
+    } catch {
+      setSavedSearches((prev) => [
+        ...prev,
+        { id: `ss-${Date.now()}`, label: currentQuery, query: currentQuery },
+      ]);
+      showToast({ type: "success", title: "Search saved locally", description: currentQuery });
+    }
+  };
+
+  const handleDeleteSavedSearch = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await fetch(`/api/saved-searches?id=${id}`, { method: "DELETE" });
+    } catch {
+      // ignore
+    }
+    setSavedSearches((prev) => prev.filter((s) => s.id !== id));
+    showToast({ type: "info", title: "Saved search removed" });
+  };
 
   // Deals Only toggle
   const [dealsOnly, setDealsOnly] = useState(false);
@@ -288,27 +348,37 @@ function CompareView() {
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-[#5B677C]">SAVED SEARCHES:</span>
           {savedSearches.map((s) => (
-            <button
+            <span
               key={s.id}
-              onClick={() => {
-                setQuery(s.query);
-                setDealsOnly(false);
-              }}
-              className="px-2 py-0.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3] hover:text-[#C6F135] hover:border-[#C6F135]/50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3] hover:border-[#C6F135]/50 transition-colors"
             >
-              {s.label}
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery(s.query);
+                  setDealsOnly(false);
+                }}
+                className="hover:text-[#C6F135]"
+              >
+                {s.label}
+              </button>
+              <button
+                type="button"
+                onClick={(e) => handleDeleteSavedSearch(s.id, e)}
+                className="text-[#5B677C] hover:text-[#FF5C5C] text-[10px]"
+                title="Remove saved search"
+              >
+                ×
+              </button>
+            </span>
           ))}
           {query && (
             <button
-              onClick={() => {
-                const label = `${query}`;
-                setSavedSearches([...savedSearches, { id: `ss-${Date.now()}`, label, query }]);
-                showToast({ type: "success", title: "Search saved", description: label });
-              }}
+              type="button"
+              onClick={handleSaveSearch}
               className="text-[#C6F135] hover:underline ml-2"
             >
-              + Save search
+              + Save current search
             </button>
           )}
         </div>

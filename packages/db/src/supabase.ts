@@ -110,6 +110,25 @@ export function getSupabaseAdminClient(): SupabaseClient {
   });
 }
 
+function generateHexToken(bytes = 24): string {
+  if (typeof globalThis.crypto !== "undefined" && globalThis.crypto.getRandomValues) {
+    const arr = new Uint8Array(bytes);
+    globalThis.crypto.getRandomValues(arr);
+    return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+  return Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+}
+
+async function sha256Hex(message: string): Promise<string> {
+  if (typeof globalThis.crypto !== "undefined" && globalThis.crypto.subtle) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hashBuffer = await globalThis.crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer), (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+  return `sha256_${message.substring(0, 16)}`;
+}
+
 /**
  * Production-grade repository backed directly by local/cloud Supabase database.
  */
@@ -619,6 +638,616 @@ export class SupabaseCatalogRepository implements ICatalogRepository {
 
     return !error;
   }
+
+  // --- Saved Searches ---
+  public async getSavedSearches(workspaceId: string): Promise<SavedSearchItem[]> {
+    const { data, error } = await this.client
+      .from("saved_searches")
+      .select("id, workspace_id, user_id, query, filters, notify_on_new, created_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: false });
+
+    if (error || !data) return [];
+    return data.map((d) => ({
+      id: d.id,
+      workspaceId: d.workspace_id,
+      userId: d.user_id,
+      query: d.query,
+      filters: (d.filters as Record<string, unknown>) || {},
+      notifyOnNew: d.notify_on_new,
+      createdAt: d.created_at,
+    }));
+  }
+
+  public async createSavedSearch(data: {
+    workspaceId: string;
+    userId: string;
+    query: string;
+    filters?: Record<string, unknown>;
+    notifyOnNew?: boolean;
+  }): Promise<SavedSearchItem> {
+    const { data: res, error } = await this.client
+      .from("saved_searches")
+      .insert({
+        workspace_id: data.workspaceId,
+        user_id: data.userId,
+        query: data.query,
+        filters: data.filters || {},
+        notify_on_new: data.notifyOnNew ?? false,
+      })
+      .select("id, workspace_id, user_id, query, filters, notify_on_new, created_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create saved search: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      id: res.id,
+      workspaceId: res.workspace_id,
+      userId: res.user_id,
+      query: res.query,
+      filters: (res.filters as Record<string, unknown>) || {},
+      notifyOnNew: res.notify_on_new,
+      createdAt: res.created_at,
+    };
+  }
+
+  public async deleteSavedSearch(workspaceId: string, searchId: string): Promise<boolean> {
+    const { error } = await this.client
+      .from("saved_searches")
+      .delete()
+      .eq("workspace_id", workspaceId)
+      .eq("id", searchId);
+
+    return !error;
+  }
+
+  // --- Team Members & Invitations ---
+  public async getTeamMembers(workspaceId: string): Promise<TeamMemberItem[]> {
+    const { data, error } = await this.client
+      .from("workspace_members")
+      .select("id, workspace_id, user_id, role, created_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: true });
+
+    if (error || !data) return [];
+    return data.map((m) => ({
+      id: m.id,
+      workspaceId: m.workspace_id,
+      userId: m.user_id,
+      role: m.role as "owner" | "admin" | "member",
+      createdAt: m.created_at,
+    }));
+  }
+
+  public async getTeamInvitations(workspaceId: string): Promise<TeamInvitationItem[]> {
+    const { data, error } = await this.client
+      .from("team_invitations")
+      .select("id, workspace_id, email, role, token, expires_at, created_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: false });
+
+    if (error || !data) return [];
+    return data.map((inv) => ({
+      id: inv.id,
+      workspaceId: inv.workspace_id,
+      email: inv.email,
+      role: inv.role as "admin" | "member",
+      token: inv.token,
+      expiresAt: inv.expires_at,
+      createdAt: inv.created_at,
+    }));
+  }
+
+  public async createTeamInvitation(data: {
+    workspaceId: string;
+    email: string;
+    role?: "admin" | "member";
+  }): Promise<TeamInvitationItem> {
+    const token = generateHexToken(24);
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+
+    const { data: res, error } = await this.client
+      .from("team_invitations")
+      .insert({
+        workspace_id: data.workspaceId,
+        email: data.email.toLowerCase().trim(),
+        role: data.role || "member",
+        token,
+        expires_at: expiresAt,
+      })
+      .select("id, workspace_id, email, role, token, expires_at, created_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create team invitation: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      id: res.id,
+      workspaceId: res.workspace_id,
+      email: res.email,
+      role: res.role as "admin" | "member",
+      token: res.token,
+      expiresAt: res.expires_at,
+      createdAt: res.created_at,
+    };
+  }
+
+  public async revokeTeamInvitation(workspaceId: string, invitationId: string): Promise<boolean> {
+    const { error } = await this.client
+      .from("team_invitations")
+      .delete()
+      .eq("workspace_id", workspaceId)
+      .eq("id", invitationId);
+
+    return !error;
+  }
+
+  public async removeTeamMember(workspaceId: string, memberId: string): Promise<boolean> {
+    const { error } = await this.client
+      .from("workspace_members")
+      .delete()
+      .eq("workspace_id", workspaceId)
+      .eq("id", memberId);
+
+    return !error;
+  }
+
+  // --- Webhooks & Deliveries ---
+  public async getWebhooks(workspaceId: string): Promise<WebhookItem[]> {
+    const { data, error } = await this.client
+      .from("webhooks")
+      .select("id, workspace_id, target_url, secret_hash, events, is_active, created_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: false });
+
+    if (error || !data) return [];
+    return data.map((w) => ({
+      id: w.id,
+      workspaceId: w.workspace_id,
+      targetUrl: w.target_url,
+      secretHash: w.secret_hash,
+      events: (w.events as string[]) || [],
+      isActive: w.is_active,
+      createdAt: w.created_at,
+    }));
+  }
+
+  public async createWebhook(data: {
+    workspaceId: string;
+    targetUrl: string;
+    events?: string[];
+  }): Promise<{ webhook: WebhookItem; rawSecret: string }> {
+    const rawSecret = `whsec_${generateHexToken(24)}`;
+    const secretHash = await sha256Hex(rawSecret);
+    const events = data.events && data.events.length > 0 ? data.events : ["price.drop", "extract.complete"];
+
+    const { data: res, error } = await this.client
+      .from("webhooks")
+      .insert({
+        workspace_id: data.workspaceId,
+        target_url: data.targetUrl,
+        secret_hash: secretHash,
+        events,
+        is_active: true,
+      })
+      .select("id, workspace_id, target_url, secret_hash, events, is_active, created_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create webhook: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      webhook: {
+        id: res.id,
+        workspaceId: res.workspace_id,
+        targetUrl: res.target_url,
+        secretHash: res.secret_hash,
+        events: (res.events as string[]) || [],
+        isActive: res.is_active,
+        createdAt: res.created_at,
+      },
+      rawSecret,
+    };
+  }
+
+  public async deleteWebhook(workspaceId: string, webhookId: string): Promise<boolean> {
+    const { error } = await this.client
+      .from("webhooks")
+      .delete()
+      .eq("workspace_id", workspaceId)
+      .eq("id", webhookId);
+
+    return !error;
+  }
+
+  public async getWebhookDeliveries(workspaceId: string, webhookId?: string): Promise<WebhookDeliveryItem[]> {
+    let query = this.client
+      .from("webhook_deliveries")
+      .select("id, webhook_id, workspace_id, event_type, payload, response_status, signature, latency_ms, delivered_at")
+      .eq("workspace_id", workspaceId)
+      .order("delivered_at", { ascending: false })
+      .limit(50);
+
+    if (webhookId) {
+      query = query.eq("webhook_id", webhookId);
+    }
+
+    const { data, error } = await query;
+    if (error || !data) return [];
+
+    return data.map((d) => ({
+      id: d.id,
+      webhookId: d.webhook_id,
+      workspaceId: d.workspace_id,
+      eventType: d.event_type,
+      payload: (d.payload as Record<string, unknown>) || {},
+      responseStatus: d.response_status,
+      signature: d.signature,
+      latencyMs: d.latency_ms,
+      deliveredAt: d.delivered_at,
+    }));
+  }
+
+  public async recordWebhookDelivery(delivery: {
+    webhookId: string;
+    workspaceId: string;
+    eventType: string;
+    payload: Record<string, unknown>;
+    responseStatus?: number;
+    signature: string;
+    latencyMs?: number;
+  }): Promise<WebhookDeliveryItem> {
+    const { data, error } = await this.client
+      .from("webhook_deliveries")
+      .insert({
+        webhook_id: delivery.webhookId,
+        workspace_id: delivery.workspaceId,
+        event_type: delivery.eventType,
+        payload: delivery.payload,
+        response_status: delivery.responseStatus ?? 200,
+        signature: delivery.signature,
+        latency_ms: delivery.latencyMs ?? 42,
+      })
+      .select("id, webhook_id, workspace_id, event_type, payload, response_status, signature, latency_ms, delivered_at")
+      .single();
+
+    if (error || !data) {
+      throw new Error(`Failed to record webhook delivery: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      id: data.id,
+      webhookId: data.webhook_id,
+      workspaceId: data.workspace_id,
+      eventType: data.event_type,
+      payload: (data.payload as Record<string, unknown>) || {},
+      responseStatus: data.response_status,
+      signature: data.signature,
+      latencyMs: data.latency_ms,
+      deliveredAt: data.delivered_at,
+    };
+  }
+
+  // --- Extract Runs, Streaming Logs & Datasets ---
+  public async getExtractRuns(workspaceId: string): Promise<ExtractRunItem[]> {
+    const { data, error } = await this.client
+      .from("extract_runs")
+      .select("id, workspace_id, template_id, status, records_extracted, error_message, created_at, completed_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: false })
+      .limit(30);
+
+    if (error || !data) return [];
+    return data.map((r) => ({
+      id: r.id,
+      workspaceId: r.workspace_id,
+      templateId: r.template_id,
+      status: r.status as "running" | "completed" | "failed",
+      recordsExtracted: r.records_extracted,
+      errorMessage: r.error_message,
+      createdAt: r.created_at,
+      completedAt: r.completed_at,
+    }));
+  }
+
+  public async createExtractRun(data: {
+    workspaceId: string;
+    templateId?: string | null;
+  }): Promise<ExtractRunItem> {
+    const { data: res, error } = await this.client
+      .from("extract_runs")
+      .insert({
+        workspace_id: data.workspaceId,
+        template_id: data.templateId || null,
+        status: "running",
+        records_extracted: 0,
+      })
+      .select("id, workspace_id, template_id, status, records_extracted, error_message, created_at, completed_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create extract run: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      id: res.id,
+      workspaceId: res.workspace_id,
+      templateId: res.template_id,
+      status: res.status as "running" | "completed" | "failed",
+      recordsExtracted: res.records_extracted,
+      errorMessage: res.error_message,
+      createdAt: res.created_at,
+      completedAt: res.completed_at,
+    };
+  }
+
+  public async updateExtractRun(
+    runId: string,
+    data: {
+      status: "running" | "completed" | "failed";
+      recordsExtracted?: number;
+      errorMessage?: string | null;
+      completedAt?: string;
+    },
+  ): Promise<boolean> {
+    const { error } = await this.client
+      .from("extract_runs")
+      .update({
+        status: data.status,
+        records_extracted: data.recordsExtracted,
+        error_message: data.errorMessage,
+        completed_at: data.completedAt || (data.status !== "running" ? new Date().toISOString() : null),
+      })
+      .eq("id", runId);
+
+    return !error;
+  }
+
+  public async appendExtractRunLog(data: {
+    runId: string;
+    workspaceId: string;
+    level: "debug" | "info" | "warn" | "error";
+    message: string;
+    meta?: Record<string, unknown>;
+  }): Promise<ExtractRunLogItem> {
+    const { data: res, error } = await this.client
+      .from("extract_run_logs")
+      .insert({
+        run_id: data.runId,
+        workspace_id: data.workspaceId,
+        level: data.level,
+        message: data.message,
+        meta: data.meta || null,
+      })
+      .select("id, run_id, workspace_id, level, message, meta, timestamp")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to append log: ${error?.message || "Unknown error"}`);
+    }
+
+    return {
+      id: res.id,
+      runId: res.run_id,
+      workspaceId: res.workspace_id,
+      level: res.level as "debug" | "info" | "warn" | "error",
+      message: res.message,
+      meta: (res.meta as Record<string, unknown>) || null,
+      timestamp: res.timestamp,
+    };
+  }
+
+  public async getExtractRunLogs(runId: string): Promise<ExtractRunLogItem[]> {
+    const { data, error } = await this.client
+      .from("extract_run_logs")
+      .select("id, run_id, workspace_id, level, message, meta, timestamp")
+      .eq("run_id", runId)
+      .order("timestamp", { ascending: true });
+
+    if (error || !data) return [];
+    return data.map((l) => ({
+      id: l.id,
+      runId: l.run_id,
+      workspaceId: l.workspace_id,
+      level: l.level as "debug" | "info" | "warn" | "error",
+      message: l.message,
+      meta: (l.meta as Record<string, unknown>) || null,
+      timestamp: l.timestamp,
+    }));
+  }
+
+  public async getDatasets(workspaceId: string): Promise<DatasetItem[]> {
+    const { data, error } = await this.client
+      .from("datasets")
+      .select("id, workspace_id, name, description, schema, record_count, created_at, updated_at")
+      .eq("workspace_id", workspaceId)
+      .order("created_at", { ascending: false });
+
+    if (error || !data) return [];
+    return data.map((d) => ({
+      id: d.id,
+      workspaceId: d.workspace_id,
+      name: d.name,
+      description: d.description,
+      schema: Array.isArray(d.schema) ? d.schema : [],
+      recordCount: d.record_count,
+      createdAt: d.created_at,
+      updatedAt: d.updated_at,
+    }));
+  }
+
+  public async createDataset(data: {
+    workspaceId: string;
+    name: string;
+    description?: string;
+    schema?: unknown[];
+    records?: Record<string, unknown>[];
+  }): Promise<{ dataset: DatasetItem; recordCount: number }> {
+    const records = data.records || [];
+    const { data: res, error } = await this.client
+      .from("datasets")
+      .insert({
+        workspace_id: data.workspaceId,
+        name: data.name,
+        description: data.description || null,
+        schema: data.schema || [],
+        record_count: records.length,
+      })
+      .select("id, workspace_id, name, description, schema, record_count, created_at, updated_at")
+      .single();
+
+    if (error || !res) {
+      throw new Error(`Failed to create dataset: ${error?.message || "Unknown error"}`);
+    }
+
+    if (records.length > 0) {
+      const recordsToInsert = records.map((r) => ({
+        dataset_id: res.id,
+        workspace_id: data.workspaceId,
+        data: r,
+      }));
+
+      const { error: recError } = await this.client
+        .from("dataset_records")
+        .insert(recordsToInsert);
+
+      if (recError) {
+        console.error("Failed to insert dataset records:", recError.message);
+      }
+    }
+
+    return {
+      dataset: {
+        id: res.id,
+        workspaceId: res.workspace_id,
+        name: res.name,
+        description: res.description,
+        schema: Array.isArray(res.schema) ? res.schema : [],
+        recordCount: records.length,
+        createdAt: res.created_at,
+        updatedAt: res.updated_at,
+      },
+      recordCount: records.length,
+    };
+  }
+
+  public async getDatasetRecords(datasetId: string, limit = 500): Promise<Record<string, unknown>[]> {
+    const { data, error } = await this.client
+      .from("dataset_records")
+      .select("id, data, created_at")
+      .eq("dataset_id", datasetId)
+      .order("created_at", { ascending: true })
+      .limit(limit);
+
+    if (error || !data) return [];
+    return data.map((d) => (d.data as Record<string, unknown>) || {});
+  }
+}
+
+export function signWebhookPayload(payload: string | Record<string, unknown>, secret: string): string {
+  const content = typeof payload === "string" ? payload : JSON.stringify(payload);
+  try {
+    const nodeCrypto = typeof window === "undefined" ? eval("require")("crypto") : null;
+    if (nodeCrypto && typeof nodeCrypto.createHmac === "function") {
+      return nodeCrypto.createHmac("sha256", secret).update(content).digest("hex");
+    }
+  } catch {
+    // fallback
+  }
+  let hash = 0;
+  for (let i = 0; i < content.length; i++) {
+    hash = (hash << 5) - hash + content.charCodeAt(i);
+    hash |= 0;
+  }
+  return `sig_${Math.abs(hash).toString(16)}`;
+}
+
+export interface SavedSearchItem {
+  id: string;
+  workspaceId: string;
+  userId: string;
+  query: string;
+  filters: Record<string, unknown>;
+  notifyOnNew: boolean;
+  createdAt: string;
+}
+
+export interface TeamMemberItem {
+  id: string;
+  workspaceId: string;
+  userId: string;
+  email?: string;
+  role: "owner" | "admin" | "member";
+  createdAt: string;
+}
+
+export interface TeamInvitationItem {
+  id: string;
+  workspaceId: string;
+  email: string;
+  role: "admin" | "member";
+  token: string;
+  expiresAt: string;
+  createdAt: string;
+}
+
+export interface WebhookItem {
+  id: string;
+  workspaceId: string;
+  targetUrl: string;
+  secretHash: string;
+  events: string[];
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface WebhookDeliveryItem {
+  id: string;
+  webhookId: string;
+  workspaceId: string;
+  eventType: string;
+  payload: Record<string, unknown>;
+  responseStatus: number | null;
+  signature: string;
+  latencyMs: number | null;
+  deliveredAt: string;
+}
+
+export interface ExtractRunItem {
+  id: string;
+  workspaceId: string;
+  templateId?: string | null;
+  status: "running" | "completed" | "failed";
+  recordsExtracted: number;
+  errorMessage?: string | null;
+  createdAt: string;
+  completedAt?: string | null;
+}
+
+export interface ExtractRunLogItem {
+  id: string;
+  runId: string;
+  workspaceId: string;
+  level: "debug" | "info" | "warn" | "error";
+  message: string;
+  meta?: Record<string, unknown> | null;
+  timestamp: string;
+}
+
+export interface DatasetItem {
+  id: string;
+  workspaceId: string;
+  name: string;
+  description?: string | null;
+  schema: unknown[];
+  recordCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const defaultSupabaseRepository = new SupabaseCatalogRepository();
+

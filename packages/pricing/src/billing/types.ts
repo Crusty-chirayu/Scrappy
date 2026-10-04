@@ -159,9 +159,15 @@ export interface BillingProvider {
   handleWebhook(payload: Record<string, unknown>, signature: string): Promise<BillingWebhookEvent>;
 }
 
+export type UsageMetric =
+  | "records_extracted"
+  | "browser_minutes"
+  | "api_requests"
+  | "tracked_products";
+
 export interface UsageRecordParams {
   workspaceId: string;
-  metric: "records_extracted" | "browser_minutes" | "api_requests" | "tracked_products";
+  metric: UsageMetric;
   quantity: number;
   idempotencyKey: string;
   metadata?: Record<string, unknown>;

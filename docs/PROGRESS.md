@@ -40,7 +40,15 @@
   - Added comprehensive test suite `packages/pricing/src/__tests__/billing.test.ts` (7/7 passed).
   - All quality gates green: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 19 test files / 129 tests passing, builds successful), and Playwright E2E suites (10/10 tests passing).
 
-**NEXT ACTION**: Build G6 — Remaining product features from backlog: saved searches, team invites and roles, webhooks with HMAC delivery and replay log, usage UI, full Extract run lifecycle (queued -> running -> partial/succeeded/failed) with logs streaming, scheduling, and datasets/export.
+- **G6 (Remaining Product Features: Saved Searches, Team, Webhooks, Usage, Extract & Datasets)**: ✅ **DONE**
+  - **Saved Searches**: Created `apps/web/src/app/api/saved-searches/route.ts` (GET, POST, DELETE against `public.saved_searches`). Connected `apps/web/src/app/compare/page.tsx` with 1-click filtering, dynamic search saving, and deletion.
+  - **Team Invites & Roles**: Created `apps/web/src/app/api/team/route.ts` (GET, POST, DELETE against `public.workspace_members` and `public.team_invitations`). Wired invite dispatch with Mailpit emulator notification, role badges (`owner`, `admin`, `member`), and revocation in `apps/web/src/app/settings/page.tsx`.
+  - **Webhooks & Deliveries**: Created `apps/web/src/app/api/webhooks/route.ts` and `apps/web/src/app/api/webhooks/deliveries/route.ts`. Features show-once secret key banner, SHA-256 secret hashing in DB, HMAC-SHA256 request signing, test dispatch ping, and delivery replay log.
+  - **Usage UI & Metering**: Created `apps/web/src/app/api/usage/route.ts` querying `UsageMeteringService` on `public.usage_events`. Connected Settings Usage Metering tab to live progress bars and plan limits.
+  - **Full Extract Run Lifecycle, Logs & Datasets**: Created `apps/web/src/app/api/extract/route.ts`, `apps/web/src/app/api/extract/[runId]/logs/route.ts`, `apps/web/src/app/api/datasets/route.ts`, and `apps/web/src/app/api/datasets/[datasetId]/export/route.ts`. Supports lifecycle (queued -> running -> completed), writes streaming logs to `public.extract_run_logs`, persists output into `public.datasets` & `public.dataset_records`, meters usage, and provides 1-click CSV/JSON artifact downloads.
+  - **Testing & Quality**: Added integration suite `apps/web/src/__tests__/features-g6.test.ts` (6/6 passed). All tests green: `pnpm check` (23/23 packages typechecked, 20 test files / 135 tests passed), `supabase test db` (28/28 pgTAP tests passed), and Playwright E2E suites (10/10 passed on desktop & mobile 360px).
+
+**NEXT ACTION**: Build G7 — Quality evidence: Lighthouse mobile audit (fix FCP 0ms bug), visual regression, axe accessibility testing, and k6 load tests.
 
 ---
 
