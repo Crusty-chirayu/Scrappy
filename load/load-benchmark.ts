@@ -89,8 +89,7 @@ async function runBenchmark(
   await Promise.all(workers);
 
   const stats = calculateStats(latencies, errors);
-  console.info(`Results for ${name}:`);
-  console.table({
+  console.info(`Results for ${name}:`, JSON.stringify({
     "Requests Completed": stats.count,
     "Errors": stats.errors,
     "Min Latency": `${stats.min} ms`,
@@ -100,7 +99,7 @@ async function runBenchmark(
     "p95 Latency": `${stats.p95} ms`,
     "p99 Latency": `${stats.p99} ms`,
     "Max Latency": `${stats.max} ms`,
-  });
+  }, null, 2));
 
   return stats;
 }

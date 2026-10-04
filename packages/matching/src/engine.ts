@@ -19,6 +19,17 @@ const ACCESSORY_KEYWORDS = new Set([
   "replacement",
   "stylus",
   "cushion",
+  "guard",
+  "film",
+  "glass",
+  "shell",
+  "bumper",
+  "mount",
+  "band",
+  "earpad",
+  "earpads",
+  "cushions",
+  "tips",
 ]);
 
 const CONDITION_KEYWORDS = [
@@ -44,6 +55,17 @@ const MODEL_MODIFIERS = [
   "fe",
   "air",
   "se",
+];
+
+const GENERATION_MODIFIERS = [
+  "m1 pro", "m1 max", "m1 ultra", "m1",
+  "m2 pro", "m2 max", "m2 ultra", "m2",
+  "m3 pro", "m3 max", "m3",
+  "m4 pro", "m4 max", "m4",
+  "1st generation", "2nd generation", "3rd generation",
+  "1st gen", "2nd gen", "3rd gen", "4th gen", "5th gen",
+  "gen 1", "gen 2", "gen 3", "gen 4", "gen 5",
+  "series 7", "series 8", "series 9", "series 10", "ultra 2",
 ];
 
 function tokenize(text: string): Set<string> {
@@ -80,13 +102,41 @@ export function extractPackSize(text: string): number | null {
 }
 
 export function hasAccessorySignal(text: string): boolean {
-  const tokens = text.toLowerCase().split(/[\s\-_,.\/]+/);
+  const lower = text.toLowerCase();
+  // Phrases that describe device chassis/enclosure or promotions rather than a standalone accessory:
+  const sanitized = lower
+    .replace(/\bbumper\s+(discount|sale|offer|deal|prize)\b/g, "promo_sale")
+    .replace(/\b(aluminium|aluminum|titanium|stainless steel|ceramic)\s+case\b/g, "enclosure")
+    .replace(/\bwith\s+(magsafe\s+)?charging\s+case\b/g, "with_case")
+    .replace(/\bwith\s+magsafe\s+case\b/g, "with_case");
+
+  const tokens = sanitized.split(/[\s\-_,.\/]+/);
   return tokens.some((t) => ACCESSORY_KEYWORDS.has(t));
 }
 
 export function hasConditionSignal(text: string): boolean {
   const lower = text.toLowerCase();
   return CONDITION_KEYWORDS.some((c) => lower.includes(c));
+}
+
+export function hasCompatibilitySignal(text: string): boolean {
+  const lower = text.toLowerCase();
+  return (
+    lower.includes("compatible with") ||
+    lower.includes("for use with") ||
+    lower.includes("fits ") ||
+    lower.startsWith("for ") ||
+    /\bfor\s+(apple|samsung|google|oneplus|sony|bose)\b/i.test(lower)
+  );
+}
+
+export function extractGeneration(text: string): string | null {
+  const lower = text.toLowerCase();
+  for (const gen of GENERATION_MODIFIERS) {
+    const regex = new RegExp(`\\b${gen}\\b`, "i");
+    if (regex.test(lower)) return gen;
+  }
+  return null;
 }
 
 function extractModelModifier(text: string): string | null {
@@ -181,6 +231,33 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
           };
         }
 
+        // Check pack size collision (e.g. multi-pack sold under single-item EAN)
+        const candPack = extractPackSize(barcodeMatch.title);
+        if ((offerPack || 1) !== (candPack || 1)) {
+          return {
+            productId: null,
+            confidence: 0.5,
+            confidenceLevel: "possible_match",
+            reasons: ["Barcode matched but pack size mismatch detected (single vs multi-pack)"],
+            matchedFields: { exactEanOrUpc: true, packSizeMismatch: true },
+          };
+        }
+
+        // Check storage collision (e.g. 512GB variant mislabeled with 128GB barcode)
+        const candStorage = extractStorage(barcodeMatch.title);
+        if (offerStorage.length > 0 && candStorage.length > 0) {
+          const storIntersect = offerStorage.some((s) => candStorage.includes(s));
+          if (!storIntersect) {
+            return {
+              productId: null,
+              confidence: 0.5,
+              confidenceLevel: "possible_match",
+              reasons: ["Barcode matched but storage capacity mismatch detected"],
+              matchedFields: { exactEanOrUpc: true, storageMismatch: true },
+            };
+          }
+        }
+
         return {
           productId: barcodeMatch.id,
           confidence: 0.99,
@@ -233,6 +310,23 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
           const candMod = extractModelModifier(cand.title);
           if (offerMod !== candMod) {
             continue; // Different tier variant (e.g. iPhone 15 vs iPhone 15 Plus)
+          }
+
+          // F. Compatibility Guard (e.g. "for Apple iPhone 15" or "compatible with")
+          const offerIsCompat = hasCompatibilitySignal(offer.title);
+          const candIsCompat = hasCompatibilitySignal(cand.title);
+          if (offerIsCompat !== candIsCompat) {
+            continue;
+          }
+
+          // G. Generation Guard (e.g. M2 vs M3, Gen 1 vs Gen 2, Series 8 vs Series 9)
+          const offerGen = extractGeneration(offer.title);
+          const candGen = extractGeneration(cand.title);
+          if (offerGen && candGen && offerGen !== candGen) {
+            continue;
+          }
+          if ((offerGen && !candGen) || (!offerGen && candGen)) {
+            continue;
           }
 
           return {

@@ -1,0 +1,4815 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-10-04T15:17:09.952Z",
+  "metadata": {
+    "totalCatalogProducts": 30,
+    "totalGoldSetPairs": 350,
+    "taxonomyBreakdown": {
+      "exact_ean_noisy": 30,
+      "exact_upc_noisy": 30,
+      "exact_brand_model_noisy": 60,
+      "storage_mismatch_trap": 45,
+      "model_modifier_trap": 40,
+      "generation_mismatch_trap": 35,
+      "accessory_trap": 45,
+      "condition_trap": 30,
+      "pack_size_trap": 20,
+      "compatibility_trap": 15
+    }
+  },
+  "catalog": [
+    {
+      "id": "prod-iphone-13-128-midnight",
+      "title": "Apple iPhone 13 (128 GB) - Midnight",
+      "brand": "Apple",
+      "model": "iPhone 13",
+      "ean": "0194252707241",
+      "upc": "194252707241",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.947Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-14-128-blue",
+      "title": "Apple iPhone 14 (128 GB) - Blue",
+      "brand": "Apple",
+      "model": "iPhone 14",
+      "ean": "0194253399438",
+      "upc": "194253399438",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-14-256-blue",
+      "title": "Apple iPhone 14 (256 GB) - Blue",
+      "brand": "Apple",
+      "model": "iPhone 14",
+      "ean": "0194253399742",
+      "upc": "194253399742",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-14-plus-128-blue",
+      "title": "Apple iPhone 14 Plus (128 GB) - Blue",
+      "brand": "Apple",
+      "model": "iPhone 14 Plus",
+      "ean": "0194253406563",
+      "upc": "194253406563",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-128-black",
+      "title": "Apple iPhone 15 (128 GB) - Black",
+      "brand": "Apple",
+      "model": "iPhone 15",
+      "ean": "0195949038289",
+      "upc": "195949038289",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-256-black",
+      "title": "Apple iPhone 15 (256 GB) - Black",
+      "brand": "Apple",
+      "model": "iPhone 15",
+      "ean": "0195949038302",
+      "upc": "195949038302",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-plus-128-black",
+      "title": "Apple iPhone 15 Plus (128 GB) - Black",
+      "brand": "Apple",
+      "model": "iPhone 15 Plus",
+      "ean": "0195949039125",
+      "upc": "195949039125",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-pro-128-titanium",
+      "title": "Apple iPhone 15 Pro (128 GB) - Natural Titanium",
+      "brand": "Apple",
+      "model": "iPhone 15 Pro",
+      "ean": "0195949041234",
+      "upc": "195949041234",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-pro-256-titanium",
+      "title": "Apple iPhone 15 Pro (256 GB) - Natural Titanium",
+      "brand": "Apple",
+      "model": "iPhone 15 Pro",
+      "ean": "0195949041258",
+      "upc": "195949041258",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-iphone-15-promax-256-titanium",
+      "title": "Apple iPhone 15 Pro Max (256 GB) - Natural Titanium",
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max",
+      "ean": "0195949042569",
+      "upc": "195949042569",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-samsung-s24-256-gray",
+      "title": "Samsung Galaxy S24 5G (256 GB) - Marble Gray",
+      "brand": "Samsung",
+      "model": "Galaxy S24",
+      "ean": "8806095361001",
+      "upc": "880609536100",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-samsung-s24-plus-256-gray",
+      "title": "Samsung Galaxy S24+ 5G (256 GB) - Marble Gray",
+      "brand": "Samsung",
+      "model": "Galaxy S24+",
+      "ean": "8806095362008",
+      "upc": "880609536200",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-samsung-s24-ultra-256-gray",
+      "title": "Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray",
+      "brand": "Samsung",
+      "model": "Galaxy S24 Ultra",
+      "ean": "8806095363005",
+      "upc": "880609536300",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-samsung-s23-fe-128-graphite",
+      "title": "Samsung Galaxy S23 FE 5G (128 GB) - Graphite",
+      "brand": "Samsung",
+      "model": "Galaxy S23 FE",
+      "ean": "8806095111002",
+      "upc": "880609511100",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-oneplus-12-256-emerald",
+      "title": "OnePlus 12 5G (256 GB) - Flowy Emerald",
+      "brand": "OnePlus",
+      "model": "OnePlus 12",
+      "ean": "6921815626008",
+      "upc": "692181562600",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-oneplus-12r-128-iron",
+      "title": "OnePlus 12R 5G (128 GB) - Iron Gray",
+      "brand": "OnePlus",
+      "model": "OnePlus 12R",
+      "ean": "6921815627005",
+      "upc": "692181562700",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-pixel-8-128-obsidian",
+      "title": "Google Pixel 8 5G (128 GB) - Obsidian",
+      "brand": "Google",
+      "model": "Pixel 8",
+      "ean": "0840244700018",
+      "upc": "840244700018",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-pixel-8-pro-128-obsidian",
+      "title": "Google Pixel 8 Pro 5G (128 GB) - Obsidian",
+      "brand": "Google",
+      "model": "Pixel 8 Pro",
+      "ean": "0840244700056",
+      "upc": "840244700056",
+      "categoryId": "smartphones",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-macbook-air-m2-256",
+      "title": "Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey",
+      "brand": "Apple",
+      "model": "MacBook Air",
+      "ean": "0194253081944",
+      "upc": "194253081944",
+      "categoryId": "laptops",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-macbook-air-m3-256",
+      "title": "Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight",
+      "brand": "Apple",
+      "model": "MacBook Air",
+      "ean": "0195949120014",
+      "upc": "195949120014",
+      "categoryId": "laptops",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-macbook-pro-14-m3-512",
+      "title": "Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey",
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "ean": "0195949130020",
+      "upc": "195949130020",
+      "categoryId": "laptops",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-sony-wh-1000xm4-black",
+      "title": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black",
+      "brand": "Sony",
+      "model": "WH-1000XM4",
+      "ean": "4548736112186",
+      "upc": "454873611218",
+      "categoryId": "audio",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-sony-wh-1000xm5-black",
+      "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black",
+      "brand": "Sony",
+      "model": "WH-1000XM5",
+      "ean": "4548736132566",
+      "upc": "454873613256",
+      "categoryId": "audio",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-bose-qc-ultra-black",
+      "title": "Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black",
+      "brand": "Bose",
+      "model": "QuietComfort Ultra",
+      "ean": "017817842006",
+      "upc": "17817842006",
+      "categoryId": "audio",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-airpods-pro-2-usbc",
+      "title": "Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C)",
+      "brand": "Apple",
+      "model": "AirPods Pro",
+      "ean": "0195949052490",
+      "upc": "195949052490",
+      "categoryId": "audio",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-apple-watch-s9-45mm",
+      "title": "Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case",
+      "brand": "Apple",
+      "model": "Apple Watch Series 9",
+      "ean": "0195949019011",
+      "upc": "195949019011",
+      "categoryId": "wearables",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-apple-watch-ultra-2",
+      "title": "Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case",
+      "brand": "Apple",
+      "model": "Apple Watch Ultra 2",
+      "ean": "0195949020017",
+      "upc": "195949020017",
+      "categoryId": "wearables",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-colgate-total-120g",
+      "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g",
+      "brand": "Colgate",
+      "model": "Total Clean Mint",
+      "ean": "8901314010200",
+      "upc": "890131401020",
+      "categoryId": "cpg",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-nescafe-gold-100g",
+      "title": "Nescafé Gold Blend Instant Coffee Jar - 100g",
+      "brand": "Nescafe",
+      "model": "Gold Blend",
+      "ean": "7613035610012",
+      "upc": "761303561001",
+      "categoryId": "cpg",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    },
+    {
+      "id": "prod-dyson-v12-detect-slim",
+      "title": "Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner",
+      "brand": "Dyson",
+      "model": "V12 Detect Slim",
+      "ean": "5025155070014",
+      "upc": "502515507001",
+      "categoryId": "appliances",
+      "createdAt": "2026-10-04T15:17:09.948Z",
+      "updatedAt": "2026-10-04T15:17:09.948Z"
+    }
+  ],
+  "goldSet": [
+    {
+      "id": "gold-pair-0001",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Apple iPhone 13 (128 GB) - Midnight (No Cost EMI from ₹4,199/m)",
+        "ean": "0194252707241",
+        "sourceUrl": "https://amazon.in/dp/B01"
+      },
+      "expectedProductId": "prod-iphone-13-128-midnight",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 13 (128 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0002",
+      "offer": {
+        "title": "Super Saver Sale: Apple iPhone 13 (128 GB) - Midnight | Free Next-Day Prime Delivery",
+        "upc": "194252707241",
+        "sourceUrl": "https://flipkart.com/item/2"
+      },
+      "expectedProductId": "prod-iphone-13-128-midnight",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 13 (128 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0003",
+      "offer": {
+        "title": "[Fast Delivery] Apple iPhone 14 (128 GB) - Blue - 1 Year Manufacturer Warranty Included",
+        "ean": "0194253399438",
+        "sourceUrl": "https://amazon.in/dp/B03"
+      },
+      "expectedProductId": "prod-iphone-14-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 14 (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0004",
+      "offer": {
+        "title": "Festive Bumper Discount: Apple iPhone 14 (128 GB) - Blue [Inclusive of all taxes]",
+        "upc": "194253399438",
+        "sourceUrl": "https://flipkart.com/item/4"
+      },
+      "expectedProductId": "prod-iphone-14-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 14 (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0005",
+      "offer": {
+        "title": "Official India Store: Apple iPhone 14 (256 GB) - Blue | Free Next-Day Prime Delivery",
+        "ean": "0194253399742",
+        "sourceUrl": "https://amazon.in/dp/B05"
+      },
+      "expectedProductId": "prod-iphone-14-256-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 14 (256 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0006",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Apple iPhone 14 (256 GB) - Blue (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "194253399742",
+        "sourceUrl": "https://flipkart.com/item/6"
+      },
+      "expectedProductId": "prod-iphone-14-256-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 14 (256 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0007",
+      "offer": {
+        "title": "Deal of the Day: Apple iPhone 14 Plus (128 GB) - Blue [Inclusive of all taxes]",
+        "ean": "0194253406563",
+        "sourceUrl": "https://amazon.in/dp/B07"
+      },
+      "expectedProductId": "prod-iphone-14-plus-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 14 Plus (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0008",
+      "offer": {
+        "title": "[Fast Delivery] Apple iPhone 14 Plus (128 GB) - Blue (No Cost EMI from ₹4,199/m)",
+        "upc": "194253406563",
+        "sourceUrl": "https://flipkart.com/item/8"
+      },
+      "expectedProductId": "prod-iphone-14-plus-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 14 Plus (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0009",
+      "offer": {
+        "title": "Brand New in Box — Apple iPhone 15 (128 GB) - Black (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "0195949038289",
+        "sourceUrl": "https://amazon.in/dp/B09"
+      },
+      "expectedProductId": "prod-iphone-15-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0010",
+      "offer": {
+        "title": "Official India Store: Apple iPhone 15 (128 GB) - Black - 1 Year Manufacturer Warranty Included",
+        "upc": "195949038289",
+        "sourceUrl": "https://flipkart.com/item/10"
+      },
+      "expectedProductId": "prod-iphone-15-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0011",
+      "offer": {
+        "title": "Super Saver Sale: Apple iPhone 15 (256 GB) - Black (No Cost EMI from ₹4,199/m)",
+        "ean": "0195949038302",
+        "sourceUrl": "https://amazon.in/dp/B011"
+      },
+      "expectedProductId": "prod-iphone-15-256-black",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 (256 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0012",
+      "offer": {
+        "title": "Deal of the Day: Apple iPhone 15 (256 GB) - Black | Free Next-Day Prime Delivery",
+        "upc": "195949038302",
+        "sourceUrl": "https://flipkart.com/item/12"
+      },
+      "expectedProductId": "prod-iphone-15-256-black",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 (256 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0013",
+      "offer": {
+        "title": "Festive Bumper Discount: Apple iPhone 15 Plus (128 GB) - Black - 1 Year Manufacturer Warranty Included",
+        "ean": "0195949039125",
+        "sourceUrl": "https://amazon.in/dp/B013"
+      },
+      "expectedProductId": "prod-iphone-15-plus-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 Plus (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0014",
+      "offer": {
+        "title": "Brand New in Box — Apple iPhone 15 Plus (128 GB) - Black [Inclusive of all taxes]",
+        "upc": "195949039125",
+        "sourceUrl": "https://flipkart.com/item/14"
+      },
+      "expectedProductId": "prod-iphone-15-plus-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 Plus (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0015",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Apple iPhone 15 Pro (128 GB) - Natural Titanium | Free Next-Day Prime Delivery",
+        "ean": "0195949041234",
+        "sourceUrl": "https://amazon.in/dp/B015"
+      },
+      "expectedProductId": "prod-iphone-15-pro-128-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 Pro (128 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0016",
+      "offer": {
+        "title": "Super Saver Sale: Apple iPhone 15 Pro (128 GB) - Natural Titanium (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "195949041234",
+        "sourceUrl": "https://flipkart.com/item/16"
+      },
+      "expectedProductId": "prod-iphone-15-pro-128-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 Pro (128 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0017",
+      "offer": {
+        "title": "[Fast Delivery] Apple iPhone 15 Pro (256 GB) - Natural Titanium [Inclusive of all taxes]",
+        "ean": "0195949041258",
+        "sourceUrl": "https://amazon.in/dp/B017"
+      },
+      "expectedProductId": "prod-iphone-15-pro-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 Pro (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0018",
+      "offer": {
+        "title": "Festive Bumper Discount: Apple iPhone 15 Pro (256 GB) - Natural Titanium (No Cost EMI from ₹4,199/m)",
+        "upc": "195949041258",
+        "sourceUrl": "https://flipkart.com/item/18"
+      },
+      "expectedProductId": "prod-iphone-15-pro-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 Pro (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0019",
+      "offer": {
+        "title": "Official India Store: Apple iPhone 15 Pro Max (256 GB) - Natural Titanium (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "0195949042569",
+        "sourceUrl": "https://amazon.in/dp/B019"
+      },
+      "expectedProductId": "prod-iphone-15-promax-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple iPhone 15 Pro Max (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0020",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Apple iPhone 15 Pro Max (256 GB) - Natural Titanium - 1 Year Manufacturer Warranty Included",
+        "upc": "195949042569",
+        "sourceUrl": "https://flipkart.com/item/20"
+      },
+      "expectedProductId": "prod-iphone-15-promax-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple iPhone 15 Pro Max (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0021",
+      "offer": {
+        "title": "Deal of the Day: Samsung Galaxy S24 5G (256 GB) - Marble Gray (No Cost EMI from ₹4,199/m)",
+        "ean": "8806095361001",
+        "sourceUrl": "https://amazon.in/dp/B021"
+      },
+      "expectedProductId": "prod-samsung-s24-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Samsung Galaxy S24 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0022",
+      "offer": {
+        "title": "[Fast Delivery] Samsung Galaxy S24 5G (256 GB) - Marble Gray | Free Next-Day Prime Delivery",
+        "upc": "880609536100",
+        "sourceUrl": "https://flipkart.com/item/22"
+      },
+      "expectedProductId": "prod-samsung-s24-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Samsung Galaxy S24 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0023",
+      "offer": {
+        "title": "Brand New in Box — Samsung Galaxy S24+ 5G (256 GB) - Marble Gray - 1 Year Manufacturer Warranty Included",
+        "ean": "8806095362008",
+        "sourceUrl": "https://amazon.in/dp/B023"
+      },
+      "expectedProductId": "prod-samsung-s24-plus-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Samsung Galaxy S24+ 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0024",
+      "offer": {
+        "title": "Official India Store: Samsung Galaxy S24+ 5G (256 GB) - Marble Gray [Inclusive of all taxes]",
+        "upc": "880609536200",
+        "sourceUrl": "https://flipkart.com/item/24"
+      },
+      "expectedProductId": "prod-samsung-s24-plus-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Samsung Galaxy S24+ 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0025",
+      "offer": {
+        "title": "Super Saver Sale: Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray | Free Next-Day Prime Delivery",
+        "ean": "8806095363005",
+        "sourceUrl": "https://amazon.in/dp/B025"
+      },
+      "expectedProductId": "prod-samsung-s24-ultra-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray'"
+    },
+    {
+      "id": "gold-pair-0026",
+      "offer": {
+        "title": "Deal of the Day: Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "880609536300",
+        "sourceUrl": "https://flipkart.com/item/26"
+      },
+      "expectedProductId": "prod-samsung-s24-ultra-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray'"
+    },
+    {
+      "id": "gold-pair-0027",
+      "offer": {
+        "title": "Festive Bumper Discount: Samsung Galaxy S23 FE 5G (128 GB) - Graphite [Inclusive of all taxes]",
+        "ean": "8806095111002",
+        "sourceUrl": "https://amazon.in/dp/B027"
+      },
+      "expectedProductId": "prod-samsung-s23-fe-128-graphite",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Samsung Galaxy S23 FE 5G (128 GB) - Graphite'"
+    },
+    {
+      "id": "gold-pair-0028",
+      "offer": {
+        "title": "Brand New in Box — Samsung Galaxy S23 FE 5G (128 GB) - Graphite (No Cost EMI from ₹4,199/m)",
+        "upc": "880609511100",
+        "sourceUrl": "https://flipkart.com/item/28"
+      },
+      "expectedProductId": "prod-samsung-s23-fe-128-graphite",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Samsung Galaxy S23 FE 5G (128 GB) - Graphite'"
+    },
+    {
+      "id": "gold-pair-0029",
+      "offer": {
+        "title": "Lowest Price in 30 Days! OnePlus 12 5G (256 GB) - Flowy Emerald (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "6921815626008",
+        "sourceUrl": "https://amazon.in/dp/B029"
+      },
+      "expectedProductId": "prod-oneplus-12-256-emerald",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'OnePlus 12 5G (256 GB) - Flowy Emerald'"
+    },
+    {
+      "id": "gold-pair-0030",
+      "offer": {
+        "title": "Super Saver Sale: OnePlus 12 5G (256 GB) - Flowy Emerald - 1 Year Manufacturer Warranty Included",
+        "upc": "692181562600",
+        "sourceUrl": "https://flipkart.com/item/30"
+      },
+      "expectedProductId": "prod-oneplus-12-256-emerald",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'OnePlus 12 5G (256 GB) - Flowy Emerald'"
+    },
+    {
+      "id": "gold-pair-0031",
+      "offer": {
+        "title": "[Fast Delivery] OnePlus 12R 5G (128 GB) - Iron Gray (No Cost EMI from ₹4,199/m)",
+        "ean": "6921815627005",
+        "sourceUrl": "https://amazon.in/dp/B031"
+      },
+      "expectedProductId": "prod-oneplus-12r-128-iron",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'OnePlus 12R 5G (128 GB) - Iron Gray'"
+    },
+    {
+      "id": "gold-pair-0032",
+      "offer": {
+        "title": "Festive Bumper Discount: OnePlus 12R 5G (128 GB) - Iron Gray | Free Next-Day Prime Delivery",
+        "upc": "692181562700",
+        "sourceUrl": "https://flipkart.com/item/32"
+      },
+      "expectedProductId": "prod-oneplus-12r-128-iron",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'OnePlus 12R 5G (128 GB) - Iron Gray'"
+    },
+    {
+      "id": "gold-pair-0033",
+      "offer": {
+        "title": "Official India Store: Google Pixel 8 5G (128 GB) - Obsidian - 1 Year Manufacturer Warranty Included",
+        "ean": "0840244700018",
+        "sourceUrl": "https://amazon.in/dp/B033"
+      },
+      "expectedProductId": "prod-pixel-8-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Google Pixel 8 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0034",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Google Pixel 8 5G (128 GB) - Obsidian [Inclusive of all taxes]",
+        "upc": "840244700018",
+        "sourceUrl": "https://flipkart.com/item/34"
+      },
+      "expectedProductId": "prod-pixel-8-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Google Pixel 8 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0035",
+      "offer": {
+        "title": "Deal of the Day: Google Pixel 8 Pro 5G (128 GB) - Obsidian | Free Next-Day Prime Delivery",
+        "ean": "0840244700056",
+        "sourceUrl": "https://amazon.in/dp/B035"
+      },
+      "expectedProductId": "prod-pixel-8-pro-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Google Pixel 8 Pro 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0036",
+      "offer": {
+        "title": "[Fast Delivery] Google Pixel 8 Pro 5G (128 GB) - Obsidian (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "840244700056",
+        "sourceUrl": "https://flipkart.com/item/36"
+      },
+      "expectedProductId": "prod-pixel-8-pro-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Google Pixel 8 Pro 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0037",
+      "offer": {
+        "title": "Brand New in Box — Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey [Inclusive of all taxes]",
+        "ean": "0194253081944",
+        "sourceUrl": "https://amazon.in/dp/B037"
+      },
+      "expectedProductId": "prod-macbook-air-m2-256",
+      "category": "laptops",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0038",
+      "offer": {
+        "title": "Official India Store: Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey (No Cost EMI from ₹4,199/m)",
+        "upc": "194253081944",
+        "sourceUrl": "https://flipkart.com/item/38"
+      },
+      "expectedProductId": "prod-macbook-air-m2-256",
+      "category": "laptops",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0039",
+      "offer": {
+        "title": "Super Saver Sale: Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "0195949120014",
+        "sourceUrl": "https://amazon.in/dp/B039"
+      },
+      "expectedProductId": "prod-macbook-air-m3-256",
+      "category": "laptops",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0040",
+      "offer": {
+        "title": "Deal of the Day: Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight - 1 Year Manufacturer Warranty Included",
+        "upc": "195949120014",
+        "sourceUrl": "https://flipkart.com/item/40"
+      },
+      "expectedProductId": "prod-macbook-air-m3-256",
+      "category": "laptops",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0041",
+      "offer": {
+        "title": "Festive Bumper Discount: Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey (No Cost EMI from ₹4,199/m)",
+        "ean": "0195949130020",
+        "sourceUrl": "https://amazon.in/dp/B041"
+      },
+      "expectedProductId": "prod-macbook-pro-14-m3-512",
+      "category": "laptops",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0042",
+      "offer": {
+        "title": "Brand New in Box — Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey | Free Next-Day Prime Delivery",
+        "upc": "195949130020",
+        "sourceUrl": "https://flipkart.com/item/42"
+      },
+      "expectedProductId": "prod-macbook-pro-14-m3-512",
+      "category": "laptops",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0043",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black - 1 Year Manufacturer Warranty Included",
+        "ean": "4548736112186",
+        "sourceUrl": "https://amazon.in/dp/B043"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm4-black",
+      "category": "audio",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0044",
+      "offer": {
+        "title": "Super Saver Sale: Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black [Inclusive of all taxes]",
+        "upc": "454873611218",
+        "sourceUrl": "https://flipkart.com/item/44"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm4-black",
+      "category": "audio",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0045",
+      "offer": {
+        "title": "[Fast Delivery] Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black | Free Next-Day Prime Delivery",
+        "ean": "4548736132566",
+        "sourceUrl": "https://amazon.in/dp/B045"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm5-black",
+      "category": "audio",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0046",
+      "offer": {
+        "title": "Festive Bumper Discount: Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "454873613256",
+        "sourceUrl": "https://flipkart.com/item/46"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm5-black",
+      "category": "audio",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0047",
+      "offer": {
+        "title": "Official India Store: Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black [Inclusive of all taxes]",
+        "ean": "017817842006",
+        "sourceUrl": "https://amazon.in/dp/B047"
+      },
+      "expectedProductId": "prod-bose-qc-ultra-black",
+      "category": "audio",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0048",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black (No Cost EMI from ₹4,199/m)",
+        "upc": "17817842006",
+        "sourceUrl": "https://flipkart.com/item/48"
+      },
+      "expectedProductId": "prod-bose-qc-ultra-black",
+      "category": "audio",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0049",
+      "offer": {
+        "title": "Deal of the Day: Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C) (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "0195949052490",
+        "sourceUrl": "https://amazon.in/dp/B049"
+      },
+      "expectedProductId": "prod-airpods-pro-2-usbc",
+      "category": "audio",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C)'"
+    },
+    {
+      "id": "gold-pair-0050",
+      "offer": {
+        "title": "[Fast Delivery] Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C) - 1 Year Manufacturer Warranty Included",
+        "upc": "195949052490",
+        "sourceUrl": "https://flipkart.com/item/50"
+      },
+      "expectedProductId": "prod-airpods-pro-2-usbc",
+      "category": "audio",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C)'"
+    },
+    {
+      "id": "gold-pair-0051",
+      "offer": {
+        "title": "Brand New in Box — Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case (No Cost EMI from ₹4,199/m)",
+        "ean": "0195949019011",
+        "sourceUrl": "https://amazon.in/dp/B051"
+      },
+      "expectedProductId": "prod-apple-watch-s9-45mm",
+      "category": "wearables",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case'"
+    },
+    {
+      "id": "gold-pair-0052",
+      "offer": {
+        "title": "Official India Store: Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case | Free Next-Day Prime Delivery",
+        "upc": "195949019011",
+        "sourceUrl": "https://flipkart.com/item/52"
+      },
+      "expectedProductId": "prod-apple-watch-s9-45mm",
+      "category": "wearables",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case'"
+    },
+    {
+      "id": "gold-pair-0053",
+      "offer": {
+        "title": "Super Saver Sale: Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case - 1 Year Manufacturer Warranty Included",
+        "ean": "0195949020017",
+        "sourceUrl": "https://amazon.in/dp/B053"
+      },
+      "expectedProductId": "prod-apple-watch-ultra-2",
+      "category": "wearables",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case'"
+    },
+    {
+      "id": "gold-pair-0054",
+      "offer": {
+        "title": "Deal of the Day: Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case [Inclusive of all taxes]",
+        "upc": "195949020017",
+        "sourceUrl": "https://flipkart.com/item/54"
+      },
+      "expectedProductId": "prod-apple-watch-ultra-2",
+      "category": "wearables",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case'"
+    },
+    {
+      "id": "gold-pair-0055",
+      "offer": {
+        "title": "Festive Bumper Discount: Colgate Total Clean Mint Antibacterial Toothpaste - 120g | Free Next-Day Prime Delivery",
+        "ean": "8901314010200",
+        "sourceUrl": "https://amazon.in/dp/B055"
+      },
+      "expectedProductId": "prod-colgate-total-120g",
+      "category": "cpg",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g'"
+    },
+    {
+      "id": "gold-pair-0056",
+      "offer": {
+        "title": "Brand New in Box — Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Fast Shipping, Authenticity Guaranteed)",
+        "upc": "890131401020",
+        "sourceUrl": "https://flipkart.com/item/56"
+      },
+      "expectedProductId": "prod-colgate-total-120g",
+      "category": "cpg",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g'"
+    },
+    {
+      "id": "gold-pair-0057",
+      "offer": {
+        "title": "Lowest Price in 30 Days! Nescafé Gold Blend Instant Coffee Jar - 100g [Inclusive of all taxes]",
+        "ean": "7613035610012",
+        "sourceUrl": "https://amazon.in/dp/B057"
+      },
+      "expectedProductId": "prod-nescafe-gold-100g",
+      "category": "cpg",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Nescafé Gold Blend Instant Coffee Jar - 100g'"
+    },
+    {
+      "id": "gold-pair-0058",
+      "offer": {
+        "title": "Super Saver Sale: Nescafé Gold Blend Instant Coffee Jar - 100g (No Cost EMI from ₹4,199/m)",
+        "upc": "761303561001",
+        "sourceUrl": "https://flipkart.com/item/58"
+      },
+      "expectedProductId": "prod-nescafe-gold-100g",
+      "category": "cpg",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Nescafé Gold Blend Instant Coffee Jar - 100g'"
+    },
+    {
+      "id": "gold-pair-0059",
+      "offer": {
+        "title": "[Fast Delivery] Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner (Fast Shipping, Authenticity Guaranteed)",
+        "ean": "5025155070014",
+        "sourceUrl": "https://amazon.in/dp/B059"
+      },
+      "expectedProductId": "prod-dyson-v12-detect-slim",
+      "category": "appliances",
+      "taxonomy": "exact_ean_noisy",
+      "description": "Exact EAN barcode match with promotional vendor title noise: 'Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner'"
+    },
+    {
+      "id": "gold-pair-0060",
+      "offer": {
+        "title": "Festive Bumper Discount: Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner - 1 Year Manufacturer Warranty Included",
+        "upc": "502515507001",
+        "sourceUrl": "https://flipkart.com/item/60"
+      },
+      "expectedProductId": "prod-dyson-v12-detect-slim",
+      "category": "appliances",
+      "taxonomy": "exact_upc_noisy",
+      "description": "Exact UPC barcode match with vendor title noise: 'Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner'"
+    },
+    {
+      "id": "gold-pair-0061",
+      "offer": {
+        "title": "Apple iPhone 13 Super Retina XDR Display - 128 GB Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://croma.com/p/61"
+      },
+      "expectedProductId": "prod-iphone-13-128-midnight",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 13'"
+    },
+    {
+      "id": "gold-pair-0062",
+      "offer": {
+        "title": "Apple iPhone 13 (128 GB) - Midnight [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://reliancedigital.in/p/62"
+      },
+      "expectedProductId": "prod-iphone-13-128-midnight",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 13 (128 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0063",
+      "offer": {
+        "title": "Apple iPhone 14 Indian Retail Stock - 128 GB Authentic Brand New Box Pack",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://croma.com/p/63"
+      },
+      "expectedProductId": "prod-iphone-14-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 14'"
+    },
+    {
+      "id": "gold-pair-0064",
+      "offer": {
+        "title": "Apple iPhone 14 (128 GB) - Blue [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://reliancedigital.in/p/64"
+      },
+      "expectedProductId": "prod-iphone-14-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 14 (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0065",
+      "offer": {
+        "title": "Apple iPhone 14 100% Genuine with Warranty - 256 GB Unlocked Global Version",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://croma.com/p/65"
+      },
+      "expectedProductId": "prod-iphone-14-256-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 14'"
+    },
+    {
+      "id": "gold-pair-0066",
+      "offer": {
+        "title": "Apple iPhone 14 (256 GB) - Blue [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://reliancedigital.in/p/66"
+      },
+      "expectedProductId": "prod-iphone-14-256-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 14 (256 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0067",
+      "offer": {
+        "title": "Apple iPhone 14 Plus Super Retina XDR Display - 128 GB Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "iPhone 14 Plus",
+        "sourceUrl": "https://croma.com/p/67"
+      },
+      "expectedProductId": "prod-iphone-14-plus-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 14 Plus'"
+    },
+    {
+      "id": "gold-pair-0068",
+      "offer": {
+        "title": "Apple iPhone 14 Plus (128 GB) - Blue [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 14 Plus",
+        "sourceUrl": "https://reliancedigital.in/p/68"
+      },
+      "expectedProductId": "prod-iphone-14-plus-128-blue",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 14 Plus (128 GB) - Blue'"
+    },
+    {
+      "id": "gold-pair-0069",
+      "offer": {
+        "title": "Apple iPhone 15 Indian Retail Stock - 128 GB Authentic Brand New Box Pack",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://croma.com/p/69"
+      },
+      "expectedProductId": "prod-iphone-15-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15'"
+    },
+    {
+      "id": "gold-pair-0070",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://reliancedigital.in/p/70"
+      },
+      "expectedProductId": "prod-iphone-15-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0071",
+      "offer": {
+        "title": "Apple iPhone 15 100% Genuine with Warranty - 256 GB Unlocked Global Version",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://croma.com/p/71"
+      },
+      "expectedProductId": "prod-iphone-15-256-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15'"
+    },
+    {
+      "id": "gold-pair-0072",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://reliancedigital.in/p/72"
+      },
+      "expectedProductId": "prod-iphone-15-256-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 (256 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0073",
+      "offer": {
+        "title": "Apple iPhone 15 Plus Super Retina XDR Display - 128 GB Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "iPhone 15 Plus",
+        "sourceUrl": "https://croma.com/p/73"
+      },
+      "expectedProductId": "prod-iphone-15-plus-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15 Plus'"
+    },
+    {
+      "id": "gold-pair-0074",
+      "offer": {
+        "title": "Apple iPhone 15 Plus (128 GB) - Black [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15 Plus",
+        "sourceUrl": "https://reliancedigital.in/p/74"
+      },
+      "expectedProductId": "prod-iphone-15-plus-128-black",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 Plus (128 GB) - Black'"
+    },
+    {
+      "id": "gold-pair-0075",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Indian Retail Stock - 128 GB Authentic Brand New Box Pack",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://croma.com/p/75"
+      },
+      "expectedProductId": "prod-iphone-15-pro-128-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15 Pro'"
+    },
+    {
+      "id": "gold-pair-0076",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (128 GB) - Natural Titanium [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://reliancedigital.in/p/76"
+      },
+      "expectedProductId": "prod-iphone-15-pro-128-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 Pro (128 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0077",
+      "offer": {
+        "title": "Apple iPhone 15 Pro 100% Genuine with Warranty - 256 GB Unlocked Global Version",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://croma.com/p/77"
+      },
+      "expectedProductId": "prod-iphone-15-pro-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15 Pro'"
+    },
+    {
+      "id": "gold-pair-0078",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (256 GB) - Natural Titanium [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://reliancedigital.in/p/78"
+      },
+      "expectedProductId": "prod-iphone-15-pro-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 Pro (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0079",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max Super Retina XDR Display - 256 GB Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://croma.com/p/79"
+      },
+      "expectedProductId": "prod-iphone-15-promax-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'iPhone 15 Pro Max'"
+    },
+    {
+      "id": "gold-pair-0080",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max (256 GB) - Natural Titanium [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://reliancedigital.in/p/80"
+      },
+      "expectedProductId": "prod-iphone-15-promax-256-titanium",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple iPhone 15 Pro Max (256 GB) - Natural Titanium'"
+    },
+    {
+      "id": "gold-pair-0081",
+      "offer": {
+        "title": "Samsung Galaxy S24 Indian Retail Stock - 256 GB Authentic Brand New Box Pack",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://croma.com/p/81"
+      },
+      "expectedProductId": "prod-samsung-s24-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Galaxy S24'"
+    },
+    {
+      "id": "gold-pair-0082",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Marble Gray [Limited Stock Offer]",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://reliancedigital.in/p/82"
+      },
+      "expectedProductId": "prod-samsung-s24-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Samsung Galaxy S24 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0083",
+      "offer": {
+        "title": "Samsung Galaxy S24+ 100% Genuine with Warranty - 256 GB Unlocked Global Version",
+        "brand": "Samsung",
+        "model": "Galaxy S24+",
+        "sourceUrl": "https://croma.com/p/83"
+      },
+      "expectedProductId": "prod-samsung-s24-plus-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Galaxy S24+'"
+    },
+    {
+      "id": "gold-pair-0084",
+      "offer": {
+        "title": "Samsung Galaxy S24+ 5G (256 GB) - Marble Gray [Limited Stock Offer]",
+        "brand": "Samsung",
+        "model": "Galaxy S24+",
+        "sourceUrl": "https://reliancedigital.in/p/84"
+      },
+      "expectedProductId": "prod-samsung-s24-plus-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Samsung Galaxy S24+ 5G (256 GB) - Marble Gray'"
+    },
+    {
+      "id": "gold-pair-0085",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra Super Retina XDR Display - 256 GB Dynamic Island Edition",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://croma.com/p/85"
+      },
+      "expectedProductId": "prod-samsung-s24-ultra-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0086",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray [Limited Stock Offer]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://reliancedigital.in/p/86"
+      },
+      "expectedProductId": "prod-samsung-s24-ultra-256-gray",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray'"
+    },
+    {
+      "id": "gold-pair-0087",
+      "offer": {
+        "title": "Samsung Galaxy S23 FE Indian Retail Stock - 128 GB Authentic Brand New Box Pack",
+        "brand": "Samsung",
+        "model": "Galaxy S23 FE",
+        "sourceUrl": "https://croma.com/p/87"
+      },
+      "expectedProductId": "prod-samsung-s23-fe-128-graphite",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Galaxy S23 FE'"
+    },
+    {
+      "id": "gold-pair-0088",
+      "offer": {
+        "title": "Samsung Galaxy S23 FE 5G (128 GB) - Graphite [Limited Stock Offer]",
+        "brand": "Samsung",
+        "model": "Galaxy S23 FE",
+        "sourceUrl": "https://reliancedigital.in/p/88"
+      },
+      "expectedProductId": "prod-samsung-s23-fe-128-graphite",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Samsung Galaxy S23 FE 5G (128 GB) - Graphite'"
+    },
+    {
+      "id": "gold-pair-0089",
+      "offer": {
+        "title": "OnePlus OnePlus 12 100% Genuine with Warranty - 256 GB Unlocked Global Version",
+        "brand": "OnePlus",
+        "model": "OnePlus 12",
+        "sourceUrl": "https://croma.com/p/89"
+      },
+      "expectedProductId": "prod-oneplus-12-256-emerald",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'OnePlus 12'"
+    },
+    {
+      "id": "gold-pair-0090",
+      "offer": {
+        "title": "OnePlus 12 5G (256 GB) - Flowy Emerald [Limited Stock Offer]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12",
+        "sourceUrl": "https://reliancedigital.in/p/90"
+      },
+      "expectedProductId": "prod-oneplus-12-256-emerald",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'OnePlus 12 5G (256 GB) - Flowy Emerald'"
+    },
+    {
+      "id": "gold-pair-0091",
+      "offer": {
+        "title": "OnePlus OnePlus 12R Super Retina XDR Display - 128 GB Dynamic Island Edition",
+        "brand": "OnePlus",
+        "model": "OnePlus 12R",
+        "sourceUrl": "https://croma.com/p/91"
+      },
+      "expectedProductId": "prod-oneplus-12r-128-iron",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'OnePlus 12R'"
+    },
+    {
+      "id": "gold-pair-0092",
+      "offer": {
+        "title": "OnePlus 12R 5G (128 GB) - Iron Gray [Limited Stock Offer]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12R",
+        "sourceUrl": "https://reliancedigital.in/p/92"
+      },
+      "expectedProductId": "prod-oneplus-12r-128-iron",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'OnePlus 12R 5G (128 GB) - Iron Gray'"
+    },
+    {
+      "id": "gold-pair-0093",
+      "offer": {
+        "title": "Google Pixel 8 Indian Retail Stock - 128 GB Authentic Brand New Box Pack",
+        "brand": "Google",
+        "model": "Pixel 8",
+        "sourceUrl": "https://croma.com/p/93"
+      },
+      "expectedProductId": "prod-pixel-8-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Pixel 8'"
+    },
+    {
+      "id": "gold-pair-0094",
+      "offer": {
+        "title": "Google Pixel 8 5G (128 GB) - Obsidian [Limited Stock Offer]",
+        "brand": "Google",
+        "model": "Pixel 8",
+        "sourceUrl": "https://reliancedigital.in/p/94"
+      },
+      "expectedProductId": "prod-pixel-8-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Google Pixel 8 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0095",
+      "offer": {
+        "title": "Google Pixel 8 Pro 100% Genuine with Warranty - 128 GB Unlocked Global Version",
+        "brand": "Google",
+        "model": "Pixel 8 Pro",
+        "sourceUrl": "https://croma.com/p/95"
+      },
+      "expectedProductId": "prod-pixel-8-pro-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Pixel 8 Pro'"
+    },
+    {
+      "id": "gold-pair-0096",
+      "offer": {
+        "title": "Google Pixel 8 Pro 5G (128 GB) - Obsidian [Limited Stock Offer]",
+        "brand": "Google",
+        "model": "Pixel 8 Pro",
+        "sourceUrl": "https://reliancedigital.in/p/96"
+      },
+      "expectedProductId": "prod-pixel-8-pro-128-obsidian",
+      "category": "smartphones",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Google Pixel 8 Pro 5G (128 GB) - Obsidian'"
+    },
+    {
+      "id": "gold-pair-0097",
+      "offer": {
+        "title": "Apple MacBook Air M2 Chip Super Retina XDR Display - 256 GB Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://croma.com/p/97"
+      },
+      "expectedProductId": "prod-macbook-air-m2-256",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'MacBook Air'"
+    },
+    {
+      "id": "gold-pair-0098",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://reliancedigital.in/p/98"
+      },
+      "expectedProductId": "prod-macbook-air-m2-256",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple MacBook Air 13.6-inch M2 Chip (256 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0099",
+      "offer": {
+        "title": "Apple MacBook Air M3 Chip Indian Retail Stock - 256 GB Authentic Brand New Box Pack",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://croma.com/p/99"
+      },
+      "expectedProductId": "prod-macbook-air-m3-256",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'MacBook Air'"
+    },
+    {
+      "id": "gold-pair-0100",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://reliancedigital.in/p/100"
+      },
+      "expectedProductId": "prod-macbook-air-m3-256",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple MacBook Air 13.6-inch M3 Chip (256 GB) - Midnight'"
+    },
+    {
+      "id": "gold-pair-0101",
+      "offer": {
+        "title": "Apple MacBook Pro M3 Chip 100% Genuine with Warranty - 512 GB Unlocked Global Version",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://croma.com/p/101"
+      },
+      "expectedProductId": "prod-macbook-pro-14-m3-512",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'MacBook Pro'"
+    },
+    {
+      "id": "gold-pair-0102",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://reliancedigital.in/p/102"
+      },
+      "expectedProductId": "prod-macbook-pro-14-m3-512",
+      "category": "laptops",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple MacBook Pro 14-inch M3 Chip (512 GB) - Space Grey'"
+    },
+    {
+      "id": "gold-pair-0103",
+      "offer": {
+        "title": "Sony WH-1000XM4 Super Retina XDR Display -  Dynamic Island Edition",
+        "brand": "Sony",
+        "model": "WH-1000XM4",
+        "sourceUrl": "https://croma.com/p/103"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm4-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'WH-1000XM4'"
+    },
+    {
+      "id": "gold-pair-0104",
+      "offer": {
+        "title": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black [Limited Stock Offer]",
+        "brand": "Sony",
+        "model": "WH-1000XM4",
+        "sourceUrl": "https://reliancedigital.in/p/104"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm4-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Sony WH-1000XM4 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0105",
+      "offer": {
+        "title": "Sony WH-1000XM5 Indian Retail Stock -  Authentic Brand New Box Pack",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://croma.com/p/105"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm5-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'WH-1000XM5'"
+    },
+    {
+      "id": "gold-pair-0106",
+      "offer": {
+        "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black [Limited Stock Offer]",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://reliancedigital.in/p/106"
+      },
+      "expectedProductId": "prod-sony-wh-1000xm5-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0107",
+      "offer": {
+        "title": "Bose QuietComfort Ultra 100% Genuine with Warranty -  Unlocked Global Version",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://croma.com/p/107"
+      },
+      "expectedProductId": "prod-bose-qc-ultra-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'QuietComfort Ultra'"
+    },
+    {
+      "id": "gold-pair-0108",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black [Limited Stock Offer]",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://reliancedigital.in/p/108"
+      },
+      "expectedProductId": "prod-bose-qc-ultra-black",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Bose QuietComfort Ultra Wireless Noise Cancelling Headphones - Black'"
+    },
+    {
+      "id": "gold-pair-0109",
+      "offer": {
+        "title": "Apple AirPods Pro 2nd Generation Super Retina XDR Display -  Dynamic Island Edition",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://croma.com/p/109"
+      },
+      "expectedProductId": "prod-airpods-pro-2-usbc",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'AirPods Pro'"
+    },
+    {
+      "id": "gold-pair-0110",
+      "offer": {
+        "title": "Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C) [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://reliancedigital.in/p/110"
+      },
+      "expectedProductId": "prod-airpods-pro-2-usbc",
+      "category": "audio",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C)'"
+    },
+    {
+      "id": "gold-pair-0111",
+      "offer": {
+        "title": "Apple Apple Watch Series 9 Series 9 Indian Retail Stock -  Authentic Brand New Box Pack",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9",
+        "sourceUrl": "https://croma.com/p/111"
+      },
+      "expectedProductId": "prod-apple-watch-s9-45mm",
+      "category": "wearables",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Apple Watch Series 9'"
+    },
+    {
+      "id": "gold-pair-0112",
+      "offer": {
+        "title": "Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9",
+        "sourceUrl": "https://reliancedigital.in/p/112"
+      },
+      "expectedProductId": "prod-apple-watch-s9-45mm",
+      "category": "wearables",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple Watch Series 9 GPS 45mm - Midnight Aluminium Case'"
+    },
+    {
+      "id": "gold-pair-0113",
+      "offer": {
+        "title": "Apple Apple Watch Ultra 2 Ultra 2 100% Genuine with Warranty -  Unlocked Global Version",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra 2",
+        "sourceUrl": "https://croma.com/p/113"
+      },
+      "expectedProductId": "prod-apple-watch-ultra-2",
+      "category": "wearables",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Apple Watch Ultra 2'"
+    },
+    {
+      "id": "gold-pair-0114",
+      "offer": {
+        "title": "Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case [Limited Stock Offer]",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra 2",
+        "sourceUrl": "https://reliancedigital.in/p/114"
+      },
+      "expectedProductId": "prod-apple-watch-ultra-2",
+      "category": "wearables",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Apple Watch Ultra 2 GPS + Cellular 49mm - Titanium Case'"
+    },
+    {
+      "id": "gold-pair-0115",
+      "offer": {
+        "title": "Colgate Total Clean Mint Super Retina XDR Display -  Dynamic Island Edition",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://croma.com/p/115"
+      },
+      "expectedProductId": "prod-colgate-total-120g",
+      "category": "cpg",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Total Clean Mint'"
+    },
+    {
+      "id": "gold-pair-0116",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g [Limited Stock Offer]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://reliancedigital.in/p/116"
+      },
+      "expectedProductId": "prod-colgate-total-120g",
+      "category": "cpg",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g'"
+    },
+    {
+      "id": "gold-pair-0117",
+      "offer": {
+        "title": "Nescafe Gold Blend Indian Retail Stock -  Authentic Brand New Box Pack",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://croma.com/p/117"
+      },
+      "expectedProductId": "prod-nescafe-gold-100g",
+      "category": "cpg",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'Gold Blend'"
+    },
+    {
+      "id": "gold-pair-0118",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g [Limited Stock Offer]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://reliancedigital.in/p/118"
+      },
+      "expectedProductId": "prod-nescafe-gold-100g",
+      "category": "cpg",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Nescafé Gold Blend Instant Coffee Jar - 100g'"
+    },
+    {
+      "id": "gold-pair-0119",
+      "offer": {
+        "title": "Dyson V12 Detect Slim 100% Genuine with Warranty -  Unlocked Global Version",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://croma.com/p/119"
+      },
+      "expectedProductId": "prod-dyson-v12-detect-slim",
+      "category": "appliances",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model identifier with realistic retail noise: 'V12 Detect Slim'"
+    },
+    {
+      "id": "gold-pair-0120",
+      "offer": {
+        "title": "Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner [Limited Stock Offer]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://reliancedigital.in/p/120"
+      },
+      "expectedProductId": "prod-dyson-v12-detect-slim",
+      "category": "appliances",
+      "taxonomy": "exact_brand_model_noisy",
+      "description": "Exact Brand and Model with retailer promotional wrapper: 'Dyson V12 Detect Slim Total Clean Cordless Vacuum Cleaner'"
+    },
+    {
+      "id": "gold-pair-0121",
+      "offer": {
+        "title": "Apple iPhone 15 (512 GB) - Unofficial Import [Variant #1]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-0"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0122",
+      "offer": {
+        "title": "Apple iPhone 15 (1 TB) - Unofficial Import [Variant #2]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-1"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0123",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (512 GB) - Unofficial Import [Variant #3]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-2"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0124",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (1 TB) - Unofficial Import [Variant #4]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-3"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0125",
+      "offer": {
+        "title": "Apple iPhone 14 (512 GB) - Unofficial Import [Variant #5]",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://marketplace.com/trap-stor-4"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0126",
+      "offer": {
+        "title": "Apple iPhone 13 (256 GB) - Unofficial Import [Variant #6]",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://marketplace.com/trap-stor-5"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0127",
+      "offer": {
+        "title": "Apple iPhone 13 (512 GB) - Unofficial Import [Variant #7]",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://marketplace.com/trap-stor-6"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0128",
+      "offer": {
+        "title": "Samsung Galaxy S24 (128 GB) - Unofficial Import [Variant #8]",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://marketplace.com/trap-stor-7"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 128 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0129",
+      "offer": {
+        "title": "Samsung Galaxy S24 (512 GB) - Unofficial Import [Variant #9]",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://marketplace.com/trap-stor-8"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0130",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra (512 GB) - Unofficial Import [Variant #10]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://marketplace.com/trap-stor-9"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0131",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra (1 TB) - Unofficial Import [Variant #11]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://marketplace.com/trap-stor-10"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0132",
+      "offer": {
+        "title": "Samsung Galaxy S23 FE (256 GB) - Unofficial Import [Variant #12]",
+        "brand": "Samsung",
+        "model": "Galaxy S23 FE",
+        "sourceUrl": "https://marketplace.com/trap-stor-11"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0133",
+      "offer": {
+        "title": "OnePlus 12 (512 GB) - Unofficial Import [Variant #13]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12",
+        "sourceUrl": "https://marketplace.com/trap-stor-12"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0134",
+      "offer": {
+        "title": "OnePlus 12R (256 GB) - Unofficial Import [Variant #14]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12R",
+        "sourceUrl": "https://marketplace.com/trap-stor-13"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0135",
+      "offer": {
+        "title": "Google Pixel 8 (256 GB) - Unofficial Import [Variant #15]",
+        "brand": "Google",
+        "model": "Pixel 8",
+        "sourceUrl": "https://marketplace.com/trap-stor-14"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0136",
+      "offer": {
+        "title": "Google Pixel 8 Pro (256 GB) - Unofficial Import [Variant #16]",
+        "brand": "Google",
+        "model": "Pixel 8 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-15"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0137",
+      "offer": {
+        "title": "Apple MacBook Air (512 GB) - Unofficial Import [Variant #17]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://marketplace.com/trap-stor-16"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0138",
+      "offer": {
+        "title": "Apple MacBook Air (1 TB) - Unofficial Import [Variant #18]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://marketplace.com/trap-stor-17"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0139",
+      "offer": {
+        "title": "Apple MacBook Pro (1 TB) - Unofficial Import [Variant #19]",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-18"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0140",
+      "offer": {
+        "title": "Apple MacBook Pro (2 TB) - Unofficial Import [Variant #20]",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-19"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 2 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0141",
+      "offer": {
+        "title": "Apple iPhone 15 (512 GB) - Unofficial Import [Variant #21]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-20"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0142",
+      "offer": {
+        "title": "Apple iPhone 15 (1 TB) - Unofficial Import [Variant #22]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-21"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0143",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (512 GB) - Unofficial Import [Variant #23]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-22"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0144",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (1 TB) - Unofficial Import [Variant #24]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-23"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0145",
+      "offer": {
+        "title": "Apple iPhone 14 (512 GB) - Unofficial Import [Variant #25]",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://marketplace.com/trap-stor-24"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0146",
+      "offer": {
+        "title": "Apple iPhone 13 (256 GB) - Unofficial Import [Variant #26]",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://marketplace.com/trap-stor-25"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0147",
+      "offer": {
+        "title": "Apple iPhone 13 (512 GB) - Unofficial Import [Variant #27]",
+        "brand": "Apple",
+        "model": "iPhone 13",
+        "sourceUrl": "https://marketplace.com/trap-stor-26"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0148",
+      "offer": {
+        "title": "Samsung Galaxy S24 (128 GB) - Unofficial Import [Variant #28]",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://marketplace.com/trap-stor-27"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 128 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0149",
+      "offer": {
+        "title": "Samsung Galaxy S24 (512 GB) - Unofficial Import [Variant #29]",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://marketplace.com/trap-stor-28"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0150",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra (512 GB) - Unofficial Import [Variant #30]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://marketplace.com/trap-stor-29"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0151",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra (1 TB) - Unofficial Import [Variant #31]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://marketplace.com/trap-stor-30"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0152",
+      "offer": {
+        "title": "Samsung Galaxy S23 FE (256 GB) - Unofficial Import [Variant #32]",
+        "brand": "Samsung",
+        "model": "Galaxy S23 FE",
+        "sourceUrl": "https://marketplace.com/trap-stor-31"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0153",
+      "offer": {
+        "title": "OnePlus 12 (512 GB) - Unofficial Import [Variant #33]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12",
+        "sourceUrl": "https://marketplace.com/trap-stor-32"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0154",
+      "offer": {
+        "title": "OnePlus 12R (256 GB) - Unofficial Import [Variant #34]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12R",
+        "sourceUrl": "https://marketplace.com/trap-stor-33"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0155",
+      "offer": {
+        "title": "Google Pixel 8 (256 GB) - Unofficial Import [Variant #35]",
+        "brand": "Google",
+        "model": "Pixel 8",
+        "sourceUrl": "https://marketplace.com/trap-stor-34"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0156",
+      "offer": {
+        "title": "Google Pixel 8 Pro (256 GB) - Unofficial Import [Variant #36]",
+        "brand": "Google",
+        "model": "Pixel 8 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-35"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 256 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0157",
+      "offer": {
+        "title": "Apple MacBook Air (512 GB) - Unofficial Import [Variant #37]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://marketplace.com/trap-stor-36"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0158",
+      "offer": {
+        "title": "Apple MacBook Air (1 TB) - Unofficial Import [Variant #38]",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://marketplace.com/trap-stor-37"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0159",
+      "offer": {
+        "title": "Apple MacBook Pro (1 TB) - Unofficial Import [Variant #39]",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-38"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0160",
+      "offer": {
+        "title": "Apple MacBook Pro (2 TB) - Unofficial Import [Variant #40]",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-39"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 2 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0161",
+      "offer": {
+        "title": "Apple iPhone 15 (512 GB) - Unofficial Import [Variant #41]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-40"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0162",
+      "offer": {
+        "title": "Apple iPhone 15 (1 TB) - Unofficial Import [Variant #42]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://marketplace.com/trap-stor-41"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0163",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (512 GB) - Unofficial Import [Variant #43]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-42"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0164",
+      "offer": {
+        "title": "Apple iPhone 15 Pro (1 TB) - Unofficial Import [Variant #44]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro",
+        "sourceUrl": "https://marketplace.com/trap-stor-43"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 1 TB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0165",
+      "offer": {
+        "title": "Apple iPhone 14 (512 GB) - Unofficial Import [Variant #45]",
+        "brand": "Apple",
+        "model": "iPhone 14",
+        "sourceUrl": "https://marketplace.com/trap-stor-44"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "storage_mismatch_trap",
+      "description": "Adversarial Storage Mismatch: 512 GB capacity offer must NOT merge into catalog entity with different storage"
+    },
+    {
+      "id": "gold-pair-0166",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max (128 GB) - Natural Titanium [Retail Variation 1]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-0"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 15 Pro Max 128GB does not exist / must not merge into 256GB or Pro"
+    },
+    {
+      "id": "gold-pair-0167",
+      "offer": {
+        "title": "Apple iPhone 15 Ultra (256 GB) - Concept Edition [Retail Variation 2]",
+        "brand": "Apple",
+        "model": "iPhone 15 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-1"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Ultra modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0168",
+      "offer": {
+        "title": "Apple iPhone 15 Mini (128 GB) - Black [Retail Variation 3]",
+        "brand": "Apple",
+        "model": "iPhone 15 Mini",
+        "sourceUrl": "https://shopping.com/mod-trap-2"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Mini modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0169",
+      "offer": {
+        "title": "Apple iPhone 14 Pro (128 GB) - Space Black [Retail Variation 4]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro",
+        "sourceUrl": "https://shopping.com/mod-trap-3"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0170",
+      "offer": {
+        "title": "Apple iPhone 14 Pro Max (128 GB) - Deep Purple [Retail Variation 5]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-4"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro Max must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0171",
+      "offer": {
+        "title": "Samsung Galaxy S24 FE 5G (256 GB) - Blue [Retail Variation 6]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 FE",
+        "sourceUrl": "https://shopping.com/mod-trap-5"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Galaxy S24 FE must not merge into Galaxy S24 flagship"
+    },
+    {
+      "id": "gold-pair-0172",
+      "offer": {
+        "title": "Samsung Galaxy S24 Lite 5G (128 GB) - Black [Retail Variation 7]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-6"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into S24"
+    },
+    {
+      "id": "gold-pair-0173",
+      "offer": {
+        "title": "Google Pixel 8a 5G (128 GB) - Bay Blue [Retail Variation 8]",
+        "brand": "Google",
+        "model": "Pixel 8a",
+        "sourceUrl": "https://shopping.com/mod-trap-7"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Pixel 8a budget tier must not merge into Pixel 8"
+    },
+    {
+      "id": "gold-pair-0174",
+      "offer": {
+        "title": "OnePlus 12 Lite 5G (128 GB) - Silver [Retail Variation 9]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-8"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into OnePlus 12"
+    },
+    {
+      "id": "gold-pair-0175",
+      "offer": {
+        "title": "Apple Watch Series 9 Ultra 49mm [Retail Variation 10]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-9"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Hybrid hallucinated model name must not merge into S9 or Ultra 2"
+    },
+    {
+      "id": "gold-pair-0176",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max (128 GB) - Natural Titanium [Retail Variation 11]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-10"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 15 Pro Max 128GB does not exist / must not merge into 256GB or Pro"
+    },
+    {
+      "id": "gold-pair-0177",
+      "offer": {
+        "title": "Apple iPhone 15 Ultra (256 GB) - Concept Edition [Retail Variation 12]",
+        "brand": "Apple",
+        "model": "iPhone 15 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-11"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Ultra modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0178",
+      "offer": {
+        "title": "Apple iPhone 15 Mini (128 GB) - Black [Retail Variation 13]",
+        "brand": "Apple",
+        "model": "iPhone 15 Mini",
+        "sourceUrl": "https://shopping.com/mod-trap-12"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Mini modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0179",
+      "offer": {
+        "title": "Apple iPhone 14 Pro (128 GB) - Space Black [Retail Variation 14]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro",
+        "sourceUrl": "https://shopping.com/mod-trap-13"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0180",
+      "offer": {
+        "title": "Apple iPhone 14 Pro Max (128 GB) - Deep Purple [Retail Variation 15]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-14"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro Max must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0181",
+      "offer": {
+        "title": "Samsung Galaxy S24 FE 5G (256 GB) - Blue [Retail Variation 16]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 FE",
+        "sourceUrl": "https://shopping.com/mod-trap-15"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Galaxy S24 FE must not merge into Galaxy S24 flagship"
+    },
+    {
+      "id": "gold-pair-0182",
+      "offer": {
+        "title": "Samsung Galaxy S24 Lite 5G (128 GB) - Black [Retail Variation 17]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-16"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into S24"
+    },
+    {
+      "id": "gold-pair-0183",
+      "offer": {
+        "title": "Google Pixel 8a 5G (128 GB) - Bay Blue [Retail Variation 18]",
+        "brand": "Google",
+        "model": "Pixel 8a",
+        "sourceUrl": "https://shopping.com/mod-trap-17"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Pixel 8a budget tier must not merge into Pixel 8"
+    },
+    {
+      "id": "gold-pair-0184",
+      "offer": {
+        "title": "OnePlus 12 Lite 5G (128 GB) - Silver [Retail Variation 19]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-18"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into OnePlus 12"
+    },
+    {
+      "id": "gold-pair-0185",
+      "offer": {
+        "title": "Apple Watch Series 9 Ultra 49mm [Retail Variation 20]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-19"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Hybrid hallucinated model name must not merge into S9 or Ultra 2"
+    },
+    {
+      "id": "gold-pair-0186",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max (128 GB) - Natural Titanium [Retail Variation 21]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-20"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 15 Pro Max 128GB does not exist / must not merge into 256GB or Pro"
+    },
+    {
+      "id": "gold-pair-0187",
+      "offer": {
+        "title": "Apple iPhone 15 Ultra (256 GB) - Concept Edition [Retail Variation 22]",
+        "brand": "Apple",
+        "model": "iPhone 15 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-21"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Ultra modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0188",
+      "offer": {
+        "title": "Apple iPhone 15 Mini (128 GB) - Black [Retail Variation 23]",
+        "brand": "Apple",
+        "model": "iPhone 15 Mini",
+        "sourceUrl": "https://shopping.com/mod-trap-22"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Mini modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0189",
+      "offer": {
+        "title": "Apple iPhone 14 Pro (128 GB) - Space Black [Retail Variation 24]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro",
+        "sourceUrl": "https://shopping.com/mod-trap-23"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0190",
+      "offer": {
+        "title": "Apple iPhone 14 Pro Max (128 GB) - Deep Purple [Retail Variation 25]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-24"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro Max must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0191",
+      "offer": {
+        "title": "Samsung Galaxy S24 FE 5G (256 GB) - Blue [Retail Variation 26]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 FE",
+        "sourceUrl": "https://shopping.com/mod-trap-25"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Galaxy S24 FE must not merge into Galaxy S24 flagship"
+    },
+    {
+      "id": "gold-pair-0192",
+      "offer": {
+        "title": "Samsung Galaxy S24 Lite 5G (128 GB) - Black [Retail Variation 27]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-26"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into S24"
+    },
+    {
+      "id": "gold-pair-0193",
+      "offer": {
+        "title": "Google Pixel 8a 5G (128 GB) - Bay Blue [Retail Variation 28]",
+        "brand": "Google",
+        "model": "Pixel 8a",
+        "sourceUrl": "https://shopping.com/mod-trap-27"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Pixel 8a budget tier must not merge into Pixel 8"
+    },
+    {
+      "id": "gold-pair-0194",
+      "offer": {
+        "title": "OnePlus 12 Lite 5G (128 GB) - Silver [Retail Variation 29]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-28"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into OnePlus 12"
+    },
+    {
+      "id": "gold-pair-0195",
+      "offer": {
+        "title": "Apple Watch Series 9 Ultra 49mm [Retail Variation 30]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-29"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Hybrid hallucinated model name must not merge into S9 or Ultra 2"
+    },
+    {
+      "id": "gold-pair-0196",
+      "offer": {
+        "title": "Apple iPhone 15 Pro Max (128 GB) - Natural Titanium [Retail Variation 31]",
+        "brand": "Apple",
+        "model": "iPhone 15 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-30"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 15 Pro Max 128GB does not exist / must not merge into 256GB or Pro"
+    },
+    {
+      "id": "gold-pair-0197",
+      "offer": {
+        "title": "Apple iPhone 15 Ultra (256 GB) - Concept Edition [Retail Variation 32]",
+        "brand": "Apple",
+        "model": "iPhone 15 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-31"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Ultra modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0198",
+      "offer": {
+        "title": "Apple iPhone 15 Mini (128 GB) - Black [Retail Variation 33]",
+        "brand": "Apple",
+        "model": "iPhone 15 Mini",
+        "sourceUrl": "https://shopping.com/mod-trap-32"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Mini modifier must not merge into base iPhone 15"
+    },
+    {
+      "id": "gold-pair-0199",
+      "offer": {
+        "title": "Apple iPhone 14 Pro (128 GB) - Space Black [Retail Variation 34]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro",
+        "sourceUrl": "https://shopping.com/mod-trap-33"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0200",
+      "offer": {
+        "title": "Apple iPhone 14 Pro Max (128 GB) - Deep Purple [Retail Variation 35]",
+        "brand": "Apple",
+        "model": "iPhone 14 Pro Max",
+        "sourceUrl": "https://shopping.com/mod-trap-34"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: iPhone 14 Pro Max must not merge into iPhone 14 base"
+    },
+    {
+      "id": "gold-pair-0201",
+      "offer": {
+        "title": "Samsung Galaxy S24 FE 5G (256 GB) - Blue [Retail Variation 36]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 FE",
+        "sourceUrl": "https://shopping.com/mod-trap-35"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Galaxy S24 FE must not merge into Galaxy S24 flagship"
+    },
+    {
+      "id": "gold-pair-0202",
+      "offer": {
+        "title": "Samsung Galaxy S24 Lite 5G (128 GB) - Black [Retail Variation 37]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-36"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into S24"
+    },
+    {
+      "id": "gold-pair-0203",
+      "offer": {
+        "title": "Google Pixel 8a 5G (128 GB) - Bay Blue [Retail Variation 38]",
+        "brand": "Google",
+        "model": "Pixel 8a",
+        "sourceUrl": "https://shopping.com/mod-trap-37"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Pixel 8a budget tier must not merge into Pixel 8"
+    },
+    {
+      "id": "gold-pair-0204",
+      "offer": {
+        "title": "OnePlus 12 Lite 5G (128 GB) - Silver [Retail Variation 39]",
+        "brand": "OnePlus",
+        "model": "OnePlus 12 Lite",
+        "sourceUrl": "https://shopping.com/mod-trap-38"
+      },
+      "expectedProductId": null,
+      "category": "smartphones",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Lite modifier must not merge into OnePlus 12"
+    },
+    {
+      "id": "gold-pair-0205",
+      "offer": {
+        "title": "Apple Watch Series 9 Ultra 49mm [Retail Variation 40]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9 Ultra",
+        "sourceUrl": "https://shopping.com/mod-trap-39"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "model_modifier_trap",
+      "description": "Adversarial Model Modifier: Hybrid hallucinated model name must not merge into S9 or Ultra 2"
+    },
+    {
+      "id": "gold-pair-0206",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M1 Chip (256 GB) - Gold - Batch #1",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-0"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M1 must not merge into M2 or M3 catalog"
+    },
+    {
+      "id": "gold-pair-0207",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M4 Chip (256 GB) - Space Black - Batch #2",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-1"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M4 must not merge into M2/M3 catalog"
+    },
+    {
+      "id": "gold-pair-0208",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M2 Chip (512 GB) - Silver - Batch #3",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-2"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M2 must not merge into M3 catalog"
+    },
+    {
+      "id": "gold-pair-0209",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M3 Pro Chip (512 GB) - Space Black - Batch #4",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-3"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M3 Pro tier must not merge into base M3"
+    },
+    {
+      "id": "gold-pair-0210",
+      "offer": {
+        "title": "Apple Watch Series 8 GPS 45mm - Starlight Aluminium - Batch #5",
+        "brand": "Apple",
+        "model": "Apple Watch Series 8",
+        "sourceUrl": "https://gadgets.com/gen-trap-4"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 8 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0211",
+      "offer": {
+        "title": "Apple Watch Series 7 GPS 45mm - Green Aluminium - Batch #6",
+        "brand": "Apple",
+        "model": "Apple Watch Series 7",
+        "sourceUrl": "https://gadgets.com/gen-trap-5"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 7 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0212",
+      "offer": {
+        "title": "Apple Watch Ultra 1st Gen GPS + Cellular 49mm - Batch #7",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra",
+        "sourceUrl": "https://gadgets.com/gen-trap-6"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Ultra 1st Gen must not merge into Ultra 2"
+    },
+    {
+      "id": "gold-pair-0213",
+      "offer": {
+        "title": "Sony WH-1000XM3 Wireless Noise Cancelling Headphones - Batch #8",
+        "brand": "Sony",
+        "model": "WH-1000XM3",
+        "sourceUrl": "https://gadgets.com/gen-trap-7"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Sony XM3 must not merge into XM4 or XM5"
+    },
+    {
+      "id": "gold-pair-0214",
+      "offer": {
+        "title": "Apple AirPods Pro (1st Generation) with Wireless Charging Case - Batch #9",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-8"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 1st Gen must not merge into AirPods Pro 2nd Gen"
+    },
+    {
+      "id": "gold-pair-0215",
+      "offer": {
+        "title": "Apple AirPods Pro (3rd Generation) Concept Edition - Batch #10",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-9"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 3rd Gen must not merge into AirPods Pro 2"
+    },
+    {
+      "id": "gold-pair-0216",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M1 Chip (256 GB) - Gold - Batch #11",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-10"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M1 must not merge into M2 or M3 catalog"
+    },
+    {
+      "id": "gold-pair-0217",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M4 Chip (256 GB) - Space Black - Batch #12",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-11"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M4 must not merge into M2/M3 catalog"
+    },
+    {
+      "id": "gold-pair-0218",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M2 Chip (512 GB) - Silver - Batch #13",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-12"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M2 must not merge into M3 catalog"
+    },
+    {
+      "id": "gold-pair-0219",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M3 Pro Chip (512 GB) - Space Black - Batch #14",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-13"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M3 Pro tier must not merge into base M3"
+    },
+    {
+      "id": "gold-pair-0220",
+      "offer": {
+        "title": "Apple Watch Series 8 GPS 45mm - Starlight Aluminium - Batch #15",
+        "brand": "Apple",
+        "model": "Apple Watch Series 8",
+        "sourceUrl": "https://gadgets.com/gen-trap-14"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 8 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0221",
+      "offer": {
+        "title": "Apple Watch Series 7 GPS 45mm - Green Aluminium - Batch #16",
+        "brand": "Apple",
+        "model": "Apple Watch Series 7",
+        "sourceUrl": "https://gadgets.com/gen-trap-15"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 7 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0222",
+      "offer": {
+        "title": "Apple Watch Ultra 1st Gen GPS + Cellular 49mm - Batch #17",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra",
+        "sourceUrl": "https://gadgets.com/gen-trap-16"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Ultra 1st Gen must not merge into Ultra 2"
+    },
+    {
+      "id": "gold-pair-0223",
+      "offer": {
+        "title": "Sony WH-1000XM3 Wireless Noise Cancelling Headphones - Batch #18",
+        "brand": "Sony",
+        "model": "WH-1000XM3",
+        "sourceUrl": "https://gadgets.com/gen-trap-17"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Sony XM3 must not merge into XM4 or XM5"
+    },
+    {
+      "id": "gold-pair-0224",
+      "offer": {
+        "title": "Apple AirPods Pro (1st Generation) with Wireless Charging Case - Batch #19",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-18"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 1st Gen must not merge into AirPods Pro 2nd Gen"
+    },
+    {
+      "id": "gold-pair-0225",
+      "offer": {
+        "title": "Apple AirPods Pro (3rd Generation) Concept Edition - Batch #20",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-19"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 3rd Gen must not merge into AirPods Pro 2"
+    },
+    {
+      "id": "gold-pair-0226",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M1 Chip (256 GB) - Gold - Batch #21",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-20"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M1 must not merge into M2 or M3 catalog"
+    },
+    {
+      "id": "gold-pair-0227",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M4 Chip (256 GB) - Space Black - Batch #22",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-21"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M4 must not merge into M2/M3 catalog"
+    },
+    {
+      "id": "gold-pair-0228",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M2 Chip (512 GB) - Silver - Batch #23",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-22"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M2 must not merge into M3 catalog"
+    },
+    {
+      "id": "gold-pair-0229",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M3 Pro Chip (512 GB) - Space Black - Batch #24",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-23"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M3 Pro tier must not merge into base M3"
+    },
+    {
+      "id": "gold-pair-0230",
+      "offer": {
+        "title": "Apple Watch Series 8 GPS 45mm - Starlight Aluminium - Batch #25",
+        "brand": "Apple",
+        "model": "Apple Watch Series 8",
+        "sourceUrl": "https://gadgets.com/gen-trap-24"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 8 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0231",
+      "offer": {
+        "title": "Apple Watch Series 7 GPS 45mm - Green Aluminium - Batch #26",
+        "brand": "Apple",
+        "model": "Apple Watch Series 7",
+        "sourceUrl": "https://gadgets.com/gen-trap-25"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 7 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0232",
+      "offer": {
+        "title": "Apple Watch Ultra 1st Gen GPS + Cellular 49mm - Batch #27",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra",
+        "sourceUrl": "https://gadgets.com/gen-trap-26"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Ultra 1st Gen must not merge into Ultra 2"
+    },
+    {
+      "id": "gold-pair-0233",
+      "offer": {
+        "title": "Sony WH-1000XM3 Wireless Noise Cancelling Headphones - Batch #28",
+        "brand": "Sony",
+        "model": "WH-1000XM3",
+        "sourceUrl": "https://gadgets.com/gen-trap-27"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Sony XM3 must not merge into XM4 or XM5"
+    },
+    {
+      "id": "gold-pair-0234",
+      "offer": {
+        "title": "Apple AirPods Pro (1st Generation) with Wireless Charging Case - Batch #29",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-28"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 1st Gen must not merge into AirPods Pro 2nd Gen"
+    },
+    {
+      "id": "gold-pair-0235",
+      "offer": {
+        "title": "Apple AirPods Pro (3rd Generation) Concept Edition - Batch #30",
+        "brand": "Apple",
+        "model": "AirPods Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-29"
+      },
+      "expectedProductId": null,
+      "category": "audio",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: AirPods Pro 3rd Gen must not merge into AirPods Pro 2"
+    },
+    {
+      "id": "gold-pair-0236",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M1 Chip (256 GB) - Gold - Batch #31",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-30"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M1 must not merge into M2 or M3 catalog"
+    },
+    {
+      "id": "gold-pair-0237",
+      "offer": {
+        "title": "Apple MacBook Air 13.6-inch M4 Chip (256 GB) - Space Black - Batch #32",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://gadgets.com/gen-trap-31"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Air M4 must not merge into M2/M3 catalog"
+    },
+    {
+      "id": "gold-pair-0238",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M2 Chip (512 GB) - Silver - Batch #33",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-32"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M2 must not merge into M3 catalog"
+    },
+    {
+      "id": "gold-pair-0239",
+      "offer": {
+        "title": "Apple MacBook Pro 14-inch M3 Pro Chip (512 GB) - Space Black - Batch #34",
+        "brand": "Apple",
+        "model": "MacBook Pro",
+        "sourceUrl": "https://gadgets.com/gen-trap-33"
+      },
+      "expectedProductId": null,
+      "category": "laptops",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: MacBook Pro M3 Pro tier must not merge into base M3"
+    },
+    {
+      "id": "gold-pair-0240",
+      "offer": {
+        "title": "Apple Watch Series 8 GPS 45mm - Starlight Aluminium - Batch #35",
+        "brand": "Apple",
+        "model": "Apple Watch Series 8",
+        "sourceUrl": "https://gadgets.com/gen-trap-34"
+      },
+      "expectedProductId": null,
+      "category": "wearables",
+      "taxonomy": "generation_mismatch_trap",
+      "description": "Adversarial Generation Trap: Series 8 must not merge into Series 9 catalog"
+    },
+    {
+      "id": "gold-pair-0241",
+      "offer": {
+        "title": "Spigen Rugged Armor Case for Apple iPhone 15 (Black) [Accessory Listing #1]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC0"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Spigen Rugged Armor Case for Apple iPhone 15 (Black)'"
+    },
+    {
+      "id": "gold-pair-0242",
+      "offer": {
+        "title": "Apple iPhone 15 Silicone Case with MagSafe - Storm Blue [Accessory Listing #2]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://amazon.in/dp/B0ACC1"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Apple iPhone 15 Silicone Case with MagSafe - Storm Blue'"
+    },
+    {
+      "id": "gold-pair-0243",
+      "offer": {
+        "title": "Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack) [Accessory Listing #3]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC2"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack)'"
+    },
+    {
+      "id": "gold-pair-0244",
+      "offer": {
+        "title": "ESR Camera Lens Protector for Apple iPhone 15 Pro Max [Accessory Listing #4]",
+        "brand": "ESR",
+        "sourceUrl": "https://amazon.in/dp/B0ACC3"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'ESR Camera Lens Protector for Apple iPhone 15 Pro Max'"
+    },
+    {
+      "id": "gold-pair-0245",
+      "offer": {
+        "title": "Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra [Accessory Listing #5]",
+        "brand": "Ringke",
+        "sourceUrl": "https://amazon.in/dp/B0ACC4"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0246",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra Smart View Wallet Case - Black [Accessory Listing #6]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://amazon.in/dp/B0ACC5"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Samsung Galaxy S24 Ultra Smart View Wallet Case - Black'"
+    },
+    {
+      "id": "gold-pair-0247",
+      "offer": {
+        "title": "Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones [Accessory Listing #7]",
+        "brand": "Geekria",
+        "sourceUrl": "https://amazon.in/dp/B0ACC6"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones'"
+    },
+    {
+      "id": "gold-pair-0248",
+      "offer": {
+        "title": "Cooling Gel Earpad Replacement for Sony WH-1000XM4 [Accessory Listing #8]",
+        "brand": "Wicked Cushions",
+        "sourceUrl": "https://amazon.in/dp/B0ACC7"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Cooling Gel Earpad Replacement for Sony WH-1000XM4'"
+    },
+    {
+      "id": "gold-pair-0249",
+      "offer": {
+        "title": "Silicone Protective Case Sleeve for Apple AirPods Pro 2 [Accessory Listing #9]",
+        "brand": "Elago",
+        "sourceUrl": "https://amazon.in/dp/B0ACC8"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Silicone Protective Case Sleeve for Apple AirPods Pro 2'"
+    },
+    {
+      "id": "gold-pair-0250",
+      "offer": {
+        "title": "Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2 [Accessory Listing #10]",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra 2",
+        "sourceUrl": "https://amazon.in/dp/B0ACC9"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2'"
+    },
+    {
+      "id": "gold-pair-0251",
+      "offer": {
+        "title": "Sport Band 45mm Midnight for Apple Watch Series 9 [Accessory Listing #11]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9",
+        "sourceUrl": "https://amazon.in/dp/B0ACC10"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Sport Band 45mm Midnight for Apple Watch Series 9'"
+    },
+    {
+      "id": "gold-pair-0252",
+      "offer": {
+        "title": "Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2 [Accessory Listing #12]",
+        "brand": "Incase",
+        "sourceUrl": "https://amazon.in/dp/B0ACC11"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2'"
+    },
+    {
+      "id": "gold-pair-0253",
+      "offer": {
+        "title": "Keyboard Protector Skin Film for Apple MacBook Pro 14 M3 [Accessory Listing #13]",
+        "brand": "Mosiso",
+        "sourceUrl": "https://amazon.in/dp/B0ACC12"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Keyboard Protector Skin Film for Apple MacBook Pro 14 M3'"
+    },
+    {
+      "id": "gold-pair-0254",
+      "offer": {
+        "title": "Dyson V12 Replacement Filter and HEPA Kit [Accessory Listing #14]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC13"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Dyson V12 Replacement Filter and HEPA Kit'"
+    },
+    {
+      "id": "gold-pair-0255",
+      "offer": {
+        "title": "Motorhead Cleaner Brush Replacement for Dyson V12 [Accessory Listing #15]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC14"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Motorhead Cleaner Brush Replacement for Dyson V12'"
+    },
+    {
+      "id": "gold-pair-0256",
+      "offer": {
+        "title": "Spigen Rugged Armor Case for Apple iPhone 15 (Black) [Accessory Listing #16]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC15"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Spigen Rugged Armor Case for Apple iPhone 15 (Black)'"
+    },
+    {
+      "id": "gold-pair-0257",
+      "offer": {
+        "title": "Apple iPhone 15 Silicone Case with MagSafe - Storm Blue [Accessory Listing #17]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://amazon.in/dp/B0ACC16"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Apple iPhone 15 Silicone Case with MagSafe - Storm Blue'"
+    },
+    {
+      "id": "gold-pair-0258",
+      "offer": {
+        "title": "Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack) [Accessory Listing #18]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC17"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack)'"
+    },
+    {
+      "id": "gold-pair-0259",
+      "offer": {
+        "title": "ESR Camera Lens Protector for Apple iPhone 15 Pro Max [Accessory Listing #19]",
+        "brand": "ESR",
+        "sourceUrl": "https://amazon.in/dp/B0ACC18"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'ESR Camera Lens Protector for Apple iPhone 15 Pro Max'"
+    },
+    {
+      "id": "gold-pair-0260",
+      "offer": {
+        "title": "Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra [Accessory Listing #20]",
+        "brand": "Ringke",
+        "sourceUrl": "https://amazon.in/dp/B0ACC19"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0261",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra Smart View Wallet Case - Black [Accessory Listing #21]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://amazon.in/dp/B0ACC20"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Samsung Galaxy S24 Ultra Smart View Wallet Case - Black'"
+    },
+    {
+      "id": "gold-pair-0262",
+      "offer": {
+        "title": "Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones [Accessory Listing #22]",
+        "brand": "Geekria",
+        "sourceUrl": "https://amazon.in/dp/B0ACC21"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones'"
+    },
+    {
+      "id": "gold-pair-0263",
+      "offer": {
+        "title": "Cooling Gel Earpad Replacement for Sony WH-1000XM4 [Accessory Listing #23]",
+        "brand": "Wicked Cushions",
+        "sourceUrl": "https://amazon.in/dp/B0ACC22"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Cooling Gel Earpad Replacement for Sony WH-1000XM4'"
+    },
+    {
+      "id": "gold-pair-0264",
+      "offer": {
+        "title": "Silicone Protective Case Sleeve for Apple AirPods Pro 2 [Accessory Listing #24]",
+        "brand": "Elago",
+        "sourceUrl": "https://amazon.in/dp/B0ACC23"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Silicone Protective Case Sleeve for Apple AirPods Pro 2'"
+    },
+    {
+      "id": "gold-pair-0265",
+      "offer": {
+        "title": "Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2 [Accessory Listing #25]",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra 2",
+        "sourceUrl": "https://amazon.in/dp/B0ACC24"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2'"
+    },
+    {
+      "id": "gold-pair-0266",
+      "offer": {
+        "title": "Sport Band 45mm Midnight for Apple Watch Series 9 [Accessory Listing #26]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9",
+        "sourceUrl": "https://amazon.in/dp/B0ACC25"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Sport Band 45mm Midnight for Apple Watch Series 9'"
+    },
+    {
+      "id": "gold-pair-0267",
+      "offer": {
+        "title": "Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2 [Accessory Listing #27]",
+        "brand": "Incase",
+        "sourceUrl": "https://amazon.in/dp/B0ACC26"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2'"
+    },
+    {
+      "id": "gold-pair-0268",
+      "offer": {
+        "title": "Keyboard Protector Skin Film for Apple MacBook Pro 14 M3 [Accessory Listing #28]",
+        "brand": "Mosiso",
+        "sourceUrl": "https://amazon.in/dp/B0ACC27"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Keyboard Protector Skin Film for Apple MacBook Pro 14 M3'"
+    },
+    {
+      "id": "gold-pair-0269",
+      "offer": {
+        "title": "Dyson V12 Replacement Filter and HEPA Kit [Accessory Listing #29]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC28"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Dyson V12 Replacement Filter and HEPA Kit'"
+    },
+    {
+      "id": "gold-pair-0270",
+      "offer": {
+        "title": "Motorhead Cleaner Brush Replacement for Dyson V12 [Accessory Listing #30]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC29"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Motorhead Cleaner Brush Replacement for Dyson V12'"
+    },
+    {
+      "id": "gold-pair-0271",
+      "offer": {
+        "title": "Spigen Rugged Armor Case for Apple iPhone 15 (Black) [Accessory Listing #31]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC30"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Spigen Rugged Armor Case for Apple iPhone 15 (Black)'"
+    },
+    {
+      "id": "gold-pair-0272",
+      "offer": {
+        "title": "Apple iPhone 15 Silicone Case with MagSafe - Storm Blue [Accessory Listing #32]",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://amazon.in/dp/B0ACC31"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Apple iPhone 15 Silicone Case with MagSafe - Storm Blue'"
+    },
+    {
+      "id": "gold-pair-0273",
+      "offer": {
+        "title": "Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack) [Accessory Listing #33]",
+        "brand": "Spigen",
+        "sourceUrl": "https://amazon.in/dp/B0ACC32"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Tempered Glass Screen Protector for Apple iPhone 15 (2-Pack)'"
+    },
+    {
+      "id": "gold-pair-0274",
+      "offer": {
+        "title": "ESR Camera Lens Protector for Apple iPhone 15 Pro Max [Accessory Listing #34]",
+        "brand": "ESR",
+        "sourceUrl": "https://amazon.in/dp/B0ACC33"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'ESR Camera Lens Protector for Apple iPhone 15 Pro Max'"
+    },
+    {
+      "id": "gold-pair-0275",
+      "offer": {
+        "title": "Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra [Accessory Listing #35]",
+        "brand": "Ringke",
+        "sourceUrl": "https://amazon.in/dp/B0ACC34"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Ringke Fusion Magnetic Clear Cover for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0276",
+      "offer": {
+        "title": "Samsung Galaxy S24 Ultra Smart View Wallet Case - Black [Accessory Listing #36]",
+        "brand": "Samsung",
+        "model": "Galaxy S24 Ultra",
+        "sourceUrl": "https://amazon.in/dp/B0ACC35"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Samsung Galaxy S24 Ultra Smart View Wallet Case - Black'"
+    },
+    {
+      "id": "gold-pair-0277",
+      "offer": {
+        "title": "Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones [Accessory Listing #37]",
+        "brand": "Geekria",
+        "sourceUrl": "https://amazon.in/dp/B0ACC36"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Replacement Ear Cushions Earpads for Sony WH-1000XM5 Headphones'"
+    },
+    {
+      "id": "gold-pair-0278",
+      "offer": {
+        "title": "Cooling Gel Earpad Replacement for Sony WH-1000XM4 [Accessory Listing #38]",
+        "brand": "Wicked Cushions",
+        "sourceUrl": "https://amazon.in/dp/B0ACC37"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Cooling Gel Earpad Replacement for Sony WH-1000XM4'"
+    },
+    {
+      "id": "gold-pair-0279",
+      "offer": {
+        "title": "Silicone Protective Case Sleeve for Apple AirPods Pro 2 [Accessory Listing #39]",
+        "brand": "Elago",
+        "sourceUrl": "https://amazon.in/dp/B0ACC38"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Silicone Protective Case Sleeve for Apple AirPods Pro 2'"
+    },
+    {
+      "id": "gold-pair-0280",
+      "offer": {
+        "title": "Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2 [Accessory Listing #40]",
+        "brand": "Apple",
+        "model": "Apple Watch Ultra 2",
+        "sourceUrl": "https://amazon.in/dp/B0ACC39"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Alpine Loop Nylon Band Strap 49mm for Apple Watch Ultra 2'"
+    },
+    {
+      "id": "gold-pair-0281",
+      "offer": {
+        "title": "Sport Band 45mm Midnight for Apple Watch Series 9 [Accessory Listing #41]",
+        "brand": "Apple",
+        "model": "Apple Watch Series 9",
+        "sourceUrl": "https://amazon.in/dp/B0ACC40"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Sport Band 45mm Midnight for Apple Watch Series 9'"
+    },
+    {
+      "id": "gold-pair-0282",
+      "offer": {
+        "title": "Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2 [Accessory Listing #42]",
+        "brand": "Incase",
+        "sourceUrl": "https://amazon.in/dp/B0ACC41"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Incase Hardshell Protective Case for Apple MacBook Air 13.6-inch M2'"
+    },
+    {
+      "id": "gold-pair-0283",
+      "offer": {
+        "title": "Keyboard Protector Skin Film for Apple MacBook Pro 14 M3 [Accessory Listing #43]",
+        "brand": "Mosiso",
+        "sourceUrl": "https://amazon.in/dp/B0ACC42"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Keyboard Protector Skin Film for Apple MacBook Pro 14 M3'"
+    },
+    {
+      "id": "gold-pair-0284",
+      "offer": {
+        "title": "Dyson V12 Replacement Filter and HEPA Kit [Accessory Listing #44]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC43"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Dyson V12 Replacement Filter and HEPA Kit'"
+    },
+    {
+      "id": "gold-pair-0285",
+      "offer": {
+        "title": "Motorhead Cleaner Brush Replacement for Dyson V12 [Accessory Listing #45]",
+        "brand": "Dyson",
+        "model": "V12 Detect Slim",
+        "sourceUrl": "https://amazon.in/dp/B0ACC44"
+      },
+      "expectedProductId": null,
+      "category": "accessories",
+      "taxonomy": "accessory_trap",
+      "description": "Accessory Trap: An accessory/cover/protector must NEVER merge into the device catalog item: 'Motorhead Cleaner Brush Replacement for Dyson V12'"
+    },
+    {
+      "id": "gold-pair-0286",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition) (Verified Seller Listing 1)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "ean": "0195949038289",
+        "sourceUrl": "https://cashify.in/refurb-0"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition)'"
+    },
+    {
+      "id": "gold-pair-0287",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium] (Verified Seller Listing 2)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://cashify.in/refurb-1"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium]'"
+    },
+    {
+      "id": "gold-pair-0288",
+      "offer": {
+        "title": "Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished (Verified Seller Listing 3)",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://cashify.in/refurb-2"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished'"
+    },
+    {
+      "id": "gold-pair-0289",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Open Box Return (Verified Seller Listing 4)",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://cashify.in/refurb-3"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Samsung Galaxy S24 5G (256 GB) - Open Box Return'"
+    },
+    {
+      "id": "gold-pair-0290",
+      "offer": {
+        "title": "Apple MacBook Air 13.6 M2 - Pre-Owned Grade A (Verified Seller Listing 5)",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://cashify.in/refurb-4"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple MacBook Air 13.6 M2 - Pre-Owned Grade A'"
+    },
+    {
+      "id": "gold-pair-0291",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Headphones - Used Like New (Verified Seller Listing 6)",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://cashify.in/refurb-5"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Bose QuietComfort Ultra Headphones - Used Like New'"
+    },
+    {
+      "id": "gold-pair-0292",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition) (Verified Seller Listing 7)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "ean": "0195949038289",
+        "sourceUrl": "https://cashify.in/refurb-6"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition)'"
+    },
+    {
+      "id": "gold-pair-0293",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium] (Verified Seller Listing 8)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://cashify.in/refurb-7"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium]'"
+    },
+    {
+      "id": "gold-pair-0294",
+      "offer": {
+        "title": "Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished (Verified Seller Listing 9)",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://cashify.in/refurb-8"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished'"
+    },
+    {
+      "id": "gold-pair-0295",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Open Box Return (Verified Seller Listing 10)",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://cashify.in/refurb-9"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Samsung Galaxy S24 5G (256 GB) - Open Box Return'"
+    },
+    {
+      "id": "gold-pair-0296",
+      "offer": {
+        "title": "Apple MacBook Air 13.6 M2 - Pre-Owned Grade A (Verified Seller Listing 11)",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://cashify.in/refurb-10"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple MacBook Air 13.6 M2 - Pre-Owned Grade A'"
+    },
+    {
+      "id": "gold-pair-0297",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Headphones - Used Like New (Verified Seller Listing 12)",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://cashify.in/refurb-11"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Bose QuietComfort Ultra Headphones - Used Like New'"
+    },
+    {
+      "id": "gold-pair-0298",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition) (Verified Seller Listing 13)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "ean": "0195949038289",
+        "sourceUrl": "https://cashify.in/refurb-12"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition)'"
+    },
+    {
+      "id": "gold-pair-0299",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium] (Verified Seller Listing 14)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://cashify.in/refurb-13"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium]'"
+    },
+    {
+      "id": "gold-pair-0300",
+      "offer": {
+        "title": "Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished (Verified Seller Listing 15)",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://cashify.in/refurb-14"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished'"
+    },
+    {
+      "id": "gold-pair-0301",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Open Box Return (Verified Seller Listing 16)",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://cashify.in/refurb-15"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Samsung Galaxy S24 5G (256 GB) - Open Box Return'"
+    },
+    {
+      "id": "gold-pair-0302",
+      "offer": {
+        "title": "Apple MacBook Air 13.6 M2 - Pre-Owned Grade A (Verified Seller Listing 17)",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://cashify.in/refurb-16"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple MacBook Air 13.6 M2 - Pre-Owned Grade A'"
+    },
+    {
+      "id": "gold-pair-0303",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Headphones - Used Like New (Verified Seller Listing 18)",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://cashify.in/refurb-17"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Bose QuietComfort Ultra Headphones - Used Like New'"
+    },
+    {
+      "id": "gold-pair-0304",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition) (Verified Seller Listing 19)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "ean": "0195949038289",
+        "sourceUrl": "https://cashify.in/refurb-18"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition)'"
+    },
+    {
+      "id": "gold-pair-0305",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium] (Verified Seller Listing 20)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://cashify.in/refurb-19"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium]'"
+    },
+    {
+      "id": "gold-pair-0306",
+      "offer": {
+        "title": "Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished (Verified Seller Listing 21)",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://cashify.in/refurb-20"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished'"
+    },
+    {
+      "id": "gold-pair-0307",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Open Box Return (Verified Seller Listing 22)",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://cashify.in/refurb-21"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Samsung Galaxy S24 5G (256 GB) - Open Box Return'"
+    },
+    {
+      "id": "gold-pair-0308",
+      "offer": {
+        "title": "Apple MacBook Air 13.6 M2 - Pre-Owned Grade A (Verified Seller Listing 23)",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://cashify.in/refurb-22"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple MacBook Air 13.6 M2 - Pre-Owned Grade A'"
+    },
+    {
+      "id": "gold-pair-0309",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Headphones - Used Like New (Verified Seller Listing 24)",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://cashify.in/refurb-23"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Bose QuietComfort Ultra Headphones - Used Like New'"
+    },
+    {
+      "id": "gold-pair-0310",
+      "offer": {
+        "title": "Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition) (Verified Seller Listing 25)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "ean": "0195949038289",
+        "sourceUrl": "https://cashify.in/refurb-24"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (128 GB) - Black (Refurbished - Very Good Condition)'"
+    },
+    {
+      "id": "gold-pair-0311",
+      "offer": {
+        "title": "Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium] (Verified Seller Listing 26)",
+        "brand": "Apple",
+        "model": "iPhone 15",
+        "sourceUrl": "https://cashify.in/refurb-25"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple iPhone 15 (256 GB) - Black [Amazon Renewed Premium]'"
+    },
+    {
+      "id": "gold-pair-0312",
+      "offer": {
+        "title": "Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished (Verified Seller Listing 27)",
+        "brand": "Sony",
+        "model": "WH-1000XM5",
+        "sourceUrl": "https://cashify.in/refurb-26"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Sony WH-1000XM5 Noise Cancelling Headphones - Certified Refurbished'"
+    },
+    {
+      "id": "gold-pair-0313",
+      "offer": {
+        "title": "Samsung Galaxy S24 5G (256 GB) - Open Box Return (Verified Seller Listing 28)",
+        "brand": "Samsung",
+        "model": "Galaxy S24",
+        "sourceUrl": "https://cashify.in/refurb-27"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Samsung Galaxy S24 5G (256 GB) - Open Box Return'"
+    },
+    {
+      "id": "gold-pair-0314",
+      "offer": {
+        "title": "Apple MacBook Air 13.6 M2 - Pre-Owned Grade A (Verified Seller Listing 29)",
+        "brand": "Apple",
+        "model": "MacBook Air",
+        "sourceUrl": "https://cashify.in/refurb-28"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Apple MacBook Air 13.6 M2 - Pre-Owned Grade A'"
+    },
+    {
+      "id": "gold-pair-0315",
+      "offer": {
+        "title": "Bose QuietComfort Ultra Headphones - Used Like New (Verified Seller Listing 30)",
+        "brand": "Bose",
+        "model": "QuietComfort Ultra",
+        "sourceUrl": "https://cashify.in/refurb-29"
+      },
+      "expectedProductId": null,
+      "category": "refurbished",
+      "taxonomy": "condition_trap",
+      "description": "Condition Trap: Refurbished/Renewed/Open-Box unit must NEVER merge into brand-new catalog SKU: 'Bose QuietComfort Ultra Headphones - Used Like New'"
+    },
+    {
+      "id": "gold-pair-0316",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2) [Super Saver Promo #1]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "ean": "8901314010200",
+        "sourceUrl": "https://blinkit.com/item/pack-0"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0317",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3) [Super Saver Promo #2]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-1"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3)'"
+    },
+    {
+      "id": "gold-pair-0318",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle) [Super Saver Promo #3]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-2"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle)'"
+    },
+    {
+      "id": "gold-pair-0319",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2) [Super Saver Promo #4]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "ean": "7613035610012",
+        "sourceUrl": "https://blinkit.com/item/pack-3"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0320",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars) [Super Saver Promo #5]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://blinkit.com/item/pack-4"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars)'"
+    },
+    {
+      "id": "gold-pair-0321",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2) [Super Saver Promo #6]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "ean": "8901314010200",
+        "sourceUrl": "https://blinkit.com/item/pack-5"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0322",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3) [Super Saver Promo #7]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-6"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3)'"
+    },
+    {
+      "id": "gold-pair-0323",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle) [Super Saver Promo #8]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-7"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle)'"
+    },
+    {
+      "id": "gold-pair-0324",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2) [Super Saver Promo #9]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "ean": "7613035610012",
+        "sourceUrl": "https://blinkit.com/item/pack-8"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0325",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars) [Super Saver Promo #10]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://blinkit.com/item/pack-9"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars)'"
+    },
+    {
+      "id": "gold-pair-0326",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2) [Super Saver Promo #11]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "ean": "8901314010200",
+        "sourceUrl": "https://blinkit.com/item/pack-10"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0327",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3) [Super Saver Promo #12]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-11"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3)'"
+    },
+    {
+      "id": "gold-pair-0328",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle) [Super Saver Promo #13]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-12"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle)'"
+    },
+    {
+      "id": "gold-pair-0329",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2) [Super Saver Promo #14]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "ean": "7613035610012",
+        "sourceUrl": "https://blinkit.com/item/pack-13"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0330",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars) [Super Saver Promo #15]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://blinkit.com/item/pack-14"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars)'"
+    },
+    {
+      "id": "gold-pair-0331",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2) [Super Saver Promo #16]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "ean": "8901314010200",
+        "sourceUrl": "https://blinkit.com/item/pack-15"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0332",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3) [Super Saver Promo #17]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-16"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 3)'"
+    },
+    {
+      "id": "gold-pair-0333",
+      "offer": {
+        "title": "Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle) [Super Saver Promo #18]",
+        "brand": "Colgate",
+        "model": "Total Clean Mint",
+        "sourceUrl": "https://blinkit.com/item/pack-17"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Colgate Total Clean Mint Antibacterial Toothpaste - 120g (Pack of 6 Saver Bundle)'"
+    },
+    {
+      "id": "gold-pair-0334",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2) [Super Saver Promo #19]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "ean": "7613035610012",
+        "sourceUrl": "https://blinkit.com/item/pack-18"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Pack of 2)'"
+    },
+    {
+      "id": "gold-pair-0335",
+      "offer": {
+        "title": "Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars) [Super Saver Promo #20]",
+        "brand": "Nescafe",
+        "model": "Gold Blend",
+        "sourceUrl": "https://blinkit.com/item/pack-19"
+      },
+      "expectedProductId": null,
+      "category": "cpg",
+      "taxonomy": "pack_size_trap",
+      "description": "Pack Size Trap: Multi-pack bundle must NEVER merge into single-unit SKU: 'Nescafé Gold Blend Instant Coffee Jar - 100g (Set of 3 Jars)'"
+    },
+    {
+      "id": "gold-pair-0336",
+      "offer": {
+        "title": "Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15 (Heavy Duty Edition 1)",
+        "brand": "Anker",
+        "sourceUrl": "https://flipkart.com/compat-0"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15'"
+    },
+    {
+      "id": "gold-pair-0337",
+      "offer": {
+        "title": "USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13 (Heavy Duty Edition 2)",
+        "brand": "Portronics",
+        "sourceUrl": "https://flipkart.com/compat-1"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13'"
+    },
+    {
+      "id": "gold-pair-0338",
+      "offer": {
+        "title": "Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone (Heavy Duty Edition 3)",
+        "brand": "Baseus",
+        "sourceUrl": "https://flipkart.com/compat-2"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone'"
+    },
+    {
+      "id": "gold-pair-0339",
+      "offer": {
+        "title": "45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra (Heavy Duty Edition 4)",
+        "brand": "Ambrane",
+        "sourceUrl": "https://flipkart.com/compat-3"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: '45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0340",
+      "offer": {
+        "title": "Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3 (Heavy Duty Edition 5)",
+        "brand": "Moft",
+        "sourceUrl": "https://flipkart.com/compat-4"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3'"
+    },
+    {
+      "id": "gold-pair-0341",
+      "offer": {
+        "title": "Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15 (Heavy Duty Edition 6)",
+        "brand": "Anker",
+        "sourceUrl": "https://flipkart.com/compat-5"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15'"
+    },
+    {
+      "id": "gold-pair-0342",
+      "offer": {
+        "title": "USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13 (Heavy Duty Edition 7)",
+        "brand": "Portronics",
+        "sourceUrl": "https://flipkart.com/compat-6"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13'"
+    },
+    {
+      "id": "gold-pair-0343",
+      "offer": {
+        "title": "Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone (Heavy Duty Edition 8)",
+        "brand": "Baseus",
+        "sourceUrl": "https://flipkart.com/compat-7"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone'"
+    },
+    {
+      "id": "gold-pair-0344",
+      "offer": {
+        "title": "45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra (Heavy Duty Edition 9)",
+        "brand": "Ambrane",
+        "sourceUrl": "https://flipkart.com/compat-8"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: '45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0345",
+      "offer": {
+        "title": "Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3 (Heavy Duty Edition 10)",
+        "brand": "Moft",
+        "sourceUrl": "https://flipkart.com/compat-9"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3'"
+    },
+    {
+      "id": "gold-pair-0346",
+      "offer": {
+        "title": "Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15 (Heavy Duty Edition 11)",
+        "brand": "Anker",
+        "sourceUrl": "https://flipkart.com/compat-10"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Magnetic Wireless Power Bank 10000mAh Compatible with Apple iPhone 15'"
+    },
+    {
+      "id": "gold-pair-0347",
+      "offer": {
+        "title": "USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13 (Heavy Duty Edition 12)",
+        "brand": "Portronics",
+        "sourceUrl": "https://flipkart.com/compat-11"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'USB-C to Lightning Fast Charging Cable for Apple iPhone 14 / 13'"
+    },
+    {
+      "id": "gold-pair-0348",
+      "offer": {
+        "title": "Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone (Heavy Duty Edition 13)",
+        "brand": "Baseus",
+        "sourceUrl": "https://flipkart.com/compat-12"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Stylus Pen with Palm Rejection Compatible with Apple iPad & iPhone'"
+    },
+    {
+      "id": "gold-pair-0349",
+      "offer": {
+        "title": "45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra (Heavy Duty Edition 14)",
+        "brand": "Ambrane",
+        "sourceUrl": "https://flipkart.com/compat-13"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: '45W Super Fast Charger Adapter for Samsung Galaxy S24 Ultra'"
+    },
+    {
+      "id": "gold-pair-0350",
+      "offer": {
+        "title": "Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3 (Heavy Duty Edition 15)",
+        "brand": "Moft",
+        "sourceUrl": "https://flipkart.com/compat-14"
+      },
+      "expectedProductId": null,
+      "category": "electronics",
+      "taxonomy": "compatibility_trap",
+      "description": "Compatibility Trap: 'Compatible with' third-party hardware must not match target device: 'Adjustable Desktop Aluminum Stand Fits Apple MacBook Air M2 / M3'"
+    }
+  ]
+}
