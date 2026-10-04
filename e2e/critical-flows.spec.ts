@@ -7,7 +7,7 @@ test.describe("SCRAPPY Critical User Flows", () => {
     await expect(page).toHaveTitle(/SCRAPPY/);
 
     // 2. Verify Synthetic Data Banner is displayed (Rule 1 & 3)
-    const banner = page.locator('[role="alert"]').filter({ hasText: "DATA PROVENANCE NOTICE" });
+    const banner = page.locator('[role="alert"]').filter({ hasText: "DATA PROVENANCE NOTICE" }).first();
     await expect(banner).toBeVisible();
     await expect(banner).toContainText("FIXTURE MODE ACTIVE");
 
@@ -62,54 +62,54 @@ test.describe("SCRAPPY Critical User Flows", () => {
     await expect(page).toHaveTitle(/SCRAPPY/);
 
     // 2. Verify SSRF Guard
-    const ssrfBadge = page.locator('text=SSRF Security Passed');
+    const ssrfBadge = page.locator('text=SSRF Security Passed').first();
     await expect(ssrfBadge).toBeVisible();
 
     // 3. Test malicious SSRF URL rejection
-    const targetUrlInput = page.locator('input[type="url"]');
+    const targetUrlInput = page.locator('input[type="url"]').first();
     await targetUrlInput.fill("http://169.254.169.254/latest/meta-data");
-    const blockedMsg = page.locator('text=Blocked:');
+    const blockedMsg = page.locator('text=Blocked:').first();
     await expect(blockedMsg).toBeVisible();
 
     // Restore valid public URL
     await targetUrlInput.fill("https://store.example.com/catalog");
-    await expect(page.locator('text=SSRF Security Passed')).toBeVisible();
+    await expect(page.locator('text=SSRF Security Passed').first()).toBeVisible();
 
     // 4. Add a field
-    const addFieldBtn = page.locator('button:has-text("+ Add Field")');
+    const addFieldBtn = page.locator('button:has-text("+ Add Field")').first();
     await addFieldBtn.click();
-    await expect(page.locator('input[value="field_5"]')).toBeVisible();
+    await expect(page.locator('input[value="field_5"]').first()).toBeVisible();
 
     // 5. Run Extraction
-    const runBtn = page.locator('button:has-text("Run Extraction")');
+    const runBtn = page.locator('button:has-text("Run Extraction")').first();
     await runBtn.click();
 
     // 6. Verify status transitions to SUCCEEDED and Preview Table activates
-    await expect(page.locator('span:has-text("SUCCEEDED")')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('text=LIVE PREVIEW TABLE')).toBeVisible();
+    await expect(page.locator('span:has-text("SUCCEEDED")').first()).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=LIVE PREVIEW TABLE').first()).toBeVisible();
   });
 
   test("Flow 3: Workspace Settings & API Keys", async ({ page }) => {
     // 1. Visit Settings
     await page.goto("/settings");
-    await expect(page.locator("h1")).toContainText("Workspace Settings");
+    await expect(page.locator("h1").first()).toContainText("Workspace Settings");
 
     // 2. Verify Team Members Table
-    await expect(page.locator("td:has-text('lead@scrappy.io')")).toBeVisible();
-    await expect(page.locator("span:has-text('owner')")).toBeVisible();
+    await expect(page.locator("td:has-text('lead@scrappy.io')").first()).toBeVisible();
+    await expect(page.locator("span:has-text('owner')").first()).toBeVisible();
 
     // 3. Switch to API Keys tab
-    const keysTab = page.locator('button:has-text("API KEYS")');
+    const keysTab = page.locator('button:has-text("API KEYS")').first();
     await keysTab.click();
 
     // 4. Generate new API key
-    const keyInput = page.locator('input[placeholder*="Production Data"]');
+    const keyInput = page.locator('input[placeholder*="Production Data"]').first();
     await keyInput.fill("E2E Test Key");
-    const generateBtn = page.locator('button:has-text("+ Generate New Secret Key")');
+    const generateBtn = page.locator('button:has-text("+ Generate New Secret Key")').first();
     await generateBtn.click();
 
     // 5. Verify show-once banner appears
-    await expect(page.locator("text=SAVE YOUR SECRET KEY NOW")).toBeVisible();
+    await expect(page.locator("text=SAVE YOUR SECRET KEY NOW").first()).toBeVisible();
     await expect(page.locator("span:has-text('scrappy_live_')").first()).toBeVisible();
 
     // 6. Switch to Webhooks tab

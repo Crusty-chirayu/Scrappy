@@ -10,6 +10,7 @@
 - **Merchant Name**: Amazon India
 - **Base URL**: `https://www.amazon.in`
 - **Adapter Version**: `0.2.0`
+- **Operational Status**: `fixture-only` (Pending live PA-API associate credentials verification)
 - **Extraction Protocol**: Dual-mode (PA-API Feed primary, ethical HTTP fetcher secondary)
 
 ---
@@ -17,7 +18,7 @@
 ## Technical Architecture
 
 ### 1. Ingestion Modes
-- **Live Mode**: Uses Amazon Product Advertising API (PA-API 5.0) with batch item lookups.
+- **Live Mode Status**: **`fixture-only`** (Labeled fixture-only until verified live credentials are provided in `.env`).
 - **Local / Test Mode**: Replays verified fixtures (`pa-api-response.json` and `sample-product.html`) to ensure deterministic test runs with zero network overhead.
 
 ### 2. Extracted Data Points
@@ -31,13 +32,15 @@
 
 ---
 
-## Legal & Compliance Notes
+## Legal & Compliance Posture (Constitution Rule 12)
 
-1. **Robots.txt & Rate Limiting**:
-   - Honors Amazon.in `robots.txt` paths.
-   - Enforces a minimum per-host rate limit of 1,000ms delay per worker.
-2. **Bot Identification**:
-   - Identifies explicitly with `User-Agent: ScrappyBot/1.0 (+https://scrappy.in/bot)`.
-3. **No CAPTCHA / Anti-Bot Circumvention**:
-   - In accordance with **Constitution Rule 6**, Scrappy never employs CAPTCHA solving, IP cycling, or browser fingerprint spoofing.
-   - If Amazon serves a bot verification challenge, the circuit breaker records a failure and marks the adapter as degraded without bypassing protections.
+### 1. Robots.txt Posture
+- **[FACT]**: Amazon India publishes `robots.txt` at `https://www.amazon.in/robots.txt`. It disallows automated crawling of `/gp/cart`, `/gp/history`, `/wishlist`, and internal session endpoints for all user-agents.
+- **[FACT]**: Product detail URLs matching `/dp/{ASIN}` are generally crawlable under default user-agent rules provided crawling does not exceed rate limits or interfere with server performance.
+- **[ASSUMPTION]**: Respecting a 1,000ms per-host rate limit and identifying with `ScrappyBot/1.0` remains within responsible load boundaries.
+
+### 2. Terms of Service Posture
+- **[FACT]**: Amazon Conditions of Use prohibit "any collection and use of any product listings, descriptions, or prices; any derivative use of this website or its contents; any downloading or copying of account information... or any use of data mining, robots, or similar data gathering and extraction tools" without express written consent.
+- **[FACT]**: Amazon provides the official **Product Advertising API (PA-API 5.0)** for programmatic access to product data, prices, and affiliate links.
+- **[ASSUMPTION]**: Commercial live price aggregation requires active Amazon Associates account approval and PA-API access token generation.
+- **[FACT]**: In local mode, Scrappy executes exclusively against recorded test fixtures (`pa-api-response.json`, `sample-product.html`). No live Amazon endpoints are contacted in CI or default environments.

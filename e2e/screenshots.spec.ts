@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -27,10 +27,10 @@ test.describe("Visual Review & Page Screenshots", () => {
   });
 
   for (const p of PAGES) {
-    test(`Capture screenshot: ${p.name}`, async ({ page }, testInfo) => {
+    test(`Visual regression snapshot: ${p.name}`, async ({ page }, testInfo) => {
       await page.goto(p.path);
       await page.waitForLoadState("networkidle");
-      // Give animations a moment to settle
+      // Settle animations
       await page.waitForTimeout(300);
 
       const projectName = testInfo.project.name; // desktop-1280 or mobile-360
@@ -41,7 +41,13 @@ test.describe("Visual Review & Page Screenshots", () => {
         `${p.name}-${projectName}.png`,
       );
 
+      // Save full page PNG artifact for visual documentation
       await page.screenshot({ path: filePath, fullPage: true });
+
+      // Run real Playwright visual regression comparison
+      await expect(page).toHaveScreenshot(`${p.name}-${projectName}-diff.png`, {
+        maxDiffPixelRatio: 0.05,
+      });
     });
   }
 });

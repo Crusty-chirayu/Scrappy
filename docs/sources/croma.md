@@ -10,20 +10,23 @@
 - **Merchant Name**: Croma (Tata Digital)
 - **Base URL**: `https://www.croma.com`
 - **Adapter Version**: `0.2.0`
-- **Current Operational Status**: `unsupported` ("Source unavailable")
+- **Operational Status**: `fixture-only` / `unsupported` ("Source unavailable")
+- **Extraction Protocol**: None (Scraping disallowed by policy)
 
 ---
 
-## Policy & Compliance Rationale
+## Legal & Compliance Posture (Constitution Rule 12)
 
-In strict compliance with **Constitution Rule 6**:
-> "Responsible scraping: honor robots.txt, per-host rate limits, identify the bot, no CAPTCHA solving, no auth bypass, no stealth/fingerprint evasion... Unsupported sources show an honest 'Source unavailable' state."
+### 1. Robots.txt Posture
+- **[FACT]**: Croma publishes `robots.txt` at `https://www.croma.com/robots.txt` disallowing checkout, cart, internal API endpoints, and private search faceted routes.
+- **[FACT]**: Croma employs bot protection and rate limits on catalog pages.
+- **[ASSUMPTION]**: Unauthenticated crawling without a commercial arrangement will be blocked by perimeter security.
 
-1. **No Public Affiliate Feed**:
-   - Croma does not offer a public affiliate API or open catalog data feed for third-party aggregators.
-2. **Terms of Service Restrictions**:
-   - Croma's website terms explicitly prohibit automated extraction, harvesting, and scraping.
-3. **Honest Platform Behavior**:
-   - Scrappy does not deploy headless proxy cycling or stealth evasion.
-   - Any query attempting to look up prices on Croma directly reports an honest status `unsupported` with badge `Source unavailable`.
-   - Contact has been flagged under Open Decision **D04** for future commercial partnership outreach.
+### 2. Terms of Service Posture
+- **[FACT]**: Croma Terms of Use prohibit automated extraction, harvesting, or spidering of website content or pricing data without prior written permission from Infiniti Retail Ltd.
+- **[FACT]**: Croma currently offers no public self-service affiliate API or programmatic product feed for third-party developers.
+- **[FACT]**: In strict compliance with Constitution Rule 6 ("Unsupported sources show an honest 'Source unavailable' state"):
+  - Scrappy refuses stealth evasion, proxy rotation, and CAPTCHA bypass.
+  - Queries for Croma products show the honest `Source unavailable` status badge.
+  - Any local simulation or testing runs strictly against static fixtures (`fixture-only`).
+- **[RECOMMENDATION]**: Direct commercial outreach to Tata Digital for official catalog syndication is tracked under Open Decision **D04**.

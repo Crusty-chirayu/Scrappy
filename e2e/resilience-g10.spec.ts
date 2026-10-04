@@ -94,4 +94,18 @@ test.describe("G10 Polish & Resilience Law Suite", () => {
       expect(hasHorizontalScroll, `Route ${route} should not have horizontal scrollbar on 360px`).toBe(false);
     }
   });
+
+  test("Root Loading State: root loading skeleton is strictly present and compliant (Rule 2)", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+
+    const loadingFilePath = path.resolve(process.cwd(), "apps/web/src/app/loading.tsx");
+    expect(fs.existsSync(loadingFilePath), "apps/web/src/app/loading.tsx must exist in codebase").toBe(true);
+
+    const fileContent = fs.readFileSync(loadingFilePath, "utf-8");
+    expect(fileContent, "loading.tsx must declare an accessible root loading status").toContain('role="status"');
+    expect(fileContent, "loading.tsx must declare aria-live attribute").toContain('aria-live="polite"');
+    expect(fileContent, "loading.tsx must declare data-testid for automated loading verification").toContain('data-testid="root-loading-skeleton"');
+    expect(fileContent, "loading.tsx must render Skeleton UI components").toContain("Skeleton");
+  });
 });

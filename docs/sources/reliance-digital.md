@@ -10,19 +10,21 @@
 - **Merchant Name**: Reliance Digital
 - **Base URL**: `https://www.reliancedigital.in`
 - **Adapter Version**: `0.2.0`
-- **Current Operational Status**: `unsupported` ("Source unavailable")
+- **Operational Status**: `fixture-only` / `unsupported` ("Source unavailable")
+- **Extraction Protocol**: None (Scraping disallowed by policy)
 
 ---
 
-## Policy & Compliance Rationale
+## Legal & Compliance Posture (Constitution Rule 12)
 
-In strict compliance with **Constitution Rule 6**:
-> "Responsible scraping: honor robots.txt, per-host rate limits, identify the bot, no CAPTCHA solving, no auth bypass, no stealth/fingerprint evasion... Unsupported sources show an honest 'Source unavailable' state."
+### 1. Robots.txt Posture
+- **[FACT]**: Reliance Digital's `robots.txt` at `https://www.reliancedigital.in/robots.txt` disallows user account, checkout, and search backend service paths.
+- **[ASSUMPTION]**: High-frequency automated HTTP polling will trigger web application firewall (WAF) rate limits.
 
-1. **No Public Catalog Feed**:
-   - Reliance Digital lacks an open merchant feed API for real-time price monitoring.
-2. **Access Policy**:
-   - Terms of use prohibit non-human automated querying.
-3. **Platform Behavior**:
-   - Scrappy surfaces an honest `Source unavailable` badge across the UI.
-   - Circuit breaker and adapter report `health: "unsupported"` and `lastError: "Official affiliate feed unavailable; scraping disallowed by policy"`.
+### 2. Terms of Service Posture
+- **[FACT]**: Reliance Retail Terms of Use prohibit non-human automated querying, data mining, scraping, and spidering without explicit written license.
+- **[FACT]**: Reliance Digital provides no public merchant API or affiliate feed.
+- **[FACT]**: In strict accordance with Constitution Rule 6:
+  - Scrappy surfaces an honest `Source unavailable` badge across UI compare cards.
+  - The adapter is marked `fixture-only` and the circuit breaker reports `unsupported`.
+  - No evasion or live scraping is attempted.

@@ -19,11 +19,12 @@
 | D009 | 2026-10-04 | 2026-10-04 | `/admin` route co-located in public web app without isolated port, allowlist, or MFA gate | P1 | `apps/admin/src/__tests__/admin.test.ts` | CLOSED |
 | D010 | 2026-10-04 | 2026-10-04 | Extract studio First Load JS exceeded 170 kB budget (255 kB) | P1 | `apps/web/build` bundle trace (< 128 kB) | CLOSED |
 | D011 | 2026-10-04 | 2026-10-04 | Retailer adapters lacked explicit fixture-only verificationStatus label | P2 | `packages/scraping/src/types.ts` typecheck | CLOSED |
+| D012 | 2026-10-04 | 2026-10-04 | Missing root `apps/web/src/app/loading.tsx` state | P1 | `e2e/resilience-g10.spec.ts` | CLOSED |
 
 ---
 
 ## Current Status: **ZERO OPEN DEFECTS**
 
-- Total Logged: 11
-- Total Closed: 11
+- Total Logged: 12
+- Total Closed: 12
 - Total Open: 0
