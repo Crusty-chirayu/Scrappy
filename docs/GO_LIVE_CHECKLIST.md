@@ -36,13 +36,19 @@ Run migrations using the Supabase CLI against your remote Supabase project:
 # 1. Link to your production Supabase project
 supabase link --project-ref <your-project-ref>
 
-# 2. Push versioned SQL migrations (includes all 12 tables + Row Level Security policies)
+# 2. Push versioned SQL migrations (includes all 6 migrations + complete Row Level Security on all 35+ tables)
+#    - 20261004000001_initial_schema.sql (Core catalog, products, merchants, offers, alerts, watchlist)
+#    - 20261004000002_auth_workspace_trigger.sql (Auto-workspace creation trigger on auth.users)
+#    - 20261004000003_complete_schema_and_rls.sql (Enterprise schema: match evidence, datasets, usage events, daily rollups)
+#    - 20261004000004_realtime_publications.sql (Realtime publications for alerts, notifications, extract runs)
+#    - 20261004000005_billing_subscriptions.sql (Subscriptions, invoices, dunning states, tiered workspace constraints)
+#    - 20261004000006_api_keys_revoked_at.sql (Soft revocation timestamp for cryptographic API keys)
 supabase db push
 
-# 3. Verify Row-Level Security on all tables
-supabase db execute --file ./supabase/tests/01_rls_tenancy.sql
+# 3. Verify pgTAP Row-Level Security test suite (all 28 tests must pass)
+supabase test db
 
-# 4. (Optional) Populate initial 500-product catalog seed
+# 4. Populate deterministic initial catalog seed (500 canonical items + verified retailer offers)
 supabase db seed
 ```
 
@@ -86,7 +92,7 @@ Immediately after deployment, execute the following smoke tests:
    curl -s "https://api.scrappy.in/v1/search?q=iPhone" | jq '.total'
    # Expected: Number >= 1
    ```
-3. **SSRF Validator Check**:
+3. **SSRF Validator & Attack Prevention Check**:
    ```bash
    curl -X POST https://api.scrappy.in/v1/extract/validate-url \
      -H "Content-Type: application/json" \
@@ -97,6 +103,16 @@ Immediately after deployment, execute the following smoke tests:
    Navigate to `https://scrappy.in/compare` in browser; verify product cards, price history charts, and provenance badges load without console errors.
 5. **Admin Console Allowlist Check**:
    Attempt to access `https://scrappy.in/admin` without authorized headers or credentials; verify 403 Forbidden response.
+6. **Matching Engine Adversarial Benchmark Verification**:
+   ```bash
+   pnpm --filter @scrappy/matching test
+   # Expected: 350/350 pairs evaluated, 0 false positives (0.00% FPR), 100% precision
+   ```
+7. **End-to-End Test Suite Smoke Verification**:
+   ```bash
+   pnpm exec playwright test e2e/critical-flows.spec.ts e2e/security.spec.ts e2e/resilience-g10.spec.ts
+   # Expected: All test suites passing on both desktop-1280 and mobile-360
+   ```
 
 ---
 
