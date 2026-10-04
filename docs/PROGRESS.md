@@ -6,12 +6,12 @@
 
 ---
 
-## Current Status: **PHASE 1 (FOUNDATION & PROMPT 01 REWORK) COMPLETE — EXECUTING PHASE 2**
+## Current Status: **PHASE 2 (DATA LAYER + DESIGN SYSTEM) COMPLETE — EXECUTING PHASE 3**
 
-Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on every table, pgTAP tests, generated types, and all gates) is complete and verified live.
-`pnpm dev` boots all 5 services simultaneously; `pnpm check` is completely green.
+Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on every table, pgTAP tests, generated types, and all gates) is complete.
+Phase 2 (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification) is complete and verified green.
 
-**NEXT ACTION**: Phase 2 — Data Layer + Design System (500 synthetic product seed generator, design system tokens, core components, trust badges, contrast test script, and axe accessibility verification).
+**NEXT ACTION**: Phase 3 — Scraping Engine (Adapter contract, HTTP fetcher with robots.txt & per-host rate limiting, Playwright browser renderer, schema drift detector, Amazon India adapter, Flipkart adapter, Croma & Reliance Digital unsupported stubs, fixture test suite, and pg-boss queue integration).
 
 ---
 
@@ -44,7 +44,7 @@ Phase 1 (Monorepo, Supabase CLI tooling, initial schema migration with RLS on ev
 | Phase | Name                        | Status      | Key Deliverables & Notes                                                  |
 | ----- | --------------------------- | ----------- | ------------------------------------------------------------------------- |
 | 1     | Foundation (P1 Rework)      | ✅ done     | Monorepo, Supabase CLI, RLS on every table, pgTAP tests, generated types  |
-| 2     | Data Layer + Design System  | in-progress | Schema seed (500 products), tokens, @scrappy/ui components, contrast, axe |
+| 2     | Data Layer + Design System  | ✅ done     | Schema seed (500 products), tokens, @scrappy/ui components, contrast, axe |
 | 03     | Design System                          | todo   | Phase 2                                                    |
 | 04     | Scraping Engine (Compare)              | todo   | Phase 3                                                    |
 | 05     | Compare UI                             | todo   | Phase 4                                                    |
