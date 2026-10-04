@@ -19,9 +19,13 @@
   - Implemented `/auth/login` (password & magic link OTP), `/auth/signup`, `/auth/callback`, `/api/workspaces`, and `WorkspaceSwitcher` component.
   - Verified end-to-end with Playwright suite `e2e/auth-flow.spec.ts` (4/4 passed on desktop and mobile 360px) including verification of local Mailpit magic link receipt.
   - Zero open defects in `docs/DEFECTS.md`; all quality gates green.
-- **G3 (Complete Schema, Partitioning & RLS-Coverage pgTAP)**: 🟡 **IN PROGRESS**
+- **G3 (Complete Schema, Partitioning & RLS-Coverage pgTAP)**: ✅ **DONE**
+  - Applied migration `20261004000003_complete_schema_and_rls.sql` with tables: `match_evidence`, `extract_run_logs`, `datasets`, `dataset_records`, `usage_events`, and `price_daily_rollups`.
+  - Enforced Row Level Security on EVERY table in `public` schema.
+  - Implemented automated pgTAP test suite `02_rls_coverage.test.sql` (15 tests) including dynamic PostgreSQL catalog audit (`pg_class.relrowsecurity`) confirming zero unprotected public tables, plus cross-tenant dataset attack tests.
+  - Tested: `supabase test db` (28/28 tests passing), `pnpm check` (23/23 packages typechecked, 121 unit tests passing, all builds successful), and Playwright E2E suites (10/10 tests passing).
 
-**NEXT ACTION**: Build G3 — Complete the schema from plan (match evidence, runs/tasks/run_logs, datasets, webhook deliveries, usage_events, notifications, audit_log, price_observations partitioning & rollups, source health, saved searches, invitations), ensure RLS enabled on EVERY table, and add an automated pgTAP RLS-coverage test that queries `pg_tables` and fails if any public table lacks RLS.
+**NEXT ACTION**: Build G4 — Workers on pg-boss against Supabase: scrape -> parse -> match -> price observation -> alert evaluation -> notification -> email via local Inbucket/Mailpit. Prove end to end with a fixture: price change in a fixture, watch target triggers, email arrives in Mailpit, and in-app notification appears via Realtime.
 
 ---
 
