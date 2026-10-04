@@ -7,6 +7,8 @@ import {
   SourceChip,
   DataFreshness,
   Sparkline,
+  SyntheticBadge,
+  SyntheticDataBanner,
 } from "@scrappy/ui";
 import { defaultCatalogRepository } from "@scrappy/db";
 import { calculateDealScore, analyzeFakeDiscount } from "@scrappy/pricing";
@@ -118,14 +120,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <span className="text-white truncate max-w-xs">{product.title}</span>
         </nav>
 
+        {/* Synthetic Notice Banner if item is fixture (Constitution Rule 1 & 3) */}
+        {product.isSynthetic && (
+          <SyntheticDataBanner className="mb-6 rounded-[4px]" />
+        )}
+
         {/* Product Canonical Header */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pb-6 border-b border-[#262E3C] mb-8">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
               <span className="text-xs uppercase font-mono tracking-wider text-[#98A2B3]">
                 {product.brand} · {product.category}
               </span>
               <TrustBadge state="verified" confidence={0.98} />
+              {product.isSynthetic && <SyntheticBadge size="sm" />}
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-[#D6DBE3] tracking-tight mb-2">

@@ -18,8 +18,10 @@
     "prepare": "husky || true"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
+    "@playwright/test": "^1.63.0",
     "@scrappy/config": "workspace:*",
     "@types/node": "^22.13.4",
     "@typescript-eslint/eslint-plugin": "^8.24.0",

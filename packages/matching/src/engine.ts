@@ -1,6 +1,51 @@
 import { Product } from "@scrappy/core";
 import { CandidateOffer, EntityMatchingEngine, MatchDecision } from "./types.js";
 
+const ACCESSORY_KEYWORDS = new Set([
+  "case",
+  "cover",
+  "protector",
+  "screen",
+  "sleeve",
+  "strap",
+  "cable",
+  "charger",
+  "dock",
+  "stand",
+  "holder",
+  "skin",
+  "pouch",
+  "adapter",
+  "replacement",
+  "stylus",
+  "cushion",
+]);
+
+const CONDITION_KEYWORDS = [
+  "refurbished",
+  "renewed",
+  "pre-owned",
+  "preowned",
+  "open-box",
+  "open box",
+  "used",
+  "grade b",
+  "grade a",
+];
+
+const MODEL_MODIFIERS = [
+  "pro max",
+  "pro",
+  "plus",
+  "ultra",
+  "mini",
+  "max",
+  "lite",
+  "fe",
+  "air",
+  "se",
+];
+
 function tokenize(text: string): Set<string> {
   return new Set(
     text
@@ -19,6 +64,38 @@ function jaccardSimilarity(setA: Set<string>, setB: Set<string>): number {
   }
   const union = setA.size + setB.size - intersection;
   return union > 0 ? intersection / union : 0;
+}
+
+export function extractStorage(text: string): string[] {
+  const matches = text.toLowerCase().match(/\b(\d+)\s*(gb|tb)\b/g);
+  return matches ? matches.map((m) => m.replace(/\s+/g, "")) : [];
+}
+
+export function extractPackSize(text: string): number | null {
+  const match = text.toLowerCase().match(/\b(?:pack of|set of)\s*(\d+)\b|\b(\d+)\s*(?:pack|pk)\b/);
+  if (match) {
+    return parseInt(match[1] || match[2] || "1", 10);
+  }
+  return null;
+}
+
+export function hasAccessorySignal(text: string): boolean {
+  const tokens = text.toLowerCase().split(/[\s\-_,.\/]+/);
+  return tokens.some((t) => ACCESSORY_KEYWORDS.has(t));
+}
+
+export function hasConditionSignal(text: string): boolean {
+  const lower = text.toLowerCase();
+  return CONDITION_KEYWORDS.some((c) => lower.includes(c));
+}
+
+function extractModelModifier(text: string): string | null {
+  const lower = text.toLowerCase();
+  for (const mod of MODEL_MODIFIERS) {
+    const regex = new RegExp(`\\b${mod}\\b`, "i");
+    if (regex.test(lower)) return mod;
+  }
+  return null;
 }
 
 export class DeterministicMatchingEngine implements EntityMatchingEngine {
@@ -57,38 +134,58 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
       if (modelMatches.length > 0) return modelMatches;
     }
 
-    // 2. Token overlap lookup
+    // 3. Token overlap lookup
     const offerTokens = tokenize(offer.title);
     return this.catalog.filter((p) => {
       const prodTokens = tokenize(p.title);
       const sim = jaccardSimilarity(offerTokens, prodTokens);
-      return sim >= 0.3; // Return reasonable candidates
+      return sim >= 0.25; // Return candidates for evaluation
     });
   }
 
   public resolveMatch(offer: CandidateOffer, candidates: Product[]): MatchDecision {
-    // 1. Exact Barcode Match (EAN / UPC) -> 0.99 Verified
-    if (offer.ean) {
-      const eanMatch = candidates.find((c) => c.ean && c.ean === offer.ean);
-      if (eanMatch) {
-        return {
-          productId: eanMatch.id,
-          confidence: 0.99,
-          confidenceLevel: "verified",
-          reasons: ["Exact EAN barcode match"],
-          matchedFields: { exactEanOrUpc: true, brandMatch: true },
-        };
-      }
-    }
+    const offerIsAccessory = hasAccessorySignal(offer.title);
+    const offerIsConditionAltered = hasConditionSignal(offer.title);
+    const offerStorage = extractStorage(offer.title);
+    const offerPack = extractPackSize(offer.title);
+    const offerMod = extractModelModifier(offer.title);
 
-    if (offer.upc) {
-      const upcMatch = candidates.find((c) => c.upc && c.upc === offer.upc);
-      if (upcMatch) {
+    // 1. Exact Barcode Match (EAN / UPC) -> 0.99 Verified
+    if (offer.ean || offer.upc) {
+      const barcodeMatch = candidates.find(
+        (c) => (offer.ean && c.ean === offer.ean) || (offer.upc && c.upc === offer.upc),
+      );
+
+      if (barcodeMatch) {
+        // Even with barcode match, check for condition alteration (e.g. refurbished selling under original EAN)
+        const candIsConditionAltered = hasConditionSignal(barcodeMatch.title);
+        if (offerIsConditionAltered !== candIsConditionAltered) {
+          return {
+            productId: null,
+            confidence: 0.65,
+            confidenceLevel: "possible_match",
+            reasons: ["Barcode matched but condition mismatch detected (refurbished/renewed vs new)"],
+            matchedFields: { exactEanOrUpc: true, conditionMismatch: true },
+          };
+        }
+
+        // Check accessory collision
+        const candIsAccessory = hasAccessorySignal(barcodeMatch.title);
+        if (offerIsAccessory !== candIsAccessory) {
+          return {
+            productId: null,
+            confidence: 0.2,
+            confidenceLevel: "possible_match",
+            reasons: ["Barcode matched an accessory vs device entity"],
+            matchedFields: { exactEanOrUpc: true, accessoryMismatch: true },
+          };
+        }
+
         return {
-          productId: upcMatch.id,
+          productId: barcodeMatch.id,
           confidence: 0.99,
           confidenceLevel: "verified",
-          reasons: ["Exact UPC barcode match"],
+          reasons: ["Exact EAN/UPC barcode match verified"],
           matchedFields: { exactEanOrUpc: true, brandMatch: true },
         };
       }
@@ -98,19 +195,54 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
     if (offer.brand && offer.model) {
       const normBrand = offer.brand.toLowerCase();
       const normModel = offer.model.toLowerCase();
-      const modelMatch = candidates.find(
-        (c) =>
-          c.brand?.toLowerCase() === normBrand &&
-          (c.model?.toLowerCase() === normModel || c.title.toLowerCase().includes(normModel)),
-      );
-      if (modelMatch) {
-        return {
-          productId: modelMatch.id,
-          confidence: 0.92,
-          confidenceLevel: "matched",
-          reasons: ["Exact Brand and Model identifier match"],
-          matchedFields: { brandMatch: true, modelMatch: true },
-        };
+
+      for (const cand of candidates) {
+        const candBrand = cand.brand?.toLowerCase();
+        const candModel = cand.model?.toLowerCase();
+
+        if (candBrand === normBrand && (candModel === normModel || cand.title.toLowerCase().includes(normModel))) {
+          // Check adversarial guards:
+          // A. Accessory Guard
+          const candIsAccessory = hasAccessorySignal(cand.title);
+          if (offerIsAccessory !== candIsAccessory) {
+            continue; // Not a match
+          }
+
+          // B. Condition Guard
+          const candIsConditionAltered = hasConditionSignal(cand.title);
+          if (offerIsConditionAltered !== candIsConditionAltered) {
+            continue;
+          }
+
+          // C. Storage Guard
+          const candStorage = extractStorage(cand.title);
+          if (offerStorage.length > 0 && candStorage.length > 0) {
+            const storIntersect = offerStorage.some((s) => candStorage.includes(s));
+            if (!storIntersect) {
+              continue; // Different capacity variant
+            }
+          }
+
+          // D. Pack Size Guard
+          const candPack = extractPackSize(cand.title);
+          if ((offerPack || 1) !== (candPack || 1)) {
+            continue; // Different pack count
+          }
+
+          // E. Model Modifier Guard (e.g. Plus, Pro, Ultra, Mini)
+          const candMod = extractModelModifier(cand.title);
+          if (offerMod !== candMod) {
+            continue; // Different tier variant (e.g. iPhone 15 vs iPhone 15 Plus)
+          }
+
+          return {
+            productId: cand.id,
+            confidence: 0.92,
+            confidenceLevel: "matched",
+            reasons: ["Exact Brand and Model identifier verified with variant guards passed"],
+            matchedFields: { brandMatch: true, modelMatch: true },
+          };
+        }
       }
     }
 
@@ -135,7 +267,7 @@ export class DeterministicMatchingEngine implements EntityMatchingEngine {
         confidence: Math.round(bestScore * 100) / 100,
         confidenceLevel: "possible_match",
         reasons: [
-          `Probable match against '${bestCandidate.title}' (similarity ${(bestScore * 100).toFixed(0)}%), pending verification`,
+          `Probable match against '${bestCandidate.title}' (similarity ${(bestScore * 100).toFixed(0)}%), pending human verification`,
         ],
         matchedFields: { titleSimilarity: bestScore },
       };

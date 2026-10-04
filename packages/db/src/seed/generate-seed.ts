@@ -1,4 +1,3 @@
-
 export interface CategorySeed {
   id: string;
   name: string;
@@ -30,6 +29,7 @@ export interface ProductSeed {
   model: string;
   ean: string;
   upc: string;
+  isSynthetic: boolean;
 }
 
 export interface OfferSeed {
@@ -42,6 +42,7 @@ export interface OfferSeed {
   currentPricePaise: number;
   originalPricePaise?: number;
   inStock: boolean;
+  isSynthetic: boolean;
   provenance: {
     source: string;
     sourceUrl: string;
@@ -74,7 +75,7 @@ export const BRANDS: BrandSeed[] = [
 
 export const MERCHANTS: MerchantSeed[] = [
   {
-    id: "m1000000-0000-0000-0000-000000000001",
+    id: "a1000000-0000-0000-0000-000000000001",
     name: "Amazon India",
     slug: "amazon-in",
     sourceId: "amazon-in",
@@ -82,7 +83,7 @@ export const MERCHANTS: MerchantSeed[] = [
     trustScore: 0.98,
   },
   {
-    id: "m1000000-0000-0000-0000-000000000002",
+    id: "a1000000-0000-0000-0000-000000000002",
     name: "Flipkart",
     slug: "flipkart",
     sourceId: "flipkart",
@@ -103,7 +104,7 @@ export function generateSeedObjects(totalProducts = 500): {
 
   for (let i = 1; i <= totalProducts; i++) {
     const pad = String(i).padStart(6, "0");
-    const prodId = `p2000000-0000-0000-0000-${pad.padStart(12, "0")}`;
+    const prodId = `b2000000-0000-0000-0000-${pad.padStart(12, "0")}`;
     const cat = CATEGORIES[(i - 1) % CATEGORIES.length]!;
     const brand = BRANDS[(i - 1) % BRANDS.length]!;
     const title = `${brand.name} ${cat.name.slice(0, -1)} Model Pro-${i}X`;
@@ -121,13 +122,14 @@ export function generateSeedObjects(totalProducts = 500): {
       model,
       ean,
       upc,
+      isSynthetic: true,
     });
 
     // Amazon Offer
     const basePriceRupees = 1000 + ((i * 137) % 85000);
     const amazonPricePaise = basePriceRupees * 100;
     const amazonOrigPaise = Math.round(basePriceRupees * 1.15) * 100;
-    const amazonOfferId = `o2000000-0000-0001-${pad.padStart(12, "0")}`;
+    const amazonOfferId = `c2000000-0000-0000-0001-${pad.padStart(12, "0")}`;
 
     offers.push({
       id: amazonOfferId,
@@ -139,6 +141,7 @@ export function generateSeedObjects(totalProducts = 500): {
       currentPricePaise: amazonPricePaise,
       originalPricePaise: amazonOrigPaise,
       inStock: true,
+      isSynthetic: true,
       provenance: {
         source: "amazon-in",
         sourceUrl: `https://www.amazon.in/dp/B00SYN${pad}`,
@@ -152,7 +155,7 @@ export function generateSeedObjects(totalProducts = 500): {
     // Flipkart Offer
     const flipkartDiff = ((i % 5) - 2) * 200;
     const flipkartPricePaise = Math.max(50000, (basePriceRupees + flipkartDiff) * 100);
-    const flipkartOfferId = `o2000000-0000-0002-${pad.padStart(12, "0")}`;
+    const flipkartOfferId = `c2000000-0000-0000-0002-${pad.padStart(12, "0")}`;
 
     offers.push({
       id: flipkartOfferId,
@@ -164,6 +167,7 @@ export function generateSeedObjects(totalProducts = 500): {
       currentPricePaise: flipkartPricePaise,
       originalPricePaise: amazonOrigPaise,
       inStock: true,
+      isSynthetic: true,
       provenance: {
         source: "flipkart",
         sourceUrl: `https://www.flipkart.com/item/p/itm${pad}`,
@@ -184,6 +188,7 @@ export function generateSeedSQL(totalProducts = 500): string {
     "-- ==============================================================================",
     "-- SCRAPPY SEED DATA (500 SYNTHETIC CANONICAL PRODUCTS + MULTI-MERCHANT OFFERS)",
     "-- Generated automatically by packages/db/src/seed/generate-seed.ts",
+    "-- Valid RFC4122 hex UUIDs only + is_synthetic flag enabled on all records",
     "-- ==============================================================================",
     "",
   ];
@@ -219,14 +224,14 @@ export function generateSeedSQL(totalProducts = 500): string {
   lines.push("-- Products and Offers");
   for (const p of seed.products) {
     lines.push(
-      `INSERT INTO public.products (id, title, brand_id, category_id, model, ean, upc) VALUES ('${p.id}', '${p.title}', '${p.brandId}', '${p.categoryId}', '${p.model}', '${p.ean}', '${p.upc}') ON CONFLICT DO NOTHING;`,
+      `INSERT INTO public.products (id, title, brand_id, category_id, model, ean, upc, is_synthetic) VALUES ('${p.id}', '${p.title.replace(/'/g, "''")}', '${p.brandId}', '${p.categoryId}', '${p.model}', '${p.ean}', '${p.upc}', true) ON CONFLICT DO NOTHING;`,
     );
   }
 
   for (const o of seed.offers) {
     const provJson = JSON.stringify(o.provenance);
     lines.push(
-      `INSERT INTO public.offers (id, product_id, merchant_id, source, merchant_name, url, current_price_paise, original_price_paise, in_stock, provenance) VALUES ('${o.id}', '${o.productId}', '${o.merchantId}', '${o.source}', '${o.merchantName}', '${o.url}', ${o.currentPricePaise}, ${o.originalPricePaise ?? "NULL"}, ${o.inStock}, '${provJson}'::jsonb) ON CONFLICT DO NOTHING;`,
+      `INSERT INTO public.offers (id, product_id, merchant_id, source, merchant_name, url, current_price_paise, original_price_paise, in_stock, provenance, is_synthetic) VALUES ('${o.id}', '${o.productId}', '${o.merchantId}', '${o.source}', '${o.merchantName}', '${o.url}', ${o.currentPricePaise}, ${o.originalPricePaise ?? "NULL"}, ${o.inStock}, '${provJson}'::jsonb, true) ON CONFLICT DO NOTHING;`,
     );
   }
 

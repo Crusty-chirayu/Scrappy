@@ -92,9 +92,10 @@ Phase 7 (Admin Console with source health & match review queue, Marketing landin
 
 ## Defects Log
 
-| ID                                      | Found | Fixed | Summary | Severity | Regression Test |
-| --------------------------------------- | ----- | ----- | ------- | -------- | --------------- |
-| (none yet — implementation not started) |       |       |         |          |                 |
+See [docs/DEFECTS.md](file:///e:/projects/Scrappy/docs/DEFECTS.md) for full tracking:
+- **Total Logged:** 11
+- **Total Closed:** 11
+- **Total Open:** 0 (Zero Open Defects standard fulfilled)
 
 ---
 

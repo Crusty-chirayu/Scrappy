@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { ScrappyLogo } from "@scrappy/ui";
+import { CommandPalette } from "../components/CommandPalette";
+import { NotificationCenter } from "../components/NotificationCenter";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,54 +15,57 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen bg-[#0A0C0F] text-[#D6DBE3]">
         <header className="border-b border-[#262E3C] px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="inline-block w-3 h-3 rounded-full bg-[#C6F135]"></span>
-            <span className="font-mono font-bold tracking-wider text-white">SCRAPPY</span>
+          <a href="/" className="hover:opacity-90 transition-opacity">
+            <ScrappyLogo state="idle" size={26} />
+          </a>
+          <div className="flex items-center gap-4">
+            <nav className="flex items-center gap-2 text-sm text-[#98A2B3]">
+              <a href="/compare" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
+                Compare
+              </a>
+              <a href="/intelligence" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
+                Intelligence
+              </a>
+              <a href="/extract" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
+                Extract
+              </a>
+              <a href="/docs" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
+                Docs
+              </a>
+              <a href="/status" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
+                Status
+              </a>
+              <a href="/settings" className="inline-flex items-center h-8 px-3 text-[#C6F135] hover:underline transition-colors">
+                Settings
+              </a>
+            </nav>
+
+            <div className="flex items-center gap-3 pl-2 border-l border-[#262E3C]">
+              <CommandPalette />
+              <NotificationCenter />
+            </div>
           </div>
-          <nav className="flex items-center gap-6 text-sm text-[#98A2B3]">
-            <a href="/compare" className="hover:text-white transition-colors">
-              Compare
-            </a>
-            <a href="/intelligence" className="hover:text-white transition-colors">
-              Intelligence
-            </a>
-            <a href="/extract" className="hover:text-white transition-colors">
-              Extract
-            </a>
-            <a href="/docs" className="hover:text-white transition-colors">
-              Docs
-            </a>
-            <a href="/status" className="hover:text-white transition-colors">
-              Status
-            </a>
-            <a href="/admin" className="hover:text-[#C6F135] text-xs font-mono px-2 py-1 rounded bg-[#14181F] border border-[#262E3C] transition-colors">
-              Admin
-            </a>
-          </nav>
         </header>
         <main className="min-h-[calc(100vh-140px)]">{children}</main>
         <footer className="border-t border-[#262E3C] px-6 py-8 text-xs text-[#98A2B3] bg-[#0A0C0F]">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#C6F135]"></span>
+              <ScrappyLogo state="idle" size={18} showLabel={false} />
               <span className="font-mono text-white font-semibold">SCRAPPY</span>
               <span>— The Web Product & Price Graph</span>
             </div>
-            <div className="flex items-center gap-6 font-mono text-xs">
-              <a href="/legal/responsible-scraping" className="hover:text-white transition-colors">
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <a href="/legal/responsible-scraping" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
                 Responsible Scraping
               </a>
-              <a href="/legal/terms" className="hover:text-white transition-colors">
+              <a href="/legal/terms" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
                 Terms
               </a>
-              <a href="/legal/privacy" className="hover:text-white transition-colors">
+              <a href="/legal/privacy" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
                 Privacy
               </a>
-              <a href="/status" className="hover:text-white transition-colors">
+              <a href="/status" className="inline-flex items-center h-8 px-3 hover:text-white transition-colors">
                 Status
-              </a>
-              <a href="/admin" className="hover:text-white transition-colors">
-                Admin
               </a>
             </div>
           </div>

@@ -12,6 +12,7 @@ export class RelianceDigitalAdapter implements SourceAdapter {
   public readonly id = "reliance-digital";
   public readonly name = "Reliance Digital";
   public readonly version = "0.2.0";
+  public readonly verificationStatus = "fixture-only" as const;
   public readonly circuitBreaker: SourceCircuitBreaker;
 
   constructor() {
@@ -43,6 +44,7 @@ export class RelianceDigitalAdapter implements SourceAdapter {
     return {
       source: this.id,
       status: "unsupported",
+      verificationStatus: this.verificationStatus,
       consecutiveFailures: 0,
       successRate24h: 0,
       lastCheckedAt: new Date().toISOString(),

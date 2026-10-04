@@ -5,6 +5,8 @@ import { SourceChip } from "./SourceChip.js";
 import { PriceTag, formatCurrencyPaise } from "./PriceTag.js";
 import { DataFreshness, getRelativeTimeString } from "./DataFreshness.js";
 import { Sparkline } from "./Sparkline.js";
+import { SyntheticBadge, SyntheticDataBanner } from "./SyntheticBadge.js";
+import { ScrappyLogo } from "../components/ScrappyLogo.js";
 
 describe("@scrappy/ui Domain Components", () => {
   describe("TrustBadge", () => {
@@ -123,6 +125,41 @@ describe("@scrappy/ui Domain Components", () => {
       // Min max
       expect(html).toContain("L: ₹39999");
       expect(html).toContain("H: ₹45000");
+    });
+  });
+
+  describe("SyntheticBadge & SyntheticDataBanner (Constitution Rule 1)", () => {
+    it("renders synthetic warning badge", () => {
+      const html = renderToStaticMarkup(<SyntheticBadge />);
+      expect(html).toContain("SYNTHETIC FIXTURE");
+      expect(html).toContain("border-[#FFB020]/30");
+    });
+
+    it("renders synthetic provenance banner with alert role", () => {
+      const html = renderToStaticMarkup(<SyntheticDataBanner />);
+      expect(html).toContain('role="alert"');
+      expect(html).toContain("[DATA PROVENANCE NOTICE]");
+      expect(html).toContain("is_synthetic: true");
+    });
+  });
+
+  describe("ScrappyLogo (7 animated operational states)", () => {
+    const states = [
+      "idle",
+      "loading",
+      "fetching",
+      "success",
+      "error",
+      "drift",
+      "circuit-broken",
+    ] as const;
+
+    states.forEach((st) => {
+      it(`renders logo in '${st}' state with proper accessibility and attributes`, () => {
+        const html = renderToStaticMarkup(<ScrappyLogo state={st} />);
+        expect(html).toContain(`data-state="${st}"`);
+        expect(html).toContain("SCRAPPY");
+      });
     });
   });
 });

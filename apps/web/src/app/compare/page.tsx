@@ -12,8 +12,11 @@ import {
   SkeletonCard,
   ToastProvider,
   useToast,
+  SyntheticBadge,
+  SyntheticDataBanner,
 } from "@scrappy/ui";
 import { defaultCatalogRepository, SearchResultItem } from "@scrappy/db";
+import { SideBySideCompareModal } from "../../components/SideBySideCompareModal";
 
 function CompareView() {
   const { showToast } = useToast();
@@ -27,20 +30,38 @@ function CompareView() {
   const [watchlistIds, setWatchlistIds] = useState<string[]>([]);
   const [isWatchlistOpen, setIsWatchlistOpen] = useState(false);
 
+  // Compare Matrix state (up to 4 products)
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  // Saved searches state
+  const [savedSearches, setSavedSearches] = useState<Array<{ id: string; label: string; query: string }>>([
+    { id: "ss-1", label: "Smartphones under ₹80k", query: "iPhone" },
+    { id: "ss-2", label: "Noise Cancelling Audio", query: "Sony" },
+  ]);
+
+  // Deals Only toggle
+  const [dealsOnly, setDealsOnly] = useState(false);
+
   // Categories and Brands from catalog
   const categories = useMemo(() => defaultCatalogRepository.getCategories(), []);
   const brands = useMemo(() => defaultCatalogRepository.getBrands(), []);
 
   // Search Results
   const searchResults = useMemo(() => {
-    return defaultCatalogRepository.search({
+    const res = defaultCatalogRepository.search({
       query: query || undefined,
       category: selectedCategory !== "all" ? selectedCategory : undefined,
       brand: selectedBrand !== "all" ? selectedBrand : undefined,
       sort: sortOrder,
       limit: 24,
     });
-  }, [query, selectedCategory, selectedBrand, sortOrder]);
+    if (dealsOnly) {
+      const dealItems = res.items.filter((item) => item.originalPricePaise && item.originalPricePaise > item.lowestPricePaise);
+      return { ...res, items: dealItems, total: dealItems.length };
+    }
+    return res;
+  }, [query, selectedCategory, selectedBrand, sortOrder, dealsOnly]);
 
   // Autocomplete suggestions
   const suggestions = useMemo(() => {
@@ -54,6 +75,29 @@ function CompareView() {
       .map((id) => defaultCatalogRepository.getProductDetail(id))
       .filter((p): p is NonNullable<typeof p> => p !== null);
   }, [watchlistIds]);
+
+  // Compare items
+  const compareProducts = useMemo(() => {
+    return compareIds
+      .map((id) => defaultCatalogRepository.getProductDetail(id))
+      .filter((p): p is NonNullable<typeof p> => p !== null);
+  }, [compareIds]);
+
+  const toggleCompare = (product: SearchResultItem) => {
+    if (compareIds.includes(product.id)) {
+      setCompareIds((prev) => prev.filter((id) => id !== product.id));
+    } else {
+      if (compareIds.length >= 4) {
+        showToast({
+          type: "error",
+          title: "Compare limit reached",
+          description: "You can compare up to 4 products simultaneously.",
+        });
+        return;
+      }
+      setCompareIds((prev) => [...prev, product.id]);
+    }
+  };
 
   const toggleWatchlist = (product: SearchResultItem) => {
     if (watchlistIds.includes(product.id)) {
@@ -113,8 +157,11 @@ function CompareView() {
         </div>
       </div>
 
+      {/* Synthetic / Fixture Notice Banner (Constitution Rule 1 & 3) */}
+      <SyntheticDataBanner className="mb-6 rounded-[4px]" />
+
       {/* Search Input Bar with Autocomplete */}
-      <div className="relative mb-6">
+      <div className="relative mb-4">
         <Input
           placeholder="Search smartphones, laptops, audio, models (e.g. iPhone, Sony XM5, Dell)..."
           value={query}
@@ -236,6 +283,51 @@ function CompareView() {
         </div>
       </div>
 
+      {/* Saved Searches & Deals Toggle Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 p-3 rounded bg-[#0F1217] border border-[#262E3C] text-xs font-mono">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[#5B677C]">SAVED SEARCHES:</span>
+          {savedSearches.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => {
+                setQuery(s.query);
+                setDealsOnly(false);
+              }}
+              className="px-2 py-0.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3] hover:text-[#C6F135] hover:border-[#C6F135]/50 transition-colors"
+            >
+              {s.label}
+            </button>
+          ))}
+          {query && (
+            <button
+              onClick={() => {
+                const label = `${query}`;
+                setSavedSearches([...savedSearches, { id: `ss-${Date.now()}`, label, query }]);
+                showToast({ type: "success", title: "Search saved", description: label });
+              }}
+              className="text-[#C6F135] hover:underline ml-2"
+            >
+              + Save search
+            </button>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setDealsOnly(!dealsOnly)}
+            className={`px-3 py-1 rounded border transition-colors flex items-center gap-1.5 font-bold ${
+              dealsOnly
+                ? "bg-[#C6F135] text-[#0A0C0F] border-[#C6F135]"
+                : "bg-[#141922] text-[#98A2B3] border-[#262E3C] hover:text-white"
+            }`}
+          >
+            <span>🔥</span>
+            <span>DEALS ONLY FEED</span>
+          </button>
+        </div>
+      </div>
+
       {/* Results Header */}
       <div className="flex items-center justify-between text-xs text-[#98A2B3] mb-4">
         <span>Showing {searchResults.items.length} of {searchResults.total} products</span>
@@ -290,9 +382,12 @@ function CompareView() {
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="text-[11px] font-mono text-[#98A2B3] uppercase">
-                      {product.brand} · {product.category}
-                    </span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-mono text-[#98A2B3] uppercase">
+                        {product.brand} · {product.category}
+                      </span>
+                      {product.isSynthetic && <SyntheticBadge size="sm" />}
+                    </div>
                     <button
                       type="button"
                       onClick={() => toggleWatchlist(product)}
@@ -327,9 +422,22 @@ function CompareView() {
                       isLowestPrice
                       size="md"
                     />
-                    <span className="text-[11px] text-[#5B677C]">
-                      {product.offerCount} {product.offerCount === 1 ? "offer" : "offers"}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => toggleCompare(product)}
+                        className={`text-[11px] font-mono px-2 py-0.5 rounded border transition-colors ${
+                          compareIds.includes(product.id)
+                            ? "bg-[#C6F135]/20 text-[#C6F135] border-[#C6F135]"
+                            : "text-[#5B677C] border-[#262E3C] hover:text-white"
+                        }`}
+                      >
+                        {compareIds.includes(product.id) ? "✓ Compared" : "+ Compare"}
+                      </button>
+                      <span className="text-[11px] text-[#5B677C]">
+                        {product.offerCount} {product.offerCount === 1 ? "offer" : "offers"}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -414,6 +522,42 @@ function CompareView() {
           </div>
         </div>
       )}
+
+      {/* Floating Compare Action Bar */}
+      {compareIds.length > 0 && (
+        <aside
+          aria-label="Product comparison bar"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 px-5 py-3 rounded-full bg-[#141922] border border-[#C6F135]/60 shadow-2xl flex items-center gap-4 font-mono text-xs text-white backdrop-blur-md"
+        >
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#C6F135] animate-ping" />
+            <span>{compareIds.length} of 4 items selected</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsCompareModalOpen(true)}
+              disabled={compareIds.length < 2}
+              className="px-3 py-1 rounded bg-[#C6F135] text-[#0A0C0F] font-bold hover:bg-[#b0d92e] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Compare Side-by-Side →
+            </button>
+            <button
+              onClick={() => setCompareIds([])}
+              className="px-2 py-1 text-[#5B677C] hover:text-[#FF5C5C] transition-colors"
+            >
+              Clear
+            </button>
+          </div>
+        </aside>
+      )}
+
+      {/* Side-by-Side Compare Modal */}
+      <SideBySideCompareModal
+        products={compareProducts}
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        onRemoveProduct={(id) => setCompareIds((prev) => prev.filter((i) => i !== id))}
+      />
     </div>
   );
 }

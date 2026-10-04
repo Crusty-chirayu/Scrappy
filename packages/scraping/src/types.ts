@@ -36,9 +36,12 @@ export interface ExtractedOffer {
   provenance: Provenance;
 }
 
+export type AdapterVerificationStatus = "verified_live" | "fixture-only";
+
 export interface AdapterHealth {
   source: SourceId;
   status: "healthy" | "degraded" | "down" | "unsupported";
+  verificationStatus: AdapterVerificationStatus;
   consecutiveFailures: number;
   successRate24h: number;
   lastCheckedAt: string;
@@ -56,6 +59,7 @@ export interface SourceAdapter {
   readonly id: SourceId;
   readonly name: string;
   readonly version: string;
+  readonly verificationStatus: AdapterVerificationStatus;
   readonly circuitBreaker: SourceCircuitBreaker;
   canHandle(url: string): boolean;
   fetch(url: string, options?: FetchOptions): Promise<FetchResult>;

@@ -28,6 +28,7 @@ export interface SearchResultItem {
   originalPricePaise?: number;
   offerCount: number;
   merchants: string[];
+  isSynthetic: boolean;
 }
 
 export interface ProductDetail extends SearchResultItem {
@@ -106,6 +107,7 @@ export class CatalogRepository {
         originalPricePaise: maxOriginal && maxOriginal > lowestPrice ? maxOriginal : undefined,
         offerCount: pOffers.length,
         merchants,
+        isSynthetic: p.isSynthetic ?? true,
       };
     });
 
@@ -206,6 +208,7 @@ export class CatalogRepository {
       originalPricePaise: maxOriginal && maxOriginal > lowestPrice ? maxOriginal : undefined,
       offerCount: pOffers.length,
       merchants: Array.from(new Set(pOffers.map((o) => o.merchantName))),
+      isSynthetic: product.isSynthetic ?? true,
       offers: pOffers,
       priceHistory: history,
     };
@@ -239,6 +242,7 @@ export class CatalogRepository {
         originalPricePaise: detail.originalPricePaise,
         offerCount: detail.offerCount,
         merchants: detail.merchants,
+        isSynthetic: detail.isSynthetic,
       },
       createdAt: new Date().toISOString(),
     };

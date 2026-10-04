@@ -29,6 +29,7 @@ export class AmazonInAdapter implements SourceAdapter {
   public readonly id = "amazon-in";
   public readonly name = "Amazon India";
   public readonly version = "0.2.0";
+  public readonly verificationStatus = "fixture-only" as const;
   public readonly circuitBreaker: SourceCircuitBreaker;
 
   private consecutiveFailures = 0;
@@ -187,6 +188,7 @@ export class AmazonInAdapter implements SourceAdapter {
     return {
       source: this.id,
       status,
+      verificationStatus: this.verificationStatus,
       consecutiveFailures: this.consecutiveFailures,
       successRate24h,
       lastCheckedAt: new Date().toISOString(),

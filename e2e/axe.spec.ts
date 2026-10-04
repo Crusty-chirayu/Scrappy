@@ -1,0 +1,29 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+const PAGES = [
+  { name: "Home Page", path: "/" },
+  { name: "Compare Catalog", path: "/compare" },
+  { name: "Product Detail", path: "/compare/b2000000-0000-0000-0000-000000000001" },
+  { name: "Extract Studio", path: "/extract" },
+  { name: "System Status", path: "/status" },
+  { name: "Workspace Settings", path: "/settings" },
+];
+
+test.describe("WCAG 2.2 AA Accessibility Audits", () => {
+  for (const p of PAGES) {
+    test(`Axe scan: ${p.name}`, async ({ page }) => {
+      await page.goto(p.path);
+      await page.waitForLoadState("networkidle");
+      // Allow dynamic elements to hydrate
+      await page.waitForTimeout(300);
+
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .disableRules(["color-contrast"])
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+  }
+});

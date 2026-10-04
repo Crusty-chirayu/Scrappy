@@ -1,28 +1,39 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import {
   Button,
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableHead,
   ToastProvider,
   useToast,
-  EmptyState,
 } from "@scrappy/ui";
-import {
-  calculateResilienceScore,
-  extractRecordsFromHtml,
-  exportToCsv,
-  exportToJson,
-  exportToNdjson,
-  ExtractorField,
-  RunStatus,
-} from "@scrappy/scraping";
+import type { ExtractorField, RunStatus } from "@scrappy/scraping";
 import { validateTargetUrl } from "@scrappy/core";
+
+// Dynamically code-split heavy parser and live preview (Performance Budget Rule 8)
+const ExtractionResultsPreview = dynamic(
+  () => import("./ExtractionResultsPreview").then((m) => m.ExtractionResultsPreview),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-8 text-center font-mono text-xs text-[#98A2B3] bg-[#0F1217] border border-[#262E3C] rounded-lg">
+        <span className="inline-block w-2 h-2 rounded-full bg-[#9A7BFF] animate-ping mr-2" />
+        Loading extraction &amp; parser runtime...
+      </div>
+    ),
+  },
+);
+
+// Client-safe resilience calculation (0 dependencies, 0 kB overhead)
+function calculateResilienceScore(selector: string): number {
+  if (!selector) return 0;
+  if (selector.includes("[data-")) return 95;
+  if (selector.startsWith("#") && !/([a-z0-9]{8,}|_[0-9]{3,})/.test(selector)) return 85;
+  if (selector.startsWith(".") && !selector.includes(":nth-child") && !selector.includes(">")) return 75;
+  if (selector.includes(">") && !selector.includes(":nth-child")) return 60;
+  if (selector.includes(":nth-child") || selector.startsWith("//") || selector.startsWith("/html")) return 35;
+  return 50;
+}
 
 // Sample test HTML for instant demonstration
 const SAMPLE_PAGE_HTML = `
@@ -80,13 +91,14 @@ const INITIAL_FIELDS: ExtractorField[] = [
     required: false,
     selectors: {
       primary: ".mrp-val",
+      fallback1: "[data-mrp]",
       resilienceScore: 75,
     },
     transforms: [{ type: "parse_currency_paise" }],
   },
   {
     id: "f_url",
-    name: "url",
+    name: "productUrl",
     type: "url",
     required: true,
     selectors: {
@@ -111,15 +123,6 @@ function ExtractStudio() {
   const urlCheck = useMemo(() => {
     return validateTargetUrl(targetUrl);
   }, [targetUrl]);
-
-  // Execute extraction
-  const extractionResult = useMemo(() => {
-    try {
-      return extractRecordsFromHtml(htmlInput, fields, itemSelector, targetUrl);
-    } catch {
-      return { records: [], diagnostics: [] };
-    }
-  }, [htmlInput, fields, itemSelector, targetUrl]);
 
   const handleAddField = () => {
     const newId = `f_${Date.now()}`;
@@ -174,41 +177,10 @@ function ExtractStudio() {
         showToast({
           type: "success",
           title: "Extraction complete",
-          description: `Extracted ${extractionResult.records.length} records with 100% schema fill rate`,
+          description: `Extracted records with 100% schema fill rate`,
         });
       }, 400);
     }, 300);
-  };
-
-  const handleDownload = (format: "csv" | "json" | "ndjson") => {
-    let content = "";
-    let mime = "";
-    let filename = `scrappy-extract-${Date.now()}.${format}`;
-
-    if (format === "csv") {
-      content = exportToCsv(extractionResult.records);
-      mime = "text/csv";
-    } else if (format === "json") {
-      content = exportToJson(extractionResult.records, true);
-      mime = "application/json";
-    } else {
-      content = exportToNdjson(extractionResult.records);
-      mime = "application/x-ndjson";
-    }
-
-    const blob = new Blob([content], { type: mime });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    showToast({
-      type: "info",
-      title: `Exported ${format.toUpperCase()}`,
-      description: `Downloaded ${filename}`,
-    });
   };
 
   return (
@@ -249,54 +221,70 @@ function ExtractStudio() {
           <div className="text-xs font-mono px-3 py-1.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3]">
             METERED: {browserMinutes}m
           </div>
-          <Button variant="primary" size="sm" onClick={handleRunExtraction}>
-            ▶ Run Extractor
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleRunExtraction}
+            disabled={runStatus === "RUNNING"}
+          >
+            {runStatus === "RUNNING" ? "Extracting..." : "Run Extraction"}
           </Button>
         </div>
       </div>
 
-      {/* Target URL & SSRF Security Bar */}
-      <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C] mb-6">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <div className="flex-1">
+      {/* Target URL & SSRF Validation Card */}
+      <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C] mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-2">
             <label className="block text-xs font-mono text-[#98A2B3] mb-1">
-              TARGET URL (SSRF & ROBOTS.TXT CHECKED)
+              TARGET WEBPAGE URL
             </label>
             <input
               type="url"
               value={targetUrl}
               onChange={(e) => setTargetUrl(e.target.value)}
               className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] font-mono outline-none focus:border-[#9A7BFF]"
-              placeholder="https://example.com/products"
+              placeholder="https://example.com/catalog"
             />
+            {urlCheck.valid ? (
+              <span className="inline-block mt-1.5 text-[11px] font-mono text-[#2FBF8A]">
+                ✓ Valid public host ({urlCheck.sanitizedUrl}) — SSRF Security Passed
+              </span>
+            ) : (
+              <span className="inline-block mt-1.5 text-[11px] font-mono text-[#F04438]">
+                ✕ Blocked: {urlCheck.reason} (Constitution Rule 7 SSRF Protection)
+              </span>
+            )}
           </div>
 
-          <div className="sm:w-64">
+          <div>
             <label className="block text-xs font-mono text-[#98A2B3] mb-1">
               ITEM CONTAINER SELECTOR
             </label>
             <input
               type="text"
+              aria-label="Item container selector"
               value={itemSelector}
               onChange={(e) => setItemSelector(e.target.value)}
               className="w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] font-mono outline-none focus:border-[#9A7BFF]"
-              placeholder=".product-card"
             />
+            <span className="inline-block mt-1.5 text-[11px] font-mono text-[#5B677C]">
+              Matches repeated cards in catalog grid
+            </span>
           </div>
         </div>
 
-        {/* Security / Robots Feedback */}
-        <div className="mt-2.5 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            {urlCheck.valid ? (
-              <span className="text-[#C6F135] font-mono flex items-center gap-1">
-                ✓ Public Web Origin Allowed (SSRF Safe)
-              </span>
-            ) : (
-              <span className="text-[#F04438] font-mono flex items-center gap-1">
-                ✕ Blocked: {urlCheck.reason}
-              </span>
-            )}
+        {/* Politeness & Security Indicators */}
+        <div className="mt-4 pt-4 border-t border-[#262E3C] flex flex-wrap items-center justify-between text-xs">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-[#2FBF8A] font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2FBF8A]" />
+              SSRF Guard Active
+            </span>
+            <span className="text-[#5B677C]">•</span>
+            <span className="inline-flex items-center gap-1.5 text-[#98A2B3] font-mono">
+              Rate Limit: 2 req/sec
+            </span>
             <span className="text-[#5B677C]">•</span>
             <span className="text-[#98A2B3]">Robots.txt: Crawl-delay 1000ms respected</span>
           </div>
@@ -315,7 +303,7 @@ function ExtractStudio() {
               : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
           }`}
         >
-          SCHEMA & SELECTOR BUILDER ({fields.length})
+          SCHEMA &amp; SELECTOR BUILDER ({fields.length})
         </button>
         <button
           onClick={() => setActiveTab("preview")}
@@ -325,7 +313,7 @@ function ExtractStudio() {
               : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
           }`}
         >
-          LIVE PREVIEW TABLE ({extractionResult.records.length} ROWS)
+          LIVE PREVIEW TABLE
         </button>
         <button
           onClick={() => setActiveTab("diagnostics")}
@@ -335,7 +323,7 @@ function ExtractStudio() {
               : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
           }`}
         >
-          DIAGNOSTICS & RESILIENCE
+          DIAGNOSTICS &amp; RESILIENCE
         </button>
       </div>
 
@@ -364,6 +352,7 @@ function ExtractStudio() {
                     </label>
                     <input
                       type="text"
+                      aria-label="Field name"
                       value={field.name}
                       onChange={(e) =>
                         setFields(
@@ -381,6 +370,7 @@ function ExtractStudio() {
                       TYPE
                     </label>
                     <select
+                      aria-label="Field data type"
                       value={field.type}
                       onChange={(e) =>
                         setFields(
@@ -407,6 +397,7 @@ function ExtractStudio() {
                     </label>
                     <input
                       type="text"
+                      aria-label="Primary CSS or XPath selector"
                       value={field.selectors.primary}
                       onChange={(e) => handleUpdateFieldSelector(field.id, e.target.value)}
                       className="w-full bg-[#141922] border border-[#262E3C] rounded px-2.5 py-1.5 text-xs text-[#D6DBE3] font-mono outline-none focus:border-[#9A7BFF]"
@@ -444,113 +435,16 @@ function ExtractStudio() {
         </div>
       )}
 
-      {/* TAB CONTENT: PREVIEW */}
-      {activeTab === "preview" && (
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs text-[#98A2B3]">
-              Live structured dataset extracted from test payload ({extractionResult.records.length} rows)
-            </span>
-            <div className="flex items-center gap-2">
-              <Button variant="secondary" size="sm" onClick={() => handleDownload("csv")}>
-                Download CSV
-              </Button>
-              <Button variant="secondary" size="sm" onClick={() => handleDownload("json")}>
-                Download JSON
-              </Button>
-              <Button variant="secondary" size="sm" onClick={() => handleDownload("ndjson")}>
-                Download NDJSON
-              </Button>
-            </div>
-          </div>
-
-          <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
-            {extractionResult.records.length === 0 ? (
-              <EmptyState
-                title="No records extracted"
-                description="Check item container selector or adjust field selectors to match elements."
-              />
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>#</TableHead>
-                    {fields.map((f) => (
-                      <TableHead key={f.id}>{f.name}</TableHead>
-                    ))}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {extractionResult.records.map((row, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell className="font-mono text-xs text-[#5B677C]">{idx + 1}</TableCell>
-                      {fields.map((f) => (
-                        <TableCell key={f.id} className="text-xs font-mono text-[#D6DBE3]">
-                          {String(row[f.name] ?? "")}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* TAB CONTENT: DIAGNOSTICS */}
-      {activeTab === "diagnostics" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-            <h3 className="text-sm font-bold text-[#D6DBE3] mb-3">Field Fill Rates & Health</h3>
-            <div className="space-y-3">
-              {extractionResult.diagnostics.map((d) => (
-                <div key={d.fieldId} className="p-3 rounded bg-[#141922] border border-[#262E3C]">
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="font-mono text-[#D6DBE3]">{d.fieldName}</span>
-                    <span className="font-mono text-[#C6F135]">{d.fillRatePercent}% Fill</span>
-                  </div>
-                  <div className="w-full bg-[#262E3C] h-1.5 rounded-full overflow-hidden mb-2">
-                    <div
-                      className="bg-[#C6F135] h-full"
-                      style={{ width: `${d.fillRatePercent}%` }}
-                    />
-                  </div>
-                  <div className="text-[11px] text-[#5B677C] flex items-center justify-between">
-                    <span>Extracted: {d.extractedCount}/{d.totalTested} items</span>
-                    <span>Selector: {d.selectorUsed}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-            <h3 className="text-sm font-bold text-[#D6DBE3] mb-3">Runtime Audit & Metering</h3>
-            <div className="space-y-2 text-xs font-mono">
-              <div className="flex justify-between py-2 border-b border-[#262E3C]">
-                <span className="text-[#5B677C]">Worker Sandbox:</span>
-                <span className="text-[#D6DBE3]">Playwright Node.js v22 (Ephemeral)</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#262E3C]">
-                <span className="text-[#5B677C]">Session Time Cap:</span>
-                <span className="text-[#D6DBE3]">10 Minutes</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#262E3C]">
-                <span className="text-[#5B677C]">SSRF Protection:</span>
-                <span className="text-[#C6F135]">Active (Private CIDR Blocked)</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#262E3C]">
-                <span className="text-[#5B677C]">Delivery Webhooks:</span>
-                <span className="text-[#D6DBE3]">HMAC SHA-256 Signed</span>
-              </div>
-              <div className="flex justify-between py-2">
-                <span className="text-[#5B677C]">Browser Minutes:</span>
-                <span className="text-[#9A7BFF] font-bold">{browserMinutes} min</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* CODE-SPLIT LAZY LOADED PREVIEW & DIAGNOSTICS */}
+      {activeTab !== "builder" && (
+        <ExtractionResultsPreview
+          htmlInput={htmlInput}
+          fields={fields}
+          itemSelector={itemSelector}
+          targetUrl={targetUrl}
+          activeTab={activeTab}
+          browserMinutes={browserMinutes}
+        />
       )}
     </div>
   );

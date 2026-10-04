@@ -23,6 +23,7 @@ export class FlipkartAdapter implements SourceAdapter {
   public readonly id = "flipkart";
   public readonly name = "Flipkart";
   public readonly version = "0.2.0";
+  public readonly verificationStatus = "fixture-only" as const;
   public readonly circuitBreaker: SourceCircuitBreaker;
 
   private consecutiveFailures = 0;
@@ -173,6 +174,7 @@ export class FlipkartAdapter implements SourceAdapter {
     return {
       source: this.id,
       status,
+      verificationStatus: this.verificationStatus,
       consecutiveFailures: this.consecutiveFailures,
       successRate24h,
       lastCheckedAt: new Date().toISOString(),

@@ -8,6 +8,7 @@ export * from "./components/Toast.js";
 export * from "./components/Skeleton.js";
 export * from "./components/EmptyState.js";
 export * from "./components/ErrorState.js";
+export * from "./components/ScrappyLogo.js";
 
 // Domain Data Instrument Components
 export * from "./domain/TrustBadge.js";
@@ -15,3 +16,4 @@ export * from "./domain/SourceChip.js";
 export * from "./domain/PriceTag.js";
 export * from "./domain/DataFreshness.js";
 export * from "./domain/Sparkline.js";
+export * from "./domain/SyntheticBadge.js";

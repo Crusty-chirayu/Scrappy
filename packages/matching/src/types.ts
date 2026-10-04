@@ -20,6 +20,10 @@ export interface MatchDecision {
     brandMatch?: boolean;
     titleSimilarity?: number;
     modelMatch?: boolean;
+    conditionMismatch?: boolean;
+    accessoryMismatch?: boolean;
+    packSizeMismatch?: boolean;
+    storageMismatch?: boolean;
   };
 }
 
