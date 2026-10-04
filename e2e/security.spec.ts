@@ -5,7 +5,7 @@ test.describe("G9 Defense-in-Depth & Security Flow Suite", () => {
     await page.goto("/settings");
 
     // 1. Switch to API Keys tab
-    const keysTab = page.locator('button:has-text("API KEYS")');
+    const keysTab = page.locator('button:has-text("API KEYS")').first();
     await expect(keysTab).toBeVisible();
     await keysTab.click();
 
