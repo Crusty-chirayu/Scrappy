@@ -192,6 +192,7 @@ export default function HomePage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 px-4 py-2.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+              suppressHydrationWarning
             />
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
               {(filteredProducts.length > 0 ? filteredProducts : DEMO_PRODUCTS).map((p) => (

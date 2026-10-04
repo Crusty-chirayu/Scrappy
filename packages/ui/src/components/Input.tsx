@@ -59,6 +59,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           aria-describedby={
             isInvalid ? errorId : helperText ? helperId : undefined
           }
+          suppressHydrationWarning
           className={`w-full bg-[#141922] text-[#D6DBE3] text-sm rounded-[3px] border transition-colors outline-none px-3 py-1.5 h-9 placeholder:text-[#5B677C] focus:ring-1 focus:ring-[#C6F135] focus:border-[#C6F135] disabled:opacity-50 disabled:cursor-not-allowed ${
             iconPrefix ? "pl-8" : ""
           } ${iconSuffix || clearable ? "pr-8" : ""} ${
