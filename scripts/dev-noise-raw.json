@@ -1,0 +1,548 @@
+[
+  {
+    "route": "/",
+    "name": "Home",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/compare",
+    "name": "Search & Compare",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/compare/prod_101",
+    "name": "Product Detail",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/extract",
+    "name": "Extract",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/intelligence",
+    "name": "Intelligence",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/settings",
+    "name": "Settings",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/docs",
+    "name": "Docs",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/status",
+    "name": "Status",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/terms",
+    "name": "Terms",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/privacy",
+    "name": "Privacy",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/responsible-scraping",
+    "name": "Responsible Scraping",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/auth/login",
+    "name": "Login",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/auth/signup",
+    "name": "Signup",
+    "viewport": "1280px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/",
+    "name": "Home",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/compare",
+    "name": "Search & Compare",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/compare/prod_101",
+    "name": "Product Detail",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/extract",
+    "name": "Extract",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/intelligence",
+    "name": "Intelligence",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/settings",
+    "name": "Settings",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/docs",
+    "name": "Docs",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/status",
+    "name": "Status",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/terms",
+    "name": "Terms",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/privacy",
+    "name": "Privacy",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/legal/responsible-scraping",
+    "name": "Responsible Scraping",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/auth/login",
+    "name": "Login",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "route": "/auth/signup",
+    "name": "Signup",
+    "viewport": "360px",
+    "httpStatus": 200,
+    "consoleEvents": [
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+        "location": {
+          "url": "webpack-internal:///(app-pages-browser)/../../node_modules/.pnpm/next@15.5.27_@playwright+te_03e603a659ba76b059cdc6fe99368fed/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js",
+          "line": 25630,
+          "column": 16,
+          "lineNumber": 25630,
+          "columnNumber": 16
+        }
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": []
+  }
+]

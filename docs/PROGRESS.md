@@ -6,9 +6,42 @@
 
 ---
 
-## Current Status: **STAGE B CONTINUOUS EXECUTION (MASTER BACKLOG)**
+## Current Status: **STAGE B CONTINUOUS EXECUTION — PART A COMPLETE, READY FOR PART B**
 
-- **Single Source of Truth**: `/docs/MASTER_BACKLOG.md` created; `/docs/PLAN/*` marked superseded.
+- **Part A1 (Dev Noise Reproduction)**: ✅ **DONE**
+  - Documented clean-state boots of `npm run dev` and `pnpm dev` into `/docs/DEV_NOISE_REPORT.md`. Enforced rejection of `npm run dev` with clear instruction to use `pnpm dev`.
+- **Part A2 (Dev Experience & Cleanliness Zero-Defect Pass)**: ✅ **DONE**
+  - Locked fixed port map (web 3000, admin 3001, api 4000, browser-worker 5000).
+  - Built `scripts/preflight-check.mjs` checking Docker, Supabase stack status, env vars, and port collisions.
+  - Replaced noisy logs with quiet structured logs in API and worker.
+  - Suppressed duplicate GoTrue client warnings via isolated in-memory storage keys and singletons.
+  - Implemented `e2e/console-clean.spec.ts` asserting zero console errors, zero warnings, and zero failed requests across all 13 routes at 1280px and 360px (52/52 tests passing).
+- **Part A3 (UI Completion Audit)**: ✅ **DONE**
+  - Created `/docs/UI_AUDIT.md` covering all 25 screens against Prompt 02/03/09/11/12/16 and Spec 02.
+- **Part A4 & A5 (UI Fixes & 52-Screenshot Proof)**: ✅ **DONE**
+  - Upgraded `<ScrappyLogo />` in `@scrappy/ui` to "The Convergence" 3-trace geometry with all 7 behaviors and `motion-reduce:animate-none` compliance.
+  - Embedded animated mark in `loading.tsx` and `ErrorState.tsx`.
+  - Implemented dual-theme support for Ink Scale (dark, `#0A0C0F` / `#C6F135`) and Paper Scale (light, `#FAF9F6` / `#5E7A00`) with `<ThemeToggle />` in header.
+  - Enforced 44px minimum tap targets and added fixed mobile bottom navigation bar for 360px viewports.
+  - Built `scripts/capture-all-screenshots.mjs` and successfully captured all 52 screenshots (13 routes × 2 viewports × 2 themes) into `/docs/screenshots/`.
+  - Documented changes in `/docs/BEFORE_AFTER_UI.md`.
+
+---
+
+## NEXT ACTION
+
+**NEXT ACTION**: Execute Part B (Truth Pass):
+1. **B1**: Run migrations check (`ls supabase/migrations`, `git ls-files supabase/migrations`), squash/clean pg_boss fix migrations into clean state, run `supabase db reset` and `supabase test db`.
+2. **B2**: Re-run `pnpm check` and full Playwright suite, report exact counts, remove contradictory "86 passed" from EVIDENCE.md.
+3. **B3**: Rewrite `docs/data/gold-set-provenance.md` honestly, author human labeling CSV import/export tool.
+4. **B4**: Run Gitleaks over git history, add to CI.
+5. **B5**: Verify CI workflow via `gh run list --limit 3`.
+6. **B6**: Mobile Lighthouse audit & 2000-request load test.
+7. **B7**: Fetch and quote robots.txt & terms in `docs/sources/`.
+8. **B8**: Supabase TOTP MFA (AAL2) enforcement in admin console.
+9. **B9**: `pnpm audit` and dependency patch updates.
+
+---
 - **G1 (Supabase Persistence)**: ✅ **DONE**
   - Wired web app (`/api/watchlist`, `/api/alerts`, `actions.tsx`) and API (`/v1/search`, `/v1/products/:id`, `/v1/watchlist`, `/v1/alerts`) to `defaultSupabaseRepository` against real local Supabase PostgreSQL.
   - Removed in-memory repo from all production runtime paths.

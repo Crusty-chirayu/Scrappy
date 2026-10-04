@@ -11,13 +11,16 @@ let clientInstance: SupabaseClient | null = null;
 
 export function getBrowserSupabase(): SupabaseClient {
   if (typeof window === "undefined") {
-    return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { persistSession: false },
-    });
+    if (!(globalThis as any).__scrappy_server_supabase__) {
+      (globalThis as any).__scrappy_server_supabase__ = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: false },
+      });
+    }
+    return (globalThis as any).__scrappy_server_supabase__;
   }
 
-  if (!clientInstance) {
-    clientInstance = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  if (!(globalThis as any).__scrappy_supabase_client__) {
+    (globalThis as any).__scrappy_supabase_client__ = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
@@ -26,5 +29,5 @@ export function getBrowserSupabase(): SupabaseClient {
     });
   }
 
-  return clientInstance;
+  return (globalThis as any).__scrappy_supabase_client__;
 }

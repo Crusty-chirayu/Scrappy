@@ -28,10 +28,9 @@ export async function buildApp(customRepo?: ICatalogRepository) {
       ? defaultCatalogRepository
       : defaultSupabaseRepository);
 
+  const isDebug = process.env.DEBUG === "1";
   const app = Fastify({
-    logger: {
-      level: env.LOG_LEVEL,
-    },
+    logger: isDebug ? { level: env.LOG_LEVEL } : false,
   }).withTypeProvider<ZodTypeProvider>();
 
   app.setValidatorCompiler(validatorCompiler);
@@ -751,12 +750,11 @@ export async function buildApp(customRepo?: ICatalogRepository) {
 
 if (process.env.NODE_ENV !== "test") {
   const server = await buildApp();
-  server.listen({ port: env.PORT, host: "0.0.0.0" }, (err, address) => {
+  server.listen({ port: env.PORT, host: "0.0.0.0" }, (err) => {
     if (err) {
-      server.log.error(err);
+      console.error("[Scrappy API] Fatal error:", err);
       process.exit(1);
     }
-    server.log.info(`Scrappy API listening on ${address}`);
-    server.log.info(`Swagger OpenAPI documentation at ${address}/docs`);
+    console.info(`[Scrappy API] Listening on port ${env.PORT} • OpenAPI Docs: http://localhost:${env.PORT}/docs`);
   });
 }

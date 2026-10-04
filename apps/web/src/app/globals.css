@@ -3,21 +3,99 @@
 @tailwind utilities;
 
 :root {
-  --bg-dark: #0A0C0F;
-  --text-dark: #D6DBE3;
-  --signal-green: #C6F135;
+  --bg-primary: #0A0C0F;
+  --bg-surface: #0F1217;
+  --bg-elevated: #14181F;
+  --border-hairline: #262E3C;
+  --text-primary: #D6DBE3;
+  --text-secondary: #98A2B3;
+  --text-muted: #5B677C;
+  --signal-accent: #C6F135;
+}
+
+html[data-theme="light"] {
+  --bg-primary: #FAF9F6;
+  --bg-surface: #F3F1EC;
+  --bg-elevated: #E8E5DD;
+  --border-hairline: #D3CFC3;
+  --text-primary: #0A0C0F;
+  --text-secondary: #5B677C;
+  --text-muted: #8B93A3;
+  --signal-accent: #5E7A00;
 }
 
 html,
 body {
-  background-color: var(--bg-dark);
-  color: var(--text-dark);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   max-width: 100%;
+}
+
+/* Light Theme Overrides (Paper Scale) */
+html[data-theme="light"] body {
+  background-color: #FAF9F6 !important;
+  color: #0A0C0F !important;
+}
+
+html[data-theme="light"] .bg-\[\#0A0C0F\] {
+  background-color: #FAF9F6 !important;
+}
+
+html[data-theme="light"] .bg-\[\#0F1217\] {
+  background-color: #F3F1EC !important;
+}
+
+html[data-theme="light"] .bg-\[\#14181F\],
+html[data-theme="light"] .bg-\[\#141922\],
+html[data-theme="light"] .bg-\[\#0D1015\] {
+  background-color: #E8E5DD !important;
+}
+
+html[data-theme="light"] .border-\[\#262E3C\] {
+  border-color: #D3CFC3 !important;
+}
+
+html[data-theme="light"] .text-white {
+  color: #0A0C0F !important;
+}
+
+html[data-theme="light"] .text-\[\#D6DBE3\] {
+  color: #0A0C0F !important;
+}
+
+html[data-theme="light"] .text-\[\#98A2B3\] {
+  color: #5B677C !important;
+}
+
+html[data-theme="light"] .text-\[\#5B677C\] {
+  color: #8B93A3 !important;
+}
+
+html[data-theme="light"] .text-\[\#C6F135\] {
+  color: #5E7A00 !important;
+}
+
+html[data-theme="light"] .bg-\[\#C6F135\] {
+  background-color: #5E7A00 !important;
+  color: #FAF9F6 !important;
+}
+
+html[data-theme="light"] .border-\[\#C6F135\] {
+  border-color: #5E7A00 !important;
+}
+
+html[data-theme="light"] .hover\:bg-\[\#B5DF2E\]:hover {
+  background-color: #4C6300 !important;
+}
+
+/* Price tabular digits */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* WCAG 2.2 AA & Constitution Rule 9: Reduced-motion compliance */
@@ -31,4 +109,3 @@ body {
     scroll-behavior: auto !important;
   }
 }
-

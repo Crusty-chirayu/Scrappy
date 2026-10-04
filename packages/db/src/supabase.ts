@@ -83,6 +83,12 @@ interface DbAlertRow {
   products?: { title: string } | null;
 }
 
+const noopStorage = {
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
+};
+
 /**
  * Returns a Supabase client with anon key or user JWT.
  */
@@ -91,6 +97,9 @@ export function getSupabaseClient(jwt?: string): SupabaseClient {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
+      detectSessionInUrl: false,
+      storageKey: "sb-db-anon-storage",
+      storage: noopStorage,
     },
     global: {
       headers: jwt ? { Authorization: `Bearer ${jwt}` } : {},
@@ -106,6 +115,9 @@ export function getSupabaseAdminClient(): SupabaseClient {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
+      detectSessionInUrl: false,
+      storageKey: "sb-db-admin-storage",
+      storage: noopStorage,
     },
   });
 }

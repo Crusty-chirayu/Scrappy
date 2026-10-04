@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Button } from "./Button.js";
+import { ScrappyLogo } from "./ScrappyLogo.js";
 
 export interface ErrorStateProps {
   title?: string;
@@ -25,10 +26,8 @@ export function ErrorState({
       role="alert"
       className={`p-6 border border-[#F2685B]/30 rounded-[4px] bg-[#0F1217] flex flex-col items-center text-center max-w-md mx-auto ${className}`}
     >
-      <div className="w-10 h-10 rounded-full bg-[#F2685B]/10 border border-[#F2685B]/20 flex items-center justify-center text-[#F2685B] mb-3">
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 7.5h.008v.008H12v-.008z" />
-        </svg>
+      <div className="mb-3">
+        <ScrappyLogo state="error" size={36} showLabel={false} />
       </div>
       <h3 className="text-sm font-semibold text-[#D6DBE3]">{title}</h3>
       <p className="text-xs text-[#98A2B3] mt-1.5 mb-3 leading-relaxed">{message}</p>

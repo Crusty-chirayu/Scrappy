@@ -5,6 +5,7 @@
   "description": "SCRAPPY — Precision data instrument: Compare, Intelligence, and Extract",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/preflight-check.mjs",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",

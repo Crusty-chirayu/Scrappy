@@ -20,49 +20,49 @@ export function ScrappyLogo({
   showLabel = true,
   className = "",
 }: ScrappyLogoProps) {
-  // Color tokens per state
+  // Color tokens and motion classes per state
   const stateConfig: Record<
     LogoState,
-    { dotColor: string; ringColor: string; animClass: string; labelSuffix?: string }
+    { dotColor: string; traceColor: string; animClass: string; labelSuffix?: string }
   > = {
     idle: {
       dotColor: "#C6F135",
-      ringColor: "#C6F135",
-      animClass: "",
+      traceColor: "#5B677C",
+      animClass: "motion-safe:animate-pulse",
     },
     loading: {
       dotColor: "#C6F135",
-      ringColor: "#C6F135",
-      animClass: "animate-pulse",
+      traceColor: "#C6F135",
+      animClass: "motion-safe:animate-pulse",
       labelSuffix: "syncing",
     },
     fetching: {
       dotColor: "#5AA9FF",
-      ringColor: "#5AA9FF",
-      animClass: "animate-spin",
+      traceColor: "#5AA9FF",
+      animClass: "motion-safe:animate-spin",
       labelSuffix: "extracting",
     },
     success: {
       dotColor: "#2FBF8A",
-      ringColor: "#2FBF8A",
-      animClass: "animate-bounce",
+      traceColor: "#2FBF8A",
+      animClass: "motion-safe:animate-bounce",
       labelSuffix: "resolved",
     },
     error: {
-      dotColor: "#FF5C5C",
-      ringColor: "#FF5C5C",
-      animClass: "animate-ping",
+      dotColor: "#F2685B",
+      traceColor: "#F2685B",
+      animClass: "motion-safe:animate-ping",
       labelSuffix: "fault",
     },
     drift: {
-      dotColor: "#FFB020",
-      ringColor: "#FFB020",
-      animClass: "animate-pulse",
+      dotColor: "#F5B544",
+      traceColor: "#F5B544",
+      animClass: "motion-safe:animate-pulse",
       labelSuffix: "drift detected",
     },
     "circuit-broken": {
       dotColor: "#8B93A3",
-      ringColor: "#FF5C5C",
+      traceColor: "#F2685B",
       animClass: "",
       labelSuffix: "isolated",
     },
@@ -82,75 +82,87 @@ export function ScrappyLogo({
         className="relative flex items-center justify-center flex-shrink-0"
         style={{ width: size, height: size }}
       >
-        {/* Outer orbital / radar ring */}
         <svg
           viewBox="0 0 32 32"
           width={size}
           height={size}
-          className={`overflow-visible ${state === "fetching" ? "animate-spin" : ""}`}
+          className={`overflow-visible ${state === "fetching" ? "motion-safe:animate-spin" : ""}`}
         >
-          {/* Static geometric frame */}
+          {/* Static geometric outer frame */}
           <circle
             cx="16"
             cy="16"
             r="14"
             fill="none"
-            stroke="#262E3C"
-            strokeWidth="1.5"
+            stroke="currentColor"
+            className="text-[#262E3C] dark:text-[#262E3C]"
+            strokeWidth="1.2"
           />
 
-          {/* Dynamic ring segment according to state */}
+          {/* "The Convergence" — Three incoming traces from disparate sources converging into the single trusted node */}
           {state === "circuit-broken" ? (
             <>
-              <line
-                x1="8"
-                y1="8"
-                x2="24"
-                y2="24"
-                stroke="#FF5C5C"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <line
-                x1="24"
-                y1="8"
-                x2="8"
-                y2="24"
-                stroke="#FF5C5C"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+              {/* Broken trace 1 with air gap */}
+              <path d="M 4 9 H 10" stroke="#F2685B" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M 14 13 L 16 16" stroke="#8B93A3" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 2" />
+              {/* Interrupted trace 2 */}
+              <path d="M 4 16 H 11" stroke="#F2685B" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Trace 3 */}
+              <path d="M 4 23 H 9" stroke="#F2685B" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Trip cross marker */}
+              <line x1="12" y1="12" x2="20" y2="20" stroke="#F2685B" strokeWidth="2" strokeLinecap="round" />
+              <line x1="20" y1="12" x2="12" y2="20" stroke="#F2685B" strokeWidth="2" strokeLinecap="round" />
             </>
           ) : (
-            <circle
-              cx="16"
-              cy="16"
-              r="14"
-              fill="none"
-              stroke={config.ringColor}
-              strokeWidth="2"
-              strokeDasharray={state === "fetching" ? "20 70" : state === "drift" ? "6 6" : "100 0"}
-              strokeLinecap="round"
-              opacity={state === "idle" ? 0.3 : 0.9}
-            />
+            <>
+              {/* Upper trace */}
+              <path
+                d="M 4 9 H 11 Q 14 9 15 13 L 16 16"
+                fill="none"
+                stroke={config.traceColor}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeDasharray={state === "drift" ? "3 2" : undefined}
+                opacity={state === "idle" ? 0.7 : 0.95}
+              />
+              {/* Center direct trace */}
+              <path
+                d="M 4 16 H 16"
+                fill="none"
+                stroke={config.traceColor}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                opacity={state === "idle" ? 0.8 : 1}
+              />
+              {/* Lower trace */}
+              <path
+                d="M 4 23 H 11 Q 14 23 15 19 L 16 16"
+                fill="none"
+                stroke={config.traceColor}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeDasharray={state === "drift" ? "3 2" : undefined}
+                opacity={state === "idle" ? 0.7 : 0.95}
+              />
+            </>
           )}
 
-          {/* Central precision node */}
+          {/* Central precision node (The single trusted point) */}
           {state !== "circuit-broken" && (
             <circle
               cx="16"
               cy="16"
-              r="5"
+              r="4"
               fill={config.dotColor}
-              className={config.animClass}
+              className={`${config.animClass} motion-reduce:animate-none`}
             />
           )}
         </svg>
 
-        {/* Ambient glow for active operations */}
+        {/* Ambient indicator glow */}
         {(state === "fetching" || state === "loading" || state === "error") && (
           <span
-            className="absolute inset-0 rounded-full blur-[4px] opacity-40 -z-10"
+            className="absolute inset-0 rounded-full blur-[4px] opacity-40 -z-10 motion-reduce:hidden"
             style={{ backgroundColor: config.dotColor }}
           />
         )}
@@ -158,7 +170,7 @@ export function ScrappyLogo({
 
       {showLabel && (
         <div className="flex items-baseline gap-2">
-          <span className="font-bold tracking-wider text-white text-sm">SCRAPPY</span>
+          <span className="font-bold tracking-wider text-current text-sm">SCRAPPY</span>
           {config.labelSuffix && (
             <span
               className="text-[10px] uppercase tracking-widest px-1 py-0.2 rounded border text-opacity-90 font-mono"

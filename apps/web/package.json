@@ -5,7 +5,7 @@
   "description": "Scrappy web application: Marketing, Compare, Intelligence, Extract, and Docs",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src/",
