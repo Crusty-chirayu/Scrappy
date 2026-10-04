@@ -1,0 +1,25 @@
+{
+  "name": "@scrappy/admin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Internal operations console with allowlist-only access control",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@scrappy/adapters": "workspace:*",
+    "@scrappy/core": "workspace:*",
+    "@scrappy/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@scrappy/config": "workspace:*",
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}

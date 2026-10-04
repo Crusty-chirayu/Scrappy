@@ -1,0 +1,46 @@
+{
+  "name": "@scrappy/adapters",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Source adapters for Amazon India, Flipkart, Croma, and Reliance Digital",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./amazon-in": {
+      "types": "./dist/amazon-in/index.d.ts",
+      "import": "./dist/amazon-in/index.js"
+    },
+    "./flipkart": {
+      "types": "./dist/flipkart/index.d.ts",
+      "import": "./dist/flipkart/index.js"
+    },
+    "./croma": {
+      "types": "./dist/croma/index.d.ts",
+      "import": "./dist/croma/index.js"
+    },
+    "./reliance-digital": {
+      "types": "./dist/reliance-digital/index.d.ts",
+      "import": "./dist/reliance-digital/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@scrappy/core": "workspace:*",
+    "@scrappy/scraping": "workspace:*"
+  },
+  "devDependencies": {
+    "@scrappy/config": "workspace:*",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@scrappy/worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "pg-boss background job worker for scraping, normalization, matching, alerts, and reports",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@scrappy/adapters": "workspace:*",
+    "@scrappy/ai": "workspace:*",
+    "@scrappy/core": "workspace:*",
+    "@scrappy/db": "workspace:*",
+    "@scrappy/matching": "workspace:*",
+    "@scrappy/pricing": "workspace:*",
+    "@scrappy/scraping": "workspace:*",
+    "pg-boss": "^10.1.5"
+  },
+  "devDependencies": {
+    "@scrappy/config": "workspace:*",
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}
