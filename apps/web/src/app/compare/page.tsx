@@ -273,7 +273,7 @@ export default function ComparePage() {
                 <span className="text-[var(--text-3)] hidden lg:inline">Sort:</span>
                 <select
                   value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value as any)}
+                  onChange={(e) => setSortOrder(e.target.value as "relevance" | "price_asc" | "price_desc")}
                   aria-label="Sort products"
                   className="px-2.5 py-2 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-default)] text-[var(--text-1)] font-mono text-xs focus:outline-none focus:border-[var(--color-accent)] min-h-[44px]"
                 >
