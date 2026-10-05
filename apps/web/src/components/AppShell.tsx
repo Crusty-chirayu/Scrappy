@@ -83,6 +83,7 @@ const NAV_ITEMS: NavItem[] = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isLanding = pathname === "/";
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(true);
@@ -194,16 +195,36 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <ScrappyLogo state="idle" size={24} variant="combined" />
             </Link>
 
-            {/* Sidebar toggle button (desktop) */}
-            <button
-              type="button"
-              onClick={toggleSidebarCollapse}
-              className="hidden md:flex items-center justify-center min-h-[36px] min-w-[36px] rounded-[var(--radius-sm)] hover:bg-[var(--surface-2)] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors border border-transparent hover:border-[var(--border-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
-              aria-label={isCollapsed ? "Expand sidebar (Press [)" : "Collapse sidebar (Press [)"}
-              title={isCollapsed ? "Expand sidebar ([)" : "Collapse sidebar ([)"}
-            >
-              {isCollapsed ? <ChevronRightIcon size={16} /> : <ChevronLeftIcon size={16} />}
-            </button>
+            {/* Sidebar toggle button (desktop) - only on app routes */}
+            {!isLanding && (
+              <button
+                type="button"
+                onClick={toggleSidebarCollapse}
+                className="hidden md:flex items-center justify-center min-h-[36px] min-w-[36px] rounded-[var(--radius-sm)] hover:bg-[var(--surface-2)] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors border border-transparent hover:border-[var(--border-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
+                aria-label={isCollapsed ? "Expand sidebar (Press [)" : "Collapse sidebar (Press [)"}
+                title={isCollapsed ? "Expand sidebar ([)" : "Collapse sidebar ([)"}
+              >
+                {isCollapsed ? <ChevronRightIcon size={16} /> : <ChevronLeftIcon size={16} />}
+              </button>
+            )}
+
+            {/* Landing page nav links */}
+            {isLanding && (
+              <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 ml-4 text-xs font-mono text-[var(--text-2)]">
+                <Link href="/compare" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Compare
+                </Link>
+                <Link href="/pricing" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Pricing
+                </Link>
+                <Link href="/extract" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Extract API
+                </Link>
+                <Link href="/dev/kit" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Design Kit
+                </Link>
+              </nav>
+            )}
           </div>
 
           {/* Center Search / Command Palette Trigger */}
@@ -257,13 +278,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Core Layout: Sidebar + Main Stage */}
         <div className="flex-1 flex overflow-hidden">
-          {/* Collapsible Sidebar (Desktop) */}
-          <aside
-            aria-label="Sidebar Navigation"
-            className={`hidden md:flex flex-col border-r border-[var(--border-default)] bg-[var(--surface-1)] transition-all duration-200 shrink-0 ${
-              isCollapsed ? "w-16" : "w-60"
-            }`}
-          >
+          {/* Collapsible Sidebar (Desktop) - only rendered on app routes */}
+          {!isLanding && (
+            <aside
+              aria-label="Sidebar Navigation"
+              className={`hidden md:flex flex-col border-r border-[var(--border-default)] bg-[var(--surface-1)] transition-all duration-200 shrink-0 ${
+                isCollapsed ? "w-16" : "w-60"
+              }`}
+            >
             <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
               {NAV_ITEMS.map((item) => {
                 const isActive = pathname?.startsWith(item.href);
@@ -323,6 +345,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </div>
             )}
           </aside>
+        )}
 
           {/* Main Content Area */}
           <main
@@ -370,31 +393,33 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </nav>
 
-        {/* Desktop Global Footer */}
-        <footer className="hidden md:block border-t border-[var(--border-default)] px-6 py-6 text-xs text-[var(--text-3)] bg-[var(--surface-0)] font-mono">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <ScrappyLogo state="idle" size={16} variant="mark" />
-              <span className="text-[var(--text-1)] font-semibold">SCRAPPY</span>
-              <span>— The Web Product &amp; Price Graph</span>
+        {/* Desktop Global Footer (only on app routes, landing has its own rich footer) */}
+        {!isLanding && (
+          <footer className="hidden md:block border-t border-[var(--border-default)] px-6 py-6 text-xs text-[var(--text-3)] bg-[var(--surface-0)] font-mono">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <ScrappyLogo state="idle" size={16} variant="mark" />
+                <span className="text-[var(--text-1)] font-semibold">SCRAPPY</span>
+                <span>— The Web Product &amp; Price Graph</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Link href="/compare" className="hover:text-[var(--text-1)] transition-colors">Compare</Link>
+                <span>·</span>
+                <Link href="/watchlist" className="hover:text-[var(--text-1)] transition-colors">Watchlist</Link>
+                <span>·</span>
+                <Link href="/extract" className="hover:text-[var(--text-1)] transition-colors">Extract</Link>
+                <span>·</span>
+                <Link href="/dev/kit" className="hover:text-[var(--text-1)] transition-colors">Kit</Link>
+                <span>·</span>
+                <Link href="/dev/icons" className="hover:text-[var(--text-1)] transition-colors">Icons</Link>
+                <span>·</span>
+                <Link href="/dev/motion" className="hover:text-[var(--text-1)] transition-colors">Motion</Link>
+                <span>·</span>
+                <Link href="/legal/terms" className="hover:text-[var(--text-1)] transition-colors">Terms</Link>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link href="/compare" className="hover:text-[var(--text-1)] transition-colors">Compare</Link>
-              <span>·</span>
-              <Link href="/watchlist" className="hover:text-[var(--text-1)] transition-colors">Watchlist</Link>
-              <span>·</span>
-              <Link href="/extract" className="hover:text-[var(--text-1)] transition-colors">Extract</Link>
-              <span>·</span>
-              <Link href="/dev/kit" className="hover:text-[var(--text-1)] transition-colors">Kit</Link>
-              <span>·</span>
-              <Link href="/dev/icons" className="hover:text-[var(--text-1)] transition-colors">Icons</Link>
-              <span>·</span>
-              <Link href="/dev/motion" className="hover:text-[var(--text-1)] transition-colors">Motion</Link>
-              <span>·</span>
-              <Link href="/legal/terms" className="hover:text-[var(--text-1)] transition-colors">Terms</Link>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        )}
       </div>
     </ToastProvider>
   );

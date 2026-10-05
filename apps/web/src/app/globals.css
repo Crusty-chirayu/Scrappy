@@ -30,6 +30,14 @@ body {
   font-feature-settings: "tnum" 1, "zero" 1;
 }
 
+.font-display {
+  font-family: var(--font-display), "Instrument Serif", Georgia, serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
+
 /* Touch targets: Constitution Rule 9 & WCAG 2.2 AA (min 44x44px for primary tap areas) */
 .touch-target-44 {
   min-height: 44px;
