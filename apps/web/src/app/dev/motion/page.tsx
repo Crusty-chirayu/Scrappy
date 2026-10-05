@@ -25,6 +25,13 @@ export default function MotionVerificationPage() {
   const [prevPrice, setPrevPrice] = useState<number | undefined>(undefined);
   const [staggerKey, setStaggerKey] = useState(0);
   const [deletedCount, setDeletedCount] = useState(0);
+  const [showAmbient, setShowAmbient] = useState(true);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("no-ambient")) {
+      setShowAmbient(false);
+    }
+  }, []);
 
   const toggleTheme = () => {
     startSafeViewTransition(() => {

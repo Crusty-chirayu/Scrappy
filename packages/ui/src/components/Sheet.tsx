@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useId, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useId, useRef, useState, useCallback } from "react";
 
 export type SheetSide = "right" | "left" | "bottom";
 
@@ -27,12 +27,15 @@ export function Sheet({ open: controlledOpen, onOpenChange, side = "right", chil
   const descriptionId = useId();
 
   const isOpen = controlledOpen !== undefined ? controlledOpen : uncontrolledOpen;
-  const setIsOpen = (val: boolean) => {
-    if (controlledOpen === undefined) {
-      setUncontrolledOpen(val);
-    }
-    onOpenChange?.(val);
-  };
+  const setIsOpen = useCallback(
+    (val: boolean) => {
+      if (controlledOpen === undefined) {
+        setUncontrolledOpen(val);
+      }
+      onOpenChange?.(val);
+    },
+    [controlledOpen, onOpenChange]
+  );
 
   return (
     <SheetContext.Provider value={{ isOpen, setIsOpen, titleId, descriptionId, side }}>
@@ -71,40 +74,136 @@ const sideClasses: Record<SheetSide, string> = {
   bottom: "inset-x-0 bottom-0 max-h-[85vh] w-full border-t rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-300",
 };
 
-export function SheetContent({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function SheetContent({
+  children,
+  className = "",
+  initialFocusRef,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  initialFocusRef?: React.RefObject<HTMLElement | null>;
+}) {
   const ctx = useContext(SheetContext);
   if (!ctx) throw new Error("SheetContent must be used within Sheet");
 
   const sheetRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
 
+  // Drag-to-dismiss state for mobile bottom sheets
+  const [dragY, setDragY] = useState(0);
+  const touchStartY = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (ctx.side !== "bottom") return;
+    touchStartY.current = e.touches[0]?.clientY ?? null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (ctx.side !== "bottom" || touchStartY.current === null) return;
+    const currentY = e.touches[0]?.clientY ?? touchStartY.current;
+    const delta = currentY - touchStartY.current;
+    if (delta > 0) {
+      setDragY(delta);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (ctx.side !== "bottom") return;
+    if (dragY > 70) {
+      ctx.setIsOpen(false);
+    }
+    setDragY(0);
+    touchStartY.current = null;
+  };
+
   useEffect(() => {
     if (!ctx.isOpen) return;
 
+    // 1. Capture previously focused element
     previousFocus.current = document.activeElement as HTMLElement;
-    sheetRef.current?.focus();
 
+    // 2. Prevent layout shift from scrollbar removal
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const prevOverflow = document.body.style.overflow;
+    const prevPaddingRight = document.body.style.paddingRight;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    // 3. Set initial focus
+    const timer = setTimeout(() => {
+      if (initialFocusRef?.current) {
+        initialFocusRef.current.focus();
+      } else {
+        const focusables = sheetRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables && focusables.length > 0) {
+          const firstTarget = focusables[0];
+          if (firstTarget) firstTarget.focus();
+        } else {
+          sheetRef.current?.focus();
+        }
+      }
+    }, 10);
+
+    // 4. Focus Trap & Escape key listener
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         ctx.setIsOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        if (!sheetRef.current) return;
+        const focusables = Array.from(
+          sheetRef.current.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !sheetRef.current.contains(document.activeElement)) {
+            last?.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last || !sheetRef.current.contains(document.activeElement)) {
+            first?.focus();
+            e.preventDefault();
+          }
+        }
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
 
     return () => {
+      clearTimeout(timer);
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-      previousFocus.current?.focus();
+      document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPaddingRight;
+      if (previousFocus.current && typeof previousFocus.current.focus === "function") {
+        previousFocus.current.focus();
+      }
     };
-  }, [ctx.isOpen]);
+  }, [ctx.isOpen, ctx, initialFocusRef]);
 
   if (!ctx.isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[var(--z-drawer)] bg-black/60 backdrop-blur-xs flex justify-end animate-in fade-in duration-200"
+      className="fixed inset-0 z-[var(--z-sheet)] flex justify-end bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
       onClick={() => ctx.setIsOpen(false)}
       role="presentation"
     >
@@ -116,9 +215,23 @@ export function SheetContent({ children, className = "" }: { children: React.Rea
         aria-describedby={ctx.descriptionId}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
-        className={`fixed bg-[var(--surface-3)] text-[var(--text-1)] border-[var(--border)] shadow-[var(--elevation-4)] p-6 outline-none flex flex-col justify-between overflow-y-auto ${sideClasses[ctx.side]} ${className}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
+          transition: dragY === 0 ? "transform 200ms cubic-bezier(0.16, 1, 0.3, 1)" : "none",
+        }}
+        className={`fixed bg-[var(--surface-3)] text-[var(--text-1)] border-[var(--border)] shadow-[var(--elevation-4)] p-6 outline-none flex flex-col justify-between ${
+          sideClasses[ctx.side]
+        } ${className}`}
       >
-        {children}
+        {ctx.side === "bottom" && (
+          <div className="w-full flex justify-center pb-3 -mt-2 cursor-grab active:cursor-grabbing">
+            <span className="w-10 h-1 rounded-full bg-[var(--border-strong)]" aria-hidden="true" />
+          </div>
+        )}
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </div>
   );

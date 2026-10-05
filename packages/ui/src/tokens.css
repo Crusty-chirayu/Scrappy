@@ -295,6 +295,65 @@
   }
 }
 
+/* Responsive Table: Mobile Stacked Key-Value Mode */
+@media (max-width: 480px) {
+  .scrappy-table-stacked {
+    overflow-x: visible !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .scrappy-table-stacked table,
+  .scrappy-table-stacked thead,
+  .scrappy-table-stacked tbody,
+  .scrappy-table-stacked th,
+  .scrappy-table-stacked td,
+  .scrappy-table-stacked tr {
+    display: block !important;
+  }
+
+  .scrappy-table-stacked thead {
+    display: none !important;
+  }
+
+  .scrappy-table-stacked tr {
+    margin-bottom: 12px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--surface-1);
+    padding: 12px 14px;
+    box-shadow: var(--elevation-1);
+  }
+
+  .scrappy-table-stacked td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 8px 0 !important;
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: right !important;
+  }
+
+  .scrappy-table-stacked td:last-child {
+    border-bottom: none;
+    padding-bottom: 0 !important;
+  }
+
+  .scrappy-table-stacked td[data-label]::before {
+    content: attr(data-label);
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-3);
+    text-align: left;
+    padding-right: 12px;
+    flex-shrink: 0;
+  }
+}
+
 /* Reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -306,3 +365,31 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* High Contrast / Forced Colors Mode */
+@media (forced-colors: active) {
+  :root {
+    --border-default: CanvasText;
+    --border-subtle: CanvasText;
+    --border-strong: CanvasText;
+    --border-focus: Highlight;
+  }
+
+  .ambient-drift,
+  .ambient-mesh-canvas {
+    display: none !important;
+  }
+
+  button,
+  input,
+  select,
+  a {
+    forced-color-adjust: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+  }
+}
+

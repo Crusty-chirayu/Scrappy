@@ -7,13 +7,14 @@ import { Select } from "./Select.js";
 import { Tabs, TabList, Tab, TabPanel } from "./Tabs.js";
 import { Badge } from "./Badge.js";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./Card.js";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "./Dialog.js";
-import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "./Sheet.js";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "./Dialog.js";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "./Sheet.js";
 import { Tooltip } from "./Tooltip.js";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./Table.js";
 import { Skeleton, SkeletonText, SkeletonCard, SkeletonTableRow } from "./Skeleton.js";
 import { EmptyState } from "./EmptyState.js";
 import { ErrorState } from "./ErrorState.js";
+import { ToastProvider } from "./Toast.js";
 
 describe("@scrappy/ui Core Primitives (Rebuilt Phase 0)", () => {
   describe("Button", () => {
@@ -283,6 +284,74 @@ describe("@scrappy/ui Core Primitives (Rebuilt Phase 0)", () => {
       expect(html).toContain("Source adapter timed out after 3000ms.");
       expect(html).toContain("ERR_ADAPTER_TIMEOUT");
       expect(html).toContain("trace-req-88492");
+    });
+  });
+
+  describe("Foundation Debt Suite (Dialog, Sheet, Toast, Table)", () => {
+    it("renders open Dialog with aria-modal, role dialog, and tabIndex -1", () => {
+      const html = renderToStaticMarkup(
+        <Dialog open={true}>
+          <DialogContent>
+            <DialogTitle>Delete Product</DialogTitle>
+            <DialogDescription>Are you sure you want to delete this?</DialogDescription>
+            <DialogFooter>
+              <DialogClose>Cancel</DialogClose>
+              <Button variant="danger">Confirm</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      );
+      expect(html).toContain('role="dialog"');
+      expect(html).toContain('aria-modal="true"');
+      expect(html).toContain('tabindex="-1"');
+      expect(html).toContain('role="presentation"');
+      expect(html).toContain("Delete Product");
+      expect(html).toContain("Cancel");
+    });
+
+    it("renders open Sheet with aria-modal, role dialog, and drag handle on bottom side", () => {
+      const html = renderToStaticMarkup(
+        <Sheet open={true} side="bottom">
+          <SheetContent>
+            <SheetTitle>Filter Offers</SheetTitle>
+            <SheetDescription>Select stores and condition</SheetDescription>
+          </SheetContent>
+        </Sheet>
+      );
+      expect(html).toContain('role="dialog"');
+      expect(html).toContain('aria-modal="true"');
+      expect(html).toContain('tabindex="-1"');
+      expect(html).toContain("cursor-grab");
+      expect(html).toContain("Filter Offers");
+    });
+
+    it("renders ToastProvider with accessible notification region and polite aria-live", () => {
+      const html = renderToStaticMarkup(
+        <ToastProvider>
+          <div>App Root</div>
+        </ToastProvider>
+      );
+      expect(html).toContain('role="region"');
+      expect(html).toContain('aria-label="Notifications"');
+      expect(html).toContain('aria-live="polite"');
+      expect(html).toContain("App Root");
+    });
+
+    it("renders Table with scrappy-table-stacked and dataLabel on TableCell", () => {
+      const html = renderToStaticMarkup(
+        <Table responsiveStacked={true}>
+          <TableBody>
+            <TableRow>
+              <TableCell dataLabel="Store">Amazon</TableCell>
+              <TableCell dataLabel="Price" align="right" isNumeric>₹49,999</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      );
+      expect(html).toContain("scrappy-table-stacked");
+      expect(html).toContain('data-label="Store"');
+      expect(html).toContain('data-label="Price"');
+      expect(html).toContain("₹49,999");
     });
   });
 });

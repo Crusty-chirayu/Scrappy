@@ -633,60 +633,60 @@ function KitContent() {
           </TableHeader>
           <TableBody>
             <TableRow isClickable>
-              <TableCell>
+              <TableCell dataLabel="Store & Seller">
                 <div className="flex items-center gap-2 font-medium">
                   <span>Flipkart</span>
                   <Badge variant="accent" size="sm">Best Price</Badge>
                 </div>
               </TableCell>
-              <TableCell>Brand New</TableCell>
-              <TableCell>Tomorrow, by 11 AM</TableCell>
-              <TableCell>
+              <TableCell dataLabel="Condition">Brand New</TableCell>
+              <TableCell dataLabel="Delivery">Tomorrow, by 11 AM</TableCell>
+              <TableCell dataLabel="Freshness">
                 <span className="text-xs text-[var(--text-2)]">Verified 4m ago</span>
               </TableCell>
-              <TableCell align="right" isNumeric>
+              <TableCell dataLabel="Price (INR)" align="right" isNumeric>
                 ₹1,49,999.00
               </TableCell>
-              <TableCell align="right">
+              <TableCell dataLabel="Action" align="right">
                 <Button size="sm" variant="primary">Buy</Button>
               </TableCell>
             </TableRow>
 
             <TableRow isClickable>
-              <TableCell>
+              <TableCell dataLabel="Store & Seller">
                 <div className="flex items-center gap-2 font-medium">
                   <span>Amazon.in</span>
                   <Badge variant="outline" size="sm">Appario</Badge>
                 </div>
               </TableCell>
-              <TableCell>Brand New</TableCell>
-              <TableCell>Wednesday, Free</TableCell>
-              <TableCell>
+              <TableCell dataLabel="Condition">Brand New</TableCell>
+              <TableCell dataLabel="Delivery">Wednesday, Free</TableCell>
+              <TableCell dataLabel="Freshness">
                 <span className="text-xs text-[var(--text-2)]">Verified 18m ago</span>
               </TableCell>
-              <TableCell align="right" isNumeric>
+              <TableCell dataLabel="Price (INR)" align="right" isNumeric>
                 ₹1,54,990.00
               </TableCell>
-              <TableCell align="right">
+              <TableCell dataLabel="Action" align="right">
                 <Button size="sm" variant="outline">Buy</Button>
               </TableCell>
             </TableRow>
 
             <TableRow isClickable>
-              <TableCell>
+              <TableCell dataLabel="Store & Seller">
                 <div className="flex items-center gap-2 font-medium">
                   <span>Croma</span>
                 </div>
               </TableCell>
-              <TableCell>Brand New</TableCell>
-              <TableCell>Store Pickup Ready</TableCell>
-              <TableCell>
+              <TableCell dataLabel="Condition">Brand New</TableCell>
+              <TableCell dataLabel="Delivery">Store Pickup Ready</TableCell>
+              <TableCell dataLabel="Freshness">
                 <span className="text-xs text-[var(--text-2)]">Verified 1h ago</span>
               </TableCell>
-              <TableCell align="right" isNumeric>
+              <TableCell dataLabel="Price (INR)" align="right" isNumeric>
                 ₹1,59,900.00
               </TableCell>
-              <TableCell align="right">
+              <TableCell dataLabel="Action" align="right">
                 <Button size="sm" variant="outline">Buy</Button>
               </TableCell>
             </TableRow>

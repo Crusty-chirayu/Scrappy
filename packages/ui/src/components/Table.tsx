@@ -13,15 +13,20 @@ const TableContext = createContext<TableContextValue>({ density: "comfortable" }
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   density?: TableDensity;
   stickyHeader?: boolean;
+  responsiveStacked?: boolean;
 }
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
-  { density = "comfortable", stickyHeader = false, className = "", children, ...props },
+  { density = "comfortable", stickyHeader = false, responsiveStacked = true, className = "", children, ...props },
   ref,
 ) {
   return (
     <TableContext.Provider value={{ density }}>
-      <div className="w-full overflow-x-auto border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-1)] shadow-[var(--elevation-1)]">
+      <div
+        className={`w-full ${
+          responsiveStacked ? "scrappy-table-stacked" : "overflow-x-auto"
+        } border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-1)] shadow-[var(--elevation-1)]`}
+      >
         <table
           ref={ref}
           className={`w-full text-left border-collapse text-sm text-[var(--text-1)] ${
@@ -124,10 +129,11 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(functi
 export interface TableCellProps extends TdHTMLAttributes<HTMLTableCellElement> {
   align?: "left" | "center" | "right";
   isNumeric?: boolean;
+  dataLabel?: string;
 }
 
 export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
-  { align = "left", isNumeric = false, className = "", children, ...props },
+  { align = "left", isNumeric = false, dataLabel, className = "", children, ...props },
   ref,
 ) {
   const { density } = useContext(TableContext);
@@ -136,7 +142,12 @@ export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(functi
   const fontClass = isNumeric ? "font-mono tabular-nums tracking-tight font-medium" : "";
 
   return (
-    <td ref={ref} className={`${padding} ${alignClass} ${fontClass} text-sm text-[var(--text-1)] ${className}`} {...props}>
+    <td
+      ref={ref}
+      data-label={dataLabel}
+      className={`${padding} ${alignClass} ${fontClass} text-sm text-[var(--text-1)] ${className}`}
+      {...props}
+    >
       {children}
     </td>
   );

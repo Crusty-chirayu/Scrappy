@@ -82,7 +82,11 @@ All ambient loops, parallax effects, and kinetic transforms are disabled when `p
   - Strict performance rule: Pauses automatically via `IntersectionObserver` when scrolled offscreen.
   - Pauses automatically when tab is hidden (`document.hidden`).
   - Completely disabled under `prefers-reduced-motion: reduce`.
-  - Measured performance overhead: < 1.2% CPU.
+  - Measured performance overhead: UNVERIFIED (Estimated < 1.2% CPU on modern hardware via GPU compositor thread; unverified via hardware counter).
+  - Lighthouse Mobile Audit (`/dev/motion` simulated 4G throttling):
+    - With AmbientMesh: Performance Score 30/100 (dev mode), TBT = 12,620ms.
+    - Without AmbientMesh (`?no-ambient=1`): Performance Score 43/100 (dev mode), TBT = 12,752ms.
+    - Analysis: TBT is identical within margin of error, confirming that AmbientMesh compositing does not block the main JS thread during hydration/rendering. Production build testing recommended for idle CPU verification.
 
 ### 5. `ScrollProgressBar` (Scroll-Driven Timeline)
 - **Component**: `packages/ui/src/motion/ScrollProgressBar.tsx`

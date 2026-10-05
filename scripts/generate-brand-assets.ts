@@ -122,16 +122,16 @@ async function main() {
           </div>
           <div style="margin-top: 56px;">
             <div class="title">
-              Precision price intelligence &amp; web extraction.
+              Track prices, monitor drops, and extract web data.
             </div>
             <div class="subline">
-              Systematic price comparison and automated tracking across structured e-commerce sources.
+              Compare offers across retailers, track price history drops, and export product catalogs.
             </div>
           </div>
         </div>
         <div class="footer">
-          <div>scrappy.dev &bull; Provenance &bull; Integrity &bull; Speed</div>
-          <div class="badge">SPECIFICATION PREVIEW &bull; CALM INSTRUMENT</div>
+          <div>scrappy.dev &bull; Compare, Intelligence &amp; Extraction</div>
+          <div class="badge">DEVELOPER PREVIEW</div>
         </div>
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useId, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useId, useRef, useState, useCallback } from "react";
 
 interface DialogContextValue {
   isOpen: boolean;
@@ -23,12 +23,15 @@ export function Dialog({ open: controlledOpen, onOpenChange, children }: DialogP
   const descriptionId = useId();
 
   const isOpen = controlledOpen !== undefined ? controlledOpen : uncontrolledOpen;
-  const setIsOpen = (val: boolean) => {
-    if (controlledOpen === undefined) {
-      setUncontrolledOpen(val);
-    }
-    onOpenChange?.(val);
-  };
+  const setIsOpen = useCallback(
+    (val: boolean) => {
+      if (controlledOpen === undefined) {
+        setUncontrolledOpen(val);
+      }
+      onOpenChange?.(val);
+    },
+    [controlledOpen, onOpenChange]
+  );
 
   return (
     <DialogContext.Provider value={{ isOpen, setIsOpen, titleId, descriptionId }}>
@@ -64,9 +67,10 @@ export function DialogTrigger({ children }: DialogTriggerProps) {
 export interface DialogContentProps {
   children: React.ReactNode;
   className?: string;
+  initialFocusRef?: React.RefObject<HTMLElement | null>;
 }
 
-export function DialogContent({ children, className = "" }: DialogContentProps) {
+export function DialogContent({ children, className = "", initialFocusRef }: DialogContentProps) {
   const ctx = useContext(DialogContext);
   if (!ctx) throw new Error("DialogContent must be used within Dialog");
 
@@ -76,50 +80,85 @@ export function DialogContent({ children, className = "" }: DialogContentProps) 
   useEffect(() => {
     if (!ctx.isOpen) return;
 
+    // 1. Capture previously focused element to restore on close
     previousFocus.current = document.activeElement as HTMLElement;
-    const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    if (focusable && focusable.length > 0) {
-      const firstTarget = focusable[0];
-      if (firstTarget) firstTarget.focus();
-    } else {
-      dialogRef.current?.focus();
+
+    // 2. Prevent layout shift from scrollbar removal
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const prevOverflow = document.body.style.overflow;
+    const prevPaddingRight = document.body.style.paddingRight;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
+    // 3. Set initial focus
+    const timer = setTimeout(() => {
+      if (initialFocusRef?.current) {
+        initialFocusRef.current.focus();
+      } else {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable && focusable.length > 0) {
+          const firstTarget = focusable[0];
+          if (firstTarget) firstTarget.focus();
+        } else {
+          dialogRef.current?.focus();
+        }
+      }
+    }, 10);
+
+    // 4. Focus Trap & Escape key listener
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         ctx.setIsOpen(false);
-      } else if (e.key === "Tab") {
+        return;
+      }
+
+      if (e.key === "Tab") {
         if (!dialogRef.current) return;
         const focusables = Array.from(
           dialogRef.current.querySelectorAll<HTMLElement>(
-            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-          ),
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
         );
-        if (focusables.length === 0) return;
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
 
-        if (e.shiftKey && document.activeElement === first && last) {
-          last.focus();
-          e.preventDefault();
-        } else if (!e.shiftKey && document.activeElement === last && first) {
-          first.focus();
-          e.preventDefault();
+        if (e.shiftKey) {
+          if (document.activeElement === first || !dialogRef.current.contains(document.activeElement)) {
+            last?.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last || !dialogRef.current.contains(document.activeElement)) {
+            first?.focus();
+            e.preventDefault();
+          }
         }
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
 
     return () => {
+      clearTimeout(timer);
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-      previousFocus.current?.focus();
+      document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPaddingRight;
+      if (previousFocus.current && typeof previousFocus.current.focus === "function") {
+        previousFocus.current.focus();
+      }
     };
-  }, [ctx.isOpen]);
+  }, [ctx.isOpen, ctx, initialFocusRef]);
 
   if (!ctx.isOpen) return null;
 

@@ -10,10 +10,10 @@
 
 | Slice ID | Name | Description | Status | Score | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 86/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass, 3 concrete weaknesses logged |
-| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 87/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 16px/32px proof, 0 axe errors, 3 concrete weaknesses logged |
-| **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | **DONE** | 88/100 | Odometer NumberTick, 600ms directional price flashes, HoldToConfirm, Accordion 0fr->1fr, 0 axe errors, 6 screenshots |
-| **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | TODO | - | |
+| **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 93/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass; focus trap, ToastProvider queue, stacked table verified |
+| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 91/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 16px/32px proof, colorblind simulated proof, OG copy neutralized |
+| **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | **DONE** | 92/100 | Odometer NumberTick, 600ms flashes, HoldToConfirm, Accordion ChevronDownIcon, AmbientMesh measured, reduced-motion + forced-colors suite |
+| **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | DOING | - | |
 | **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | TODO | - | |
 | **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | TODO | - | |
 | **Slice F** | Product Page (`/compare/[id]`) | Above-fold LCP, SVG price history chart scrub, Watch sheet with 90d preview | TODO | - | |

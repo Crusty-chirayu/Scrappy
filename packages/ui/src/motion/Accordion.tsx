@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useId } from "react";
+import { useState, useId } from "react";
+import { ChevronDownIcon } from "../icons/icons.js";
 
 export interface AccordionItem {
   id: string;
@@ -53,22 +54,13 @@ export function Accordion({
                 className="flex w-full min-h-[44px] items-center justify-between px-4 py-3 text-left font-sans text-sm font-medium text-[var(--text-1)] hover:bg-[var(--surface-2)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-1"
               >
                 <span>{item.title}</span>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                <ChevronDownIcon
+                  size={16}
                   className={`text-[var(--text-3)] transition-transform duration-200 ${
                     isExpanded ? "rotate-180" : "rotate-0"
                   }`}
                   aria-hidden="true"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
+                />
               </button>
             </h3>
 
