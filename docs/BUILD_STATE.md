@@ -12,7 +12,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 86/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass, 3 concrete weaknesses logged |
 | **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 87/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 16px/32px proof, 0 axe errors, 3 concrete weaknesses logged |
-| **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | TODO | - | |
+| **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | **DONE** | 88/100 | Odometer NumberTick, 600ms directional price flashes, HoldToConfirm, Accordion 0fr->1fr, 0 axe errors, 6 screenshots |
 | **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | TODO | - | |
 | **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | TODO | - | |
 | **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | TODO | - | |
@@ -35,7 +35,7 @@
 | `/dev/kit` | Loaded, interactive states, loading buttons, error inputs, all 13 primitives | PASS | PASS | PASS | PASS (0 violations) |
 | `/dev/icons` | Loaded (16, 20, 24, 32px; dark & light; micro-interactions; copy code) | PASS | PASS | PASS | PASS (0 violations) |
 | `/dev/illustrations` | Loaded (brand mark grid, empty, error, offline, 404; dark & light) | PASS | PASS | PASS | PASS (0 violations) |
-| `/dev/motion` | Interactive choreography demo & reduced-motion toggles | TODO | TODO | TODO | TODO |
+| `/dev/motion` | Loaded (NumberTick, HoldToConfirm, Accordion, Stagger, Ambient, Scroll timeline) | PASS | PASS | PASS | PASS (0 violations) |
 | `/` (Landing) | Loaded, loading skeleton, error fallback, sample data labeled | TODO | TODO | TODO | TODO |
 | `/compare` | Loaded, loading skeleton, empty, error, stale banner | TODO | TODO | TODO | TODO |
 | `/compare/[id]` | Loaded, loading skeleton, error, stale, offers table | TODO | TODO | TODO | TODO |

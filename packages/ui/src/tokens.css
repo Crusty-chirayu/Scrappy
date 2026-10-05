@@ -206,6 +206,95 @@
   to { stroke-dashoffset: 0; }
 }
 
+@keyframes price-flash-down {
+  0% {
+    background-color: rgba(61, 214, 140, 0.24);
+    color: var(--color-price-down);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes price-flash-up {
+  0% {
+    background-color: rgba(255, 107, 115, 0.24);
+    color: var(--color-price-up);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes odometer-up {
+  0% { transform: translateY(80%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes odometer-down {
+  0% { transform: translateY(-80%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes ambient-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -18px, 0) scale(1.04); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* View Transitions API Standards */
+::view-transition-old(root) {
+  animation: 160ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms cubic-bezier(0.16, 1, 0.3, 1) both fade-in-rise;
+}
+
+/* Accordion Smooth Expand via Grid Rows (Zero Layout Thrash) */
+.scrappy-accordion-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scrappy-accordion-grid.is-expanded {
+  grid-template-rows: 1fr;
+}
+
+.scrappy-accordion-inner {
+  overflow: hidden;
+}
+
+/* Scroll-Driven Animations with Native Fallbacks */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-fill {
+    animation: scroll-progress-grow linear;
+    animation-timeline: scroll(root);
+    transform-origin: 0% 50%;
+  }
+
+  @keyframes scroll-progress-grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
 /* Reduced-motion overrides */
 @media (prefers-reduced-motion: reduce) {
   *,

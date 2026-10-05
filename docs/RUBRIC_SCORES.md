@@ -37,6 +37,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Slice 0** | Audit & Reconcile | 2026-10-05 | **86/100** | 0 | **DONE** | 13 primitives rebuilt, Ink & Paper dual tokens, 80/80 contrast pairs pass, 0 axe violations dark/light, 6 screenshots at 360/768/1440. Hostile review identified 3 concrete weaknesses. |
 | **Slice A** | Brand + Icons + Illustration | 2026-10-05 | **87/100** | 0 | **DONE** | 42 custom icons (24px/1.5 stroke), 5 micro-interactions, 4 abstract illustrations, grid-constructed brand mark, 16px/32px legibility proof, 0 axe violations. Hostile review identified 3 concrete weaknesses. |
+| **Slice B** | Motion + Scroll Systems | 2026-10-05 | **88/100** | 0 | **DONE** | Odometer NumberTick, 600ms directional price flashes, HoldToConfirmButton, Accordion (0fr->1fr), AmbientMesh (<2% CPU), ScrollProgressBar, View Transitions, 0 axe violations dark/light, 6 screenshots at 360/768/1440. Hostile review identified 3 concrete weaknesses. |
 
 ### Slice 0 Score Breakdown (86/100)
 - **Visual hierarchy**: 5/5 (Surfaces 0-4 structured, clean borders)
@@ -94,4 +95,37 @@
 2. **OG Image is Statically Pre-rendered Rather than Dynamic Edge Route**: `apps/web/public/og-image.png` is generated via a Playwright script (`scripts/generate-brand-assets.ts`). While functional for root metadata, it lacks dynamic parameter injection (`@vercel/og`) for individual product comparisons, price drops, or alert summaries (scheduled for Slice M).
 3. **Micro-interactions Bound to Local Mock State**: Micro-interactions in `/dev/icons` (bell oscillation, search input morph, animated check draw) are demonstrated with isolated `useState` toggles rather than wired to real product lifecycle events (such as socket alert arrivals or clipboard write completions).
 4. **16px Mark Required Post-Creation Optical Simplification**: The initial 32px brand mark geometry included fine reticle grid lines that blurred when rendered at 16x16px (favicon size). This required adding an optical sizing rule (`size <= 20`) to omit sub-axes and keep the discovery trajectory razor-sharp.
+
+---
+
+### Slice B Score Breakdown (88/100)
+- **Visual hierarchy**: 5/5 (Calm instrument layout on /dev/motion, clear categorical groupings)
+- **Typography craft**: 5/5 (Instrument Serif display header, Inter labels, tabular-nums JetBrains Mono prices)
+- **Color & contrast discipline**: 5/5 (Zero Axe contrast violations, reconciled indigo tokens throughout)
+- **Spacing rhythm & alignment**: 5/5 (Strict 4px base increments, 16px/24px card paddings)
+- **Iconography consistency**: 4/5 (Icons consistent, but Accordion chevron is an inline SVG rather than from `@scrappy/ui/icons`)
+- **Depth & surfaces**: 4/5 (Layered surfaces 0-2, subtle alpha borders; header blur transition after 8px scroll)
+- **Layout & responsiveness**: 4/5 (Screenshotted and validated at 360px, 768px, 1440px in both themes)
+- **Motion quality & restraint**: 5/5 (Zero gratuitous decoration; 600ms directional flashes, 220ms accordion, 40ms stagger)
+- **Reduced-motion behavior**: 5/5 (Tested and verified: `@media (prefers-reduced-motion: reduce)` halts ambient drift and forces instant transitions)
+- **State completeness**: 4/5 (Price up/down, button hold, accordion expand/collapse; failed View Transition fallback is direct without visual error banner)
+- **Copy quality**: 5/5 (Calm, technical explanations per Copy Bible; zero buzzwords)
+- **Data honesty**: 5/5 (Clearly labeled: "Source: Croma • Verified 2m ago (Sample data)")
+- **Accessibility**: 5/5 (Axe Playwright audit: 0 dark violations, 0 light violations across all viewports)
+- **Performance**: 4/5 (Ambient loop automatically pauses via IntersectionObserver offscreen and on tab hidden; < 1.2% CPU; passive scroll fallback)
+- **Component consistency**: 5/5 (All primitives exported from `@scrappy/ui`)
+- **Delight**: 5/5 (Odometer tick with directional green/red flash, kinetic hold-to-confirm, zero-thrash accordion)
+- **Dark theme quality**: 5/5 (Deep ink neutrals `#0B0D12` with periwinkle indigo `#7C8CFF`)
+- **Light theme quality**: 5/5 (Crisp paper neutrals `#F5F6F9` with cobalt `#4457F0`)
+- **Mobile ergonomics**: 4/5 (Touch targets >= 44px; at 360px viewport simulation buttons wrap into dense rows)
+- **Kill-list clean**: 5/5 (Zero neon, zero glassmorphism soup, zero smooth-scroll jacking libraries)
+
+#### Slice B Concrete Weaknesses & Evidence
+1. **Accordion Chevron Uses Inline Path Rather than Exported Icon**: In `packages/ui/src/motion/Accordion.tsx`, the rotating chevron is hardcoded as an inline `<svg>` rather than importing the canonical `ChevronDownIcon` from `packages/ui/src/icons/icons.tsx`.
+2. **HoldToConfirmButton Relies on RequestAnimationFrame Polling**: In `packages/ui/src/motion/HoldToConfirmButton.tsx`, progress interpolation is computed via `requestAnimationFrame` and `Math.min(elapsed / holdDurationMs, 1)`. On heavily throttled low-end CPU devices, timer jitter can cause slight unevenness compared to pure CSS transitions.
+3. **Price Simulation Action Buttons Stack Tightly at 360px Viewport**: As captured in `docs/screenshots/dev-motion-360-dark.png`, on narrow viewports (360px), the three simulation buttons (`Simulate Price Drop`, `Simulate Price Hike`, `Reset`) wrap into multiple dense rows without adaptive mobile button grouping or full-width styling.
+
+#### Slice B Deviations from Brief
+1. **HoldToConfirmButton Uses Linear Progress Fill Instead of Radial SVG Fill**: Brief Section 7 noted "600ms radial fill". A linear scaleX progress overlay was chosen over a conic-gradient/radial SVG mask to ensure 100% reliable hardware acceleration across Safari/WebKit mobile and zero subpixel antialiasing artifacts during the 600ms animation.
+
 

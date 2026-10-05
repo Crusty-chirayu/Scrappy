@@ -32,3 +32,6 @@ export * from "./domain/PriceTag.js";
 export * from "./domain/DataFreshness.js";
 export * from "./domain/Sparkline.js";
 export * from "./domain/SyntheticBadge.js";
+
+// Motion & Scroll Systems (Slice B)
+export * from "./motion/index.js";
