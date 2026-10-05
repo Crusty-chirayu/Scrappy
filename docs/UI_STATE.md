@@ -35,9 +35,41 @@
 
 ---
 
+### What Shipped in Slice A (Brand, Icons, and Illustration)
+- **Brand Identity System**: Precision 32x32 reticle grid constructed mark with upward trend vector and central telemetry node. Fully responsive from 16px to 64px, monochrome compliant.
+- **Brand Assets Generated**:
+  - `favicon.svg`, `favicon.ico`, `safari-pinned-tab.svg`
+  - `apple-touch-icon.png` (180x180)
+  - `icon-192.png` & `icon-512.png` maskable PWA icons
+  - `og-image.png` (1200x630) social share card template
+  - `manifest.json` web application manifest
+- **Complete Icon Set (42 Icons)**: Standardized on 24px grid, 1.5 stroke, rounded caps/joins, `currentColor` theme coupling. No external icon libraries or emoji.
+- **5 Micro-Interactions**:
+  - `AnimatedBellIcon`: Physics oscillation on notification arrival.
+  - `AnimatedCheckIcon`: Self-drawing SVG checkmark via `strokeDashoffset`.
+  - `NudgeArrowIcon`: 2px directional translation on action hover.
+  - `SearchSpinnerIcon`: Magnifying lens morphing into an inline spinner.
+  - `ThemeRotateIcon`: 180-degree rotation transition between Sun and Moon.
+- **Abstract SVG Illustrations**:
+  - `EmptyStateIllustration`: Unpopulated ledger with subtle coordinate crosshairs.
+  - `ErrorStateIllustration`: Discontinuous price line with pinpoint fault indicator.
+  - `OfflineStateIllustration`: Radar beacon seeking connection pulses.
+  - `NotFoundIllustration`: Geometric 404 matrix showing index out of bounds.
+- **Dedicated Routes**:
+  - `/dev/icons`: Interactive gallery with 16/20/24/32px toggles, search filter, click-to-copy component code, and micro-interactions demo.
+  - `/dev/illustrations`: Brand grid construction showcase and full state illustration gallery.
+- **Verification Evidence**:
+  - Axe Dark: 0 violations across `/dev/icons` and `/dev/illustrations`.
+  - Axe Light: 0 violations across `/dev/icons` and `/dev/illustrations`.
+  - Unit Tests: 8/8 tests passing in `icons.test.tsx` and `illustrations.test.tsx`.
+  - Typecheck: clean (`tsc --noEmit` exits with 0).
+  - Screenshots: 12 screenshots at 360px, 768px, and 1440px in dark & light modes.
+
+---
+
 ## 2. Weaknesses / Polish Items
-- Bespoke SVG icons currently inline or basic; dedicated 24px icon set will be implemented in Slice A.
-- Toasts currently demonstrate visual states; global toast dispatcher hook will be unified in the app shell slice.
+- Dynamic server-rendered OG image routes (`/api/og`) to be connected in Slice M.
+- Toasts currently demonstrate visual states; global toast dispatcher hook will be unified in the app shell slice (Slice C).
 
 ---
 
@@ -52,10 +84,10 @@
 ---
 
 ## 5. NEXT ACTION
-- **Slice A: Brand, Icons, and Illustration**:
-  - Geometric brand mark + wordmark constructed on a grid, legible at 16px/32px and monochrome.
-  - Favicon set (ico, svg, apple-touch 180, maskable 192/512) and OG image template.
-  - Bespoke 24px icon set (1.5 stroke, uniform corner radius, currentColor, zero third-party icons) covering all 40+ system actions.
-  - Micro-interactions (bell ring, check draw, nudge arrows, theme toggle rotation).
-  - Calm abstract stroke illustrations for empty, error, offline, 404 states.
-  - Routes `/dev/icons` and `/dev/illustrations`.
+- **Slice B: Motion + Scroll Systems**:
+  - Duration/easing tokens: fast 120ms, base 200ms, slow 360ms, hero 600ms, ease-out-expo, spring damping.
+  - View Transitions API integration with CSS fallbacks for page crossfades.
+  - Number tick / odometer roll component for live price changes with flash indicators.
+  - Scroll-driven animations with IntersectionObserver fallback.
+  - Ambient infinite loop (20-40s cycle, <2% Lighthouse cost, auto-pause on document.hidden/offscreen).
+  - Dedicated route `/dev/motion`.

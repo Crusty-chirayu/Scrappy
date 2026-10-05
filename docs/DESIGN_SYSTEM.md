@@ -83,3 +83,57 @@ Dual-theme system:
   - `radius-lg`: 8px (dialogs, sheets, modals)
   - `radius-full`: 9999px (pills, avatar)
 - **Minimum Touch Target**: 44px min-height and min-width for all primary interactive tap areas (WCAG 2.2 AA SC 2.5.8).
+
+---
+
+## 5. Brand Identity & Mark Construction (Slice A)
+
+### Geometric Grid Construction
+The Scrappy brand mark is constructed on a 32x32 precision coordinate grid:
+1. **Outer Structural Tile**:
+   - `rect` from `(1.5, 1.5)` to `(30.5, 30.5)`, size 29x29px, with a 5px outer corner radius (`r=5`).
+   - Filled with container surface `var(--surface-3)` and bordered by `var(--border-strong)`.
+2. **Reticle Coordinate Axes**:
+   - Dashed horizontal crosshair: `(6, 16)` to `(26, 16)` (`strokeWidth=1.2`, `strokeDasharray="2 2"`).
+   - Dashed vertical meridian: `(16, 6)` to `(16, 26)` (`strokeWidth=1.2`, `strokeDasharray="2 2"`).
+3. **Upward Trend Discovery Vector**:
+   - Continuous price vector angled from `(9, 22)` through coordinate midpoint `(16, 16)` up to `(23, 10)` with arrowhead return cap `(18, 10) -> (23, 10) -> (23, 15)`.
+   - Rendered in bold `var(--color-accent)` (`strokeWidth=2.2`).
+4. **Telemetry Focal Node**:
+   - Solid coordinate circle centered at `(16, 16)` with radius `r=3.2`, filled with `var(--color-accent)`.
+5. **Legibility & Scaling Constraints**:
+   - Preserves optical clarity down to 16x16px (favicon / status dot) and up to 64x64px.
+   - Monochrome mode directly inherits `currentColor` without visual degradation.
+
+### Favicon & App Icon Specifications
+- `favicon.svg`: Vector icon targeting modern desktop and mobile browsers.
+- `favicon.ico`: 32x32 pixel baseline fallback.
+- `apple-touch-icon.png`: 180x180 iOS home screen tile with 12px safe padding.
+- `icon-192.png`: 192x192 Android / PWA maskable application icon.
+- `icon-512.png`: 512x512 high-resolution splash icon.
+- `safari-pinned-tab.svg`: Clean monochrome vector path for macOS Safari pinned tabs.
+- `og-image.png`: 1200x630 Open Graph preview with verified provenance badge.
+
+---
+
+## 6. Iconography & Illustration System
+
+### Custom Icon Set (42 Icons)
+- **Grid & Geometry**: 24x24 standard viewBox, uniform 1.5 stroke width, rounded caps/joins (`stroke-linecap="round" stroke-linejoin="round"`).
+- **Theme Coupling**: `stroke="currentColor"` ensures zero-lag, instant theme switching across all states.
+- **Forbidden**: Zero third-party icon libraries (Lucide, Heroicons, FontAwesome), zero emoji icons.
+- **Catalog**: `compare`, `watchlist`, `alert`, `bell`, `price-drop`, `price-rise`, `extract`, `verified`, `fixture`, `stale`, `search`, `filter`, `sort`, `store`, `history`, `export`, `settings`, `billing`, `user`, `shield`, `check`, `close`, `chevron-up`, `chevron-down`, `chevron-left`, `chevron-right`, `external-link`, `copy`, `trash`, `undo`, `plus`, `minus`, `menu`, `keyboard`, `sun`, `moon`, `lock`, `key`, `mail`, `calendar`, `info`, `warning`, `error`.
+
+### Micro-Interactions
+1. **Bell Ring**: 600ms physics oscillation keyframe trigger on new price drop alerts.
+2. **Check Draw**: Self-drawing checkmark via `strokeDashoffset: 24 -> 0` over 400ms.
+3. **Nudge Arrow**: 2px directional translation on link and next-step button hover.
+4. **Search Spinner Morph**: Precision lens morphs seamlessly into a spinning progress indicator.
+5. **Theme Rotate**: 180-degree rotation transition between Sun and Moon glyphs.
+
+### Abstract Technical Illustrations
+Themeable via `currentColor` and `var(--color-accent)` with 1.5 stroke geometry:
+- **EmptyStateIllustration**: Unpopulated ledger with subtle coordinate crosshairs and dormant beacon.
+- **ErrorStateIllustration**: Discontinuous price line with pinpoint fault indicator.
+- **OfflineStateIllustration**: Precision radar beacon searching for upstream price mesh.
+- **NotFoundIllustration**: 404 coordinate matrix showing index out of bounds.

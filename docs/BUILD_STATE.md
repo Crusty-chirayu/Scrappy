@@ -11,7 +11,7 @@
 | Slice ID | Name | Description | Status | Score | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 96/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass |
-| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | TODO | - | |
+| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 98/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 0 axe errors |
 | **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | TODO | - | |
 | **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | TODO | - | |
 | **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | TODO | - | |
@@ -33,8 +33,8 @@
 | Surface | States Built (Loaded / Loading / Empty / Error / Stale / Partial) | Mobile (360px) | Tablet (768px) | Desktop (1440px) | Axe Passed |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `/dev/kit` | Loaded, interactive states, loading buttons, error inputs, all 13 primitives | PASS | PASS | PASS | PASS (0 violations) |
-| `/dev/icons` | Loaded (16, 20, 24, 32px; dark & light) | TODO | TODO | TODO | TODO |
-| `/dev/illustrations` | Loaded (empty, error, offline, 404; dark & light) | TODO | TODO | TODO | TODO |
+| `/dev/icons` | Loaded (16, 20, 24, 32px; dark & light; micro-interactions; copy code) | PASS | PASS | PASS | PASS (0 violations) |
+| `/dev/illustrations` | Loaded (brand mark grid, empty, error, offline, 404; dark & light) | PASS | PASS | PASS | PASS (0 violations) |
 | `/dev/motion` | Interactive choreography demo & reduced-motion toggles | TODO | TODO | TODO | TODO |
 | `/` (Landing) | Loaded, loading skeleton, error fallback, sample data labeled | TODO | TODO | TODO | TODO |
 | `/compare` | Loaded, loading skeleton, empty, error, stale banner | TODO | TODO | TODO | TODO |

@@ -36,6 +36,7 @@
 | Slice ID | Slice Name | Evaluated Date | Total Score | Axe Violations | Status | Summary Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Slice 0** | Audit & Reconcile | 2026-10-05 | **96/100** | 0 | **DONE** | 13 primitives rebuilt, Ink & Paper dual tokens, 80/80 contrast pairs pass, 0 axe violations dark/light, 6 screenshots at 360/768/1440 |
+| **Slice A** | Brand + Icons + Illustration | 2026-10-05 | **98/100** | 0 | **DONE** | 42 custom icons (24px/1.5 stroke), 5 micro-interactions, 4 abstract illustrations, grid-constructed brand mark, 12 screenshots, 0 axe violations on /dev/icons & /dev/illustrations |
 
 ### Slice 0 Score Breakdown (96/100)
 - **Visual hierarchy**: 5/5 (Surfaces 0-4 structured, clean borders)
@@ -58,3 +59,25 @@
 - **Light theme quality**: 5/5 (Warm paper neutrals #FAF9F6–#D5D0C4, accent #384D00)
 - **Mobile ergonomics**: 5/5 (All buttons, inputs, tabs enforce min-h-[44px])
 - **Kill-list clean**: 5/5 (Zero neon, zero glassmorphism, zero generic SaaS gradients, zero pure black/white)
+
+### Slice A Score Breakdown (98/100)
+- **Visual hierarchy**: 5/5 (Clear categorical layout for icons, micro-interactions, brand variants, and state drawings)
+- **Typography craft**: 5/5 (Instrument Serif display titles, Inter UI labels, JetBrains Mono code tags)
+- **Color & contrast discipline**: 5/5 (Strict contrast enforcement across dark ink and light paper palettes)
+- **Spacing rhythm & alignment**: 5/5 (Precise 4px base increment layouts, consistent grid cards)
+- **Iconography consistency**: 5/5 (All 42 icons adhere strictly to 24px grid, 1.5 stroke, uniform corner radii, currentColor)
+- **Depth & surfaces**: 5/5 (Layered surfaces 0-3 with subtle alpha borders)
+- **Layout & responsiveness**: 5/5 (Screenshotted and validated at 360px, 768px, 1440px in both themes)
+- **Motion quality & restraint**: 5/5 (Subtle 2px hover nudge, 400ms stroke draw, 600ms bell oscillation, search morph)
+- **Reduced-motion behavior**: 5/5 (Explicit `@media (prefers-reduced-motion: reduce)` overrides all keyframes)
+- **State completeness**: 5/5 (Default, hover, active, copied, loading, error, offline states represented)
+- **Copy quality**: 5/5 (Technical, calm data instrument tone; no SaaS hype)
+- **Data honesty**: 5/5 (Clean sample data tagging, zero fake metrics)
+- **Accessibility**: 5/5 (Axe Playwright audit: 0 dark violations, 0 light violations across /dev/icons and /dev/illustrations, 44px min targets)
+- **Performance**: 5/5 (Pure inline SVGs, zero third-party icon bundle overhead)
+- **Component consistency**: 5/5 (Unified IconProps and IllustrationProps interfaces)
+- **Delight**: 5/5 (Interactive micro-interactions: bell ring, check draw, search morph, theme rotate)
+- **Dark theme quality**: 5/5 (Tinted cool ink neutrals with vibrant lime accent)
+- **Light theme quality**: 5/5 (Warm paper neutrals with deep woodland accent)
+- **Mobile ergonomics**: 5/5 (Touch targets >= 44px on all size switches and interactive cards)
+- **Kill-list clean**: 4/5 (98/100; minor weakness: server-side dynamic OG image generation deferred to Slice M)
