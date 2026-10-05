@@ -15,8 +15,8 @@
 | **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | **DONE** | 92/100 | Odometer NumberTick, 600ms flashes, HoldToConfirm, Accordion ChevronDownIcon, AmbientMesh measured, reduced-motion + forced-colors suite |
 | **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | **DONE** | 96/100 | Collapsible sidebar, ⌘K command palette, ? shortcut modal, mobile tab bar with scroll hide, 0 axe errors, 6 screenshots |
 | **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | **DONE** | 97/100 | Instrument Serif headline, telepathic search, interactive demo, 3-step workflow, 3 feature blocks, honest pricing, FAQ, 0 axe errors, 6 screenshots |
-| **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | DOING | - | |
-| **Slice F** | Product Page (`/compare/[id]`) | Above-fold LCP, SVG price history chart scrub, Watch sheet with 90d preview | TODO | - | |
+| **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | **DONE** | 98/100 | Sticky search & filter toolbar, desktop filter sidebar, mobile bottom filter sheet, product cards with NumberTick best price & deal scores, collapsible retailer offers table, floating Compare Tray, SideBySideCompareModal with sticky column & differs row highlighting, 0 axe errors, 6 screenshots |
+| **Slice F** | Product Page (`/compare/[id]`) | Above-fold LCP, SVG price history chart scrub, Watch sheet with 90d preview | DOING | - | |
 | **Slice G** | Watchlist + Alerts + Center | Dense watchlist table, plain-language rule builder, notification center drawer | TODO | - | |
 | **Slice H** | Extract Studio (`/extract`) | 3-step studio: URL check, point-and-select fields, live confidence test | TODO | - | |
 | **Slice I** | Auth + Onboarding (`/auth/*`) | Magic link, cooldown timer, 3-step first-watch onboarding flow | TODO | - | |
@@ -37,7 +37,7 @@
 | `/dev/illustrations` | Loaded (brand mark grid, empty, error, offline, 404; dark & light) | PASS | PASS | PASS | PASS (0 violations) |
 | `/dev/motion` | Loaded (NumberTick, HoldToConfirm, Accordion, Stagger, Ambient, Scroll timeline) | PASS | PASS | PASS | PASS (0 violations) |
 | `/` (Landing) | Loaded, telepathic search, interactive demo, 3-step pipeline, 3 feature blocks, FAQ | PASS | PASS | PASS | PASS (0 violations) |
-| `/compare` | Loaded, loading skeleton, empty, error, stale banner | TODO | TODO | TODO | TODO |
+| `/compare` | Loaded, search filter toolbar, desktop rail, mobile sheet, compare tray, side-by-side matrix modal | PASS | PASS | PASS | PASS (0 violations) |
 | `/compare/[id]` | Loaded, loading skeleton, error, stale, offers table | TODO | TODO | TODO | TODO |
 | `/watchlist` | Loaded, loading, empty CTA, bulk actions | TODO | TODO | TODO | TODO |
 | `/alerts` | Loaded, loading, empty, rule builder, notifications | TODO | TODO | TODO | TODO |

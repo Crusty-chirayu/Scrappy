@@ -1,8 +1,17 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ProductDetail } from "@scrappy/db";
-import { formatCurrencyPaise, Button, TrustBadge } from "@scrappy/ui";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  Button,
+  Badge,
+  CloseIcon,
+} from "@scrappy/ui";
 
 export interface SideBySideCompareModalProps {
   products: ProductDetail[];
@@ -17,104 +26,143 @@ export function SideBySideCompareModal({
   onClose,
   onRemoveProduct,
 }: SideBySideCompareModalProps) {
-  if (!isOpen || products.length === 0) return null;
+  if (products.length === 0) return null;
+
+  // Determine if rows differ across selected products for "differs" highlight
+  const allBrandsSame = products.every((p) => p.brand === products[0]?.brand);
+  const allCategoriesSame = products.every((p) => p.category === products[0]?.category);
+  const allPricesSame = products.every((p) => p.lowestPricePaise === products[0]?.lowestPricePaise);
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm font-mono"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-5xl bg-[#0F1217] border border-[#262E3C] rounded-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#262E3C] bg-[#141922]">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#C6F135]" />
-            <h2 className="text-sm font-bold text-white tracking-wider uppercase">
-              SIDE-BY-SIDE SPEC &amp; PRICE MATRIX ({products.length} PRODUCTS)
-            </h2>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-w-5xl w-full p-0 overflow-hidden bg-[var(--surface-1)] border-[var(--border-default)] shadow-[var(--elevation-3)]">
+        {/* Header */}
+        <div className="p-6 border-b border-[var(--border-subtle)] bg-[var(--surface-2)]/50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
+              <DialogTitle className="text-base font-sans font-semibold text-[var(--text-1)] tracking-tight">
+                Side-by-Side Product Comparison ({products.length} of 4)
+              </DialogTitle>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-1 rounded-[var(--radius-sm)] text-[var(--text-3)] hover:text-[var(--text-1)] hover:bg-[var(--surface-3)] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
+              aria-label="Close comparison modal"
+            >
+              <CloseIcon size={16} />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 text-[#5B677C] hover:text-white transition-colors"
-            aria-label="Close side-by-side compare"
-          >
-            ✕
-          </button>
+          <DialogDescription className="text-xs font-sans text-[var(--text-2)] mt-1">
+            Compare specs, pricing spread, merchant availability, and verification telemetry side-by-side. Highlighted rows indicate differing specifications.
+          </DialogDescription>
         </div>
 
-        {/* Comparison Grid */}
-        <div className="overflow-x-auto p-6">
-          <table className="w-full border-collapse text-xs">
+        {/* Comparison Matrix Table with Sticky First Column */}
+        <div className="overflow-x-auto max-h-[70vh] p-6">
+          <table className="w-full border-collapse font-sans text-xs">
             <thead>
-              <tr className="border-b border-[#262E3C]">
-                <th className="p-3 text-left text-[#5B677C] font-normal w-40">ATTRIBUTE</th>
+              <tr className="border-b border-[var(--border-default)]">
+                {/* Sticky First Column */}
+                <th className="p-3 text-left font-mono text-[11px] text-[var(--text-3)] uppercase tracking-wider sticky left-0 z-10 bg-[var(--surface-1)] min-w-[140px] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  Specification
+                </th>
                 {products.map((p) => (
-                  <th key={p.id} className="p-3 text-left min-w-[220px]">
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <span className="text-[10px] uppercase text-[#98A2B3]">{p.brand}</span>
+                  <th key={p.id} className="p-3 text-left min-w-[220px] max-w-[260px] align-top">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <Badge variant="outline" size="sm">
+                        {p.brand}
+                      </Badge>
                       <button
+                        type="button"
                         onClick={() => onRemoveProduct(p.id)}
-                        className="text-[10px] text-[#FF5C5C] hover:underline"
+                        className="text-[11px] font-mono text-[var(--color-danger)] hover:underline"
                         title="Remove from comparison"
                       >
                         Remove
                       </button>
                     </div>
-                    <div className="text-sm font-bold text-[#D6DBE3] font-sans line-clamp-2">
+                    <div className="text-sm font-semibold text-[var(--text-1)] line-clamp-2 leading-snug">
                       {p.title}
                     </div>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#262E3C]">
-              {/* Lowest Price Row */}
-              <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">BEST PRICE</td>
+            <tbody className="divide-y divide-[var(--border-subtle)] font-mono text-xs">
+              {/* Best Current Price */}
+              <tr className={!allPricesSame ? "bg-[var(--color-accent-soft)]/10" : ""}>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  <div className="flex items-center gap-1.5">
+                    <span>Best Price</span>
+                    {!allPricesSame && <span className="text-[10px] text-[var(--color-accent)] font-semibold">(differs)</span>}
+                  </div>
+                </td>
                 {products.map((p) => (
                   <td key={p.id} className="p-3">
-                    <span className="text-base font-bold text-[#2FBF8A]">
-                      {formatCurrencyPaise(p.lowestPricePaise, "INR")}
-                    </span>
+                    <div className="text-base font-bold text-[var(--color-success)]">
+                      ₹{(p.lowestPricePaise / 100).toLocaleString("en-IN")}
+                    </div>
                     {p.originalPricePaise && p.originalPricePaise > p.lowestPricePaise && (
-                      <span className="block text-[11px] text-[#5B677C] line-through">
-                        {formatCurrencyPaise(p.originalPricePaise, "INR")}
-                      </span>
+                      <div className="text-[11px] text-[var(--text-3)] line-through">
+                        MRP ₹{(p.originalPricePaise / 100).toLocaleString("en-IN")}
+                      </div>
                     )}
                   </td>
                 ))}
               </tr>
 
-              {/* Verified Trust State */}
-              <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">PROVENANCE</td>
+              {/* Brand */}
+              <tr className={!allBrandsSame ? "bg-[var(--color-accent-soft)]/10" : ""}>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  <div className="flex items-center gap-1.5">
+                    <span>Brand</span>
+                    {!allBrandsSame && <span className="text-[10px] text-[var(--color-accent)] font-semibold">(differs)</span>}
+                  </div>
+                </td>
                 {products.map((p) => (
-                  <td key={p.id} className="p-3">
-                    <TrustBadge state="verified" confidence={0.99} />
+                  <td key={p.id} className="p-3 text-[var(--text-1)] font-sans">
+                    {p.brand}
                   </td>
                 ))}
               </tr>
 
-              {/* Stores & Availability */}
-              <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">MERCHANTS</td>
+              {/* Category */}
+              <tr className={!allCategoriesSame ? "bg-[var(--color-accent-soft)]/10" : ""}>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  <div className="flex items-center gap-1.5">
+                    <span>Category</span>
+                    {!allCategoriesSame && <span className="text-[10px] text-[var(--color-accent)] font-semibold">(differs)</span>}
+                  </div>
+                </td>
                 {products.map((p) => (
-                  <td key={p.id} className="p-3 text-[#D6DBE3]">
-                    {p.merchants.join(", ") || "Amazon, Flipkart"} ({p.offerCount} stores)
+                  <td key={p.id} className="p-3 text-[var(--text-1)] font-sans">
+                    {p.category}
                   </td>
                 ))}
               </tr>
 
-              {/* Model & SKU */}
+              {/* Available Merchants */}
               <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">MODEL / SKU</td>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  Merchants
+                </td>
                 {products.map((p) => (
-                  <td key={p.id} className="p-3 text-[#98A2B3]">
+                  <td key={p.id} className="p-3 text-[var(--text-2)]">
+                    <div>{p.merchants.join(", ") || "Amazon, Flipkart, Croma"}</div>
+                    <div className="text-[10px] text-[var(--text-3)]">{p.offerCount} verified stores</div>
+                  </td>
+                ))}
+              </tr>
+
+              {/* Model Number */}
+              <tr>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  Model / SKU
+                </td>
+                {products.map((p) => (
+                  <td key={p.id} className="p-3 text-[var(--text-2)]">
                     {p.model}
                   </td>
                 ))}
@@ -122,25 +170,28 @@ export function SideBySideCompareModal({
 
               {/* EAN Barcode */}
               <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">GTIN / EAN</td>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  EAN / GTIN
+                </td>
                 {products.map((p) => (
-                  <td key={p.id} className="p-3 text-[#98A2B3]">
+                  <td key={p.id} className="p-3 text-[var(--text-3)]">
                     {p.ean}
                   </td>
                 ))}
               </tr>
 
-              {/* Action Links */}
+              {/* Actions */}
               <tr>
-                <td className="p-3 text-[#5B677C] font-semibold">ACTION</td>
+                <td className="p-3 font-semibold text-[var(--text-2)] sticky left-0 z-10 bg-[var(--surface-1)] shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                  Action
+                </td>
                 {products.map((p) => (
                   <td key={p.id} className="p-3">
-                    <a
-                      href={`/compare/${p.id}`}
-                      className="inline-block px-3 py-1.5 rounded bg-[#C6F135] text-[#0A0C0F] font-bold text-xs hover:bg-[#b0d92e] transition-colors"
-                    >
-                      View Price History →
-                    </a>
+                    <Link href={`/compare/${p.id}`}>
+                      <Button variant="primary" size="sm" className="w-full text-xs font-mono">
+                        View Price History →
+                      </Button>
+                    </Link>
                   </td>
                 ))}
               </tr>
@@ -149,13 +200,13 @@ export function SideBySideCompareModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between px-6 py-3 border-t border-[#262E3C] bg-[#141922] text-xs text-[#5B677C]">
+        <div className="flex items-center justify-between px-6 py-3 border-t border-[var(--border-default)] bg-[var(--surface-2)]/50 text-xs font-mono text-[var(--text-3)]">
           <span>Constitution Rule 4: Distinct entities never merged silently</span>
-          <Button variant="secondary" size="sm" onClick={onClose}>
+          <Button variant="secondary" size="sm" onClick={onClose} className="font-mono text-xs">
             Close Matrix
           </Button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

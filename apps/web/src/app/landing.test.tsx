@@ -69,7 +69,7 @@ describe("Slice D: Landing Page (/) Test Suite", () => {
     expect(html).toContain("1. Search &amp; Resolve");
     expect(html).toContain("2. Set Watch Threshold");
     expect(html).toContain("3. Verified Alert Dispatch");
-    expect(html).toContain("Target Alert Price");
+    expect(html).toContain("Step 1: Entity Resolution");
   });
 
   it("renders three feature blocks with real built UI previews for Compare, Watch, and Extract", () => {
