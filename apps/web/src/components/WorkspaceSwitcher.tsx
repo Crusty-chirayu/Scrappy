@@ -24,8 +24,8 @@ export function WorkspaceSwitcher() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 text-xs font-mono text-[#98A2B3]">
-        <span className="w-2 h-2 rounded-full bg-[#262E3C] animate-pulse" />
+      <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-2)]">
+        <span className="w-2 h-2 rounded-full bg-[var(--border-strong)] animate-pulse" />
         <span>Loading...</span>
       </div>
     );

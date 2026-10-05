@@ -1,34 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { SearchIcon, ChevronRightIcon } from "@scrappy/ui";
 
-interface CommandItem {
+export interface CommandItem {
   id: string;
-  category: "Navigation" | "Catalog" | "Tools" | "Documentation";
+  category: "Navigation" | "Actions" | "Products";
   title: string;
   subtitle: string;
-  href: string;
+  href?: string;
+  action?: () => void;
+  shortcut?: string;
 }
-
-const COMMANDS: CommandItem[] = [
-  // Navigation
-  { id: "nav-compare", category: "Navigation", title: "Compare Catalog", subtitle: "Search 500+ verified canonical products", href: "/compare" },
-  { id: "nav-intelligence", category: "Navigation", title: "Market Intelligence", subtitle: "Competitor price monitors & repricing engine", href: "/intelligence" },
-  { id: "nav-extract", category: "Navigation", title: "Visual Extract Studio", subtitle: "No-code to pro web scraping studio", href: "/extract" },
-  { id: "nav-status", category: "Navigation", title: "System Status", subtitle: "Real-time adapter health & circuit breakers", href: "/status" },
-  { id: "nav-docs", category: "Navigation", title: "API Documentation", subtitle: "REST endpoints, SDKs, and data models", href: "/docs" },
-  // Catalog Items
-  { id: "cat-iphone15", category: "Catalog", title: "Apple iPhone 15 (128 GB)", subtitle: "Canonical smartphone · Lowest ₹69,900", href: "/compare/prod-apple-iphone-15-128" },
-  { id: "cat-iphone15pro", category: "Catalog", title: "Apple iPhone 15 Pro (128 GB)", subtitle: "Canonical smartphone · Lowest ₹1,27,990", href: "/compare/prod-apple-iphone-15-pro-128" },
-  { id: "cat-s24", category: "Catalog", title: "Samsung Galaxy S24 5G (256 GB)", subtitle: "Canonical smartphone · Lowest ₹74,999", href: "/compare/prod-samsung-galaxy-s24-256" },
-  { id: "cat-macbook", category: "Catalog", title: "Apple MacBook Air M3 (16GB, 512GB)", subtitle: "Canonical laptop · Lowest ₹1,34,900", href: "/compare/prod-apple-macbook-air-m3-16-512" },
-  { id: "cat-sony-xm5", category: "Catalog", title: "Sony WH-1000XM5 Headphones", subtitle: "Canonical audio · Lowest ₹29,990", href: "/compare/prod-sony-wh-1000xm5" },
-  // Tools
-  { id: "tool-audit", category: "Tools", title: "Responsible Scraping Legal Policy", subtitle: "Ethical web scraping compliance principles", href: "/legal/responsible-scraping" },
-  { id: "tool-terms", category: "Tools", title: "Terms of Service", subtitle: "Acceptable use and tenancy agreements", href: "/legal/terms" },
-  { id: "tool-privacy", category: "Tools", title: "Privacy Policy", subtitle: "Data protection and telemetry policies", href: "/legal/privacy" },
-];
 
 export function CommandPalette() {
   const router = useRouter();
@@ -36,6 +20,57 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
+
+  const toggleTheme = useCallback(() => {
+    const current = document.documentElement.getAttribute("data-theme") || "dark";
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("scrappy-theme", next);
+    window.dispatchEvent(new Event("scrappy:theme-changed"));
+  }, []);
+
+  const toggleDensity = useCallback(() => {
+    const current = document.documentElement.getAttribute("data-density") || "comfortable";
+    const next = current === "comfortable" ? "compact" : "comfortable";
+    document.documentElement.setAttribute("data-density", next);
+    localStorage.setItem("scrappy-density", next);
+    window.dispatchEvent(new Event("scrappy:density-changed"));
+  }, []);
+
+  const toggleSidebar = useCallback(() => {
+    window.dispatchEvent(new CustomEvent("scrappy:toggle-sidebar"));
+  }, []);
+
+  const openShortcuts = useCallback(() => {
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "?" }));
+  }, []);
+
+  const commands: CommandItem[] = [
+    // Navigation
+    { id: "nav-compare", category: "Navigation", title: "Compare Catalog", subtitle: "Search and compare prices across 500+ verified items", href: "/compare", shortcut: "g c" },
+    { id: "nav-watchlist", category: "Navigation", title: "Watchlist & Alerts", subtitle: "Tracked products, drop triggers, and history graphs", href: "/watchlist", shortcut: "g w" },
+    { id: "nav-extract", category: "Navigation", title: "Visual Extract Studio", subtitle: "Three-step scraper: URL check, point & capture, verify", href: "/extract", shortcut: "g e" },
+    { id: "nav-alerts", category: "Navigation", title: "Alerts & Notifications", subtitle: "Rule builder, webhook triggers, and active channels", href: "/alerts", shortcut: "g a" },
+    { id: "nav-settings", category: "Navigation", title: "Settings & Workspaces", subtitle: "Tenancy, API keys, notification preferences", href: "/settings", shortcut: "g s" },
+    { id: "nav-status", category: "Navigation", title: "System Status", subtitle: "Live source adapter health scores and circuit breakers", href: "/status" },
+    { id: "nav-docs", category: "Navigation", title: "API Documentation", subtitle: "REST endpoints, HMAC webhook signatures, schemas", href: "/docs" },
+    { id: "nav-kit", category: "Navigation", title: "UI Primitives Kit", subtitle: "Explore Phase 0 design tokens and 13 UI primitives", href: "/dev/kit" },
+    { id: "nav-icons", category: "Navigation", title: "Icon Set & Micro-interactions", subtitle: "42 bespoke 24px/1.5-stroke icons and animations", href: "/dev/icons" },
+    { id: "nav-motion", category: "Navigation", title: "Motion & Scroll Studio", subtitle: "NumberTick odometer, hold-to-confirm, ambient mesh", href: "/dev/motion" },
+    
+    // Quick Actions
+    { id: "act-theme", category: "Actions", title: "Toggle Theme", subtitle: "Switch between Ink (Dark) and Paper (Light) themes", action: toggleTheme, shortcut: "t" },
+    { id: "act-density", category: "Actions", title: "Toggle UI Density", subtitle: "Switch between Comfortable and Compact data display", action: toggleDensity },
+    { id: "act-sidebar", category: "Actions", title: "Toggle Sidebar", subtitle: "Collapse to icons-only or expand with navigation labels", action: toggleSidebar, shortcut: "[" },
+    { id: "act-shortcuts", category: "Actions", title: "Keyboard Shortcuts Sheet", subtitle: "View all global keyboard shortcuts and sequence chords", action: openShortcuts, shortcut: "?" },
+
+    // Catalog Products (Labeled sample preview)
+    { id: "cat-iphone16", category: "Products", title: "Apple iPhone 16 Pro 128GB", subtitle: "Lowest ₹1,19,900 · 3 stores compared", href: "/compare/prod-apple-iphone-16-pro" },
+    { id: "cat-macbook-m3", category: "Products", title: "Apple MacBook Air M3 (16GB, 512GB)", subtitle: "Lowest ₹1,34,900 · 4 stores compared", href: "/compare/prod-macbook-air-m3" },
+    { id: "cat-sony-xm5", category: "Products", title: "Sony WH-1000XM5 Noise-Canceling", subtitle: "Lowest ₹28,990 · 4 stores compared", href: "/compare/prod-sony-wh-1000xm5" },
+    { id: "cat-s24", category: "Products", title: "Samsung Galaxy S24 Ultra 256GB", subtitle: "Lowest ₹1,09,999 · 2 stores compared", href: "/compare/prod-samsung-galaxy-s24" },
+  ];
 
   // Global keydown listener for Cmd+K / Ctrl+K
   useEffect(() => {
@@ -48,20 +83,43 @@ export function CommandPalette() {
       }
     };
 
+    const handleCustomOpen = () => setIsOpen(true);
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("scrappy:open-command-palette", handleCustomOpen);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scrappy:open-command-palette", handleCustomOpen);
+    };
   }, [isOpen]);
 
-  // Focus input when opened
+  // Focus trap, scroll lock, and initial focus management
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      previousActiveElement.current = document.activeElement as HTMLElement | null;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+      setTimeout(() => inputRef.current?.focus(), 40);
       setSelectedIndex(0);
       setQuery("");
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      if (previousActiveElement.current) {
+        previousActiveElement.current.focus();
+      }
     }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
   }, [isOpen]);
 
-  const filteredCommands = COMMANDS.filter((cmd) => {
+  const filteredCommands = commands.filter((cmd) => {
     if (!query.trim()) return true;
     const q = query.toLowerCase();
     return (
@@ -73,10 +131,14 @@ export function CommandPalette() {
 
   const handleSelect = (cmd: CommandItem) => {
     setIsOpen(false);
-    router.push(cmd.href);
+    if (cmd.action) {
+      cmd.action();
+    } else if (cmd.href) {
+      router.push(cmd.href);
+    }
   };
 
-  const handleListKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((prev) => (prev + 1) % Math.max(1, filteredCommands.length));
@@ -91,17 +153,16 @@ export function CommandPalette() {
 
   return (
     <>
-      {/* Trigger Button in Header */}
+      {/* Trigger Button in Shell */}
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--border-strong)] text-xs font-mono text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors min-h-[44px]"
-        aria-label="Open command palette"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:border-[var(--border-strong)] text-xs font-mono text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
+        aria-label="Open command palette (Press ⌘K or /)"
       >
-        <svg className="w-3.5 h-3.5 text-[var(--text-2)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-        </svg>
-        <span className="hidden sm:inline">Search or command...</span>
-        <kbd className="px-1.5 py-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-0)] border border-[var(--border)] text-[10px] font-mono text-[var(--text-2)]">
+        <SearchIcon size={16} className="text-[var(--text-3)]" />
+        <span className="hidden md:inline">Search or command...</span>
+        <kbd className="px-1.5 py-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-2)]">
           ⌘K
         </kbd>
       </button>
@@ -111,19 +172,18 @@ export function CommandPalette() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-sm"
+          aria-label="Command palette"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-[var(--surface-overlay)] backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="w-full max-w-xl bg-[#0F1217] border border-[#262E3C] rounded-lg shadow-2xl overflow-hidden font-mono"
+            className="w-full max-w-xl bg-[var(--surface-1)] border border-[var(--border-default)] rounded-[var(--radius-lg)] shadow-[var(--elevation-3)] overflow-hidden font-sans"
             onClick={(e) => e.stopPropagation()}
-            onKeyDown={handleListKeyDown}
+            onKeyDown={handleKeyDown}
           >
             {/* Input Header */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-[#262E3C] bg-[#141922]">
-              <svg className="w-4 h-4 text-[#C6F135]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
+            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[var(--border-subtle)] bg-[var(--surface-2)]">
+              <SearchIcon size={20} className="text-[var(--color-accent)] shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -132,16 +192,18 @@ export function CommandPalette() {
                   setQuery(e.target.value);
                   setSelectedIndex(0);
                 }}
-                placeholder="Type a product, tool, or page..."
-                className="w-full bg-transparent text-sm text-[#D6DBE3] outline-none placeholder-[#5B677C]"
+                placeholder="Type a product, tool, or action..."
+                className="w-full bg-transparent text-sm text-[var(--text-1)] outline-none placeholder-[var(--text-3)] font-mono"
               />
-              <span className="text-[11px] text-[#5B677C]">ESC to close</span>
+              <span className="text-[11px] font-mono text-[var(--text-3)] shrink-0">
+                ESC to close
+              </span>
             </div>
 
             {/* Results List */}
             <div className="max-h-80 overflow-y-auto p-2 space-y-1">
               {filteredCommands.length === 0 ? (
-                <div className="p-6 text-center text-xs text-[#5B677C]">
+                <div className="p-8 text-center text-xs font-mono text-[var(--text-3)]">
                   No matching commands or products found.
                 </div>
               ) : (
@@ -150,21 +212,41 @@ export function CommandPalette() {
                   return (
                     <button
                       key={cmd.id}
+                      type="button"
                       onClick={() => handleSelect(cmd)}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`w-full text-left px-3 py-2 rounded flex items-center justify-between transition-colors ${
+                      className={`w-full text-left px-3 py-2.5 rounded-[var(--radius-md)] flex items-center justify-between transition-colors min-h-[44px] ${
                         isSelected
-                          ? "bg-[#1A202B] text-white border border-[#3B465A]"
-                          : "text-[#98A2B3] hover:bg-[#141922] hover:text-[#D6DBE3] border border-transparent"
+                          ? "bg-[var(--surface-3)] text-[var(--text-1)] border border-[var(--border-strong)]"
+                          : "text-[var(--text-2)] hover:bg-[var(--surface-2)] hover:text-[var(--text-1)] border border-transparent"
                       }`}
                     >
-                      <div>
-                        <div className="text-xs font-semibold">{cmd.title}</div>
-                        <div className="text-[11px] text-[#5B677C]">{cmd.subtitle}</div>
+                      <div className="flex items-center gap-3">
+                        <ChevronRightIcon
+                          size={16}
+                          className={`shrink-0 transition-transform ${
+                            isSelected ? "text-[var(--color-accent)] translate-x-0.5" : "text-[var(--text-3)]"
+                          }`}
+                        />
+                        <div>
+                          <div className="text-xs font-medium text-[var(--text-1)]">
+                            {cmd.title}
+                          </div>
+                          <div className="text-[11px] font-mono text-[var(--text-3)]">
+                            {cmd.subtitle}
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-[10px] text-[#5B677C] uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#0A0C0F] border border-[#262E3C]">
-                        {cmd.category}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {cmd.shortcut && (
+                          <kbd className="px-1.5 py-0.5 rounded bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-3)]">
+                            {cmd.shortcut}
+                          </kbd>
+                        )}
+                        <span className="text-[10px] font-mono text-[var(--text-3)] uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--surface-2)] border border-[var(--border-subtle)]">
+                          {cmd.category}
+                        </span>
+                      </div>
                     </button>
                   );
                 })
@@ -172,9 +254,16 @@ export function CommandPalette() {
             </div>
 
             {/* Footer Navigation Hints */}
-            <div className="px-4 py-2 bg-[#0A0C0F] border-t border-[#262E3C] text-[10px] text-[#5B677C] flex items-center justify-between">
-              <span>Use <kbd className="text-[#98A2B3]">↑</kbd> <kbd className="text-[#98A2B3]">↓</kbd> to navigate</span>
-              <span><kbd className="text-[#98A2B3]">Enter</kbd> to select</span>
+            <div className="px-4 py-2.5 bg-[var(--surface-0)] border-t border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-3)] flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span>
+                  <kbd className="text-[var(--text-2)]">↑</kbd> <kbd className="text-[var(--text-2)]">↓</kbd> Navigate
+                </span>
+                <span>
+                  <kbd className="text-[var(--text-2)]">Enter</kbd> Select
+                </span>
+              </div>
+              <span>Press <kbd className="text-[var(--text-2)]">?</kbd> for all shortcuts</span>
             </div>
           </div>
         </div>

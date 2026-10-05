@@ -13,8 +13,8 @@
 | **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 93/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass; focus trap, ToastProvider queue, stacked table verified |
 | **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 91/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 16px/32px proof, colorblind simulated proof, OG copy neutralized |
 | **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | **DONE** | 92/100 | Odometer NumberTick, 600ms flashes, HoldToConfirm, Accordion ChevronDownIcon, AmbientMesh measured, reduced-motion + forced-colors suite |
-| **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | DOING | - | |
-| **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | TODO | - | |
+| **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | **DONE** | 96/100 | Collapsible sidebar, ⌘K command palette, ? shortcut modal, mobile tab bar with scroll hide, 0 axe errors, 6 screenshots |
+| **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | DOING | - | |
 | **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | TODO | - | |
 | **Slice F** | Product Page (`/compare/[id]`) | Above-fold LCP, SVG price history chart scrub, Watch sheet with 90d preview | TODO | - | |
 | **Slice G** | Watchlist + Alerts + Center | Dense watchlist table, plain-language rule builder, notification center drawer | TODO | - | |

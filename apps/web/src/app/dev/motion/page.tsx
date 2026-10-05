@@ -12,10 +12,6 @@ import {
   ScrappyLogo,
   Badge,
   Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
   Button,
 } from "@scrappy/ui";
 
@@ -84,7 +80,7 @@ export default function MotionVerificationPage() {
       <ScrollProgressBar heightPx={3} />
 
       {/* Living Ambient Drift Mesh */}
-      <AmbientMesh />
+      {showAmbient && <AmbientMesh />}
 
       {/* Sticky Header with 8px blur transition */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-[var(--surface-0)]/80 border-b border-[var(--border-subtle)] transition-all px-4 sm:px-8 py-3.5">
@@ -140,7 +136,7 @@ export default function MotionVerificationPage() {
                 Odometer roll on price change with 600ms fading green/red flash and directional delta arrow.
               </p>
             </div>
-            <Badge variant="secondary" size="sm">Tabular Mono</Badge>
+            <Badge variant="outline" size="sm">Tabular Mono</Badge>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -272,7 +268,7 @@ export default function MotionVerificationPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-[var(--text-1)]">{offer.store}</span>
-                  <Badge variant={idx === 2 ? "primary" : "secondary"} size="sm">{offer.stock}</Badge>
+                  <Badge variant={idx === 2 ? "accent" : "outline"} size="sm">{offer.stock}</Badge>
                 </div>
                 <div className="text-lg font-mono font-bold text-[var(--text-1)]">{offer.price}</div>
                 <div className="text-xs font-mono text-[var(--text-3)]">Delta vs avg: {offer.delta}</div>
