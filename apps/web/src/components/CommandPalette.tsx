@@ -94,14 +94,14 @@ export function CommandPalette() {
       {/* Trigger Button in Header */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-2.5 py-1.5 rounded bg-[#141922] border border-[#262E3C] hover:border-[#5B677C] text-xs font-mono text-[#98A2B3] transition-colors"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--border-strong)] text-xs font-mono text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors min-h-[44px]"
         aria-label="Open command palette"
       >
-        <svg className="w-3.5 h-3.5 text-[#5B677C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-3.5 h-3.5 text-[var(--text-2)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         <span className="hidden sm:inline">Search or command...</span>
-        <kbd className="px-1.5 py-0.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-[10px] text-[#5B677C]">
+        <kbd className="px-1.5 py-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-0)] border border-[var(--border)] text-[10px] font-mono text-[var(--text-2)]">
           ⌘K
         </kbd>
       </button>

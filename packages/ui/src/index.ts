@@ -1,11 +1,21 @@
 export * from "./tokens.js";
 
-// Core UI Components
+// Core Primitives (Rebuilt Phase 0)
 export * from "./components/Button.js";
+export * from "./components/IconButton.js";
 export * from "./components/Input.js";
-export * from "./components/Table.js";
+export * from "./components/Select.js";
+export * from "./components/Tabs.js";
+export * from "./components/Badge.js";
+export * from "./components/Card.js";
+export * from "./components/Dialog.js";
+export * from "./components/Sheet.js";
+export * from "./components/Tooltip.js";
 export * from "./components/Toast.js";
 export * from "./components/Skeleton.js";
+export * from "./components/Table.js";
+
+// Structural & Feedback Components
 export * from "./components/EmptyState.js";
 export * from "./components/ErrorState.js";
 export * from "./components/ScrappyLogo.js";

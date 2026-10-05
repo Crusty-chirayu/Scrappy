@@ -3,13 +3,14 @@ import type { HTMLAttributes } from "react";
 export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   width?: string | number;
   height?: string | number;
-  rounded?: "sm" | "md" | "full" | "none";
+  rounded?: "sm" | "md" | "lg" | "full" | "none";
 }
 
 const roundedMap = {
   none: "rounded-none",
-  sm: "rounded-[2px]",
-  md: "rounded-[4px]",
+  sm: "rounded-[var(--radius-sm)]",
+  md: "rounded-[var(--radius-md)]",
+  lg: "rounded-[var(--radius-lg)]",
   full: "rounded-full",
 };
 
@@ -24,7 +25,7 @@ export function Skeleton({
   return (
     <div
       aria-hidden="true"
-      className={`animate-pulse bg-[#1A202B] ${roundedMap[rounded]} ${className}`}
+      className={`animate-pulse motion-reduce:animate-none bg-[var(--surface-3)] border border-[var(--border-subtle)] ${roundedMap[rounded]} ${className}`}
       style={{
         width: typeof width === "number" ? `${width}px` : width,
         height: typeof height === "number" ? `${height}px` : height,
@@ -59,16 +60,16 @@ export function SkeletonCard({ className = "" }: { className?: string }) {
   return (
     <div
       aria-hidden="true"
-      className={`p-4 border border-[#262E3C] rounded-[4px] bg-[#0F1217] flex flex-col gap-3 ${className}`}
+      className={`p-5 border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-2)] flex flex-col gap-3.5 ${className}`}
     >
       <div className="flex items-center justify-between">
-        <Skeleton height={18} width="40%" />
-        <Skeleton height={18} width={60} rounded="full" />
+        <Skeleton height={20} width="45%" />
+        <Skeleton height={20} width={64} rounded="full" />
       </div>
       <SkeletonText lines={2} />
-      <div className="flex items-center justify-between pt-2 border-t border-[#1A202B]">
-        <Skeleton height={24} width={90} />
-        <Skeleton height={28} width={80} />
+      <div className="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)]">
+        <Skeleton height={24} width={100} />
+        <Skeleton height={32} width={88} rounded="md" />
       </div>
     </div>
   );
@@ -76,9 +77,9 @@ export function SkeletonCard({ className = "" }: { className?: string }) {
 
 export function SkeletonTableRow({ columns = 4 }: { columns?: number }) {
   return (
-    <tr aria-hidden="true" className="border-b border-[#1A202B]">
+    <tr aria-hidden="true" className="border-b border-[var(--border-subtle)]">
       {Array.from({ length: columns }).map((_, idx) => (
-        <td key={idx} className="p-3">
+        <td key={idx} className="p-3.5">
           <Skeleton height={16} width={idx === 0 ? "80%" : "60%"} />
         </td>
       ))}

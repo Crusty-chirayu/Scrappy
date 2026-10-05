@@ -65,13 +65,13 @@ export function WorkspaceSwitcher() {
         aria-expanded={isOpen}
         aria-label="Switch active workspace"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-2.5 py-1 text-xs font-mono bg-[#141820] border border-[#262E3C] rounded hover:border-[#384357] text-[#D6DBE3] transition-colors focus:outline-none focus:ring-1 focus:ring-[#C6F135]"
+        className="flex items-center gap-2 px-2.5 py-1 text-xs font-mono bg-[var(--surface-1)] border border-[var(--border)] rounded hover:border-[var(--border-strong)] text-[var(--text-1)] transition-colors focus:outline-none focus:ring-1 focus:ring-[var(--border-focus)]"
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-[#C6F135]" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
         <span className="max-w-[130px] truncate font-medium">
           {activeWorkspace?.name || "Workspace"}
         </span>
-        <span className="px-1 py-0.2 bg-[#262E3C] text-[10px] text-[#C6F135] uppercase rounded">
+        <span className="px-1 py-0.2 bg-[var(--surface-3)] text-[10px] text-[var(--color-accent)] uppercase rounded">
           {activeWorkspace?.plan || "free"}
         </span>
         <svg
@@ -161,11 +161,11 @@ export function WorkspaceSwitcher() {
           </button>
         </div>
       ) : (
-        <div className="flex items-center gap-2 pl-2 border-l border-[#262E3C]">
+        <div className="flex items-center gap-2 pl-2 border-l border-[var(--border)]">
           <a
             href="/auth/login"
             id="auth-login-link"
-            className="text-xs font-mono text-[#C6F135] hover:underline px-2.5 py-1 rounded bg-[#C6F135]/10 border border-[#C6F135]/20 hover:bg-[#C6F135]/20 transition-colors"
+            className="text-xs font-mono text-[var(--color-accent)] hover:underline px-2.5 py-1 rounded bg-[var(--surface-2)] border border-[var(--border)] hover:bg-[var(--surface-3)] transition-colors"
           >
             Sign In
           </a>

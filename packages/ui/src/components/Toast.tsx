@@ -10,6 +10,10 @@ export interface ToastItem {
   title: string;
   description?: string;
   durationMs?: number;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
 }
 
 interface ToastContextValue {
@@ -28,11 +32,30 @@ export function useToast(): ToastContextValue {
   return ctx;
 }
 
-const toastTypeStyles: Record<ToastType, { border: string; bg: string; iconColor: string; role: "status" | "alert" }> = {
-  info: { border: "border-[#5AA9FF]", bg: "bg-[#0F1217]", iconColor: "text-[#5AA9FF]", role: "status" },
-  success: { border: "border-[#2FBF8A]", bg: "bg-[#0F1217]", iconColor: "text-[#2FBF8A]", role: "status" },
-  warning: { border: "border-[#F5B544]", bg: "bg-[#0F1217]", iconColor: "text-[#F5B544]", role: "alert" },
-  error: { border: "border-[#F2685B]", bg: "bg-[#0F1217]", iconColor: "text-[#F2685B]", role: "alert" },
+const toastTypeStyles: Record<
+  ToastType,
+  { border: string; dot: string; role: "status" | "alert" }
+> = {
+  info: {
+    border: "border-[var(--color-info)]",
+    dot: "bg-[var(--color-info)]",
+    role: "status",
+  },
+  success: {
+    border: "border-[var(--color-success)]",
+    dot: "bg-[var(--color-success)]",
+    role: "status",
+  },
+  warning: {
+    border: "border-[var(--color-warn)]",
+    dot: "bg-[var(--color-warn)]",
+    role: "alert",
+  },
+  error: {
+    border: "border-[var(--color-danger)]",
+    dot: "bg-[var(--color-danger)]",
+    role: "alert",
+  },
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -68,7 +91,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <aside
         aria-label="Notifications"
         aria-live="polite"
-        className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"
+        className="fixed bottom-4 right-4 z-[var(--z-toast)] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"
       >
         {toasts.map((t) => {
           const style = toastTypeStyles[t.type];
@@ -76,22 +99,34 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <div
               key={t.id}
               role={style.role}
-              className={`pointer-events-auto border ${style.border} ${style.bg} p-3 rounded-[4px] shadow-lg flex items-start justify-between gap-3 text-sm text-[#D6DBE3] transition-transform animate-in fade-in slide-in-from-bottom-2 duration-150`}
+              className={`pointer-events-auto border ${style.border} bg-[var(--surface-3)] p-3.5 rounded-[var(--radius-md)] shadow-[var(--elevation-3)] flex items-start justify-between gap-3 text-sm text-[var(--text-1)] animate-in fade-in slide-in-from-bottom-3 duration-[var(--motion-duration-base)]`}
             >
-              <div className="flex flex-col gap-0.5">
-                <span className="font-semibold text-xs uppercase tracking-wide flex items-center gap-1.5">
-                  <span className={`inline-block w-2 h-2 rounded-full ${style.iconColor} bg-current`} aria-hidden="true" />
+              <div className="flex flex-col gap-1 pr-2">
+                <span className="font-semibold text-xs uppercase tracking-wide flex items-center gap-2">
+                  <span className={`inline-block w-2 h-2 rounded-full ${style.dot}`} aria-hidden="true" />
                   {t.title}
                 </span>
-                {t.description && <span className="text-xs text-[#98A2B3]">{t.description}</span>}
+                {t.description && <span className="text-xs text-[var(--text-2)]">{t.description}</span>}
+                {t.action && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      t.action?.onClick();
+                      dismissToast(t.id);
+                    }}
+                    className="mt-2 text-xs font-mono font-medium text-[var(--color-accent)] hover:underline self-start focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--border-focus)] min-h-[32px] flex items-center"
+                  >
+                    {t.action.label}
+                  </button>
+                )}
               </div>
               <button
                 type="button"
                 onClick={() => dismissToast(t.id)}
                 aria-label="Dismiss notification"
-                className="text-[#5B677C] hover:text-[#D6DBE3] p-1 transition-colors rounded focus:outline-none focus:ring-1 focus:ring-[#C6F135]"
+                className="text-[var(--text-3)] hover:text-[var(--text-1)] p-2 rounded-[var(--radius-sm)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center shrink-0"
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>

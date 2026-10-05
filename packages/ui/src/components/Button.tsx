@@ -10,25 +10,26 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loadingText?: string;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#C6F135] text-[#0A0C0F] font-semibold hover:bg-[#b2dc26] active:bg-[#9fc41f] border border-transparent shadow-sm",
+    "bg-[var(--color-accent)] text-[var(--color-accent-contrast)] font-semibold hover:bg-[var(--color-accent-hover)] active:bg-[var(--color-accent-active)] border border-transparent shadow-[var(--elevation-1)]",
   secondary:
-    "bg-[#1A202B] text-[#D6DBE3] font-medium hover:bg-[#262E3C] active:bg-[#141922] border border-[#262E3C]",
+    "bg-[var(--surface-3)] text-[var(--text-1)] font-medium hover:bg-[var(--surface-4)] active:bg-[var(--surface-2)] border border-[var(--border)]",
   outline:
-    "bg-transparent text-[#D6DBE3] font-medium hover:bg-[#141922] active:bg-[#1A202B] border border-[#262E3C]",
+    "bg-transparent text-[var(--text-1)] font-medium hover:bg-[var(--surface-2)] active:bg-[var(--surface-3)] border border-[var(--border)] hover:border-[var(--border-strong)]",
   ghost:
-    "bg-transparent text-[#98A2B3] font-medium hover:text-[#D6DBE3] hover:bg-[#141922] active:bg-[#1A202B] border border-transparent",
+    "bg-transparent text-[var(--text-2)] font-medium hover:text-[var(--text-1)] hover:bg-[var(--surface-2)] active:bg-[var(--surface-3)] border border-transparent",
   danger:
-    "bg-[#F2685B] text-[#0A0C0F] font-semibold hover:bg-[#db5347] active:bg-[#c24237] border border-transparent",
+    "bg-[var(--color-danger)] text-[var(--color-danger-contrast)] font-semibold hover:opacity-90 active:opacity-80 border border-transparent shadow-[var(--elevation-1)]",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-2.5 py-1 text-xs gap-1.5 h-7",
-  md: "px-3.5 py-1.5 text-sm gap-2 h-9",
-  lg: "px-4.5 py-2.5 text-base gap-2.5 h-11",
+  sm: "px-3 py-1 text-xs gap-1.5 min-h-[44px]",
+  md: "px-4 py-2 text-sm gap-2 min-h-[44px]",
+  lg: "px-5 py-3 text-base gap-2.5 min-h-[48px]",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -40,6 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     loadingText,
     iconLeft,
     iconRight,
+    fullWidth = false,
     disabled = false,
     className = "",
     type = "button",
@@ -56,13 +58,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={isDisabled}
       aria-busy={isLoading}
       aria-disabled={isDisabled}
-      className={`inline-flex items-center justify-center rounded-[3px] transition-colors duration-150 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#C6F135] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0C0F] disabled:opacity-50 disabled:cursor-not-allowed ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-[var(--radius-md)] transition-all duration-[var(--motion-duration-fast)] select-none outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-0)] disabled:opacity-40 disabled:cursor-not-allowed ${fullWidth ? "w-full" : ""} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
       {...props}
     >
       {isLoading ? (
         <>
           <svg
-            className="animate-spin -ml-0.5 mr-2 h-3.5 w-3.5 text-current"
+            className="animate-spin -ml-0.5 mr-2 h-4 w-4 text-current"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -86,9 +88,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         </>
       ) : (
         <>
-          {iconLeft && <span className="inline-flex shrink-0">{iconLeft}</span>}
+          {iconLeft && <span className="inline-flex shrink-0" aria-hidden="true">{iconLeft}</span>}
           <span>{children}</span>
-          {iconRight && <span className="inline-flex shrink-0">{iconRight}</span>}
+          {iconRight && <span className="inline-flex shrink-0" aria-hidden="true">{iconRight}</span>}
         </>
       )}
     </button>

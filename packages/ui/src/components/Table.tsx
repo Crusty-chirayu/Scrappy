@@ -21,10 +21,10 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
 ) {
   return (
     <TableContext.Provider value={{ density }}>
-      <div className="w-full overflow-x-auto border border-[#262E3C] rounded-[4px] bg-[#0F1217]">
+      <div className="w-full overflow-x-auto border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-1)] shadow-[var(--elevation-1)]">
         <table
           ref={ref}
-          className={`w-full text-left border-collapse text-sm text-[#D6DBE3] ${
+          className={`w-full text-left border-collapse text-sm text-[var(--text-1)] ${
             stickyHeader ? "relative" : ""
           } ${className}`}
           {...props}
@@ -41,7 +41,7 @@ export const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HT
     return (
       <thead
         ref={ref}
-        className={`border-b border-[#262E3C] bg-[#141922] text-xs uppercase font-medium text-[#98A2B3] tracking-wider ${className}`}
+        className={`border-b border-[var(--border)] bg-[var(--surface-2)] text-xs uppercase font-mono font-medium text-[var(--text-2)] tracking-wider ${className}`}
         {...props}
       >
         {children}
@@ -53,7 +53,7 @@ export const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HT
 export const TableBody = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
   function TableBody({ className = "", children, ...props }, ref) {
     return (
-      <tbody ref={ref} className={`divide-y divide-[#1A202B] ${className}`} {...props}>
+      <tbody ref={ref} className={`divide-y divide-[var(--border-subtle)] ${className}`} {...props}>
         {children}
       </tbody>
     );
@@ -71,8 +71,8 @@ export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function 
   return (
     <tr
       ref={ref}
-      className={`transition-colors ${
-        isClickable ? "cursor-pointer hover:bg-[#1A202B]" : "hover:bg-[#141922]/50"
+      className={`transition-colors duration-[var(--motion-duration-fast)] ${
+        isClickable ? "cursor-pointer hover:bg-[var(--surface-2)] active:bg-[var(--surface-3)]" : "hover:bg-[var(--surface-2)]/60"
       } ${className}`}
       {...props}
     >
@@ -92,9 +92,8 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(functi
   ref,
 ) {
   const { density } = useContext(TableContext);
-  const padding = density === "compact" ? "py-1.5 px-3" : "py-2.5 px-4";
+  const padding = density === "compact" ? "py-2 px-3" : "py-3 px-4";
   const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
-
   const isSortable = Boolean(onSort);
 
   return (
@@ -108,7 +107,7 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(functi
         <button
           type="button"
           onClick={onSort}
-          className={`inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold hover:text-[#D6DBE3] transition-colors focus:outline-none focus:ring-1 focus:ring-[#C6F135] rounded px-1 -mx-1`}
+          className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider font-semibold hover:text-[var(--text-1)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] rounded-[var(--radius-sm)] px-1.5 py-1 -mx-1.5 min-h-[36px]"
         >
           <span>{children}</span>
           <span className="flex flex-col text-[10px] leading-[10px]" aria-hidden="true">
@@ -132,12 +131,12 @@ export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(functi
   ref,
 ) {
   const { density } = useContext(TableContext);
-  const padding = density === "compact" ? "py-1.5 px-3" : "py-3 px-4";
+  const padding = density === "compact" ? "py-2 px-3" : "py-3.5 px-4";
   const alignClass = align === "right" || isNumeric ? "text-right" : align === "center" ? "text-center" : "text-left";
-  const fontClass = isNumeric ? "font-mono tabular-nums tracking-tight" : "";
+  const fontClass = isNumeric ? "font-mono tabular-nums tracking-tight font-medium" : "";
 
   return (
-    <td ref={ref} className={`${padding} ${alignClass} ${fontClass} text-sm ${className}`} {...props}>
+    <td ref={ref} className={`${padding} ${alignClass} ${fontClass} text-sm text-[var(--text-1)] ${className}`} {...props}>
       {children}
     </td>
   );

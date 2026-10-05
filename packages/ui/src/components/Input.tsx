@@ -1,3 +1,5 @@
+"use client";
+
 import React, { forwardRef, useId, type InputHTMLAttributes } from "react";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -37,15 +39,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const isInvalid = Boolean(errorMessage);
 
   return (
-    <div className="flex flex-col gap-1 w-full text-left">
+    <div className="flex flex-col gap-1.5 w-full text-left">
       {label && (
-        <label htmlFor={inputId} className="text-xs font-medium text-[#98A2B3]">
+        <label htmlFor={inputId} className="text-xs font-mono font-medium text-[var(--text-2)] uppercase tracking-wider">
           {label}
         </label>
       )}
       <div className="relative flex items-center w-full">
         {iconPrefix && (
-          <div className="absolute left-2.5 flex items-center pointer-events-none text-[#5B677C]">
+          <div className="absolute left-3 flex items-center pointer-events-none text-[var(--text-3)]" aria-hidden="true">
             {iconPrefix}
           </div>
         )}
@@ -60,10 +62,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             isInvalid ? errorId : helperText ? helperId : undefined
           }
           suppressHydrationWarning
-          className={`w-full bg-[#141922] text-[#D6DBE3] text-sm rounded-[3px] border transition-colors outline-none px-3 py-1.5 h-9 placeholder:text-[#5B677C] focus:ring-1 focus:ring-[#C6F135] focus:border-[#C6F135] disabled:opacity-50 disabled:cursor-not-allowed ${
-            iconPrefix ? "pl-8" : ""
-          } ${iconSuffix || clearable ? "pr-8" : ""} ${
-            isInvalid ? "border-[#F2685B]" : "border-[#262E3C]"
+          className={`w-full bg-[var(--surface-1)] text-[var(--text-1)] text-sm rounded-[var(--radius-sm)] border transition-all duration-[var(--motion-duration-fast)] outline-none px-3.5 py-2.5 min-h-[44px] placeholder:text-[var(--text-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] focus-visible:border-transparent disabled:opacity-40 disabled:cursor-not-allowed ${
+            iconPrefix ? "pl-10" : ""
+          } ${iconSuffix || clearable ? "pr-10" : ""} ${
+            isInvalid ? "border-[var(--color-danger)] focus-visible:ring-[var(--color-danger)]" : "border-[var(--border)] hover:border-[var(--border-strong)]"
           } ${className}`}
           {...props}
         />
@@ -72,10 +74,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             type="button"
             onClick={onClear}
             aria-label="Clear input"
-            className="absolute right-2 text-[#5B677C] hover:text-[#D6DBE3] transition-colors p-0.5 rounded focus:outline-none focus:ring-1 focus:ring-[#C6F135]"
+            className="absolute right-2 text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors p-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] min-h-[40px] min-w-[40px] flex items-center justify-center"
           >
             <svg
-              className="w-3.5 h-3.5"
+              className="w-4 h-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -87,18 +89,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           </button>
         )}
         {!clearable && iconSuffix && (
-          <div className="absolute right-2.5 flex items-center pointer-events-none text-[#5B677C]">
+          <div className="absolute right-3 flex items-center pointer-events-none text-[var(--text-3)]" aria-hidden="true">
             {iconSuffix}
           </div>
         )}
       </div>
       {errorMessage && (
-        <p id={errorId} role="alert" className="text-xs text-[#F2685B] mt-0.5">
+        <p id={errorId} role="alert" className="text-xs text-[var(--color-danger)] mt-0.5 font-medium">
           {errorMessage}
         </p>
       )}
       {!errorMessage && helperText && (
-        <p id={helperId} className="text-xs text-[#5B677C] mt-0.5">
+        <p id={helperId} className="text-xs text-[var(--text-3)] mt-0.5">
           {helperText}
         </p>
       )}
