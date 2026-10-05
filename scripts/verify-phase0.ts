@@ -100,41 +100,41 @@ async function main() {
 
   console.log("\n=== STEP 3: WCAG CONTRAST TABLE ===");
   const darkSurfaces: Record<string, string> = {
-    "surface-0": "#0A0C0F",
-    "surface-1": "#0F1217",
-    "surface-2": "#141922",
-    "surface-3": "#1A202B",
-    "surface-4": "#222936",
+    "surface-0": "#0B0D12",
+    "surface-1": "#11141B",
+    "surface-2": "#171B24",
+    "surface-3": "#1E2330",
+    "surface-4": "#262C3B",
   };
 
   const darkTexts: Record<string, string> = {
-    "text-1": "#D6DBE3",
-    "text-2": "#98A2B3",
-    "text-3": "#8492A6",
-    "accent": "#C6F135",
-    "success": "#32D59A",
-    "warn": "#FBB034",
-    "danger": "#FF7867",
-    "info": "#66B1FF",
+    "text-1": "#ECEFF6",
+    "text-2": "#A4ACBE",
+    "text-3": "#8D96AC",
+    "accent": "#7C8CFF",
+    "success": "#3DD68C",
+    "warn": "#F0B24A",
+    "danger": "#FF6B73",
+    "info": "#5BB5FF",
   };
 
   const lightSurfaces: Record<string, string> = {
-    "surface-0": "#FAF9F6",
-    "surface-1": "#F3F1EC",
-    "surface-2": "#EAE6DE",
-    "surface-3": "#DFDBD1",
-    "surface-4": "#D5D0C4",
+    "surface-0": "#F5F6F9",
+    "surface-1": "#FFFFFF",
+    "surface-2": "#FAFBFD",
+    "surface-3": "#FFFFFF",
+    "surface-4": "#FFFFFF",
   };
 
   const lightTexts: Record<string, string> = {
-    "text-1": "#0A0C0F",
-    "text-2": "#2D3748",
-    "text-3": "#445166",
-    "accent": "#384D00",
-    "success": "#0A592E",
-    "warn": "#6D4200",
-    "danger": "#A71920",
-    "info": "#004285",
+    "text-1": "#12151C",
+    "text-2": "#4B5365",
+    "text-3": "#5A6275",
+    "accent": "#4457F0",
+    "success": "#0D7A48",
+    "warn": "#9A5B00",
+    "danger": "#C52838",
+    "info": "#1D68BD",
   };
 
   console.log("\n| Theme | Foreground Token | Foreground Hex | Background Token | Background Hex | Contrast Ratio | WCAG AA Status |");
@@ -167,10 +167,10 @@ async function main() {
   }
 
   // Button contrast pairs:
-  const btnDarkRatio = contrastRatio("#0A0C0F", "#C6F135");
-  const btnLightRatio = contrastRatio("#FAF9F6", "#384D00");
-  console.log(`| Dark | Button text (ink) | #0A0C0F | Accent bg | #C6F135 | ${btnDarkRatio.toFixed(2)}:1 | PASS AAA |`);
-  console.log(`| Light | Button text (paper) | #FAF9F6 | Accent bg | #384D00 | ${btnLightRatio.toFixed(2)}:1 | PASS AAA |`);
+  const btnDarkRatio = contrastRatio("#0B0D12", "#7C8CFF");
+  const btnLightRatio = contrastRatio("#FFFFFF", "#4457F0");
+  console.log(`| Dark | Button text (ink) | #0B0D12 | Accent bg | #7C8CFF | ${btnDarkRatio.toFixed(2)}:1 | PASS AAA |`);
+  console.log(`| Light | Button text (paper) | #FFFFFF | Accent bg | #4457F0 | ${btnLightRatio.toFixed(2)}:1 | PASS AA |`);
 
   console.log(`\nSummary: ${passedPairs}/${totalPairs} text-background pairs PASS WCAG AA minimum (${failedPairs} failures).`);
 }

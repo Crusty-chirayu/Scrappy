@@ -57,9 +57,13 @@ export function ScrappyMark({
         strokeWidth="1.5"
       />
 
-      {/* Reticle coordinate axes */}
-      <line x1="6" y1="16" x2="26" y2="16" stroke={strokeColor} strokeWidth="1.2" strokeDasharray="2 2" />
-      <line x1="16" y1="6" x2="16" y2="26" stroke={strokeColor} strokeWidth="1.2" strokeDasharray="2 2" />
+      {/* Reticle coordinate axes (omitted at <= 20px to prevent subpixel blur) */}
+      {size >= 24 && (
+        <>
+          <line x1="6" y1="16" x2="26" y2="16" stroke={strokeColor} strokeWidth="1.2" strokeDasharray="2 2" />
+          <line x1="16" y1="6" x2="16" y2="26" stroke={strokeColor} strokeWidth="1.2" strokeDasharray="2 2" />
+        </>
+      )}
 
       {/* Trend vector ray (upward price discovery) */}
       <path

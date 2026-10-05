@@ -10,8 +10,8 @@
 
 | Slice ID | Name | Description | Status | Score | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 96/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass |
-| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 98/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 0 axe errors |
+| **Slice 0** | Audit & Reconcile | Audit and reconcile tokens, primitives, /dev/kit route, contrast validation | **DONE** | 86/100 | Dual themes, 13 primitives, 0 axe errors, 80/80 contrast pass, 3 concrete weaknesses logged |
+| **Slice A** | Brand + Icons + Illustration | Grid logo, 24px icon set, abstract stroke illustrations, /dev/icons, /dev/illustrations | **DONE** | 87/100 | 42 icons, 5 micro-interactions, 4 abstract SVGs, 16px/32px proof, 0 axe errors, 3 concrete weaknesses logged |
 | **Slice B** | Motion + Scroll Systems | Easings, spring, View Transitions, page transitions, scroll timelines, /dev/motion | TODO | - | |
 | **Slice C** | App Shell + Nav + Palette | Collapsible sidebar, mobile bottom tab bar, Cmd-K command palette, keyboard nav | TODO | - | |
 | **Slice D** | Landing (`/`) | Hero with display serif, telepathic search, interactive compare demo, sticky scroll | TODO | - | |

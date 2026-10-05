@@ -8,36 +8,37 @@
 
 export const THEME_DARK = {
   surfaces: {
-    0: "#0A0C0F", // Deep canvas background
-    1: "#0F1217", // Primary container surface
-    2: "#141922", // Elevated panel surface
-    3: "#1A202B", // Card surface
-    4: "#222936", // Popover, dialog, floating highlight
+    0: "#0B0D12", // Deep cool neutral canvas
+    1: "#11141B", // Primary container surface
+    2: "#171B24", // Elevated panel surface
+    3: "#1E2330", // Card surface
+    4: "#262C3B", // Popovers, dialogs, highlight
   },
   text: {
-    1: "#D6DBE3", // Primary text (contrast: > 14:1)
-    2: "#98A2B3", // Secondary text (contrast: > 7:1)
-    3: "#8492A6", // Muted / tertiary text (contrast: > 4.6:1 on all surfaces)
+    1: "#ECEFF6", // Primary text (contrast: > 12:1)
+    2: "#A4ACBE", // Secondary text (contrast: > 6:1)
+    3: "#8D96AC", // Muted / tertiary text (contrast: > 4.7:1 on all surfaces)
   },
   border: {
-    subtle: "#1C232F",
-    default: "#262E3C",
-    strong: "#3E4A5E",
-    focus: "#C6F135",
+    subtle: "rgba(255, 255, 255, 0.06)",
+    default: "rgba(255, 255, 255, 0.10)",
+    strong: "rgba(255, 255, 255, 0.16)",
+    focus: "#7C8CFF",
   },
   accent: {
-    default: "#C6F135", // Desaturated lime for comfortable dark luminescence
-    hover: "#B4DD2E",
-    active: "#A3CB24",
-    contrast: "#0A0C0F", // Dark ink on accent (> 14:1)
+    default: "#7C8CFF", // Specified periwinkle indigo accent (contrast: > 4.6:1 on all surfaces)
+    hover: "#94A1FF",
+    active: "#6677F2",
+    contrast: "#0B0D12", // Dark ink on accent (> 6.5:1)
+    soft: "rgba(124, 140, 255, 0.12)",
   },
   semantic: {
-    success: "#32D59A", // Price decrease / success (contrast: > 7.7:1)
-    warn: "#FBB034",    // Caution / warning (contrast: > 7.9:1)
-    danger: "#FF7867",  // Price increase / destructive (contrast: > 5.6:1)
-    info: "#66B1FF",    // Information (contrast: > 6.4:1)
-    priceDown: "#32D59A",
-    priceUp: "#FF7867",
+    success: "#3DD68C", // Price decrease (distinct from indigo accent for colorblindness)
+    warn: "#F0B24A",    // Warning / attention
+    danger: "#FF6B73",  // Price increase / destructive
+    info: "#5BB5FF",    // Informational indicator
+    priceDown: "#3DD68C",
+    priceUp: "#FF6B73",
   },
   elevation: {
     0: "none",
@@ -50,43 +51,44 @@ export const THEME_DARK = {
 
 export const THEME_LIGHT = {
   surfaces: {
-    0: "#FAF9F6", // Warm alabaster paper canvas
-    1: "#F3F1EC", // Primary paper container
-    2: "#EAE6DE", // Elevated paper surface
-    3: "#DFDBD1", // Card paper surface
-    4: "#D5D0C4", // Popover / hover paper
+    0: "#F5F6F9", // Warm neutral canvas
+    1: "#FFFFFF", // Primary card container
+    2: "#FAFBFD", // Elevated surface
+    3: "#FFFFFF", // Card paper surface
+    4: "#FFFFFF", // Dialog / popover
   },
   text: {
-    1: "#0A0C0F", // Deep charcoal ink text (contrast: > 12.7:1 on all surfaces)
-    2: "#2D3748", // Slate secondary text (contrast: > 7.7:1)
-    3: "#445166", // Muted paper text (contrast: > 5.2:1 on all surfaces)
+    1: "#12151C", // Charcoal ink text (contrast: > 16:1)
+    2: "#4B5365", // Slate secondary text (contrast: > 7:1)
+    3: "#5A6275", // Muted paper text (contrast: > 5.6:1 on all surfaces)
   },
   border: {
-    subtle: "#E5E1D7",
-    default: "#D3CFC3",
-    strong: "#9E988A",
-    focus: "#384D00",
+    subtle: "rgba(18, 21, 28, 0.06)",
+    default: "rgba(18, 21, 28, 0.10)",
+    strong: "rgba(18, 21, 28, 0.18)",
+    focus: "#4457F0",
   },
   accent: {
-    default: "#384D00", // Deep forest olive accent (contrast: > 6.1:1 on all surfaces)
-    hover: "#2D3E00",
-    active: "#233000",
-    contrast: "#FAF9F6", // Light paper on dark accent (> 8.9:1)
+    default: "#4457F0", // Specified electric indigo accent (contrast: > 5.0:1)
+    hover: "#3547E0",
+    active: "#2B3BC7",
+    contrast: "#FFFFFF", // White on electric indigo (> 5.4:1)
+    soft: "rgba(68, 87, 240, 0.10)",
   },
   semantic: {
-    success: "#0A592E", // Forest green (contrast: > 5.5:1)
-    warn: "#6D4200",    // Deep amber (contrast: > 5.6:1)
-    danger: "#A71920",  // Deep crimson (contrast: > 4.8:1)
-    info: "#004285",    // Deep navy (contrast: > 6.4:1)
-    priceDown: "#0A592E",
-    priceUp: "#A71920",
+    success: "#0D7A48", // Emerald (contrast: > 5.3:1)
+    warn: "#9A5B00",    // Amber (contrast: > 5.3:1)
+    danger: "#C52838",  // Crimson (contrast: > 5.6:1)
+    info: "#1D68BD",    // Royal blue (contrast: > 5.3:1)
+    priceDown: "#0D7A48",
+    priceUp: "#C52838",
   },
   elevation: {
     0: "none",
-    1: "0 1px 3px 0 rgba(26, 32, 43, 0.08)",
-    2: "0 4px 12px 0 rgba(26, 32, 43, 0.1)",
-    3: "0 10px 24px -2px rgba(26, 32, 43, 0.12)",
-    4: "0 20px 40px -4px rgba(26, 32, 43, 0.16)",
+    1: "0 1px 3px 0 rgba(18, 21, 28, 0.06)",
+    2: "0 4px 12px 0 rgba(18, 21, 28, 0.08)",
+    3: "0 10px 24px -2px rgba(18, 21, 28, 0.10)",
+    4: "0 20px 40px -4px rgba(18, 21, 28, 0.14)",
   },
 } as const;
 
@@ -108,9 +110,9 @@ export const SPACING = {
 
 export const RADIUS = {
   none: "0px",
-  sm: "2px", // Inputs, chips, badges
-  md: "4px", // Cards, buttons
-  lg: "8px", // Dialogs, sheets, modals
+  sm: "6px", // Inputs, small elements per brief
+  md: "10px", // Cards per brief
+  lg: "16px", // Dialogs, sheets per brief
   full: "9999px",
 } as const;
 

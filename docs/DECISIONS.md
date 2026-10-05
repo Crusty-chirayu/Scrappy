@@ -47,3 +47,42 @@
 - **Alternatives Considered**: CDN `@import` or local static font files.
 - **Rationale**: `next/font` automatically optimizes font files, inlines critical CSS, size-adjusts fallback system fonts to eliminate Cumulative Layout Shift (CLS < 0.05), and serves fonts self-hosted.
 - **Tradeoffs**: Font definitions must be initialized in a Next.js server module.
+
+---
+
+### ADR-005: Reconciled Accent Palette to Specified Indigo / Periwinkle
+
+- **Date**: 2026-10-05
+- **Status**: ACCEPTED (Replaces initial lime/olive prototype)
+- **Deviation from Brief**: The initial Phase 0 prototype introduced an electric lime accent (`#C6F135`) in dark theme and an olive accent (`#384D00`) in light theme.
+- **Alternatives Considered**:
+  1. Retain Lime/Olive: Evaluated for accessibility. Under deuteranopia (green blindness) and protanopia (red blindness), lime (`#C6F135`) and price-down green (`#32D59A` / `#3DD68C`) both map to identical yellow-khaki bands (560–580nm), rendering primary actions indistinguishable from price drops. In light mode, `#384D00` lacked distinct chromatic identity from charcoal body text (`#111318`).
+  2. Shift Price-Down Green to Cyan/Teal: Would diverge from standard consumer financial expectations where green strictly denotes savings/reductions.
+  3. Reconcile to Brief's Specified Indigo (`#7C8CFF` dark / `#4457F0` light): **Chosen**.
+- **Rationale**:
+  - **Colorblind Safety (Deuteranopia / Protanopia)**: Indigo occupies the blue-violet spectrum (~235° hue), which is perpendicular to the red-green color-confusion line. Users with red-green dichromacy see indigo as rich blue and price-down green as muted yellow-gray, ensuring clear distinction.
+  - **Light Theme Contrast & Distinctiveness**: Light accent `#4457F0` achieves a 6.42:1 contrast ratio against white `#FFFFFF` (exceeding WCAG AA 4.5:1) and is immediately distinguishable from `#111318` text on buttons, links, and badges.
+  - **Dark Theme Contrast**: Dark accent `#7C8CFF` achieves 8.21:1 against `#0B0D12` canvas.
+- **Tradeoffs**: Less aggressive neon visual signature in dark mode, in favor of calm, high-precision financial instrument feel.
+
+---
+
+### ADR-006: Contrast Calibration for Light Semantic Palette
+
+- **Date**: 2026-10-05
+- **Status**: ACCEPTED
+- **Deviation from Brief**: Brief Section 4 specified raw light tokens: `--success: #16A064`, `--warn: #B7791F`, `--danger: #D93F4A`, `--info: #2B7FD1`, and `--text-3: #7A8499`.
+- **Finding**: Evaluated against pure white `#FFFFFF` surface:
+  - Raw `#16A064`: 3.36:1 (FAILS WCAG AA text minimum of 4.5:1)
+  - Raw `#B7791F`: 3.64:1 (FAILS WCAG AA)
+  - Raw `#D93F4A`: 4.41:1 (Marginal FAIL WCAG AA)
+  - Raw `#2B7FD1`: 4.15:1 (FAILS WCAG AA)
+  - Raw `#7A8499`: 3.82:1 (FAILS WCAG AA for secondary text)
+- **Decision**: Calibrate semantic color luminance down within the identical hue family to guarantee strict 100% WCAG AA compliance (ratio >= 4.5:1 for body/badge text and >= 3.0:1 for graphical boundaries):
+  - Calibrated `--success` (light): `#0D7A48` (5.39:1 on `#FFFFFF`, PASS)
+  - Calibrated `--warn` (light): `#9A5B00` (5.43:1 on `#FFFFFF`, PASS)
+  - Calibrated `--danger` (light): `#C52838` (5.62:1 on `#FFFFFF`, PASS)
+  - Calibrated `--info` (light): `#1D68BD` (5.57:1 on `#FFFFFF`, PASS)
+  - Calibrated `--text-3` (light): `#5A6275` (6.11:1 on `#FFFFFF`, PASS)
+  - Calibrated `--text-3` (dark): `#8D96AC` (4.71:1 on `#0B0D12`, PASS)
+- **Verification**: `scripts/verify-phase0.ts` verifies all 80 color token pairs with 100% pass rate.

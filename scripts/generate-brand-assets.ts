@@ -17,9 +17,9 @@ async function main() {
       <rect x="1.5" y="1.5" width="29" height="29" rx="4.5" stroke="#262E3C" stroke-width="1.5"/>
       <line x1="6" y1="16" x2="26" y2="16" stroke="#3E4A5E" stroke-width="1.2" stroke-dasharray="2 2"/>
       <line x1="16" y1="6" x2="16" y2="26" stroke="#3E4A5E" stroke-width="1.2" stroke-dasharray="2 2"/>
-      <path d="M9 22L16 16L23 10" stroke="#C6F135" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M18 10H23V15" stroke="#C6F135" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="16" cy="16" r="3.5" fill="#C6F135"/>
+      <path d="M9 22L16 16L23 10" stroke="#7C8CFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M18 10H23V15" stroke="#7C8CFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="16" cy="16" r="3.5" fill="#7C8CFF"/>
     </svg>
   `;
 
@@ -100,14 +100,15 @@ async function main() {
             color: #8492A6;
           }
           .badge {
-            background: rgba(198, 241, 53, 0.12);
-            color: #C6F135;
-            border: 1px solid rgba(198, 241, 53, 0.3);
+            background: rgba(124, 140, 255, 0.12);
+            color: #7C8CFF;
+            border: 1px solid rgba(124, 140, 255, 0.3);
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-family: monospace;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
+            letter-spacing: 0.04em;
           }
         </style>
       </head>
@@ -124,13 +125,13 @@ async function main() {
               Precision price intelligence &amp; web extraction.
             </div>
             <div class="subline">
-              Calm, verified price comparison and automated alerts across all major e-commerce sources.
+              Systematic price comparison and automated tracking across structured e-commerce sources.
             </div>
           </div>
         </div>
         <div class="footer">
           <div>scrappy.dev &bull; Provenance &bull; Integrity &bull; Speed</div>
-          <div class="badge">SAMPLE DATA &bull; ZERO FAKE STATS</div>
+          <div class="badge">SPECIFICATION PREVIEW &bull; CALM INSTRUMENT</div>
         </div>
       </body>
     </html>
