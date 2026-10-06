@@ -140,30 +140,46 @@ describe("Worker pg-boss & Realtime Pipeline E2E (G4 Acceptance Proof)", () => {
     expect(evidence && evidence.length > 0).toBe(true);
     expect(evidence?.[0]?.decision).toBe("exact_match");
 
-    // 7. Verify Local Mailpit / Inbucket received the price drop alert email
-    // UNVERIFIED when Mailpit is not running (requires `supabase start` with SMTP emulator).
+    // 7. Verify Local Mailpit received the price drop alert email.
+    // Strict mode: set REQUIRE_EMULATORS=1 before running to enforce this assertion.
+    // Without the flag, the test warns and skips rather than blocking CI without emulators.
+    const requireEmulators = process.env.REQUIRE_EMULATORS === "1";
     let mailpitAvailable = false;
     try {
-      const probe = await fetch("http://127.0.0.1:55324/api/v1/messages", { signal: AbortSignal.timeout(2000) });
+      const probe = await fetch("http://127.0.0.1:55324/api/v1/messages", {
+        signal: AbortSignal.timeout(2000),
+      });
       mailpitAvailable = probe.ok;
     } catch {
       mailpitAvailable = false;
     }
 
-    if (mailpitAvailable) {
-      const mailpitRes = await fetch("http://127.0.0.1:55324/api/v1/messages");
-      const mailpitData = (await mailpitRes.json()) as {
-        messages: Array<{ Subject: string; To: Array<{ Address: string }> }>;
-      };
-      const alertEmail = mailpitData.messages.find((m) =>
-        m.Subject.includes("Price Drop Alert"),
+    if (!mailpitAvailable) {
+      if (requireEmulators) {
+        throw new Error(
+          "[FAIL] REQUIRE_EMULATORS=1 but Mailpit is not reachable at 127.0.0.1:55324. " +
+            "Run `supabase start` to bring up the SMTP emulator, then re-run."
+        );
+      }
+      // UNVERIFIED: Mailpit not running — email path not checked in this environment.
+      console.warn(
+        "[UNVERIFIED] Mailpit not reachable at 55324; email assertion skipped. " +
+          "Set REQUIRE_EMULATORS=1 and run `supabase start` to enforce."
       );
-      expect(alertEmail).toBeDefined();
-      expect(alertEmail!.Subject).toContain("Apple Smartphone Model Pro-1X");
-    } else {
-      // Mailpit not running — email path is UNVERIFIED in this environment.
-      console.warn("[UNVERIFIED] Mailpit not reachable at 55324; email assertion skipped. Run `supabase start` to fully verify.");
+      return;
     }
+
+    // Mailpit is up — assert strictly.
+    const mailpitRes = await fetch("http://127.0.0.1:55324/api/v1/messages");
+    expect(mailpitRes.ok).toBe(true);
+    const mailpitData = (await mailpitRes.json()) as {
+      messages: Array<{ Subject: string; To: Array<{ Address: string }> }>;
+    };
+    const alertEmail = mailpitData.messages.find((m) =>
+      m.Subject.includes("Price Drop Alert")
+    );
+    expect(alertEmail, "Expected a 'Price Drop Alert' email in Mailpit inbox").toBeDefined();
+    expect(alertEmail!.Subject).toContain("Apple Smartphone Model Pro-1X");
 
     // Cleanup realtime subscription
     await realtimeClient.removeChannel(channel);
