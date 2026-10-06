@@ -61,16 +61,23 @@ supabase db seed
 2. Root directory: `./apps/web`.
 3. Build command: `pnpm --filter @scrappy/web build`.
 4. Output directory: `.next`.
-5. Configure environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_API_URL`).
+5. Configure environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_API_URL`). Note: `/admin` is air-gapped from this app bundle.
 
-### B. Fastify REST API Gateway (`apps/api`)
+### B. Admin Console Application (`apps/admin`)
+1. Deploy as a private internal service on isolated port 4001 (e.g., Fly.io / Railway behind VPN or Cloudflare Access).
+2. Root directory: `./apps/admin`.
+3. Command: `node dist/index.js` (or `tsx src/index.ts`).
+4. Configure environment variables (`ADMIN_ALLOWED_EMAILS`, `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL`).
+5. Enforces Supabase TOTP MFA with AAL2 authentication level; non-allowlisted emails refused with 403, AAL1 refused with 401.
+
+### C. Fastify REST API Gateway (`apps/api`)
 1. Deploy as a persistent Node container (Railway / Fly.io / Render).
 2. Root directory: `./apps/api`.
 3. Command: `node dist/index.js`.
 4. Bind host: `0.0.0.0`, Port: `8080`.
 5. Connect to `DATABASE_URL` (direct port 5432).
 
-### C. Scraping & Match Workers (`packages/worker`)
+### D. Scraping & Match Workers (`apps/worker`)
 1. Deploy as background worker processes (min: 2 replicas for fault tolerance).
 2. Command: `node dist/index.js`.
 3. Ensure worker instances have outbound HTTP access and DNS resolution.
@@ -101,16 +108,19 @@ Immediately after deployment, execute the following smoke tests:
    ```
 4. **Compare Route Rendering**:
    Navigate to `https://scrappy.in/compare` in browser; verify product cards, price history charts, and provenance badges load without console errors.
-5. **Admin Console Allowlist Check**:
-   Attempt to access `https://scrappy.in/admin` without authorized headers or credentials; verify 403 Forbidden response.
-6. **Matching Engine Adversarial Benchmark Verification**:
+5. **Business Intelligence Board Smoke Test**:
+   Navigate to `https://scrappy.in/intelligence`; verify dot-strip price tracks, competitor gap table, and 30d undercut simulation engine render with synthetic data disclaimers.
+6. **Air-Gapped Admin Console Verification**:
+   - `https://scrappy.in/admin` in public web app returns 404 Not Found (air-gapped).
+   - `https://admin.scrappy.in/api/admin/overview` without AAL2 MFA or with non-allowlisted email returns 401/403.
+7. **Matching Engine Adversarial Benchmark Verification**:
    ```bash
    pnpm --filter @scrappy/matching test
    # Expected: 350/350 pairs evaluated, 0 false positives (0.00% FPR), 100% precision
    ```
-7. **End-to-End Test Suite Smoke Verification**:
+8. **End-to-End Test Suite Smoke Verification**:
    ```bash
-   pnpm exec playwright test e2e/critical-flows.spec.ts e2e/security.spec.ts e2e/resilience-g10.spec.ts
+   pnpm exec playwright test e2e/critical-flows.spec.ts e2e/actions-persistence.spec.ts e2e/security.spec.ts
    # Expected: All test suites passing on both desktop-1280 and mobile-360
    ```
 
