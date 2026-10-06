@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Button } from "./Button.js";
-import { ScrappyLogo } from "./ScrappyLogo.js";
+import { ScrappyLogo } from "../brand/ScrappyLogo.js";
 
 export interface ErrorStateProps {
   title?: string;

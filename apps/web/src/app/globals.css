@@ -1,8 +1,8 @@
+@import "../../../../packages/ui/src/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "../../../../packages/ui/src/tokens.css";
 
 /* Core Layout & Design Rules */
 html,
