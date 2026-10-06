@@ -593,7 +593,7 @@ function SettingsConsole() {
             </Button>
           </div>
 
-          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-x-auto bg-[var(--surface-1)]">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -675,7 +675,7 @@ function SettingsConsole() {
             </Button>
           </div>
 
-          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-x-auto bg-[var(--surface-1)]">
             <div className="px-4 py-2 border-b border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-2)] uppercase tracking-wider font-semibold">
               Registered Endpoints ({webhooks.length})
             </div>

@@ -201,6 +201,18 @@ export default function ComparePage() {
         </div>
       </div>
 
+      {/* DATA PROVENANCE NOTICE — Constitution Rule 3: every number must show source, fetched_at, freshness */}
+      <div
+        role="alert"
+        className="border-b border-[var(--color-warning)]/30 bg-[var(--color-warning)]/5 px-4 sm:px-6 py-2"
+      >
+        <div className="max-w-7xl mx-auto flex items-center gap-2 text-[11px] font-mono text-[var(--color-warning)]">
+          <span className="font-bold shrink-0">DATA PROVENANCE NOTICE</span>
+          <span className="text-[var(--text-3)]">·</span>
+          <span>FIXTURE MODE ACTIVE — Prices served from local seed data, not live retailer APIs. Source: seed.sql · fetched_at: local-dev · confidence: matching=high, live-price=unverified.</span>
+        </div>
+      </div>
+
       {/* 2. STICKY SEARCH & TELEMETRY TOOLBAR */}
       <div className="sticky top-0 z-30 bg-[var(--surface-0)]/95 backdrop-blur-md border-b border-[var(--border-default)] shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
@@ -409,10 +421,23 @@ export default function ComparePage() {
             {/* Empty State */}
             {searchResults.items.length === 0 && (
               <div className="p-8 text-center bg-[var(--surface-1)] rounded-[var(--radius-lg)] border border-[var(--border-default)] space-y-3 font-mono">
-                <div className="text-sm font-semibold text-[var(--text-1)]">No products matched "{query}"</div>
+                <div className="text-sm font-semibold text-[var(--text-1)]">No products found</div>
                 <p className="text-xs text-[var(--text-2)] max-w-md mx-auto">
-                  Try clearing specific brand or category filters, or explore one of these popular indexed models:
+                  Try broadening your search term or clearing the active category and brand filters.
                 </p>
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("");
+                      setSelectedCategory("all");
+                      setSelectedBrand("all");
+                    }}
+                    className="px-3 py-1.5 rounded bg-[var(--surface-2)] text-xs text-[var(--color-accent)] border border-[var(--border-subtle)] hover:border-[var(--color-accent)] font-mono font-medium"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
                 <div className="flex flex-wrap justify-center gap-2 pt-2">
                   {["iPhone", "MacBook", "Sony", "Dell"].map((sugg) => (
                     <button
