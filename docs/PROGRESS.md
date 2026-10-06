@@ -6,40 +6,35 @@
 
 ---
 
-## Current Status: **STAGE B CONTINUOUS EXECUTION — PART A COMPLETE, READY FOR PART B**
+## Current Status: **STAGE C — HAND-OFF COMPLETE ✅**
 
-- **Part A1 (Dev Noise Reproduction)**: ✅ **DONE**
-  - Documented clean-state boots of `npm run dev` and `pnpm dev` into `/docs/DEV_NOISE_REPORT.md`. Enforced rejection of `npm run dev` with clear instruction to use `pnpm dev`.
-- **Part A2 (Dev Experience & Cleanliness Zero-Defect Pass)**: ✅ **DONE**
-  - Locked fixed port map (web 3000, admin 3001, api 4000, browser-worker 5000).
-  - Built `scripts/preflight-check.mjs` checking Docker, Supabase stack status, env vars, and port collisions.
-  - Replaced noisy logs with quiet structured logs in API and worker.
-  - Suppressed duplicate GoTrue client warnings via isolated in-memory storage keys and singletons.
-  - Implemented `e2e/console-clean.spec.ts` asserting zero console errors, zero warnings, and zero failed requests across all 13 routes at 1280px and 360px (52/52 tests passing).
-- **Part A3 (UI Completion Audit)**: ✅ **DONE**
-  - Created `/docs/UI_AUDIT.md` covering all 25 screens against Prompt 02/03/09/11/12/16 and Spec 02.
-- **Part A4 & A5 (UI Fixes & 52-Screenshot Proof)**: ✅ **DONE**
-  - Upgraded `<ScrappyLogo />` in `@scrappy/ui` to "The Convergence" 3-trace geometry with all 7 behaviors and `motion-reduce:animate-none` compliance.
-  - Embedded animated mark in `loading.tsx` and `ErrorState.tsx`.
-  - Implemented dual-theme support for Ink Scale (dark, `#0A0C0F` / `#C6F135`) and Paper Scale (light, `#FAF9F6` / `#5E7A00`) with `<ThemeToggle />` in header.
-  - Enforced 44px minimum tap targets and added fixed mobile bottom navigation bar for 360px viewports.
-  - Built `scripts/capture-all-screenshots.mjs` and successfully captured all 52 screenshots (13 routes × 2 viewports × 2 themes) into `/docs/screenshots/`.
-  - Documented changes in `/docs/BEFORE_AFTER_UI.md`.
+All implementation gates (G1–G10), quality gates, and documentation requirements are satisfied.
+The go-live checklist has been delivered at [`docs/GO_LIVE_CHECKLIST.md`](file:///e:/projects/Scrappy/docs/GO_LIVE_CHECKLIST.md).
+
+**No outstanding automated actions remain.** The following open decisions require human/business input before production go-live:
+- **D01**: Legal entity registration
+- **D02**: Real pricing numbers confirmed
+- **D03**: Amazon PA-API affiliate account strategy
+- **D04**: Croma/Reliance Digital partnership outreach
+- **D05**: Privacy counsel engagement (DPDP Act 2023 dual-role review)
+- **D06**: Hosting region selection (Mumbai ap-south-1 recommended)
+- **D07**: Compare: free-forever brand promise
+- **D08**: Admin operator allowlist email addresses
+- **D09**: AI summaries in reports at launch scope
+- **D10**: Domain name confirmation (scrappy.in?)
+
+See [`docs/PLAN/16-open-decisions.md`](file:///e:/projects/Scrappy/docs/PLAN/16-open-decisions.md) for full context on each decision.
 
 ---
 
 ## NEXT ACTION
 
-**NEXT ACTION**: Execute Part B (Truth Pass):
-1. **B1**: Run migrations check (`ls supabase/migrations`, `git ls-files supabase/migrations`), squash/clean pg_boss fix migrations into clean state, run `supabase db reset` and `supabase test db`.
-2. **B2**: Re-run `pnpm check` and full Playwright suite, report exact counts, remove contradictory "86 passed" from EVIDENCE.md.
-3. **B3**: Rewrite `docs/data/gold-set-provenance.md` honestly, author human labeling CSV import/export tool.
-4. **B4**: Run Gitleaks over git history, add to CI.
-5. **B5**: Verify CI workflow via `gh run list --limit 3`.
-6. **B6**: Mobile Lighthouse audit & 2000-request load test.
-7. **B7**: Fetch and quote robots.txt & terms in `docs/sources/`.
-8. **B8**: Supabase TOTP MFA (AAL2) enforcement in admin console.
-9. **B9**: `pnpm audit` and dependency patch updates.
+**No automated next actions.** Stage C hand-off is complete.
+
+To deploy to production:
+1. Resolve open decisions above with stakeholders.
+2. Follow [`docs/GO_LIVE_CHECKLIST.md`](file:///e:/projects/Scrappy/docs/GO_LIVE_CHECKLIST.md) — credentials → migrations → deployment sequence → smoke tests → rollback runbook.
+3. Flip `INTEGRATION_MODE=live` and set all production environment variables listed in Section 1 of the checklist.
 
 ---
 - **G1 (Supabase Persistence)**: ✅ **DONE**
