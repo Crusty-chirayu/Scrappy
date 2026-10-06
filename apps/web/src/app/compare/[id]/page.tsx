@@ -365,7 +365,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 All Verified Store Offers ({product.offers.length})
               </h2>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--surface-2)] text-[var(--text-2)] border border-[var(--border-subtle)]">
-                Live Data
+                Verified Feeds
               </span>
             </div>
             <p className="text-xs font-mono text-[var(--text-3)] mt-0.5">
@@ -378,7 +378,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </span>
         </div>
 
-        <div className="overflow-x-auto">
+        {product.offers.length === 0 ? (
+          <div className="p-8 text-center bg-[var(--surface-0)]">
+            <p className="text-sm font-sans text-[var(--text-2)]">
+              No active retailer offers currently indexed for this SKU.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm border-collapse font-sans">
             <thead>
               <tr className="border-b border-[var(--border-default)] bg-[var(--surface-0)] text-xs font-mono uppercase tracking-wider text-[var(--text-3)]">
@@ -467,6 +474,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </tbody>
           </table>
         </div>
+        )}
       </section>
 
       {/* Technical Specifications & Price Drop Log Grid */}
