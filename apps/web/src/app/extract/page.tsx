@@ -119,6 +119,8 @@ export default function ExtractStudioPage() {
   const [browserMinutes, setBrowserMinutes] = useState(0.4);
   const [previewTab, setPreviewTab] = useState<"preview" | "diagnostics">("preview");
   const [selectedPreviewField, setSelectedPreviewField] = useState<string | null>("title");
+  const [activeRunId, setActiveRunId] = useState<string | null>(null);
+  const [activeDatasetId, setActiveDatasetId] = useState<string | null>(null);
 
   // SSRF check on targetUrl
   const urlCheck = useMemo(() => {
@@ -213,28 +215,28 @@ export default function ExtractStudioPage() {
       const data = await res.json();
       if (res.ok && data.run) {
         setRunStatus("SUCCEEDED");
+        setActiveRunId(data.run.id);
+        if (data.dataset?.id) setActiveDatasetId(data.dataset.id);
         setBrowserMinutes((prev) => Math.round((prev + 0.2) * 10) / 10);
         showToast({
           type: "success",
           title: "Extraction complete",
-          description: `Extracted ${data.records?.length || 3} canonical records.`,
+          description: `Extracted ${data.records?.length || 3} canonical records. Run ID: ${data.run.id.slice(0, 8)}`,
         });
       } else {
-        setRunStatus("SUCCEEDED");
-        setBrowserMinutes((prev) => Math.round((prev + 0.2) * 10) / 10);
+        setRunStatus("FAILED");
         showToast({
-          type: "info",
-          title: "Parsed fixture DOM",
-          description: "Extraction completed via local runtime engine.",
+          type: "error",
+          title: "Extraction failed",
+          description: data.error || "Execution error in scraping worker engine.",
         });
       }
     } catch {
-      setRunStatus("SUCCEEDED");
-      setBrowserMinutes((prev) => Math.round((prev + 0.2) * 10) / 10);
+      setRunStatus("FAILED");
       showToast({
-        type: "info",
-        title: "Parsed fixture DOM",
-        description: "Extraction completed via local runtime engine.",
+        type: "error",
+        title: "Network error",
+        description: "Could not connect to extraction runtime endpoint.",
       });
     }
   };
@@ -802,15 +804,25 @@ export default function ExtractStudioPage() {
               </button>
             </div>
 
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleRunExtraction}
-              disabled={runStatus === "RUNNING"}
-              className="min-h-[44px]"
-            >
-              {runStatus === "RUNNING" ? "Running Test..." : "Re-run Extraction Test"}
-            </Button>
+            <div className="flex items-center gap-3">
+              {activeRunId && (
+                <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-2)] px-2.5 py-1 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)]" />
+                  <span>DB RUN: {activeRunId.slice(0, 8)}</span>
+                  {activeDatasetId && <span>(DS: {activeDatasetId.slice(0, 6)})</span>}
+                  <span className="text-[var(--color-success)] uppercase font-semibold">{runStatus}</span>
+                </div>
+              )}
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleRunExtraction}
+                disabled={runStatus === "RUNNING"}
+                className="min-h-[44px]"
+              >
+                {runStatus === "RUNNING" ? "Running Test..." : "Run Real Extraction"}
+              </Button>
+            </div>
           </Card>
 
           {/* Results Preview Component */}

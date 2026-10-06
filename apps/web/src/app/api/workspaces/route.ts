@@ -141,3 +141,37 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const workspaceId = body.workspaceId || DEFAULT_WORKSPACE_ID;
+    const plan = body.plan;
+
+    if (!plan) {
+      return NextResponse.json({ error: "Missing plan" }, { status: 400 });
+    }
+
+    const admin = getSupabaseAdminClient();
+    const { data: ws, error: wsErr } = await admin
+      .from("workspaces")
+      .update({ plan })
+      .eq("id", workspaceId)
+      .select("id, name, slug, plan")
+      .single();
+
+    if (wsErr) {
+      throw new Error(wsErr.message);
+    }
+
+    return NextResponse.json({
+      workspace: ws,
+      success: true,
+    });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: (err as Error)?.message || "Failed to update workspace plan" },
+      { status: 500 },
+    );
+  }
+}

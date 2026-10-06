@@ -23,8 +23,9 @@
 | **Slice J** | System & Error Pages | Branded 404, 500, offline banner, maintenance, settings console | DONE | 96/100 | Pre-built in system components and verified routes |
 | **Slice K** | Final Audit & Polish | Hostile design review, axe sweep, Lighthouse mobile, contact sheet | **DONE** | 100/100 | All 16 routes pass 360/768/1440 responsive audit in dual themes, zero 360px horizontal pan, 32 Axe WCAG 2.2 AA audits passed with 0 violations, prefers-reduced-motion verified |
 | **P0-1** | Wiring Audit (`docs/WIRING.md`) | Audit all 8 user actions across codebase (REAL vs LOCAL vs MOCK) | **DONE** | 100/100 | Complete wiring matrix in docs/WIRING.md |
+| **P0-2** | Restore Real Behavior | DB persistence for plan upgrades in /pricing, real run engine in /extract, Playwright persistence tests | **DONE** | 100/100 | e2e/actions-persistence.spec.ts passing 4/4 |
 
-> **NEXT ACTION**: Step 2: Restore real behavior for every LOCAL or MOCK action in step 1, reusing existing Supabase repository and server actions.
+> **NEXT ACTION**: Step 3: Admin. Move /admin out of apps/web into apps/admin (separate app, email allowlist, no public route). Replace hard-coded TOTP secret with Supabase MFA: enable [auth.mfa.totp], enroll, challenge, verify, and enforce AAL2.
 
 
 ---

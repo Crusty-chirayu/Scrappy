@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, Badge, Dialog, DialogContent, DialogHeader, DialogTitle, useToast } from "@scrappy/ui";
 
 interface PricingTier {
@@ -105,6 +105,17 @@ export default function PricingPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
 
+  useEffect(() => {
+    fetch("/api/workspaces")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.workspaces && data.workspaces[0]) {
+          setCurrentPlan(data.workspaces[0].plan || "free");
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const handleSelectTier = (tier: PricingTier) => {
     if (tier.id === currentPlan) {
       if (tier.id !== "free") {
@@ -115,31 +126,65 @@ export default function PricingPage() {
     setBillingModalTier(tier);
   };
 
-  const handleConfirmSubscription = () => {
+  const handleConfirmSubscription = async () => {
     if (!billingModalTier) return;
     setIsProcessing(true);
 
-    // Simulate Razorpay test-mode checkout transition
-    setTimeout(() => {
-      setIsProcessing(false);
-      setCurrentPlan(billingModalTier.id);
-      setBillingModalTier(null);
-      showToast({
-        type: "success",
-        title: "Subscription Activated",
-        description: `Your workspace is now upgraded to ${billingModalTier.name} (Test Mode simulated).`,
+    try {
+      const res = await fetch("/api/workspaces", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plan: billingModalTier.id,
+        }),
       });
-    }, 800);
+
+      if (res.ok) {
+        setCurrentPlan(billingModalTier.id);
+        setBillingModalTier(null);
+        showToast({
+          type: "success",
+          title: "Subscription Activated",
+          description: `Your workspace is now upgraded to ${billingModalTier.name} (Test Mode).`,
+        });
+      } else {
+        showToast({
+          type: "error",
+          title: "Upgrade Failed",
+          description: "Could not update workspace plan.",
+        });
+      }
+    } catch {
+      showToast({
+        type: "error",
+        title: "Network Error",
+        description: "Failed to connect to billing API.",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  const handleConfirmDowngrade = () => {
-    setCurrentPlan("free");
-    setShowCancelModal(false);
-    showToast({
-      type: "info",
-      title: "Subscription Downgraded",
-      description: "Workspace returned to the Community tier.",
-    });
+  const handleConfirmDowngrade = async () => {
+    try {
+      const res = await fetch("/api/workspaces", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: "free" }),
+      });
+
+      if (res.ok) {
+        setCurrentPlan("free");
+        setShowCancelModal(false);
+        showToast({
+          type: "info",
+          title: "Subscription Downgraded",
+          description: "Workspace returned to the Community tier.",
+        });
+      }
+    } catch {
+      showToast({ type: "error", title: "Downgrade failed" });
+    }
   };
 
   return (
@@ -324,7 +369,12 @@ export default function PricingPage() {
         {billingModalTier && (
           <DialogContent className="max-w-md bg-[var(--bg-1)] border-[var(--border-subtle)]">
             <DialogHeader>
-              <DialogTitle>Subscribe to {billingModalTier.name}</DialogTitle>
+              <div className="flex items-center justify-between">
+                <DialogTitle>Subscribe to {billingModalTier.name}</DialogTitle>
+                <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[var(--color-warn)]/10 text-[var(--color-warn)] border border-[var(--color-warn)]/30">
+                  Test mode
+                </span>
+              </div>
             </DialogHeader>
             <div className="space-y-4 text-xs font-mono mt-3">
               <div className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
