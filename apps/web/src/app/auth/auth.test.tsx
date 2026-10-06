@@ -80,16 +80,7 @@ describe("Slice I: Auth, Onboarding, Pricing, and Admin Suite", () => {
     expect(html).toContain("Workspace Quota &amp; Usage Meter");
   });
 
-  it("renders Admin Console with real TOTP MFA challenge and OTP cells", () => {
-    const html = renderToStaticMarkup(
-      <ToastProvider>
-        <AdminPage />
-      </ToastProvider>
-    );
-
-    expect(html).toContain("Two-Factor Authentication");
-    expect(html).toContain("Administrative Console");
-    expect(html).toContain("Use Backup Code");
-    expect(html).toContain("Verify &amp; Enter Console →");
+  it("confirms Admin console is air-gapped from web app bundle (notFound)", () => {
+    expect(() => AdminPage()).toThrow();
   });
 });

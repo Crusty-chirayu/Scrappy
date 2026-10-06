@@ -73,8 +73,20 @@ function MeNavIcon({ size = 20, className = "" }: { size?: number; className?: s
   );
 }
 
+// Intelligence Icon
+function IntelligenceNavIcon({ size = 20, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+
 const NAV_ITEMS: NavItem[] = [
   { label: "Compare", href: "/compare", shortcut: "g c", icon: CompareNavIcon },
+  { label: "Intelligence", href: "/intelligence", shortcut: "g i", icon: IntelligenceNavIcon },
   { label: "Watchlist", href: "/watchlist", shortcut: "g w", icon: WatchlistNavIcon },
   { label: "Extract", href: "/extract", shortcut: "g e", icon: ExtractNavIcon },
   { label: "Alerts", href: "/alerts", shortcut: "g a", icon: AlertsNavIcon },

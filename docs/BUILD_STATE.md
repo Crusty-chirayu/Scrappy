@@ -25,8 +25,9 @@
 | **P0-1** | Wiring Audit (`docs/WIRING.md`) | Audit all 8 user actions across codebase (REAL vs LOCAL vs MOCK) | **DONE** | 100/100 | Complete wiring matrix in docs/WIRING.md |
 | **P0-2** | Restore Real Behavior | DB persistence for plan upgrades in /pricing, real run engine in /extract, Playwright persistence tests | **DONE** | 100/100 | e2e/actions-persistence.spec.ts passing 4/4 |
 | **P0-3** | Admin App Air-Gap & Supabase MFA | Move /admin to @scrappy/admin on port 4001, email allowlist, Supabase TOTP MFA with AAL2 enforcement, public web route air-gapped | **DONE** | 100/100 | @scrappy/admin unit tests passing 4/4 |
+| **P0-4** | Intelligence Board (`/intelligence`) | Market dot-strip price track, competitor gap table, 30d undercut rule dry-run simulation, all 5 states, synthetic badge, added to nav | **DONE** | 100/100 | Built and typechecked |
 
-> **NEXT ACTION**: Step 4: Intelligence Board at /intelligence (business side): your price against the market as a dot-strip per product, a competitor gap table (gap %, rank, stock, freshness, trust badge), rule builder with dry-run ("would have fired N times in the last 30 days"), all five states, synthetic label, add to nav.
+> **NEXT ACTION**: Step 5: Fake Controls audit (disable/Coming soon for unimplemented channels like Telegram, relabel 90-day drop probability to Estimate with method disclosed, sanitize outbound retailer links).
 
 
 ---
