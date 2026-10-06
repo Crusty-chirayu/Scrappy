@@ -127,12 +127,25 @@ export default function WatchlistPage() {
     setItems((prev) => prev.filter((i) => !toRemove.includes(i.id)));
     setSelectedIds([]);
 
+    for (const item of removedItems) {
+      fetch(`/api/watchlist?productId=${encodeURIComponent(item.productId)}`, {
+        method: "DELETE",
+      }).catch(() => {});
+    }
+
     showToast({
       type: "info",
       title: `Removed ${toRemove.length} products`,
       description: "Items removed from your personal watchlist.",
       onUndo: () => {
         setItems((prev) => [...prev, ...removedItems]);
+        for (const item of removedItems) {
+          fetch("/api/watchlist", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId: item.productId }),
+          }).catch(() => {});
+        }
       },
     });
   };
@@ -144,12 +157,21 @@ export default function WatchlistPage() {
     setItems((prev) => prev.filter((i) => i.id !== id));
     setSelectedIds((prev) => prev.filter((i) => i !== id));
 
+    fetch(`/api/watchlist?productId=${encodeURIComponent(item.productId)}`, {
+      method: "DELETE",
+    }).catch(() => {});
+
     showToast({
       type: "info",
       title: "Removed from Watchlist",
       description: item.product.title,
       onUndo: () => {
         setItems((prev) => [...prev, item]);
+        fetch("/api/watchlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: item.productId }),
+        }).catch(() => {});
       },
     });
   };

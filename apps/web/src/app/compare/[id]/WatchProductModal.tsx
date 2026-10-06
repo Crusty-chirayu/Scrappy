@@ -158,7 +158,7 @@ export function WatchProductModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-[var(--surface-1)] border-[var(--border-default)]">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-[var(--surface-1)] border-[var(--border-default)]">
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
             <span className="p-1.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">

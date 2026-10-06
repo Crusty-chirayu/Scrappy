@@ -180,6 +180,7 @@ export default function SignupPage() {
             </div>
 
             <Button
+              id="signup-submit-btn"
               type="submit"
               variant="primary"
               disabled={loading}

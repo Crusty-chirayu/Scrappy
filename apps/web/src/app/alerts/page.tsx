@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   Button,
@@ -170,16 +170,75 @@ export default function AlertsPage() {
     });
   };
 
+  // Fetch persisted alerts on mount
+  useEffect(() => {
+    let mounted = true;
+    fetch("/api/alerts")
+      .then((r) => (r.ok ? r.json() : { alerts: [] }))
+      .then((data) => {
+        if (!mounted || !data.alerts || data.alerts.length === 0) return;
+        interface RawAlert {
+          id: string;
+          productId?: string;
+          product_id?: string;
+          product?: { title?: string; brand?: string; lowestPricePaise?: number };
+          productTitle?: string;
+          brand?: string;
+          targetPricePaise?: number;
+          target_price_paise?: number;
+          notificationChannel?: "email" | "in_app" | "webhook";
+          status?: "active" | "paused";
+          createdAt?: string;
+          created_at?: string;
+        }
+        const mapped: AlertRule[] = (data.alerts as RawAlert[]).map((a) => ({
+          id: a.id,
+          productId: a.productId || a.product_id || "b2000000-0000-0000-0000-000000000001",
+          productTitle: a.product?.title || a.productTitle || "Verified Product",
+          brand: a.product?.brand || a.brand || "Verified Brand",
+          currentLowestPricePaise: a.product?.lowestPricePaise || 11990000,
+          targetPricePaise: a.targetPricePaise || a.target_price_paise || 10000000,
+          store: "Any Verified Store",
+          channels: a.notificationChannel ? [a.notificationChannel] : ["in_app"],
+          frequency: "instant",
+          status: a.status || "active",
+          createdAt: a.createdAt || a.created_at || new Date().toISOString(),
+          triggerCount: 0,
+        }));
+        setRules(mapped);
+      })
+      .catch(() => {});
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   const handleDeleteRule = (id: string) => {
     const deleted = rules.find((r) => r.id === id);
     setRules((prev) => prev.filter((r) => r.id !== id));
+
+    fetch(`/api/alerts?id=${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }).catch(() => {});
 
     showToast({
       type: "info",
       title: "Rule Removed",
       description: deleted?.productTitle || "Alert rule removed.",
       onUndo: () => {
-        if (deleted) setRules((prev) => [...prev, deleted]);
+        if (deleted) {
+          setRules((prev) => [...prev, deleted]);
+          fetch("/api/alerts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              productId: deleted.productId,
+              targetPricePaise: deleted.targetPricePaise,
+              notificationChannel: deleted.channels.join(","),
+            }),
+          }).catch(() => {});
+        }
       },
     });
   };
