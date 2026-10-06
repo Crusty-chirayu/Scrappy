@@ -95,6 +95,26 @@ describe("Slice E: Compare (/compare) Suite", () => {
       expect(html).toContain("Constitution Rule 4: Distinct entities never merged silently");
     });
 
+    it("renders dialog with modal semantics and accessible close trigger", () => {
+      const products = [
+        defaultCatalogRepository.getProductDetail("b2000000-0000-0000-0000-000000000001")!,
+      ].filter(Boolean);
+
+      const html = renderToStaticMarkup(
+        <SideBySideCompareModal
+          products={products}
+          isOpen={true}
+          onClose={() => {}}
+          onRemoveProduct={() => {}}
+        />
+      );
+
+      expect(html).toContain('role="dialog"');
+      expect(html).toContain('aria-modal="true"');
+      expect(html).toContain('aria-label="Close comparison modal"');
+      expect(html).toContain('overflow-x-auto');
+    });
+
     it("returns null when modal is closed or products list is empty", () => {
       const htmlClosed = renderToStaticMarkup(
         <SideBySideCompareModal

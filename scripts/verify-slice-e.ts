@@ -57,7 +57,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto("http://localhost:3005/compare", { waitUntil: "networkidle" });
+    await page.goto("http://localhost:3005/compare", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(1000);
 
     // Click "+ Add to Compare" on first two product cards
@@ -87,10 +87,9 @@ async function main() {
     await page.screenshot({ path: matrixPath });
     console.log(`Saved Compare Matrix Modal screenshot: ${matrixPath}`);
 
-      // Press Escape to test focus restore & dismiss
-      await page.keyboard.press("Escape");
-      await page.waitForTimeout(200);
-    }
+    // Press Escape to test focus restore & dismiss
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(200);
 
     await context.close();
   }

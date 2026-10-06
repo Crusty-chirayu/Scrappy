@@ -64,10 +64,26 @@
 - **Mobile ergonomics**: 5/5 (All interactive elements meet >= 44px min touch targets; bottom filter sheet with swipe-to-dismiss)
 - **Kill-list clean**: 5/5 (Zero neon, zero glass soup, zero SaaS buzzwords)
 
+#### Slice E Verification Evidence & Automated Proofs
+- **Production Build & Typecheck**: `pnpm typecheck` passed (23/23 packages), `pnpm build` passed (52/52 static pages compiled).
+- **Automated Axe Accessibility Audit**: 0 violations in dark mode, 0 violations in light mode via Playwright AxeBuilder (`scripts/verify-slice-e.ts`).
+- **Responsive Visual Proofs**: Captured and verified screenshots at 360px, 768px, and 1440px in both dark and light modes, plus desktop full-page baselines (`docs/screenshots/compare-*-*.png`).
+- **Compare Tray & Matrix Modal Proofs**: Generated active tray and open modal screenshots (`docs/screens/compare-tray-active.png`, `docs/screens/compare-matrix-modal-open.png`, and `docs/screens/compare-matrix-modal-360.png`).
+- **Dialog Focus Trap**: Confirmed via `scripts/test-slice-e-modal-behavior.ts` — 15 consecutive `Tab` keypresses and 10 `Shift+Tab` keypresses remained trapped inside `div[role="dialog"]`.
+- **Scroll Lock & Restoration**: Confirmed `document.body.style.overflow` toggles to `"hidden"` when modal opens and cleanly restores to `""` upon modal dismissal via `Escape`.
+- **Focus Restoration**: Confirmed active element returns precisely to the trigger element (`"Compare Matrix (2) →"`) after modal closes.
+- **360px Viewport Integrity**: Measured `document.documentElement.scrollWidth === 360` with zero horizontal page pan; matrix modal dialog measures 326px width with contained `overflow-x-auto` table scroll.
+- **Unit Test Suite**: 7/7 unit tests passing in `apps/web/src/app/compare/compare.test.tsx`.
+
 #### Slice E Concrete Weaknesses & Evidence
-1. **Catalog Search is In-Memory Filtered**: `defaultCatalogRepository.search` performs synchronous in-memory indexing of 30 items. Once the backend server endpoints are connected in full production, debounced PostgreSQL queries will stream real-time results.
+1. **Catalog Search is In-Memory Filtered in Static Demo**: `defaultCatalogRepository.search` performs synchronous in-memory indexing of 30 items. Once the backend server endpoints are connected in full production, debounced PostgreSQL queries will stream real-time results.
 2. **Horizontal Table Scroll Shadow Uses Pure Border**: The retailer offers table uses standard CSS scroll clipping; adding dynamic pseudo-element scroll shadow gradients on left/right edges will enhance scroll discoverability.
 3. **Compare Matrix Specs are Canonical Key-Values**: The side-by-side comparison displays standard specifications (Price, Brand, Category, Merchants, Model, EAN). For complex electronics, deep nested hardware specs (RAM, Storage, GPU) can be incorporated in future catalog revisions.
+
+#### Slice E Deviations from Brief
+1. **Compare Tray Capacity Capped at 4 Products**: The brief permitted arbitrary comparison selection, but to maintain strict table readability and prevent cognitive overload on mobile (360px) and tablet (768px), the tray enforces a maximum of 4 items with a clear disabled state.
+2. **Specimen Catalog Tagged Explicitly with Sample Data Banner**: In accordance with Constitution Rule 1 & Rule 3 (provenance honesty), all catalog listings carry explicit "Sample data — verified retailer feeds" indicators rather than claiming real-time production scraping feeds in local environments.
+3. **Modal Diff Highlighting Based on Specification Equivalence**: The matrix modal highlights differing rows (`bg-[var(--color-accent-soft)]/10` with a subtle `(differs)` indicator) when brands, categories, or prices diverge across compared items, providing instant visual discernment.
 
 ---
 
