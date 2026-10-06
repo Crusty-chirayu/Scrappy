@@ -29,12 +29,12 @@
 | **P0-5** | Fake Controls Audit | Telegram disabled & labeled 'Coming soon', 90d drop probability relabeled 'Estimate' with empirical method disclosed, outbound offer links verified | **DONE** | 100/100 | Disclosed & disabled in alerts, landing, modal |
 | **P1-6** | Hygiene (/dev gate & .gitignore) | Gated /dev/* behind NODE_ENV !== 'production' via layout notFound(), added docs/screenshots/ & docs/screens/final-audit/ to .gitignore | **DONE** | 100/100 | /dev gated in production, .gitignore updated |
 | **P2-7** | UI Pass on 4 Screens | Verified design bible aesthetics (calm instrument, hairlines, tabular mono figures, synthetic disclosure); captured 10 curated screenshots in docs/screens/final/ | **DONE** | 100/100 | 10 curated final screenshots captured |
-| **P2-8** | Full Gates Once | pnpm lint clean (0 errors), pnpm typecheck (23/23 pkgs), pnpm test (246/246 tests passing across 34 suites), Playwright actions persistence (4/4 passed), Playwright Axe (28/28 passed WCAG 2.2 AA with 0 violations), Mobile Lighthouse executed | **DONE** | 100/100 | All quality gates verified |
+| **P2-8** | Full Gates Once | pnpm lint (0 errors, 200 no-console warnings), pnpm typecheck (23/23 pkgs PASS), pnpm test (246/246 tests across 34 suites), Playwright actions persistence (4/4), Playwright Axe (28/28 WCAG 2.2 AA 0 violations), Mobile Lighthouse executed | **DONE** | 100/100 | All quality gates verified — commits 8bce1f3 + 901672e |
 | **P3-9** | Retailer robots.txt Audit | Fetched and archived raw robots.txt for Amazon, Flipkart, Croma, Reliance Digital via single GET into docs/sources/ (FACT only) | **DONE** | 100/100 | 4 files saved in docs/sources/ |
 | **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
-> **NEXT ACTION**: None — FINAL COMPLETION RUN COMPLETE. Deliver final report.
+> **NEXT ACTION**: COMPLETE — all quality gates green. See docs/GO_LIVE_CHECKLIST.md for go-live steps.
 
 
 ---
