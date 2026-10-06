@@ -57,11 +57,12 @@ export function NotificationCenter() {
     <div className="relative">
       {/* Bell Button */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded bg-[#141922] border border-[#262E3C] hover:border-[#5B677C] text-[#98A2B3] hover:text-white transition-colors"
+        className="relative p-2.5 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:border-[var(--border-strong)] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
         aria-label={`Open notifications (${unreadCount} unread)`}
       >
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -70,7 +71,7 @@ export function NotificationCenter() {
         </svg>
 
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#C6F135] text-[9px] font-bold text-[#0A0C0F] font-mono">
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[9px] font-bold text-black font-mono">
             {unreadCount}
           </span>
         )}
@@ -80,19 +81,20 @@ export function NotificationCenter() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-lg bg-[#0F1217] border border-[#262E3C] shadow-2xl z-50 overflow-hidden font-mono">
+          <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-[var(--radius-lg)] bg-[var(--surface-1)] border border-[var(--border-default)] shadow-[var(--elevation-3)] z-50 overflow-hidden font-mono">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#262E3C] bg-[#141922]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-subtle)] bg-[var(--surface-2)]">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#C6F135]" />
-                <span className="text-xs font-bold text-white tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
+                <span className="text-xs font-bold text-[var(--text-1)] tracking-wider">
                   REALTIME DISPATCH ({unreadCount})
                 </span>
               </div>
               {unreadCount > 0 && (
                 <button
+                  type="button"
                   onClick={markAllRead}
-                  className="text-[10px] text-[#C6F135] hover:underline"
+                  className="text-xs text-[var(--color-accent)] hover:underline focus-visible:outline-none"
                 >
                   Mark all read
                 </button>
@@ -100,24 +102,24 @@ export function NotificationCenter() {
             </div>
 
             {/* List */}
-            <div className="max-h-96 overflow-y-auto divide-y divide-[#262E3C]">
+            <div className="max-h-96 overflow-y-auto divide-y divide-[var(--border-subtle)]">
               {notifications.map((n) => (
                 <Link
                   key={n.id}
                   href={n.link ?? "#"}
                   onClick={() => setIsOpen(false)}
-                  className={`block p-3.5 transition-colors hover:bg-[#141922] ${
-                    n.isRead ? "opacity-75" : "bg-[#141822]/60"
+                  className={`block p-4 transition-colors hover:bg-[var(--surface-2)] ${
+                    n.isRead ? "opacity-75" : "bg-[var(--surface-2)]/50"
                   }`}
                 >
                   <div className="flex items-center justify-between text-[11px] mb-1">
                     <span
                       className={`font-semibold ${
                         n.type === "price_drop"
-                          ? "text-[#2FBF8A]"
+                          ? "text-[var(--color-success)]"
                           : n.type === "drift"
-                          ? "text-[#FFB020]"
-                          : "text-[#5AA9FF]"
+                          ? "text-[var(--color-warn)]"
+                          : "text-[var(--color-info)]"
                       }`}
                     >
                       {n.type === "price_drop"
@@ -126,12 +128,12 @@ export function NotificationCenter() {
                         ? "⚠ DRIFT ALERT"
                         : "⚡ REPRICING"}
                     </span>
-                    <span className="text-[10px] text-[#5B677C]">{n.timestamp}</span>
+                    <span className="text-[10px] text-[var(--text-3)]">{n.timestamp}</span>
                   </div>
-                  <div className="text-xs text-[#D6DBE3] font-sans font-medium mb-1">
+                  <div className="text-xs text-[var(--text-1)] font-sans font-medium mb-1">
                     {n.title}
                   </div>
-                  <div className="text-[11px] text-[#98A2B3] font-sans">
+                  <div className="text-[11px] text-[var(--text-2)] font-sans">
                     {n.description}
                   </div>
                 </Link>
@@ -139,8 +141,8 @@ export function NotificationCenter() {
             </div>
 
             {/* Footer */}
-            <div className="p-2.5 bg-[#0A0C0F] border-t border-[#262E3C] text-center text-[10px] text-[#5B677C]">
-              Realtime WebSocket stream connected · Supabase Channel: <span className="text-[#98A2B3]">public:dispatches</span>
+            <div className="p-2.5 bg-[var(--surface-2)] border-t border-[var(--border-subtle)] text-center text-[10px] text-[var(--text-3)]">
+              Realtime WebSocket stream connected · Channel: <span className="text-[var(--text-2)]">public:dispatches</span>
             </div>
           </div>
         </>
