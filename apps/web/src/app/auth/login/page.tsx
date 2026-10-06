@@ -172,6 +172,7 @@ export default function LoginPage() {
             </div>
 
             <Button
+              id="login-submit-btn"
               type="submit"
               variant="primary"
               disabled={loading}
@@ -189,9 +190,9 @@ export default function LoginPage() {
                 <div className="w-8 h-8 rounded-full bg-[var(--color-success)]/20 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold">
                   ✓
                 </div>
-                <div className="text-xs font-mono font-bold text-[var(--text-1)]">
-                  Check your inbox
-                </div>
+                <h2 className="text-xs font-mono font-bold text-[var(--text-1)]">
+                  Check your email
+                </h2>
                 <p className="text-xs text-[var(--text-3)] font-mono">
                   We sent a temporary sign-in link to <strong className="text-[var(--text-1)]">{email}</strong>.
                 </p>
@@ -233,6 +234,7 @@ export default function LoginPage() {
                 </div>
 
                 <Button
+                  id="magic-submit-btn"
                   type="submit"
                   variant="primary"
                   disabled={loading}

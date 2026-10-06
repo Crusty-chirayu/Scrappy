@@ -51,12 +51,12 @@ for (const vp of VIEWPORTS) {
 
         page.on("response", (res) => {
           // Ignore external third-party tracking or benign favicon 404s if any; assert our app APIs and assets succeed
-          if (res.status() >= 400 && res.url().startsWith("http://localhost:3000")) {
+          if (res.status() >= 400 && (res.url().includes(":3005") || res.url().includes(":3000"))) {
             failedRequests.push(`${res.url()} returned status ${res.status()}`);
           }
         });
 
-        const res = await page.goto(`http://localhost:3000${r.path}`, {
+        const res = await page.goto(r.path, {
           waitUntil: "networkidle",
           timeout: 30000,
         });
