@@ -26,8 +26,9 @@
 | **P0-2** | Restore Real Behavior | DB persistence for plan upgrades in /pricing, real run engine in /extract, Playwright persistence tests | **DONE** | 100/100 | e2e/actions-persistence.spec.ts passing 4/4 |
 | **P0-3** | Admin App Air-Gap & Supabase MFA | Move /admin to @scrappy/admin on port 4001, email allowlist, Supabase TOTP MFA with AAL2 enforcement, public web route air-gapped | **DONE** | 100/100 | @scrappy/admin unit tests passing 4/4 |
 | **P0-4** | Intelligence Board (`/intelligence`) | Market dot-strip price track, competitor gap table, 30d undercut rule dry-run simulation, all 5 states, synthetic badge, added to nav | **DONE** | 100/100 | Built and typechecked |
+| **P0-5** | Fake Controls Audit | Telegram disabled & labeled 'Coming soon', 90d drop probability relabeled 'Estimate' with empirical method disclosed, outbound offer links verified | **DONE** | 100/100 | Disclosed & disabled in alerts, landing, modal |
 
-> **NEXT ACTION**: Step 5: Fake Controls audit (disable/Coming soon for unimplemented channels like Telegram, relabel 90-day drop probability to Estimate with method disclosed, sanitize outbound retailer links).
+> **NEXT ACTION**: Step 6: Hygiene (Gate /dev/* behind NODE_ENV !== 'production', add screenshots dirs to .gitignore except curated 12).
 
 
 ---

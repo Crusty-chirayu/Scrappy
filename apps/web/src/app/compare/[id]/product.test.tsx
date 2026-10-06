@@ -119,7 +119,7 @@ describe("Slice F: Product Page (/compare/[id]) Suite", () => {
       expect(html).toContain("5% Drop");
       expect(html).toContain("10% Drop");
       expect(html).toContain("Custom Target");
-      expect(html).toContain("90-Day Historical Probability");
+      expect(html).toContain("90-Day Drop Probability (Estimate)");
       expect(html).toContain("Dispatch Channel");
       expect(html).toContain("Watch this product");
     });

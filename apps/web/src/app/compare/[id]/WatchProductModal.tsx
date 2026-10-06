@@ -285,12 +285,12 @@ export function WatchProductModal({
             </div>
           )}
 
-          {/* 90-Day Drop Probability Preview (Brief Requirement) */}
+          {/* 90-Day Drop Probability Preview (Disclosed Estimate based on price history series) */}
           <div className="p-3.5 rounded-[var(--radius-md)] bg-[var(--surface-0)] border border-[var(--border-subtle)] space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans font-semibold text-[var(--text-1)] flex items-center gap-1.5">
                 <ShieldIcon size={16} className="text-[var(--color-accent)]" />
-                90-Day Historical Probability
+                90-Day Drop Probability (Estimate)
               </span>
               <Badge variant={probabilityAnalysis.badgeVariant} size="sm">
                 {probabilityAnalysis.rating}
@@ -298,6 +298,9 @@ export function WatchProductModal({
             </div>
             <p className="text-xs font-mono text-[var(--text-2)] leading-relaxed">
               {probabilityAnalysis.explanation}
+            </p>
+            <p className="text-[10px] font-mono text-[var(--text-3)] border-t border-[var(--border-subtle)] pt-1.5">
+              Method: Empirical historical frequency computed over verified merchant price snapshots in the last 90 days. Not a price guarantee.
             </p>
           </div>
 

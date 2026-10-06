@@ -925,7 +925,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckIcon size={16} className="text-[var(--color-success)] shrink-0" />
-                    <span>Webhook + Telegram delivery</span>
+                    <span>Webhook + Telegram (Telegram: Coming soon)</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckIcon size={16} className="text-[var(--color-success)] shrink-0" />

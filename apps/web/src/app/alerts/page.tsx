@@ -392,6 +392,14 @@ export default function AlertsPage() {
                 {channels.includes("webhook") && <CheckIcon size={16} />}
                 <span>Webhook</span>
               </button>
+              <button
+                type="button"
+                disabled
+                title="Telegram bot webhook integration is in development"
+                className="min-h-[40px] px-2.5 text-xs font-mono rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-1)] text-[var(--text-3)] opacity-60 cursor-not-allowed flex items-center gap-1.5"
+              >
+                <span>Telegram (Coming soon)</span>
+              </button>
             </div>
           </div>
 
