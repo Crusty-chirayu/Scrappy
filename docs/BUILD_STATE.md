@@ -31,8 +31,9 @@
 | **P2-7** | UI Pass on 4 Screens | Verified design bible aesthetics (calm instrument, hairlines, tabular mono figures, synthetic disclosure); captured 10 curated screenshots in docs/screens/final/ | **DONE** | 100/100 | 10 curated final screenshots captured |
 | **P2-8** | Full Gates Once | pnpm lint clean (0 errors), pnpm typecheck (23/23 pkgs), pnpm test (246/246 tests passing across 34 suites), Playwright actions persistence (4/4 passed), Playwright Axe (28/28 passed WCAG 2.2 AA with 0 violations), Mobile Lighthouse executed | **DONE** | 100/100 | All quality gates verified |
 | **P3-9** | Retailer robots.txt Audit | Fetched and archived raw robots.txt for Amazon, Flipkart, Croma, Reliance Digital via single GET into docs/sources/ (FACT only) | **DONE** | 100/100 | 4 files saved in docs/sources/ |
+| **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 
-> **NEXT ACTION**: Step 10: Human-label tooling (CSV export/import for match pairs and a script that reports precision and recall from a human-labelled file).
+> **NEXT ACTION**: Step 11: Update docs/GO_LIVE_CHECKLIST.md with exact credentials to add, migration push steps, deploy steps per app, smoke tests, rollback.
 
 
 ---
