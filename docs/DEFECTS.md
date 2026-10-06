@@ -20,11 +20,12 @@
 | D010 | 2026-10-04 | 2026-10-04 | Extract studio First Load JS exceeded 170 kB budget (255 kB) | P1 | `apps/web/build` bundle trace (< 128 kB) | CLOSED |
 | D011 | 2026-10-04 | 2026-10-04 | Retailer adapters lacked explicit fixture-only verificationStatus label | P2 | `packages/scraping/src/types.ts` typecheck | CLOSED |
 | D012 | 2026-10-04 | 2026-10-04 | Missing root `apps/web/src/app/loading.tsx` state | P1 | `e2e/resilience-g10.spec.ts` | CLOSED |
+| D013 | 2026-10-06 | 2026-10-06 | `/settings` route contained hardcoded palette colors failing WCAG 2.2 AA contrast ratio in dark mode | P2 | `scripts/final-audit.ts` Stage 3 Axe audit | CLOSED |
 
 ---
 
 ## Current Status: **ZERO OPEN DEFECTS**
 
-- Total Logged: 12
-- Total Closed: 12
+- Total Logged: 13
+- Total Closed: 13
 - Total Open: 0

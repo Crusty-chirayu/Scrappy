@@ -248,14 +248,16 @@ function SettingsConsole() {
       });
       const data = await res.json();
       if (res.ok && data.apiKey && data.plainSecret) {
-        const newEntry: ApiKeyItem = {
-          id: data.apiKey.id,
-          name: data.apiKey.name,
-          prefix: `${data.apiKey.keyPrefix}...`,
-          createdAt: data.apiKey.createdAt.split("T")[0] || new Date().toISOString().split("T")[0]!,
-          lastUsedAt: "Never",
-        };
-        setKeys((prev) => [newEntry, ...prev]);
+        setKeys((prev) => [
+          {
+            id: data.apiKey.id,
+            name: data.apiKey.name,
+            prefix: `${data.apiKey.keyPrefix}...`,
+            createdAt: new Date().toISOString().split("T")[0]!,
+            lastUsedAt: "Never",
+          },
+          ...prev,
+        ]);
         setNewKeySecret(data.plainSecret);
         setNewKeyName("");
         showToast({ type: "success", title: "API Key Created", description: "Copy your key now. It will not be shown again." });
@@ -346,67 +348,67 @@ function SettingsConsole() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 font-mono">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 font-sans">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#C6F135]" />
-            <span className="text-xs uppercase tracking-wider text-[#C6F135]">
+            <span className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
+            <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
               Workspace Tenancy &amp; Security
             </span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#D6DBE3] font-sans">
+          <h1 className="text-2xl font-bold tracking-tight text-[var(--text-1)] font-sans">
             Workspace Settings
           </h1>
-          <p className="text-xs text-[#98A2B3] mt-0.5">
+          <p className="text-xs text-[var(--text-2)] mt-0.5">
             Manage team access, hashed API keys, signed HMAC webhooks, and metered usage.
           </p>
         </div>
 
-        <div className="text-xs px-3 py-1.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3]">
-          TENANT ID: <span className="text-white">default-workspace</span>
+        <div className="text-xs font-mono px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-subtle)] text-[var(--text-2)]">
+          TENANT ID: <span className="text-[var(--text-1)] font-semibold">default-workspace</span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#262E3C] mb-6">
+      <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] mb-6">
         <button
           onClick={() => setActiveTab("team")}
-          className={`pb-3 text-xs font-medium border-b-2 transition-colors ${
+          className={`pb-3 text-xs font-mono font-medium border-b-2 transition-colors ${
             activeTab === "team"
-              ? "border-[#C6F135] text-white"
-              : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
+              ? "border-[var(--color-accent)] text-[var(--text-1)] font-semibold"
+              : "border-transparent text-[var(--text-2)] hover:text-[var(--text-1)]"
           }`}
         >
           TEAM &amp; ROLES ({members.length + invitations.length})
         </button>
         <button
           onClick={() => setActiveTab("keys")}
-          className={`pb-3 text-xs font-medium border-b-2 transition-colors ${
+          className={`pb-3 text-xs font-mono font-medium border-b-2 transition-colors ${
             activeTab === "keys"
-              ? "border-[#C6F135] text-white"
-              : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
+              ? "border-[var(--color-accent)] text-[var(--text-1)] font-semibold"
+              : "border-transparent text-[var(--text-2)] hover:text-[var(--text-1)]"
           }`}
         >
           API KEYS ({keys.length})
         </button>
         <button
           onClick={() => setActiveTab("webhooks")}
-          className={`pb-3 text-xs font-medium border-b-2 transition-colors ${
+          className={`pb-3 text-xs font-mono font-medium border-b-2 transition-colors ${
             activeTab === "webhooks"
-              ? "border-[#C6F135] text-white"
-              : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
+              ? "border-[var(--color-accent)] text-[var(--text-1)] font-semibold"
+              : "border-transparent text-[var(--text-2)] hover:text-[var(--text-1)]"
           }`}
         >
           SIGNED WEBHOOKS ({webhooks.length})
         </button>
         <button
           onClick={() => setActiveTab("metering")}
-          className={`pb-3 text-xs font-medium border-b-2 transition-colors ${
+          className={`pb-3 text-xs font-mono font-medium border-b-2 transition-colors ${
             activeTab === "metering"
-              ? "border-[#C6F135] text-white"
-              : "border-transparent text-[#5B677C] hover:text-[#98A2B3]"
+              ? "border-[var(--color-accent)] text-[var(--text-1)] font-semibold"
+              : "border-transparent text-[var(--text-2)] hover:text-[var(--text-1)]"
           }`}
         >
           USAGE METERING
@@ -417,20 +419,20 @@ function SettingsConsole() {
       {activeTab === "team" && (
         <div className="space-y-6">
           {/* Invite Member Form */}
-          <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C] flex flex-col sm:flex-row items-center gap-3">
+          <div className="p-4 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)] flex flex-col sm:flex-row items-center gap-3">
             <input
               type="email"
               placeholder="colleague@company.com"
               aria-label="Colleague Email Address"
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
-              className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"
+              className="flex-1 w-full bg-[var(--surface-2)] border border-[var(--border-default)] rounded-[var(--radius-sm)] px-3 py-2 text-xs text-[var(--text-1)] placeholder:text-[var(--text-3)] outline-none focus:border-[var(--border-focus)] font-mono"
             />
             <select
               aria-label="Role"
               value={inviteRole}
               onChange={(e) => setInviteRole(e.target.value as "admin" | "member")}
-              className="bg-[#141922] border border-[#262E3C] text-xs text-[#D6DBE3] rounded px-3 py-2 outline-none focus:border-[#C6F135]"
+              className="bg-[var(--surface-2)] border border-[var(--border-default)] text-xs text-[var(--text-1)] rounded-[var(--radius-sm)] px-3 py-2 outline-none focus:border-[var(--border-focus)] font-mono"
             >
               <option value="member">Role: Member</option>
               <option value="admin">Role: Admin</option>
@@ -446,8 +448,8 @@ function SettingsConsole() {
           </div>
 
           {/* Members Table */}
-          <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
-            <div className="px-4 py-2 border-b border-[#262E3C] text-[11px] text-[#98A2B3] uppercase tracking-wider font-semibold">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+            <div className="px-4 py-2 border-b border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-2)] uppercase tracking-wider font-semibold">
               Active Workspace Members
             </div>
             <Table>
@@ -463,27 +465,27 @@ function SettingsConsole() {
               <TableBody>
                 {members.map((m) => (
                   <TableRow key={m.id}>
-                    <TableCell className="text-white font-medium">{m.email}</TableCell>
+                    <TableCell className="text-[var(--text-1)] font-medium font-mono text-xs">{m.email}</TableCell>
                     <TableCell>
-                      <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${
+                      <span className={`px-2 py-0.5 rounded-[var(--radius-sm)] text-[10px] font-mono uppercase font-bold border ${
                         m.role === "owner"
-                          ? "bg-[#C6F135]/10 text-[#C6F135] border-[#C6F135]/30"
+                          ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--border-focus)]"
                           : m.role === "admin"
-                          ? "bg-[#5AA9FF]/10 text-[#5AA9FF] border-[#5AA9FF]/30"
-                          : "bg-[#141922] text-[#98A2B3] border-[#262E3C]"
+                          ? "bg-[var(--color-info)]/10 text-[var(--color-info)] border-[var(--color-info)]/30"
+                          : "bg-[var(--surface-2)] text-[var(--text-2)] border-[var(--border-subtle)]"
                       }`}>
                         {m.role}
                       </span>
                     </TableCell>
-                    <TableCell className="text-[#5B677C] text-xs">{m.joinedAt}</TableCell>
-                    <TableCell className="text-xs text-[#98A2B3]">
+                    <TableCell className="text-[var(--text-2)] font-mono text-xs">{m.joinedAt}</TableCell>
+                    <TableCell className="text-xs text-[var(--text-2)]">
                       {m.role === "owner" ? "Full administrative + billing control" : m.role === "admin" ? "Can manage keys, scraping, monitors" : "Catalog search & watchlists"}
                     </TableCell>
                     <TableCell className="text-right">
                       {m.role !== "owner" && (
                         <button
                           onClick={() => handleRemoveMember(m.id)}
-                          className="text-xs text-[#FF5C5C] hover:underline"
+                          className="text-xs text-[var(--color-danger)] hover:underline font-mono"
                         >
                           Remove
                         </button>
@@ -497,8 +499,8 @@ function SettingsConsole() {
 
           {/* Pending Invitations Table */}
           {invitations.length > 0 && (
-            <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
-              <div className="px-4 py-2 border-b border-[#262E3C] text-[11px] text-[#F59E0B] uppercase tracking-wider font-semibold">
+            <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+              <div className="px-4 py-2 border-b border-[var(--border-subtle)] text-[11px] font-mono text-[var(--color-warn)] uppercase tracking-wider font-semibold">
                 Pending Invitations ({invitations.length})
               </div>
               <Table>
@@ -514,22 +516,22 @@ function SettingsConsole() {
                 <TableBody>
                   {invitations.map((inv) => (
                     <TableRow key={inv.id}>
-                      <TableCell className="text-white font-medium">{inv.email}</TableCell>
+                      <TableCell className="text-[var(--text-1)] font-medium font-mono text-xs">{inv.email}</TableCell>
                       <TableCell>
-                        <span className="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/30">
+                        <span className="px-2 py-0.5 rounded-[var(--radius-sm)] text-[10px] font-mono uppercase font-bold bg-[var(--color-warn)]/10 text-[var(--color-warn)] border border-[var(--color-warn)]/30">
                           {inv.role}
                         </span>
                       </TableCell>
-                      <TableCell className="text-[#5B677C] text-xs">
+                      <TableCell className="text-[var(--text-2)] font-mono text-xs">
                         {inv.createdAt.split("T")[0]}
                       </TableCell>
-                      <TableCell className="text-[#98A2B3] text-xs">
+                      <TableCell className="text-[var(--text-2)] font-mono text-xs">
                         7 days
                       </TableCell>
                       <TableCell className="text-right">
                         <button
                           onClick={() => handleRevokeInvitation(inv.id)}
-                          className="text-xs text-[#FF5C5C] hover:underline"
+                          className="text-xs text-[var(--color-danger)] hover:underline font-mono"
                         >
                           Revoke
                         </button>
@@ -547,29 +549,29 @@ function SettingsConsole() {
       {activeTab === "keys" && (
         <div className="space-y-6">
           {newKeySecret && (
-            <div className="p-4 rounded-lg bg-[#14180F] border border-[#C6F135]/50 text-xs">
+            <div className="p-4 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--color-accent)] text-xs">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-bold text-[#C6F135] uppercase">
-                  ⚠ SAVE YOUR SECRET KEY NOW (SHOW-ONCE)
+                <span className="font-bold text-[var(--color-accent)] font-mono uppercase">
+                  SAVE YOUR SECRET KEY NOW (SHOW-ONCE)
                 </span>
                 <button
                   onClick={() => setNewKeySecret(null)}
-                  className="text-[#5B677C] hover:text-white"
+                  className="text-[var(--text-2)] hover:text-[var(--text-1)] font-mono"
                 >
                   ✕ Dismiss
                 </button>
               </div>
-              <p className="text-[#98A2B3] mb-2 font-sans">
+              <p className="text-[var(--text-2)] mb-2 font-sans">
                 Constitution Rule 7: For your security, Scrappy only stores a cryptographic SHA-256 hash. We cannot show this secret again.
               </p>
-              <div className="p-2.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-[#C6F135] select-all flex items-center justify-between">
+              <div className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--surface-0)] border border-[var(--border-subtle)] text-[var(--color-accent)] font-mono select-all flex items-center justify-between">
                 <span>{newKeySecret}</span>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(newKeySecret);
                     showToast({ type: "info", title: "Copied to clipboard" });
                   }}
-                  className="px-2 py-0.5 rounded bg-[#141922] border border-[#262E3C] text-[10px] hover:text-white"
+                  className="px-2 py-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[10px] text-[var(--text-1)] hover:border-[var(--border-strong)]"
                 >
                   Copy
                 </button>
@@ -577,21 +579,21 @@ function SettingsConsole() {
             </div>
           )}
 
-          <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C] flex flex-col sm:flex-row items-center gap-3">
+          <div className="p-4 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)] flex flex-col sm:flex-row items-center gap-3">
             <input
               type="text"
               placeholder="e.g. Production Data Ingestion Worker"
               aria-label="Secret Key Name"
               value={newKeyName}
               onChange={(e) => setNewKeyName(e.target.value)}
-              className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"
+              className="flex-1 w-full bg-[var(--surface-2)] border border-[var(--border-default)] rounded-[var(--radius-sm)] px-3 py-2 text-xs text-[var(--text-1)] placeholder:text-[var(--text-3)] outline-none focus:border-[var(--border-focus)] font-mono"
             />
             <Button variant="primary" size="sm" onClick={handleGenerateKey}>
               + Generate New Secret Key
             </Button>
           </div>
 
-          <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -605,14 +607,14 @@ function SettingsConsole() {
               <TableBody>
                 {keys.map((k) => (
                   <TableRow key={k.id}>
-                    <TableCell className="text-white font-medium">{k.name}</TableCell>
-                    <TableCell className="text-[#98A2B3]">{k.prefix}</TableCell>
-                    <TableCell className="text-[#5B677C] text-xs">{k.createdAt}</TableCell>
-                    <TableCell className="text-[#C6F135] text-xs">{k.lastUsedAt}</TableCell>
+                    <TableCell className="text-[var(--text-1)] font-medium font-mono text-xs">{k.name}</TableCell>
+                    <TableCell className="text-[var(--text-2)] font-mono text-xs">{k.prefix}</TableCell>
+                    <TableCell className="text-[var(--text-2)] font-mono text-xs">{k.createdAt}</TableCell>
+                    <TableCell className="text-[var(--color-success)] font-mono text-xs">{k.lastUsedAt}</TableCell>
                     <TableCell className="text-right">
                       <button
                         onClick={() => handleRevokeKey(k.id)}
-                        className="text-xs text-[#FF5C5C] hover:underline"
+                        className="text-xs text-[var(--color-danger)] hover:underline font-mono"
                       >
                         Revoke
                       </button>
@@ -629,29 +631,29 @@ function SettingsConsole() {
       {activeTab === "webhooks" && (
         <div className="space-y-6">
           {newWebhookSecret && (
-            <div className="p-4 rounded-lg bg-[#14180F] border border-[#C6F135]/50 text-xs">
+            <div className="p-4 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--color-accent)] text-xs">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-bold text-[#C6F135] uppercase">
-                  ⚠ SAVE YOUR HMAC SIGNING SECRET (SHOW-ONCE)
+                <span className="font-bold text-[var(--color-accent)] font-mono uppercase">
+                  SAVE YOUR HMAC SIGNING SECRET (SHOW-ONCE)
                 </span>
                 <button
                   onClick={() => setNewWebhookSecret(null)}
-                  className="text-[#5B677C] hover:text-white"
+                  className="text-[var(--text-2)] hover:text-[var(--text-1)] font-mono"
                 >
                   ✕ Dismiss
                 </button>
               </div>
-              <p className="text-[#98A2B3] mb-2 font-sans">
+              <p className="text-[var(--text-2)] mb-2 font-sans">
                 Constitution Rule 7: Webhook signatures in the X-Scrappy-Signature header are signed with this secret. It will never be shown again.
               </p>
-              <div className="p-2.5 rounded bg-[#0A0C0F] border border-[#262E3C] text-[#C6F135] select-all flex items-center justify-between">
+              <div className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--surface-0)] border border-[var(--border-subtle)] text-[var(--color-accent)] font-mono select-all flex items-center justify-between">
                 <span>{newWebhookSecret}</span>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(newWebhookSecret);
                     showToast({ type: "info", title: "Copied to clipboard" });
                   }}
-                  className="px-2 py-0.5 rounded bg-[#141922] border border-[#262E3C] text-[10px] hover:text-white"
+                  className="px-2 py-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border-subtle)] text-[10px] text-[var(--text-1)] hover:border-[var(--border-strong)]"
                 >
                   Copy
                 </button>
@@ -659,22 +661,22 @@ function SettingsConsole() {
             </div>
           )}
 
-          <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C] flex flex-col sm:flex-row items-center gap-3">
+          <div className="p-4 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)] flex flex-col sm:flex-row items-center gap-3">
             <input
               type="url"
               placeholder="https://api.your-service.com/webhooks/pricing"
               aria-label="Webhook Destination URL"
               value={newWebhookUrl}
               onChange={(e) => setNewWebhookUrl(e.target.value)}
-              className="flex-1 w-full bg-[#141922] border border-[#262E3C] rounded px-3 py-2 text-xs text-[#D6DBE3] outline-none focus:border-[#C6F135]"
+              className="flex-1 w-full bg-[var(--surface-2)] border border-[var(--border-default)] rounded-[var(--radius-sm)] px-3 py-2 text-xs text-[var(--text-1)] placeholder:text-[var(--text-3)] outline-none focus:border-[var(--border-focus)] font-mono"
             />
             <Button variant="primary" size="sm" onClick={handleAddWebhook}>
               + Register Webhook Endpoint
             </Button>
           </div>
 
-          <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
-            <div className="px-4 py-2 border-b border-[#262E3C] text-[11px] text-[#98A2B3] uppercase tracking-wider font-semibold">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+            <div className="px-4 py-2 border-b border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-2)] uppercase tracking-wider font-semibold">
               Registered Endpoints ({webhooks.length})
             </div>
             <Table>
@@ -690,36 +692,36 @@ function SettingsConsole() {
               <TableBody>
                 {webhooks.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center py-6 text-[#5B677C]">
+                    <TableCell colSpan={5} className="text-center py-6 text-[var(--text-2)] font-mono text-xs">
                       No webhooks registered yet. Register an HTTPS endpoint above.
                     </TableCell>
                   </TableRow>
                 ) : (
                   webhooks.map((wh) => (
                     <TableRow key={wh.id}>
-                      <TableCell className="text-white truncate max-w-xs">{wh.targetUrl}</TableCell>
-                      <TableCell className="text-xs text-[#98A2B3]">
+                      <TableCell className="text-[var(--text-1)] font-mono text-xs truncate max-w-xs">{wh.targetUrl}</TableCell>
+                      <TableCell className="text-xs text-[var(--text-2)] font-mono">
                         {wh.events.join(", ")}
                       </TableCell>
-                      <TableCell className="text-xs text-[#5B677C]">
+                      <TableCell className="text-xs text-[var(--text-2)] font-mono">
                         {wh.secretHash.substring(0, 12)}...
                       </TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-[#2FBF8A]/10 text-[#2FBF8A] border border-[#2FBF8A]/30">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2FBF8A]" />
+                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[var(--radius-sm)] text-[10px] font-mono uppercase font-bold bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/30">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)]" />
                           active
                         </span>
                       </TableCell>
                       <TableCell className="text-right space-x-2">
                         <button
                           onClick={() => handleDispatchTestDelivery(wh.id)}
-                          className="text-xs text-[#C6F135] hover:underline"
+                          className="text-xs text-[var(--color-accent)] hover:underline font-mono"
                         >
                           Send Test Ping
                         </button>
                         <button
                           onClick={() => handleDeleteWebhook(wh.id)}
-                          className="text-xs text-[#FF5C5C] hover:underline ml-2"
+                          className="text-xs text-[var(--color-danger)] hover:underline font-mono ml-2"
                         >
                           Delete
                         </button>
@@ -733,8 +735,8 @@ function SettingsConsole() {
 
           {/* Webhook Delivery & Replay Log */}
           {deliveries.length > 0 && (
-            <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
-              <div className="px-4 py-2 border-b border-[#262E3C] text-[11px] text-[#5AA9FF] uppercase tracking-wider font-semibold">
+            <div className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] overflow-hidden bg-[var(--surface-1)]">
+              <div className="px-4 py-2 border-b border-[var(--border-subtle)] text-[11px] font-mono text-[var(--color-info)] uppercase tracking-wider font-semibold">
                 Recent Deliveries &amp; Replay Log ({deliveries.length})
               </div>
               <Table>
@@ -751,27 +753,27 @@ function SettingsConsole() {
                 <TableBody>
                   {deliveries.slice(0, 10).map((d) => (
                     <TableRow key={d.id}>
-                      <TableCell className="text-white font-medium">{d.eventType}</TableCell>
+                      <TableCell className="text-[var(--text-1)] font-medium font-mono text-xs">{d.eventType}</TableCell>
                       <TableCell>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        <span className={`px-2 py-0.5 rounded-[var(--radius-sm)] text-[10px] font-mono font-bold ${
                           d.responseStatus && d.responseStatus < 300
-                            ? "bg-[#2FBF8A]/10 text-[#2FBF8A] border border-[#2FBF8A]/30"
-                            : "bg-[#FF5C5C]/10 text-[#FF5C5C] border border-[#FF5C5C]/30"
+                            ? "bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/30"
+                            : "bg-[var(--color-danger)]/10 text-[var(--color-danger)] border border-[var(--color-danger)]/30"
                         }`}>
                           {d.responseStatus || 200} OK
                         </span>
                       </TableCell>
-                      <TableCell className="text-[#98A2B3] text-xs">{d.latencyMs || 24}ms</TableCell>
-                      <TableCell className="text-[#5B677C] text-xs font-mono">
+                      <TableCell className="text-[var(--text-2)] font-mono text-xs">{d.latencyMs || 24}ms</TableCell>
+                      <TableCell className="text-[var(--text-2)] text-xs font-mono">
                         {d.signature.substring(0, 12)}...
                       </TableCell>
-                      <TableCell className="text-[#5B677C] text-xs">
+                      <TableCell className="text-[var(--text-2)] font-mono text-xs">
                         {new Date(d.deliveredAt).toLocaleTimeString()}
                       </TableCell>
                       <TableCell className="text-right">
                         <button
                           onClick={() => handleDispatchTestDelivery(d.webhookId)}
-                          className="text-xs text-[#5AA9FF] hover:underline"
+                          className="text-xs text-[var(--color-info)] hover:underline font-mono"
                         >
                           Replay Delivery
                         </button>
@@ -788,52 +790,52 @@ function SettingsConsole() {
       {/* TAB: USAGE METERING */}
       {activeTab === "metering" && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between text-xs text-[#98A2B3]">
+          <div className="flex items-center justify-between text-xs font-mono text-[var(--text-2)]">
             <span>Current Billing Cycle: {usage?.currentPeriodStart ? usage.currentPeriodStart.split("T")[0] : "2026-10-01"} to {usage?.currentPeriodEnd ? usage.currentPeriodEnd.split("T")[0] : "2026-10-31"}</span>
-            <span className="uppercase text-[#C6F135] font-bold">Plan: {usage?.plan || "PRO"}</span>
+            <span className="uppercase text-[var(--color-accent)] font-bold">Plan: {usage?.plan || "PRO"}</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-              <span className="text-[11px] uppercase text-[#5B677C]">EXTRACTED RECORDS</span>
-              <div className="text-2xl font-bold text-white my-1 font-sans">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
+            <div className="p-5 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+              <span className="text-[11px] uppercase text-[var(--text-2)] font-semibold">EXTRACTED RECORDS</span>
+              <div className="text-2xl font-bold text-[var(--text-1)] my-1 font-sans">
                 {usage?.recordsExtracted !== undefined ? usage.recordsExtracted.toLocaleString() : "18,420"}
               </div>
-              <div className="text-xs text-[#98A2B3]">
+              <div className="text-xs text-[var(--text-2)]">
                 Plan cap: {(usage?.limits?.recordsPerMonth || 100000).toLocaleString()} / month
               </div>
-              <div className="w-full bg-[#262E3C] h-1.5 rounded-full overflow-hidden mt-3">
+              <div className="w-full bg-[var(--surface-2)] h-1.5 rounded-full overflow-hidden mt-3">
                 <div
-                  className="bg-[#C6F135] h-full transition-all"
+                  className="bg-[var(--color-accent)] h-full transition-all"
                   style={{ width: `${usage?.quotaStatus?.recordsPct || 18.4}%` }}
                 />
               </div>
             </div>
 
-            <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-              <span className="text-[11px] uppercase text-[#5B677C]">BROWSER HEADLESS MINUTES</span>
-              <div className="text-2xl font-bold text-white my-1 font-sans">
+            <div className="p-5 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+              <span className="text-[11px] uppercase text-[var(--text-2)] font-semibold">BROWSER HEADLESS MINUTES</span>
+              <div className="text-2xl font-bold text-[var(--text-1)] my-1 font-sans">
                 {usage?.browserMinutes !== undefined ? `${usage.browserMinutes} min` : "42.6 min"}
               </div>
-              <div className="text-xs text-[#98A2B3]">
+              <div className="text-xs text-[var(--text-2)]">
                 Plan cap: {usage?.limits?.browserMinutes || 500} min / month
               </div>
-              <div className="w-full bg-[#262E3C] h-1.5 rounded-full overflow-hidden mt-3">
+              <div className="w-full bg-[var(--surface-2)] h-1.5 rounded-full overflow-hidden mt-3">
                 <div
-                  className="bg-[#9A7BFF] h-full transition-all"
+                  className="bg-[var(--color-info)] h-full transition-all"
                   style={{ width: `${usage?.quotaStatus?.browserMinutesPct || 8.5}%` }}
                 />
               </div>
             </div>
 
-            <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-              <span className="text-[11px] uppercase text-[#5B677C]">API RATE LIMIT</span>
-              <div className="text-2xl font-bold text-white my-1 font-sans">
+            <div className="p-5 rounded-[var(--radius-md)] bg-[var(--surface-1)] border border-[var(--border-subtle)]">
+              <span className="text-[11px] uppercase text-[var(--text-2)] font-semibold">API RATE LIMIT</span>
+              <div className="text-2xl font-bold text-[var(--text-1)] my-1 font-sans">
                 {usage?.limits?.apiRequestsPerMinute || 120} req/min
               </div>
-              <div className="text-xs text-[#98A2B3]">Current burst capacity: 100%</div>
-              <div className="w-full bg-[#262E3C] h-1.5 rounded-full overflow-hidden mt-3">
-                <div className="bg-[#5AA9FF] h-full" style={{ width: "100%" }} />
+              <div className="text-xs text-[var(--text-2)]">Current burst capacity: 100%</div>
+              <div className="w-full bg-[var(--surface-2)] h-1.5 rounded-full overflow-hidden mt-3">
+                <div className="bg-[var(--color-success)] h-full" style={{ width: "100%" }} />
               </div>
             </div>
           </div>

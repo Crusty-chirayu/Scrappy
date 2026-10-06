@@ -5,7 +5,8 @@
  * Dual-theme: Ink Scale (Dark) and Paper Scale (Light).
  */
 
-:root {
+:root,
+[data-theme="dark"] {
   /* DARK THEME (Default - Tinted Cool Neutrals per Brief) */
   --surface-0: #0b0d12;
   --surface-1: #11141b;
