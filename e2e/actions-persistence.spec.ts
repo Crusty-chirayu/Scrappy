@@ -82,9 +82,9 @@ test.describe("Real Behavior & Database Persistence Tests", () => {
     await page.fill("#signup-confirm-password", testPassword);
     await page.click("#signup-submit-btn");
 
-    // Wait for redirect to /onboarding
-    await page.waitForURL("**/onboarding", { timeout: 15000 });
-    await expect(page).toHaveURL(/.*onboarding/);
+    // Wait for redirect to /compare
+    await page.waitForURL("**/compare", { timeout: 15000 });
+    await expect(page).toHaveURL(/.*compare/);
 
     // Assert direct Supabase database row
     const { createClient } = await import("@supabase/supabase-js");
@@ -99,11 +99,9 @@ test.describe("Real Behavior & Database Persistence Tests", () => {
     // Reload page and assert session persists
     await page.reload();
     await page.waitForLoadState("domcontentloaded");
-    await expect(page).toHaveURL(/.*onboarding/);
+    await expect(page).toHaveURL(/.*compare/);
 
-    // 2. Log out via /auth/login or direct nav
-    await page.goto("http://localhost:3005/compare");
-    await page.waitForLoadState("domcontentloaded");
+    // 2. Log out via /compare header
     const logoutBtn = page.locator("#auth-logout-btn");
     if (await logoutBtn.isVisible()) {
       await logoutBtn.click();

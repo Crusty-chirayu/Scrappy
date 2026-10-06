@@ -326,8 +326,9 @@ function parseCookies(header: string | undefined): Record<string, string> {
   if (!header) return list;
   for (const cookie of header.split(";")) {
     const parts = cookie.split("=");
-    if (parts.length >= 2) {
-      list[parts[0].trim()] = decodeURIComponent(parts.slice(1).join("=").trim());
+    const key = parts[0]?.trim();
+    if (key && parts.length >= 2) {
+      list[key] = decodeURIComponent(parts.slice(1).join("=").trim());
     }
   }
   return list;

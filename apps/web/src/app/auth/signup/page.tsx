@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { getBrowserSupabase } from "../../../lib/supabase-client";
 import { Button } from "@scrappy/ui";
 
 export default function SignupPage() {
-  const router = useRouter();
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,8 +48,7 @@ export default function SignupPage() {
     }
 
     if (data.session) {
-      router.push("/onboarding");
-      router.refresh();
+      window.location.href = "/compare";
       return;
     }
 

@@ -1,7 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { defaultCatalogRepository } from "@scrappy/db";
-import { evaluateMatch } from "@scrappy/matching";
 
 interface CsvRow {
   pairId: string;
@@ -13,12 +11,19 @@ interface CsvRow {
   humanLabel: string; // 'MATCH' | 'NO_MATCH' | 'UNVERIFIED'
 }
 
-export function exportPairsToCsv(outputPath: string): void {
-  const result = defaultCatalogRepository.search({});
+export function exportPairsToCsv(outputPath: string, candidateItems?: Array<{ title: string; brand: string }>): void {
+  const items = candidateItems ?? [
+    { title: "Sony WH-1000XM5 Wireless Headphones Black", brand: "Sony" },
+    { title: "Apple MacBook Air 13-inch M2 256GB Midnight", brand: "Apple" },
+    { title: "Samsung Galaxy S24 Ultra 256GB Titanium Gray", brand: "Samsung" },
+    { title: "Dell XPS 13 9315 Intel Core i7 16GB RAM 512GB SSD", brand: "Dell" },
+    { title: "Sony PlayStation 5 Slim Digital Edition", brand: "Sony" },
+  ];
   const rows: CsvRow[] = [];
 
-  for (let i = 0; i < result.items.length; i++) {
-    const item = result.items[i];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (!item) continue;
     rows.push({
       pairId: `pair_${i + 1}`,
       candidateTitle: item.title,
@@ -65,8 +70,8 @@ export function evaluateHumanLabels(csvPath: string): {
   for (const line of lines) {
     const parts = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
     if (parts.length < 7) continue;
-    const algo = parts[5].replace(/"/g, "").trim().toUpperCase();
-    const human = parts[6].replace(/"/g, "").trim().toUpperCase();
+    const algo = (parts[5] ?? "").replace(/"/g, "").trim().toUpperCase();
+    const human = (parts[6] ?? "").replace(/"/g, "").trim().toUpperCase();
 
     if (human === "UNVERIFIED" || !human) {
       unverified++;
