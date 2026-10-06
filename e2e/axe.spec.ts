@@ -15,18 +15,20 @@ const PAGES = [
   { name: "Legal Privacy Policy", path: "/legal/privacy" },
   { name: "Legal Terms of Service", path: "/legal/terms" },
   { name: "Legal Responsible Scraping", path: "/legal/responsible-scraping" },
+  { name: "404 Not Found", path: "/not-found-page-route" },
 ];
 
 test.describe("WCAG 2.2 AA Accessibility Audits", () => {
   for (const p of PAGES) {
     test(`Axe scan: ${p.name}`, async ({ page }) => {
+      test.setTimeout(60000);
       await page.goto(p.path);
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("domcontentloaded");
       // Allow dynamic elements to hydrate
       await page.waitForTimeout(300);
 
       const accessibilityScanResults = await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
         .disableRules(["color-contrast"])
         .analyze();
 

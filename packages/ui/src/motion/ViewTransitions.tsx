@@ -10,10 +10,11 @@ export function startSafeViewTransition(updateFn: () => void | Promise<void>): v
   if (
     typeof document !== "undefined" &&
     "startViewTransition" in document &&
-    typeof (document as any).startViewTransition === "function" &&
+    typeof (document as unknown as { startViewTransition?: (cb: () => void | Promise<void>) => unknown }).startViewTransition === "function" &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches
   ) {
-    (document as any).startViewTransition(updateFn);
+    const docWithTransition = document as unknown as { startViewTransition: (cb: () => void | Promise<void>) => unknown };
+    docWithTransition.startViewTransition(updateFn);
   } else {
     updateFn();
   }

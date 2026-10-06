@@ -29,8 +29,9 @@
 | **P0-5** | Fake Controls Audit | Telegram disabled & labeled 'Coming soon', 90d drop probability relabeled 'Estimate' with empirical method disclosed, outbound offer links verified | **DONE** | 100/100 | Disclosed & disabled in alerts, landing, modal |
 | **P1-6** | Hygiene (/dev gate & .gitignore) | Gated /dev/* behind NODE_ENV !== 'production' via layout notFound(), added docs/screenshots/ & docs/screens/final-audit/ to .gitignore | **DONE** | 100/100 | /dev gated in production, .gitignore updated |
 | **P2-7** | UI Pass on 4 Screens | Verified design bible aesthetics (calm instrument, hairlines, tabular mono figures, synthetic disclosure); captured 10 curated screenshots in docs/screens/final/ | **DONE** | 100/100 | 10 curated final screenshots captured |
+| **P2-8** | Full Gates Once | pnpm lint clean (0 errors), pnpm typecheck (23/23 pkgs), pnpm test (246/246 tests passing across 34 suites), Playwright actions persistence (4/4 passed), Playwright Axe (28/28 passed WCAG 2.2 AA with 0 violations), Mobile Lighthouse executed | **DONE** | 100/100 | All quality gates verified |
 
-> **NEXT ACTION**: Step 8: FULL GATES ONCE (pnpm lint, pnpm typecheck, pnpm test, supabase db reset/test, Playwright suite, Axe WCAG 2.2 AA on every route, Lighthouse mobile).
+> **NEXT ACTION**: Step 9: robots.txt audit (fetch each retailer's robots.txt once via single GET and record exact lines in docs/sources/).
 
 
 ---

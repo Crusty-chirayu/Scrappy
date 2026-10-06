@@ -26,7 +26,7 @@ describe("@scrappy/ui Domain Components", () => {
       );
       expect(html).toContain("Possible match");
       expect(html).toContain("(65%)");
-      expect(html).toContain("text-[#9A7BFF]"); // Uncertain color
+      expect(html).toContain("text-[var(--color-warn)]"); // Token-based uncertain color
     });
 
     it("renders source_unavailable state per Constitution Rule 6", () => {
@@ -132,7 +132,7 @@ describe("@scrappy/ui Domain Components", () => {
     it("renders synthetic warning badge", () => {
       const html = renderToStaticMarkup(<SyntheticBadge />);
       expect(html).toContain("SYNTHETIC FIXTURE");
-      expect(html).toContain("border-[#FFB020]/30");
+      expect(html).toContain("border-[var(--color-warn)]/30");
     });
 
     it("renders synthetic provenance banner with alert role", () => {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import React from "react";
-import { ALL_ICONS, IconName } from "./icons.js";
+import { ALL_ICONS } from "./icons.js";
 import {
   AnimatedBellIcon,
   AnimatedCheckIcon,

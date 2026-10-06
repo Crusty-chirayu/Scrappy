@@ -299,7 +299,7 @@ export default function DocsPage() {
                 <div className="text-[10px] font-mono text-[#5B677C] uppercase mb-1">
                   REQUEST ({codeLanguage.toUpperCase()})
                 </div>
-                <pre className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#D6DBE3] overflow-x-auto">
+                <pre tabIndex={0} aria-label={`Request code example in ${codeLanguage}`} className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#D6DBE3] overflow-x-auto focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]">
                   {codeLanguage === "curl" ? ep.curl : ep.typescript}
                 </pre>
               </div>
@@ -308,7 +308,7 @@ export default function DocsPage() {
                 <div className="text-[10px] font-mono text-[#5B677C] uppercase mb-1">
                   SAMPLE RESPONSE (200 OK)
                 </div>
-                <pre className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#C6F135] overflow-x-auto max-h-56">
+                <pre tabIndex={0} aria-label="Sample 200 OK JSON response" className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#C6F135] overflow-x-auto max-h-56 focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]">
                   {ep.response}
                 </pre>
               </div>

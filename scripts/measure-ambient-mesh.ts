@@ -18,8 +18,8 @@ async function main() {
       `npx lighthouse http://localhost:3005/dev/motion --throttling-method=simulate --output=json --output-path="${reportWith}" --chrome-flags="--headless" --only-categories=performance`,
       { stdio: "inherit" }
     );
-  } catch (err: any) {
-    console.error("Lighthouse run with mesh failed:", err.message);
+  } catch (err: unknown) {
+    console.error("Lighthouse run with mesh failed:", (err as Error).message);
   }
 
   console.log("Running Lighthouse on /dev/motion?no-ambient=1 (without AmbientMesh)...");
@@ -28,8 +28,8 @@ async function main() {
       `npx lighthouse http://localhost:3005/dev/motion?no-ambient=1 --throttling-method=simulate --output=json --output-path="${reportWithout}" --chrome-flags="--headless" --only-categories=performance`,
       { stdio: "inherit" }
     );
-  } catch (err: any) {
-    console.error("Lighthouse run without mesh failed:", err.message);
+  } catch (err: unknown) {
+    console.error("Lighthouse run without mesh failed:", (err as Error).message);
   }
 
   if (fs.existsSync(reportWith) && fs.existsSync(reportWithout)) {

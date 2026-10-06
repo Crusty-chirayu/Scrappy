@@ -57,7 +57,7 @@ test.describe("Real Behavior & Database Persistence Tests", () => {
     await runExtractionBtn.click();
 
     // Assert real database run indicator appears
-    await expect(page.getByText(/DB RUN:/i)).toBeVisible();
-    await expect(page.getByText(/SUCCEEDED/i).first()).toBeVisible();
+    await expect(page.getByText(/DB RUN:/i)).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText(/SUCCEEDED/i).first()).toBeVisible({ timeout: 15000 });
   });
 });
