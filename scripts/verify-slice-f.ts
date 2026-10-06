@@ -149,7 +149,7 @@ async function main() {
     await page.waitForTimeout(300);
 
     const results = await new AxeBuilder({ page })
-      .disableRules(["target-size"])
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
 
     console.log(`Axe Violations (${theme}): ${results.violations.length}`);
