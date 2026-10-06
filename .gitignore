@@ -46,3 +46,7 @@ Thumbs.db
 .cache/
 tmp/
 scratch/
+
+# Screenshot audit batches (keep history intact, prevent uncurated batch additions)
+docs/screenshots/
+docs/screens/final-audit/
