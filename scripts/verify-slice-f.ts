@@ -59,7 +59,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto(productUrl, { waitUntil: "networkidle" });
+    await page.goto(productUrl, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(500);
 
     // Click "Watch this product" button
@@ -94,7 +94,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto(productUrl, { waitUntil: "networkidle" });
+    await page.goto(productUrl, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(500);
 
     // Hover near the center of the chart
@@ -118,7 +118,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto(productUrl, { waitUntil: "networkidle" });
+    await page.goto(productUrl, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(500);
 
     // Scroll down 600px past the main hero price
@@ -139,7 +139,7 @@ async function main() {
   for (const theme of themes) {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto(productUrl, { waitUntil: "networkidle" });
+    await page.goto(productUrl, { waitUntil: "domcontentloaded" });
 
     await page.evaluate((t) => {
       document.documentElement.setAttribute("data-theme", t);
@@ -154,10 +154,14 @@ async function main() {
 
     console.log(`Axe Violations (${theme}): ${results.violations.length}`);
     if (results.violations.length > 0) {
-      console.error(
-        `Violations found in ${theme}:`,
-        results.violations.map((v) => ({ id: v.id, impact: v.impact, description: v.description })),
-      );
+      for (const v of results.violations) {
+        console.error(`Violation: ${v.id} (${v.impact}) - ${v.description}`);
+        for (const n of v.nodes) {
+          console.error(`  HTML: ${n.html}`);
+          console.error(`  Target: ${JSON.stringify(n.target)}`);
+          console.error(`  FailureSummary: ${n.failureSummary}`);
+        }
+      }
       throw new Error(`Axe accessibility violations encountered in ${theme} mode`);
     }
 

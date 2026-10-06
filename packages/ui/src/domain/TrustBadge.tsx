@@ -27,42 +27,42 @@ const trustConfig: Record<
 > = {
   verified: {
     label: "Verified",
-    bg: "bg-[#2FBF8A]/10",
-    text: "text-[#2FBF8A]",
-    border: "border-[#2FBF8A]/30",
-    dotColor: "bg-[#2FBF8A]",
+    bg: "bg-[var(--color-success)]/10",
+    text: "text-[var(--color-success)]",
+    border: "border-[var(--color-success)]/30",
+    dotColor: "bg-[var(--color-success)]",
     description: "High-confidence verified match with verified provenance.",
   },
   estimated: {
     label: "Estimated",
-    bg: "bg-[#5AA9FF]/10",
-    text: "text-[#5AA9FF]",
-    border: "border-[#5AA9FF]/30",
-    dotColor: "bg-[#5AA9FF]",
+    bg: "bg-[var(--color-info)]/10",
+    text: "text-[var(--color-info)]",
+    border: "border-[var(--color-info)]/30",
+    dotColor: "bg-[var(--color-info)]",
     description: "Computed or estimated value from historical data.",
   },
   matched: {
     label: "Matched",
-    bg: "bg-[#1A202B]",
-    text: "text-[#D6DBE3]",
-    border: "border-[#262E3C]",
-    dotColor: "bg-[#98A2B3]",
+    bg: "bg-[var(--surface-2)]",
+    text: "text-[var(--text-1)]",
+    border: "border-[var(--border)]",
+    dotColor: "bg-[var(--text-3)]",
     description: "Standard canonical match against catalog criteria.",
   },
   possible_match: {
     label: "Possible match",
-    bg: "bg-[#9A7BFF]/10",
-    text: "text-[#9A7BFF]",
-    border: "border-[#9A7BFF]/30",
-    dotColor: "bg-[#9A7BFF]",
+    bg: "bg-[var(--color-warn)]/10",
+    text: "text-[var(--color-warn)]",
+    border: "border-[var(--color-warn)]/30",
+    dotColor: "bg-[var(--color-warn)]",
     description: "Unconfirmed candidate match; never merged silently.",
   },
   source_unavailable: {
     label: "Source unavailable",
-    bg: "bg-[#8B93A3]/10",
-    text: "text-[#8B93A3]",
-    border: "border-[#8B93A3]/30",
-    dotColor: "bg-[#8B93A3]",
+    bg: "bg-[var(--surface-2)]",
+    text: "text-[var(--text-2)]",
+    border: "border-[var(--border)]",
+    dotColor: "bg-[var(--text-3)]",
     description: "Source adapter is degraded or unsupported.",
   },
 };
@@ -90,7 +90,7 @@ export function TrustBadge({
       <span className={`w-1.5 h-1.5 rounded-full ${conf.dotColor} shrink-0`} aria-hidden="true" />
       <span>{conf.label}</span>
       {percentText && (
-        <span className="font-mono tabular-nums text-[10px] opacity-80 pl-0.5">
+        <span className="font-mono tabular-nums text-[10px] pl-0.5">
           ({percentText})
         </span>
       )}

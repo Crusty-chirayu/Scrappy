@@ -33,7 +33,7 @@ export function DataFreshness({
   const isFresh = ageMs < 15 * 60 * 1000; // < 15m
   const isStale = ageMs > 24 * 60 * 60 * 1000; // > 24h
 
-  const dotColor = isFresh ? "bg-[#2FBF8A]" : isStale ? "bg-[#F5B544]" : "bg-[#5AA9FF]";
+  const dotColor = isFresh ? "bg-[var(--color-success)]" : isStale ? "bg-[var(--color-warn)]" : "bg-[var(--color-info)]";
   const statusLabel = isFresh ? "Fresh" : isStale ? "Stale" : "Recent";
 
   const provenanceTooltip = [
@@ -50,7 +50,7 @@ export function DataFreshness({
   return (
     <span
       title={provenanceTooltip}
-      className={`inline-flex items-center gap-1.5 text-xs text-[#98A2B3] select-none cursor-help hover:text-[#D6DBE3] transition-colors ${className}`}
+      className={`inline-flex items-center gap-1.5 text-xs text-[var(--text-3)] select-none cursor-help hover:text-[var(--text-1)] transition-colors ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${dotColor} shrink-0`} aria-hidden="true" />
       <span>{relativeTime}</span>

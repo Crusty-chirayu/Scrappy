@@ -7,11 +7,11 @@ export function SyntheticBadge({ className = "", size = "sm" }: SyntheticBadgePr
   const pad = size === "sm" ? "px-1.5 py-0.5 text-[10px]" : "px-2 py-1 text-xs";
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded font-mono font-medium tracking-wide uppercase border bg-[#FFB020]/10 text-[#FFB020] border-[#FFB020]/30 ${pad} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded font-mono font-medium tracking-wide uppercase border bg-[var(--color-warn)]/10 text-[var(--color-warn)] border-[var(--color-warn)]/30 ${pad} ${className}`}
       title="Deterministic seed fixture for offline testing — not live merchant data (Rule 1)"
       aria-label="Synthetic Fixture Data"
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-[#FFB020] animate-pulse" aria-hidden="true" />
+      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-warn)] animate-pulse" aria-hidden="true" />
       SYNTHETIC FIXTURE
     </span>
   );

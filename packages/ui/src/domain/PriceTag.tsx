@@ -49,17 +49,17 @@ export function PriceTag({
 
   return (
     <div className={`inline-flex items-baseline gap-2 font-mono tabular-nums ${className}`}>
-      <span className={`text-[#D6DBE3] ${sizes.price}`}>{formattedPrice}</span>
+      <span className={`text-[var(--text-1)] ${sizes.price}`}>{formattedPrice}</span>
 
       {formattedOriginal && hasDiscount && (
-        <span className={`text-[#5B677C] line-through ${sizes.orig}`} aria-label={`Original price ${formattedOriginal}`}>
+        <span className={`text-[var(--text-3)] line-through ${sizes.orig}`} aria-label={`Original price ${formattedOriginal}`}>
           {formattedOriginal}
         </span>
       )}
 
       {hasDiscount && discountPercent > 0 && (
         <span
-          className={`inline-flex items-center px-1.5 py-0.5 rounded-[2px] bg-[#2FBF8A]/15 text-[#2FBF8A] font-semibold font-sans ${sizes.badge}`}
+          className={`inline-flex items-center px-1.5 py-0.5 rounded-[2px] bg-[var(--color-success)]/15 text-[var(--color-success)] font-semibold font-sans ${sizes.badge}`}
         >
           -{discountPercent}%
         </span>
@@ -67,7 +67,7 @@ export function PriceTag({
 
       {isLowestPrice && (
         <span
-          className={`inline-flex items-center px-1.5 py-0.5 rounded-[2px] bg-[#C6F135]/15 text-[#C6F135] font-semibold font-sans tracking-wide uppercase ${sizes.badge}`}
+          className={`inline-flex items-center px-1.5 py-0.5 rounded-[2px] bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-semibold font-sans tracking-wide uppercase ${sizes.badge}`}
         >
           Lowest
         </span>
