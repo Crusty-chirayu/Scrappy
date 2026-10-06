@@ -64,6 +64,39 @@ describe("Admin Console Access Control & Supabase MFA AAL2 Gate", () => {
         },
       });
       expect(res4.status).toBe(200);
+
+      // 5. Browser HTML request renders MFA challenge gate and enrollment card
+      const res5 = await fetch(`http://127.0.0.1:${port}/`, {
+        headers: { accept: "text/html" },
+      });
+      expect(res5.status).toBe(200);
+      const html5 = await res5.text();
+      expect(html5).toContain("OPERATOR AUTHENTICATION");
+      expect(html5).toContain("MFA Device Enrollment (Per-User Secret)");
+      expect(html5).toContain("JBSWY3DPEHPK3PXP");
+
+      // 6. Form login sets AAL2 cookie
+      const res6 = await fetch(`http://127.0.0.1:${port}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "email=admin@scrappy.in&code=849201",
+        redirect: "manual",
+      });
+      expect(res6.status).toBe(302);
+      const cookieHeader = res6.headers.get("set-cookie");
+      expect(cookieHeader).toContain("admin_aal=aal2");
+
+      // 7. Match review queue actions
+      const res7 = await fetch(`http://127.0.0.1:${port}/api/matches/rev-101/approve`, {
+        method: "POST",
+        headers: {
+          "x-operator-email": "admin@scrappy.in",
+          "x-session-aal": "aal2",
+        },
+      });
+      expect(res7.status).toBe(200);
+      const data7 = await res7.json();
+      expect(data7.status).toBe("APPROVED");
     } finally {
       server.close();
     }
