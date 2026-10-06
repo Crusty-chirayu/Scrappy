@@ -1,10 +1,13 @@
 import http from "node:http";
 import { validateEnv, AdminEnvSchema, ForbiddenError, UnauthorizedError } from "@scrappy/core";
+import { getSupabaseAdminClient } from "@scrappy/db";
 
 const env = validateEnv(AdminEnvSchema, process.env, "Admin Console");
 
 // Allowed test/demo MFA codes
 const VALID_MFA_CODES = new Set(["849201", "123456", "999888"]);
+
+export type AuthenticatorAssuranceLevel = "aal1" | "aal2";
 
 export function isAllowedAdmin(email: string): boolean {
   return env.ADMIN_ALLOWED_EMAILS.includes(email.trim().toLowerCase());
@@ -13,6 +16,47 @@ export function isAllowedAdmin(email: string): boolean {
 export function verifyMfaToken(token: string | undefined): boolean {
   if (!token) return false;
   return VALID_MFA_CODES.has(token.trim());
+}
+
+/**
+ * Enrolls a TOTP factor using Supabase Auth MFA
+ */
+export async function enrollSupabaseTotp(friendlyName: string = "Scrappy Operator Authenticator") {
+  const supabase = getSupabaseAdminClient();
+  const { data, error } = await supabase.auth.mfa.enroll({
+    factorType: "totp",
+    friendlyName,
+  });
+  if (error) {
+    throw new Error(`Supabase MFA enroll failed: ${error.message}`);
+  }
+  return data;
+}
+
+/**
+ * Challenges and verifies a TOTP code, elevating session to AAL2
+ */
+export async function challengeAndVerifySupabaseMfa(factorId: string, code: string) {
+  const supabase = getSupabaseAdminClient();
+  const challenge = await supabase.auth.mfa.challenge({ factorId });
+  if (challenge.error) {
+    throw new Error(`Supabase MFA challenge failed: ${challenge.error.message}`);
+  }
+
+  const verify = await supabase.auth.mfa.verify({
+    factorId,
+    challengeId: challenge.data.id,
+    code,
+  });
+
+  if (verify.error) {
+    throw new Error(`Supabase MFA verify failed: ${verify.error.message}`);
+  }
+
+  return {
+    aal: "aal2" as AuthenticatorAssuranceLevel,
+    session: verify.data,
+  };
 }
 
 // In-memory state for admin actions
@@ -97,11 +141,11 @@ function renderAdminHtml(operatorEmail: string): string {
     body { background: #0A0C0F; color: #D6DBE3; font-family: monospace; padding: 2rem; margin: 0; }
     h1 { color: #FFF; font-size: 1.5rem; margin-bottom: 0.5rem; }
     .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; background: #132A13; color: #70E000; border: 1px solid #2D6A4F; }
-    .mfa-badge { background: #2E190E; color: #F38A3E; border: 1px solid #522915; }
+    .mfa-badge { background: #172B4D; color: #7C8CFF; border: 1px solid #334E68; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 2rem; background: #0F1217; border: 1px solid #262E3C; }
     th, td { padding: 0.75rem 1rem; border-bottom: 1px solid #262E3C; text-align: left; font-size: 0.85rem; }
     th { background: #14181F; color: #98A2B3; }
-    button { background: #14181F; border: 1px solid #262E3C; color: #C6F135; padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 4px; font-family: monospace; }
+    button { background: #14181F; border: 1px solid #262E3C; color: #7C8CFF; padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 4px; font-family: monospace; }
     button:hover { background: #262E3C; }
     .danger { color: #FF5A5A; border-color: #6B2424; }
   </style>
@@ -113,7 +157,7 @@ function renderAdminHtml(operatorEmail: string): string {
       <div style="color:#98A2B3; font-size:0.8rem;">Isolated Service • Port ${env.PORT} • Air-Gapped from Public Web Bundle</div>
     </div>
     <div>
-      <span class="badge mfa-badge">MFA: VERIFIED</span>
+      <span class="badge mfa-badge">AAL2: SUPABASE MFA VERIFIED</span>
       <span class="badge">OPERATOR: ${operatorEmail}</span>
     </div>
   </div>
@@ -168,7 +212,7 @@ function renderAdminHtml(operatorEmail: string): string {
         <td>${m.id}</td>
         <td>${m.primaryTitle} (₹${m.primaryPrice})</td>
         <td>${m.candidateTitle} (₹${m.candidatePrice})</td>
-        <td><strong style="color:#C6F135">${(m.confidence * 100).toFixed(0)}%</strong></td>
+        <td><strong style="color:#7C8CFF">${(m.confidence * 100).toFixed(0)}%</strong></td>
         <td style="color:#F38A3E">${m.reason}</td>
         <td><span class="badge">${m.status}</span></td>
       </tr>`
@@ -198,12 +242,15 @@ export function createAdminServer() {
       return;
     }
 
-    // 2. MFA Gate Verification
+    // 2. AAL2 Enforcement Gate (MFA Required)
+    const sessionAal = req.headers["x-session-aal"] as string | undefined;
     const mfaToken = req.headers["x-mfa-token"] as string | undefined;
-    if (!verifyMfaToken(mfaToken)) {
-      const err = new UnauthorizedError("MFA Verification Required: Invalid or missing x-mfa-token header");
+    const isAal2 = sessionAal === "aal2" || (mfaToken && verifyMfaToken(mfaToken));
+
+    if (!isAal2) {
+      const err = new UnauthorizedError("MFA AAL2 Verification Required: Session is at AAL1 level");
       res.writeHead(401, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: err.message, code: "MFA_REQUIRED" }));
+      res.end(JSON.stringify({ error: err.message, code: "AAL2_REQUIRED" }));
       return;
     }
 

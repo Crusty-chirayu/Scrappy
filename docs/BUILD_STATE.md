@@ -24,8 +24,9 @@
 | **Slice K** | Final Audit & Polish | Hostile design review, axe sweep, Lighthouse mobile, contact sheet | **DONE** | 100/100 | All 16 routes pass 360/768/1440 responsive audit in dual themes, zero 360px horizontal pan, 32 Axe WCAG 2.2 AA audits passed with 0 violations, prefers-reduced-motion verified |
 | **P0-1** | Wiring Audit (`docs/WIRING.md`) | Audit all 8 user actions across codebase (REAL vs LOCAL vs MOCK) | **DONE** | 100/100 | Complete wiring matrix in docs/WIRING.md |
 | **P0-2** | Restore Real Behavior | DB persistence for plan upgrades in /pricing, real run engine in /extract, Playwright persistence tests | **DONE** | 100/100 | e2e/actions-persistence.spec.ts passing 4/4 |
+| **P0-3** | Admin App Air-Gap & Supabase MFA | Move /admin to @scrappy/admin on port 4001, email allowlist, Supabase TOTP MFA with AAL2 enforcement, public web route air-gapped | **DONE** | 100/100 | @scrappy/admin unit tests passing 4/4 |
 
-> **NEXT ACTION**: Step 3: Admin. Move /admin out of apps/web into apps/admin (separate app, email allowlist, no public route). Replace hard-coded TOTP secret with Supabase MFA: enable [auth.mfa.totp], enroll, challenge, verify, and enforce AAL2.
+> **NEXT ACTION**: Step 4: Intelligence Board at /intelligence (business side): your price against the market as a dot-strip per product, a competitor gap table (gap %, rank, stock, freshness, trust badge), rule builder with dry-run ("would have fired N times in the last 30 days"), all five states, synthetic label, add to nav.
 
 
 ---
