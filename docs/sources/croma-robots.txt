@@ -1,0 +1,18 @@
+# robots.txt for www.croma.com
+
+> Fetched on 2026-10-06T11:41:40.069Z via single GET request with ScrappyBot/1.0 user-agent.
+> Status: HTTP 200 OK (FACT)
+
+```
+<HTML><HEAD>
+<TITLE>Access Denied</TITLE>
+</HEAD><BODY>
+<H1>Access Denied</H1>
+ 
+You don't have permission to access "http&#58;&#47;&#47;www&#46;croma&#46;com&#47;AK&#95;PM&#95;VPATH0&#47;1163381&#47;prod&#95;robots&#47;robots&#46;txt" on this server.<P>
+Reference&#32;&#35;18&#46;86d70b17&#46;1791286900&#46;a4ed461a
+<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;86d70b17&#46;1791286900&#46;a4ed461a</P>
+</BODY>
+</HTML>
+
+```
