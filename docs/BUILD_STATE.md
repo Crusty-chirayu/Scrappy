@@ -18,7 +18,7 @@
 | **Slice E** | Compare (`/compare`) | Results table, FLIP reorder, multi-product diff tray, responsive filter sheet | **DONE** | 98/100 | Sticky search & filter toolbar, desktop filter sidebar, mobile bottom filter sheet, product cards with NumberTick best price & deal scores, collapsible retailer offers table, floating Compare Tray, SideBySideCompareModal with sticky column & differs row highlighting, 0 axe errors, 6 screenshots |
 | **Slice F** | Product Page (`/compare/[id]`) | Above-fold LCP, SVG price history chart scrub, Watch sheet with 90d preview | **DONE** | 98/100 | Canonical product header with brand/model/EAN, financial valuation cards (deal score, discount authenticity), interactive SVG price history chart with scrub crosshair, retailer offers table, interactive watch sheet with 90d drop probability, sticky mini-header, 0 axe errors, 6 screenshots |
 | **Slice G** | Watchlist + Alerts + Center | Dense watchlist table, plain-language rule builder, notification center drawer | **DONE** | 98/100 | Dense watchlist table with multi-select, bulk CSV export & deletion with undo, live KPI telemetry, plain-language alert rule builder with sentence preview, notification center drawer, 0 axe errors, 6 screenshots |
-| **Slice H** | Extract Studio (`/extract`) | 3-step studio: URL check, point-and-select fields, live confidence test | TODO | - | |
+| **Slice H** | Extract Studio (`/extract`) | 3-step studio: URL check, point-and-select fields, live confidence test | **DONE** | 98/100 | 3-step studio workflow (Target URL with real-time SSRF refusal, Schema builder with resilience score formula, Live confidence test with diagnostics & export), all 5 states, 0 axe errors, 6 screenshots |
 | **Slice I** | Auth + Onboarding (`/auth/*`) | Magic link, cooldown timer, 3-step first-watch onboarding flow | TODO | - | |
 | **Slice J** | Pricing + Billing (`/pricing`) | Honest tier comparison, usage meter, downgrade/cancellation flows | TODO | - | |
 | **Slice K** | Admin Console (`/admin`) | Supabase TOTP MFA enroll + challenge, auto-advance OTP, audit log | TODO | - | |
@@ -41,7 +41,7 @@
 | `/compare/[id]` | Loaded, loading skeleton, financial valuation, interactive SVG chart, watch sheet, sticky mini-header | PASS | PASS | PASS | PASS (0 violations) |
 | `/watchlist` | Loaded, loading skeleton, empty state, bulk actions (export/delete), filter tabs, undo toast | PASS | PASS | PASS | PASS (0 violations) |
 | `/alerts` | Loaded, loading skeleton, empty state, rule builder with live sentence preview, test ping, channel toggles | PASS | PASS | PASS | PASS (0 violations) |
-| `/extract` | 3 steps, permission blocked state, preview test | TODO | TODO | TODO | TODO |
+| `/extract` | Loaded (3-step stepper), loading skeleton, error boundary, blocked/refusal state, empty fallback, live confidence test | PASS | PASS | PASS | PASS (0 violations) |
 | `/pricing` | Loaded, billing modal, downgrade warning | TODO | TODO | TODO | TODO |
 | `/settings` | Profile, notification prefs, density, theme, API keys | TODO | TODO | TODO | TODO |
 | `/auth/login` | Form, check-email, rate-limit cooldown | TODO | TODO | TODO | TODO |

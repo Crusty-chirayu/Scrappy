@@ -81,52 +81,71 @@ export function ExtractionResultsPreview({
   if (activeTab === "preview") {
     return (
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs text-[#98A2B3]">
-            Live structured dataset extracted from test payload ({extractionResult.records.length} rows)
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <span className="text-xs text-[var(--text-3)] font-mono">
+            Structured dataset parsed from sample DOM ({extractionResult.records.length} items)
           </span>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" onClick={() => handleDownload("csv")}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => handleDownload("csv")}
+              className="min-h-[44px]"
+            >
               Download CSV
             </Button>
-            <Button variant="secondary" size="sm" onClick={() => handleDownload("json")}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => handleDownload("json")}
+              className="min-h-[44px]"
+            >
               Download JSON
             </Button>
-            <Button variant="secondary" size="sm" onClick={() => handleDownload("ndjson")}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => handleDownload("ndjson")}
+              className="min-h-[44px]"
+            >
               Download NDJSON
             </Button>
           </div>
         </div>
 
-        <div className="rounded-lg border border-[#262E3C] overflow-hidden bg-[#0F1217]">
+        <div className="rounded-lg border border-[var(--border-subtle)] overflow-hidden bg-[var(--bg-1)]">
           {extractionResult.records.length === 0 ? (
             <EmptyState
               title="No records extracted"
-              description="Check item container selector or adjust field selectors to match elements."
+              description="Adjust the item container selector or inspect field definitions."
             />
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>#</TableHead>
-                  {fields.map((f) => (
-                    <TableHead key={f.id}>{f.name}</TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {extractionResult.records.map((row, idx) => (
-                  <TableRow key={idx}>
-                    <TableCell className="font-mono text-xs text-[#5B677C]">{idx + 1}</TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-12">#</TableHead>
                     {fields.map((f) => (
-                      <TableCell key={f.id} className="text-xs font-mono text-[#D6DBE3]">
-                        {String(row[f.name] ?? "")}
-                      </TableCell>
+                      <TableHead key={f.id}>{f.name}</TableHead>
                     ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {extractionResult.records.map((row, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell className="font-mono text-xs text-[var(--text-3)]">
+                        {idx + 1}
+                      </TableCell>
+                      {fields.map((f) => (
+                        <TableCell key={f.id} className="text-xs font-mono text-[var(--text-1)]">
+                          {String(row[f.name] ?? "—")}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </div>
       </div>
@@ -136,22 +155,24 @@ export function ExtractionResultsPreview({
   // Diagnostics Tab
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-        <h3 className="text-sm font-bold text-[#D6DBE3] mb-3">Field Fill Rates & Health</h3>
+      <div className="p-5 rounded-lg bg-[var(--bg-1)] border border-[var(--border-subtle)]">
+        <h3 className="text-sm font-bold text-[var(--text-1)] mb-3">Field Fill Rates & Health</h3>
         <div className="space-y-3">
           {extractionResult.diagnostics.map((d) => (
-            <div key={d.fieldId} className="p-3 rounded bg-[#141922] border border-[#262E3C]">
+            <div key={d.fieldId} className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
               <div className="flex items-center justify-between text-xs mb-1">
-                <span className="font-mono text-[#D6DBE3]">{d.fieldName}</span>
-                <span className="font-mono text-[#C6F135]">{d.fillRatePercent}% Fill</span>
+                <span className="font-mono text-[var(--text-1)]">{d.fieldName}</span>
+                <span className="font-mono text-[var(--color-success)] font-medium">
+                  {d.fillRatePercent}% Fill
+                </span>
               </div>
-              <div className="w-full bg-[#262E3C] h-1.5 rounded-full overflow-hidden mb-2">
+              <div className="w-full bg-[var(--border-subtle)] h-1.5 rounded-full overflow-hidden mb-2">
                 <div
-                  className="bg-[#C6F135] h-full"
+                  className="bg-[var(--color-success)] h-full"
                   style={{ width: `${d.fillRatePercent}%` }}
                 />
               </div>
-              <div className="text-[11px] text-[#5B677C] flex items-center justify-between">
+              <div className="text-[11px] text-[var(--text-3)] flex items-center justify-between font-mono">
                 <span>Extracted: {d.extractedCount}/{d.totalTested} items</span>
                 <span>Selector: {d.selectorUsed}</span>
               </div>
@@ -160,28 +181,28 @@ export function ExtractionResultsPreview({
         </div>
       </div>
 
-      <div className="p-5 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-        <h3 className="text-sm font-bold text-[#D6DBE3] mb-3">Runtime Audit & Metering</h3>
+      <div className="p-5 rounded-lg bg-[var(--bg-1)] border border-[var(--border-subtle)]">
+        <h3 className="text-sm font-bold text-[var(--text-1)] mb-3">Runtime Audit & Metering</h3>
         <div className="space-y-2 text-xs font-mono">
-          <div className="flex justify-between py-2 border-b border-[#262E3C]">
-            <span className="text-[#5B677C]">Worker Sandbox:</span>
-            <span className="text-[#D6DBE3]">Playwright Node.js v22 (Ephemeral)</span>
+          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
+            <span className="text-[var(--text-3)]">Worker Sandbox:</span>
+            <span className="text-[var(--text-1)]">Playwright Node.js v22 (Ephemeral)</span>
           </div>
-          <div className="flex justify-between py-2 border-b border-[#262E3C]">
-            <span className="text-[#5B677C]">Session Time Cap:</span>
-            <span className="text-[#D6DBE3]">10 Minutes</span>
+          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
+            <span className="text-[var(--text-3)]">Session Time Cap:</span>
+            <span className="text-[var(--text-1)]">10 Minutes</span>
           </div>
-          <div className="flex justify-between py-2 border-b border-[#262E3C]">
-            <span className="text-[#5B677C]">SSRF Protection:</span>
-            <span className="text-[#C6F135]">Active (Private CIDR Blocked)</span>
+          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
+            <span className="text-[var(--text-3)]">SSRF Protection:</span>
+            <span className="text-[var(--color-success)]">Active (Private CIDR Blocked)</span>
           </div>
-          <div className="flex justify-between py-2 border-b border-[#262E3C]">
-            <span className="text-[#5B677C]">Delivery Webhooks:</span>
-            <span className="text-[#D6DBE3]">HMAC SHA-256 Signed</span>
+          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
+            <span className="text-[var(--text-3)]">Delivery Webhooks:</span>
+            <span className="text-[var(--text-1)]">HMAC SHA-256 Signed</span>
           </div>
           <div className="flex justify-between py-2">
-            <span className="text-[#5B677C]">Browser Minutes:</span>
-            <span className="text-[#9A7BFF] font-bold">{browserMinutes} min</span>
+            <span className="text-[var(--text-3)]">Browser Minutes:</span>
+            <span className="text-[var(--color-primary)] font-bold">{browserMinutes} min</span>
           </div>
         </div>
       </div>
