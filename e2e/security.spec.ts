@@ -3,11 +3,14 @@ import { test, expect } from "@playwright/test";
 test.describe("G9 Defense-in-Depth & Security Flow Suite", () => {
   test("API Keys Console: show-once plaintext warning and key lifecycle", async ({ page }) => {
     await page.goto("/settings");
+    await page.waitForLoadState("domcontentloaded");
+    await page.waitForTimeout(500);
 
     // 1. Switch to API Keys tab
     const keysTab = page.locator('button:has-text("API KEYS")').first();
     await expect(keysTab).toBeVisible();
     await keysTab.click();
+    await page.waitForTimeout(200);
 
     // 2. Generate a new cryptographic API key
     const uniqueKeyName = `Key ${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
@@ -16,7 +19,11 @@ test.describe("G9 Defense-in-Depth & Security Flow Suite", () => {
     await keyInput.fill(uniqueKeyName);
 
     const generateBtn = page.locator('button:has-text("+ Generate New Secret Key")');
-    await generateBtn.click();
+    const [postRes] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes("/api/keys") && r.request().method() === "POST"),
+      generateBtn.click(),
+    ]);
+    expect(postRes.status()).toBe(200);
 
     // 3. Assert show-once banner and Constitution Rule 7 notice
     const showOnceBanner = page.locator('text=SAVE YOUR SECRET KEY NOW (SHOW-ONCE)');
@@ -42,7 +49,11 @@ test.describe("G9 Defense-in-Depth & Security Flow Suite", () => {
     // 6. Revoke the key
     const revokeBtn = tableRow.locator('button:has-text("Revoke")');
     await revokeBtn.scrollIntoViewIfNeeded();
-    await revokeBtn.click({ force: true });
+    const [delRes] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes("/api/keys") && r.request().method() === "DELETE"),
+      revokeBtn.dispatchEvent("click"),
+    ]);
+    expect(delRes.status()).toBe(200);
 
     // 7. Verify row is removed
     await expect(page.locator("tr", { hasText: uniqueKeyName })).toHaveCount(0);

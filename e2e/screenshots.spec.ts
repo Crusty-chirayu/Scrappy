@@ -28,10 +28,9 @@ test.describe("Visual Review & Page Screenshots", () => {
 
   for (const p of PAGES) {
     test(`Visual regression snapshot: ${p.name}`, async ({ page }, testInfo) => {
-      await page.goto(p.path);
-      await page.waitForLoadState("networkidle");
+      await page.goto(p.path, { waitUntil: "domcontentloaded" });
       // Settle animations
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(400);
 
       const projectName = testInfo.project.name; // desktop-1280 or mobile-360
       const filePath = path.join(

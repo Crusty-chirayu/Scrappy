@@ -45,7 +45,9 @@ test.describe("G10 Polish & Resilience Law Suite", () => {
     await page.goto("/compare");
 
     // Search for impossible string to trigger EmptyState
-    const searchInput = page.locator('input[placeholder*="Search smartphones"]').first();
+    // Placeholder is "Filter by product name, model, EAN..." (not "Search smartphones")
+    const searchInput = page.locator('input[placeholder*="Filter by product name"]').first();
+    await expect(searchInput).toBeVisible({ timeout: 5000 });
     await searchInput.fill("xyz-nonexistent-device-12345");
     await page.waitForTimeout(400);
 

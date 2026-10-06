@@ -22,6 +22,8 @@ test.describe("SCRAPPY Supabase Auth & Multi-Tenancy Flow (G2)", () => {
     await page.fill("#signup-name", testFullName);
     await page.fill("#signup-email", testEmail);
     await page.fill("#signup-password", testPassword);
+    // Wait for confirm-password to be stable (Next.js hydration can briefly detach form)
+    await page.waitForSelector("#signup-confirm-password", { state: "attached" });
     await page.fill("#signup-confirm-password", testPassword);
 
     // 3. Submit
