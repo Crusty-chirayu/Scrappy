@@ -28,8 +28,9 @@
 | **P0-4** | Intelligence Board (`/intelligence`) | Market dot-strip price track, competitor gap table, 30d undercut rule dry-run simulation, all 5 states, synthetic badge, added to nav | **DONE** | 100/100 | Built and typechecked |
 | **P0-5** | Fake Controls Audit | Telegram disabled & labeled 'Coming soon', 90d drop probability relabeled 'Estimate' with empirical method disclosed, outbound offer links verified | **DONE** | 100/100 | Disclosed & disabled in alerts, landing, modal |
 | **P1-6** | Hygiene (/dev gate & .gitignore) | Gated /dev/* behind NODE_ENV !== 'production' via layout notFound(), added docs/screenshots/ & docs/screens/final-audit/ to .gitignore | **DONE** | 100/100 | /dev gated in production, .gitignore updated |
+| **P2-7** | UI Pass on 4 Screens | Verified design bible aesthetics (calm instrument, hairlines, tabular mono figures, synthetic disclosure); captured 10 curated screenshots in docs/screens/final/ | **DONE** | 100/100 | 10 curated final screenshots captured |
 
-> **NEXT ACTION**: Step 7: UI Pass on 4 screens (home, /compare, product page, /intelligence) - review aesthetics against design bible, fix any flaw, capture 10 final screenshots under docs/screens/final/.
+> **NEXT ACTION**: Step 8: FULL GATES ONCE (pnpm lint, pnpm typecheck, pnpm test, supabase db reset/test, Playwright suite, Axe WCAG 2.2 AA on every route, Lighthouse mobile).
 
 
 ---
