@@ -22,6 +22,10 @@
 | **Slice I** | Auth + Onboarding + Billing + Admin | Magic link with 60s cooldown, 3-step first-watch onboarding, honest pricing tiers & billing modal, admin console with real TOTP MFA screens | **DONE** | 98/100 | Complete suite: /auth/login & /auth/signup with cooldown timer, /onboarding 3-step flow, /pricing honest tiers with checkout & downgrade dialogs, /admin real TOTP MFA enrollment & challenge with 6-digit cells, audit log trace, 0 axe errors, 30 responsive screenshots |
 | **Slice J** | System & Error Pages | Branded 404, 500, offline banner, maintenance, settings console | DONE | 96/100 | Pre-built in system components and verified routes |
 | **Slice K** | Final Audit & Polish | Hostile design review, axe sweep, Lighthouse mobile, contact sheet | **DONE** | 100/100 | All 16 routes pass 360/768/1440 responsive audit in dual themes, zero 360px horizontal pan, 32 Axe WCAG 2.2 AA audits passed with 0 violations, prefers-reduced-motion verified |
+| **P0-1** | Wiring Audit (`docs/WIRING.md`) | Audit all 8 user actions across codebase (REAL vs LOCAL vs MOCK) | **DONE** | 100/100 | Complete wiring matrix in docs/WIRING.md |
+
+> **NEXT ACTION**: Step 2: Restore real behavior for every LOCAL or MOCK action in step 1, reusing existing Supabase repository and server actions.
+
 
 ---
 
