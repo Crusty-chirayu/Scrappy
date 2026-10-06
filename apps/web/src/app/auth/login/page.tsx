@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getBrowserSupabase } from "../../../lib/supabase-client";
+import { Button } from "@scrappy/ui";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -12,6 +14,16 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [magicSent, setMagicSent] = useState(false);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+
+  // Cooldown countdown effect
+  useEffect(() => {
+    if (cooldownSeconds <= 0) return;
+    const timer = setInterval(() => {
+      setCooldownSeconds((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldownSeconds]);
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +48,8 @@ export default function LoginPage() {
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (cooldownSeconds > 0) return;
+
     setLoading(true);
     setErrorMsg(null);
 
@@ -54,22 +68,29 @@ export default function LoginPage() {
     }
 
     setMagicSent(true);
+    setCooldownSeconds(60);
   };
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-[#141820] border border-[#262E3C] rounded-lg p-8 shadow-2xl">
+      <div className="bg-[var(--bg-1)] border border-[var(--border-subtle)] rounded-lg p-6 sm:p-8 shadow-sm">
         <div className="text-center mb-6">
-          <h1 className="text-xl font-mono font-bold text-white tracking-wide">
+          <div className="inline-flex items-center gap-2 mb-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
+            <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-primary)] font-bold">
+              Secure Authentication
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold text-[var(--text-1)] tracking-tight">
             Sign In to SCRAPPY
           </h1>
-          <p className="text-xs text-[#98A2B3] mt-1 font-mono">
+          <p className="text-xs text-[var(--text-3)] mt-1.5 font-mono">
             Precision data instrument: Compare, Intelligence, and Extract
           </p>
         </div>
 
         {/* Tab switch */}
-        <div className="flex border-b border-[#262E3C] mb-6 font-mono text-xs">
+        <div className="flex border-b border-[var(--border-subtle)] mb-6 font-mono text-xs">
           <button
             type="button"
             id="tab-password"
@@ -77,10 +98,10 @@ export default function LoginPage() {
               setMode("password");
               setErrorMsg(null);
             }}
-            className={`flex-1 py-2 text-center border-b-2 transition-colors ${
+            className={`flex-1 py-3 text-center border-b-2 transition-colors min-h-[44px] ${
               mode === "password"
-                ? "border-[#C6F135] text-[#C6F135] font-semibold"
-                : "border-transparent text-[#98A2B3] hover:text-white"
+                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
+                : "border-transparent text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
             Password
@@ -92,10 +113,10 @@ export default function LoginPage() {
               setMode("magic");
               setErrorMsg(null);
             }}
-            className={`flex-1 py-2 text-center border-b-2 transition-colors ${
+            className={`flex-1 py-3 text-center border-b-2 transition-colors min-h-[44px] ${
               mode === "magic"
-                ? "border-[#C6F135] text-[#C6F135] font-semibold"
-                : "border-transparent text-[#98A2B3] hover:text-white"
+                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
+                : "border-transparent text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
             Magic Link
@@ -105,36 +126,21 @@ export default function LoginPage() {
         {errorMsg && (
           <div
             role="alert"
-            className="mb-4 p-3 bg-[#F43F5E]/10 border border-[#F43F5E]/30 rounded text-xs text-[#F43F5E] font-mono"
+            className="mb-4 p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 rounded text-xs text-[var(--color-danger)] font-mono flex items-start gap-2"
           >
-            {errorMsg}
+            <span className="font-bold">✕</span>
+            <span>{errorMsg}</span>
           </div>
         )}
 
-        {magicSent ? (
-          <div className="text-center py-6">
-            <div className="w-12 h-12 rounded-full bg-[#C6F135]/10 text-[#C6F135] flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 className="text-sm font-semibold text-white mb-1">Check your email</h2>
-            <p className="text-xs text-[#98A2B3] font-mono mb-4">
-              We sent a temporary sign-in link to <span className="text-white">{email}</span>.
-            </p>
-            <button
-              type="button"
-              onClick={() => setMagicSent(false)}
-              className="text-xs text-[#C6F135] font-mono hover:underline"
-            >
-              Use a different email or sign in with password
-            </button>
-          </div>
-        ) : mode === "password" ? (
+        {mode === "password" && (
           <form onSubmit={handlePasswordLogin} className="space-y-4">
             <div>
-              <label htmlFor="login-email" className="block text-xs font-mono text-[#98A2B3] mb-1">
-                Email Address
+              <label
+                htmlFor="login-email"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
+              >
+                EMAIL ADDRESS
               </label>
               <input
                 id="login-email"
@@ -142,17 +148,17 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@company.com"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="you@company.com"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="login-password"
-                className="block text-xs font-mono text-[#98A2B3] mb-1"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
               >
-                Password
+                PASSWORD
               </label>
               <input
                 id="login-password"
@@ -160,57 +166,93 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="••••••••"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              id="login-submit-btn"
+              variant="primary"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-[#C6F135] text-black font-semibold text-xs rounded hover:bg-[#b2dc29] transition-colors disabled:opacity-50 font-mono tracking-wide"
+              className="w-full min-h-[44px] text-xs font-mono font-bold"
             >
-              {loading ? "Signing In..." : "Sign In with Password"}
-            </button>
-          </form>
-        ) : (
-          <form onSubmit={handleMagicLink} className="space-y-4">
-            <div>
-              <label htmlFor="magic-email" className="block text-xs font-mono text-[#98A2B3] mb-1">
-                Work Email Address
-              </label>
-              <input
-                id="magic-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@company.com"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
-              />
-            </div>
-
-            <button
-              type="submit"
-              id="magic-submit-btn"
-              disabled={loading}
-              className="w-full py-2.5 px-4 bg-[#C6F135] text-black font-semibold text-xs rounded hover:bg-[#b2dc29] transition-colors disabled:opacity-50 font-mono tracking-wide"
-            >
-              {loading ? "Sending..." : "Send Magic Link"}
-            </button>
+              {loading ? "Authenticating..." : "Sign In →"}
+            </Button>
           </form>
         )}
 
-        <div className="mt-6 pt-6 border-t border-[#262E3C] text-center text-xs text-[#98A2B3] font-mono">
-          Don&apos;t have an account?{" "}
-          <a
+        {mode === "magic" && (
+          <div>
+            {magicSent ? (
+              <div className="p-4 bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 rounded text-center space-y-3">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-success)]/20 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold">
+                  ✓
+                </div>
+                <div className="text-xs font-mono font-bold text-[var(--text-1)]">
+                  Check your inbox
+                </div>
+                <p className="text-xs text-[var(--text-3)] font-mono">
+                  We sent a temporary sign-in link to <strong className="text-[var(--text-1)]">{email}</strong>.
+                </p>
+                {cooldownSeconds > 0 ? (
+                  <div className="text-[11px] text-[var(--text-3)] font-mono">
+                    Resend link available in {cooldownSeconds}s
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleMagicLink}
+                    className="text-xs font-mono text-[var(--color-primary)] hover:underline min-h-[44px] inline-flex items-center"
+                  >
+                    Resend Magic Link
+                  </button>
+                )}
+              </div>
+            ) : (
+              <form onSubmit={handleMagicLink} className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="magic-email"
+                    className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
+                  >
+                    WORK EMAIL
+                  </label>
+                  <input
+                    id="magic-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                  />
+                  <p className="text-[11px] text-[var(--text-3)] font-mono mt-1.5">
+                    Passwordless authentication. We will email you a secure one-click link.
+                  </p>
+                </div>
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  disabled={loading}
+                  className="w-full min-h-[44px] text-xs font-mono font-bold"
+                >
+                  {loading ? "Sending Link..." : "Send Magic Link →"}
+                </Button>
+              </form>
+            )}
+          </div>
+        )}
+
+        <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] text-center text-xs font-mono text-[var(--text-3)]">
+          Need an account?{" "}
+          <Link
             href="/auth/signup"
-            id="to-signup-link"
-            className="text-[#C6F135] hover:underline font-semibold"
+            className="text-[var(--color-primary)] hover:underline font-semibold"
           >
-            Create Workspace
-          </a>
+            Create workspace
+          </Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getBrowserSupabase } from "../../../lib/supabase-client";
+import { Button } from "@scrappy/ui";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -47,24 +49,28 @@ export default function SignupPage() {
     }
 
     if (data.session) {
-      // Direct session granted
-      router.push("/compare");
+      router.push("/onboarding");
       router.refresh();
       return;
     }
 
-    // Confirmation email sent or pending
     setSuccess(true);
   };
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-[#141820] border border-[#262E3C] rounded-lg p-8 shadow-2xl">
+      <div className="bg-[var(--bg-1)] border border-[var(--border-subtle)] rounded-lg p-6 sm:p-8 shadow-sm">
         <div className="text-center mb-6">
-          <h1 className="text-xl font-mono font-bold text-white tracking-wide">
+          <div className="inline-flex items-center gap-2 mb-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
+            <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-primary)] font-bold">
+              New Account
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold text-[var(--text-1)] tracking-tight">
             Create SCRAPPY Workspace
           </h1>
-          <p className="text-xs text-[#98A2B3] mt-1 font-mono">
+          <p className="text-xs text-[var(--text-3)] mt-1.5 font-mono">
             Get your isolated workspace with multi-merchant price tracking
           </p>
         </div>
@@ -72,36 +78,41 @@ export default function SignupPage() {
         {errorMsg && (
           <div
             role="alert"
-            className="mb-4 p-3 bg-[#F43F5E]/10 border border-[#F43F5E]/30 rounded text-xs text-[#F43F5E] font-mono"
+            className="mb-4 p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 rounded text-xs text-[var(--color-danger)] font-mono flex items-start gap-2"
           >
-            {errorMsg}
+            <span className="font-bold">✕</span>
+            <span>{errorMsg}</span>
           </div>
         )}
 
         {success ? (
-          <div className="text-center py-6">
-            <div className="w-12 h-12 rounded-full bg-[#C6F135]/10 text-[#C6F135] flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+          <div className="p-6 bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 rounded text-center space-y-3">
+            <div className="w-10 h-10 rounded-full bg-[var(--color-success)]/20 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold text-lg">
+              ✓
             </div>
-            <h2 className="text-sm font-semibold text-white mb-1">Account Created</h2>
-            <p className="text-xs text-[#98A2B3] font-mono mb-6">
-              Your personal workspace was auto-provisioned. You can now sign in with your credentials.
+            <h2 className="text-sm font-mono font-bold text-[var(--text-1)]">
+              Workspace Created
+            </h2>
+            <p className="text-xs text-[var(--text-3)] font-mono">
+              We sent a verification confirmation to <strong className="text-[var(--text-1)]">{email}</strong>.
             </p>
-            <a
-              href="/auth/login"
-              id="signup-success-login-btn"
-              className="inline-block py-2.5 px-6 bg-[#C6F135] text-black font-semibold text-xs rounded hover:bg-[#b2dc29] transition-colors font-mono"
-            >
-              Go to Sign In
-            </a>
+            <div className="pt-2">
+              <Link
+                href="/onboarding"
+                className="inline-block px-4 py-2.5 rounded bg-[var(--color-primary)] text-[var(--bg-0)] text-xs font-mono font-bold min-h-[44px] flex items-center justify-center"
+              >
+                Proceed to First Watch Setup →
+              </Link>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSignup} className="space-y-4">
             <div>
-              <label htmlFor="signup-name" className="block text-xs font-mono text-[#98A2B3] mb-1">
-                Full Name
+              <label
+                htmlFor="signup-name"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
+              >
+                FULL NAME
               </label>
               <input
                 id="signup-name"
@@ -109,14 +120,17 @@ export default function SignupPage() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Jane Doe"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="Ada Lovelace"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
             <div>
-              <label htmlFor="signup-email" className="block text-xs font-mono text-[#98A2B3] mb-1">
-                Work Email Address
+              <label
+                htmlFor="signup-email"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
+              >
+                WORK EMAIL
               </label>
               <input
                 id="signup-email"
@@ -124,69 +138,66 @@ export default function SignupPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="jane@company.com"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="you@company.com"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="signup-password"
-                className="block text-xs font-mono text-[#98A2B3] mb-1"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
               >
-                Password (min 8 characters)
+                PASSWORD (MIN 8 CHARACTERS)
               </label>
               <input
                 id="signup-password"
                 type="password"
                 required
-                minLength={8}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="••••••••"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="signup-confirm-password"
-                className="block text-xs font-mono text-[#98A2B3] mb-1"
+                className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium"
               >
-                Confirm Password
+                CONFIRM PASSWORD
               </label>
               <input
                 id="signup-confirm-password"
                 type="password"
                 required
-                minLength={8}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full bg-[#0A0C0F] border border-[#262E3C] rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C6F135] font-mono"
+                placeholder="••••••••"
+                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              id="signup-submit-btn"
+              variant="primary"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-[#C6F135] text-black font-semibold text-xs rounded hover:bg-[#b2dc29] transition-colors disabled:opacity-50 font-mono tracking-wide"
+              className="w-full min-h-[44px] text-xs font-mono font-bold"
             >
-              {loading ? "Creating Account..." : "Create Account & Workspace"}
-            </button>
+              {loading ? "Creating..." : "Create Workspace →"}
+            </Button>
           </form>
         )}
 
-        <div className="mt-6 pt-6 border-t border-[#262E3C] text-center text-xs text-[#98A2B3] font-mono">
+        <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] text-center text-xs font-mono text-[var(--text-3)]">
           Already have an account?{" "}
-          <a
+          <Link
             href="/auth/login"
-            id="to-login-link"
-            className="text-[#C6F135] hover:underline font-semibold"
+            className="text-[var(--color-primary)] hover:underline font-semibold"
           >
-            Sign In
-          </a>
+            Sign in
+          </Link>
         </div>
       </div>
     </div>
