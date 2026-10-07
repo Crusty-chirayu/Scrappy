@@ -35,9 +35,15 @@
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
 | **P7** | Secondary Screens & States | Rebuilt /auth/login, /auth/signup, /onboarding, /pricing, /status, 404, 500 with Signal tokens, Bricolage Grotesque, mono figures, zero overflow | **DONE** | 100/100 | All secondary routes rebuilt, 12 screenshots captured, 0 horizontal pan on 360px |
-| **P8** | Release Gates & Launch Verification | Full monorepo typecheck (23/23 pkgs PASS), full Vitest suite (246/246 tests in 34 suites PASS), ESLint (0 errors), Playwright Axe (28/28 WCAG 2.2 AA scans PASS, 0 violations across 14 routes in 1280 & 360 viewports) | **DONE** | 100/100 | All release gates 100% green |
+| **P8** | Release Gates & Launch Verification | Full monorepo typecheck (23/23 pkgs PASS), full Vitest suite (246/246 tests in 34 suites PASS), ESLint (0 errors), Playwright Axe (28/28 WCAG 2.2 AA scans PASS, 0 violations across 14 routes in 1280 & 360 viewports) | **DONE** | 100/100 | All release gates green |
+| **Hotfix** | Webpack Font TypeError Resolution | Replaced next/font/google with local fontsource packages in globals.css; purged stale cache; verified 58/58 route production build | **DONE** | 100/100 | Commit 4984fa9 |
 
-> **STATUS**: SCRAPPY UI v2 Rebuild Complete. All quality gates passing. Branch `ui-v2` is ready for review and launch.
+> **RESUME POINT**:
+> - **CURRENT BRANCH**: `ui-v2`
+> - **CURRENT HEAD**: `4984fa9`
+> - **LAST COMPLETED PHASE**: Phase P8 + Hotfix `4984fa9`
+> - **WORKING TREE**: Clean
+> - **NEXT RECOMMENDED ACTION**: Owner manually reviews the running UI (`pnpm dev` at `http://localhost:3000`) before any further implementation or git merges.
 
 
 ---
