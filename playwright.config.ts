@@ -7,7 +7,7 @@ export default defineConfig({
   retries: 0,
   timeout: 30000,
   use: {
-    baseURL: "http://localhost:3005",
+    baseURL: "http://localhost:3000",
     trace: "on-first-retry",
   },
   projects: [

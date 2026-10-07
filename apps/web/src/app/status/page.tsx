@@ -181,7 +181,7 @@ export default function StatusPage() {
         <div className="px-5 py-3 border-b border-[var(--border)] bg-[var(--surface-2)] text-xs font-mono font-semibold text-[var(--text-2)] uppercase tracking-wider">
           Active Subsystems &amp; Source Adapters
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Active Subsystems and Source Adapters table">
           <table className="w-full text-left text-sm border-collapse">
             <thead>
               <tr className="border-b border-[var(--border)] text-xs font-mono text-[var(--text-3)] bg-[var(--surface-1)]">

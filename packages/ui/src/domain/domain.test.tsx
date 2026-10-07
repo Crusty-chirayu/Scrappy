@@ -6,7 +6,7 @@ import { PriceTag, formatCurrencyPaise } from "./PriceTag.js";
 import { DataFreshness, getRelativeTimeString } from "./DataFreshness.js";
 import { Sparkline } from "./Sparkline.js";
 import { SyntheticBadge, SyntheticDataBanner } from "./SyntheticBadge.js";
-import { ScrappyLogo } from "../components/ScrappyLogo.js";
+import { ScrappyLogo } from "../brand/ScrappyLogo.js";
 
 describe("@scrappy/ui Domain Components", () => {
   describe("TrustBadge", () => {

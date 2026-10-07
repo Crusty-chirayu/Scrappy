@@ -111,6 +111,7 @@ export function ScrappyLogo({
 
   return (
     <div
+      data-state={_state}
       className={`inline-flex items-center gap-2.5 select-none ${className}`}
       {...props}
     >

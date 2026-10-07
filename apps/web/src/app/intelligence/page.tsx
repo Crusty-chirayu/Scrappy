@@ -351,7 +351,7 @@ function IntelligenceContent() {
               </p>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Competitor price gap table">
               <table className="w-full text-left font-mono text-xs border-collapse">
                 <thead>
                   <tr className="border-b border-[var(--border)] bg-[var(--surface-2)] text-[10px] text-[var(--text-3)] uppercase tracking-wider">
