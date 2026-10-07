@@ -4,20 +4,28 @@ import React, { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import {
   Button,
-  Card,
   useToast,
 } from "@scrappy/ui";
+import {
+  Play,
+  Check,
+  Plus,
+  Trash2,
+  ArrowRight,
+  ArrowLeft,
+  AlertTriangle,
+} from "lucide-react";
 import type { ExtractorField, RunStatus } from "@scrappy/scraping";
 import { validateTargetUrl } from "@scrappy/core";
 
-// Dynamically code-split preview runtime (Performance Budget Rule 8)
+// Dynamically code-split preview runtime
 const ExtractionResultsPreview = dynamic(
   () => import("./ExtractionResultsPreview").then((m) => m.ExtractionResultsPreview),
   {
     ssr: false,
     loading: () => (
-      <div className="p-8 text-center font-mono text-xs text-[var(--text-3)] bg-[var(--bg-1)] border border-[var(--border-subtle)] rounded-lg">
-        <span className="inline-block w-2 h-2 rounded-full bg-[var(--color-primary)] animate-ping mr-2" />
+      <div className="p-8 text-center font-mono text-xs text-[var(--text-3)] bg-[var(--surface-1)] border border-[var(--border)] rounded-xl">
+        <span className="inline-block w-2 h-2 rounded-full bg-[var(--color-accent)] animate-ping mr-2" />
         Loading extraction &amp; parser runtime...
       </div>
     ),
@@ -121,6 +129,7 @@ export default function ExtractStudioPage() {
   const [selectedPreviewField, setSelectedPreviewField] = useState<string | null>("title");
   const [activeRunId, setActiveRunId] = useState<string | null>(null);
   const [activeDatasetId, setActiveDatasetId] = useState<string | null>(null);
+  const [rippleTarget, setRippleTarget] = useState<string | null>(null);
 
   // SSRF check on targetUrl
   const urlCheck = useMemo(() => {
@@ -199,6 +208,12 @@ export default function ExtractStudioPage() {
     );
   };
 
+  const triggerNodeRipple = (fieldName: string) => {
+    setSelectedPreviewField(fieldName);
+    setRippleTarget(fieldName);
+    setTimeout(() => setRippleTarget(null), 600);
+  };
+
   const handleRunExtraction = async () => {
     setRunStatus("RUNNING");
     try {
@@ -242,68 +257,71 @@ export default function ExtractStudioPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 font-sans space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--border)]">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
-            <span className="text-xs uppercase tracking-wider font-mono text-[var(--color-primary)] font-bold">
-              Visual Extraction Studio
+            <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
+            <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+              Point-and-Select Studio
+            </span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--surface-2)] text-[var(--text-2)] border border-[var(--border-subtle)] font-semibold">
+              Live Engine
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-1)]">
-            SCRAPPY EXTRACT
+          <h1 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-[var(--text-1)]">
+            Visual Extraction Workbench
           </h1>
-          <p className="text-sm text-[var(--text-3)] mt-1">
-            3-step visual web extraction with SSRF protection, selector resilience scoring, and provenance audit.
+          <p className="text-xs sm:text-sm text-[var(--text-2)] mt-0.5">
+            Point-and-capture scraping with SSRF guardrails, selector resilience formulas, and verified webhooks.
           </p>
         </div>
 
         {/* State Machine Status */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-2 rounded bg-[var(--bg-1)] border border-[var(--border-subtle)] text-xs font-mono">
+        <div className="flex items-center gap-2 font-mono text-xs shrink-0">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--surface-1)] border border-[var(--border)]">
             <span className="text-[var(--text-3)]">STATUS:</span>
             <span
               className={`font-bold ${
                 runStatus === "SUCCEEDED"
                   ? "text-[var(--color-success)]"
                   : runStatus === "RUNNING"
-                  ? "text-[var(--color-primary)] animate-pulse"
+                  ? "text-[var(--color-accent)] animate-pulse"
                   : "text-[var(--text-1)]"
               }`}
             >
               {runStatus}
             </span>
           </div>
-          <div className="text-xs font-mono px-3 py-2 rounded bg-[var(--bg-1)] border border-[var(--border-subtle)] text-[var(--text-2)]">
+          <div className="px-3 py-1.5 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] text-[var(--text-2)]">
             COMPUTE: {browserMinutes}m
           </div>
         </div>
       </div>
 
       {/* 3-STEP WORKFLOW STEPPER */}
-      <nav aria-label="Extraction Studio Progress" className="mb-8">
+      <nav aria-label="Extraction Studio Progress">
         <ol className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Step 1 */}
           <li>
             <button
               type="button"
               onClick={() => setCurrentStep(1)}
-              className={`w-full text-left p-3.5 rounded-lg border transition-all min-h-[44px] flex items-center justify-between ${
+              className={`w-full text-left p-3.5 rounded-xl border transition-all min-h-[44px] flex items-center justify-between ${
                 currentStep === 1
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5"
-                  : "border-[var(--border-subtle)] bg-[var(--bg-1)] hover:border-[var(--text-3)]"
+                  ? "border-[var(--color-accent)] bg-[var(--color-accent)]/5 shadow-xs"
+                  : "border-[var(--border)] bg-[var(--surface-1)] hover:border-[var(--border-strong)]"
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold ${
                     currentStep === 1
-                      ? "bg-[var(--color-primary)] text-[var(--bg-0)]"
+                      ? "bg-[var(--color-accent)] text-white"
                       : urlCheck.valid
                       ? "bg-[var(--color-success)]/20 text-[var(--color-success)]"
-                      : "bg-[var(--bg-2)] text-[var(--text-3)]"
+                      : "bg-[var(--surface-2)] text-[var(--text-3)]"
                   }`}
                 >
                   1
@@ -329,20 +347,20 @@ export default function ExtractStudioPage() {
               type="button"
               disabled={!urlCheck.valid}
               onClick={() => urlCheck.valid && setCurrentStep(2)}
-              className={`w-full text-left p-3.5 rounded-lg border transition-all min-h-[44px] flex items-center justify-between ${
+              className={`w-full text-left p-3.5 rounded-xl border transition-all min-h-[44px] flex items-center justify-between ${
                 currentStep === 2
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5"
+                  ? "border-[var(--color-accent)] bg-[var(--color-accent)]/5 shadow-xs"
                   : !urlCheck.valid
-                  ? "border-[var(--border-subtle)] bg-[var(--bg-1)] opacity-50 cursor-not-allowed"
-                  : "border-[var(--border-subtle)] bg-[var(--bg-1)] hover:border-[var(--text-3)]"
+                  ? "border-[var(--border-subtle)] bg-[var(--surface-1)] opacity-50 cursor-not-allowed"
+                  : "border-[var(--border)] bg-[var(--surface-1)] hover:border-[var(--border-strong)]"
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold ${
                     currentStep === 2
-                      ? "bg-[var(--color-primary)] text-[var(--bg-0)]"
-                      : "bg-[var(--bg-2)] text-[var(--text-3)]"
+                      ? "bg-[var(--color-accent)] text-white"
+                      : "bg-[var(--surface-2)] text-[var(--text-3)]"
                   }`}
                 >
                   2
@@ -365,20 +383,20 @@ export default function ExtractStudioPage() {
               type="button"
               disabled={!urlCheck.valid}
               onClick={() => urlCheck.valid && setCurrentStep(3)}
-              className={`w-full text-left p-3.5 rounded-lg border transition-all min-h-[44px] flex items-center justify-between ${
+              className={`w-full text-left p-3.5 rounded-xl border transition-all min-h-[44px] flex items-center justify-between ${
                 currentStep === 3
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5"
+                  ? "border-[var(--color-accent)] bg-[var(--color-accent)]/5 shadow-xs"
                   : !urlCheck.valid
-                  ? "border-[var(--border-subtle)] bg-[var(--bg-1)] opacity-50 cursor-not-allowed"
-                  : "border-[var(--border-subtle)] bg-[var(--bg-1)] hover:border-[var(--text-3)]"
+                  ? "border-[var(--border-subtle)] bg-[var(--surface-1)] opacity-50 cursor-not-allowed"
+                  : "border-[var(--border)] bg-[var(--surface-1)] hover:border-[var(--border-strong)]"
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold ${
                     currentStep === 3
-                      ? "bg-[var(--color-primary)] text-[var(--bg-0)]"
-                      : "bg-[var(--bg-2)] text-[var(--text-3)]"
+                      ? "bg-[var(--color-accent)] text-white"
+                      : "bg-[var(--surface-2)] text-[var(--text-3)]"
                   }`}
                 >
                   3
@@ -397,18 +415,18 @@ export default function ExtractStudioPage() {
         </ol>
       </nav>
 
-      {/* ========================================================= */}
       {/* STEP 1: TARGET URL & SSRF POLITENESS CHECK */}
-      {/* ========================================================= */}
       {currentStep === 1 && (
         <div className="space-y-6">
-          <Card className="p-6">
-            <h2 className="text-base font-bold text-[var(--text-1)] mb-1">
-              Step 1: Target URL &amp; Compliance Verification
-            </h2>
-            <p className="text-xs text-[var(--text-3)] mb-6">
-              Enter any public catalog URL. Scrappy enforces SSRF protection against private CIDR ranges, metadata endpoints, and local origins per Constitution Rule 7.
-            </p>
+          <div className="p-6 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs space-y-6">
+            <div>
+              <h2 className="text-base font-display font-semibold text-[var(--text-1)] mb-1">
+                Step 1: Target URL &amp; SSRF Verification
+              </h2>
+              <p className="text-xs text-[var(--text-3)] font-sans">
+                Enter any public catalog URL. Scrappy enforces SSRF protection against private CIDR ranges, metadata endpoints, and local origins.
+              </p>
+            </div>
 
             <div className="space-y-4">
               <div>
@@ -420,87 +438,86 @@ export default function ExtractStudioPage() {
                   type="url"
                   value={targetUrl}
                   onChange={(e) => setTargetUrl(e.target.value)}
-                  className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded-md px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                  className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-lg px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-accent)] min-h-[44px]"
                   placeholder="https://example.com/catalog"
                 />
 
                 {/* SSRF Status Feedback */}
                 {urlCheck.valid ? (
                   <div
-                    className="mt-2.5 p-3 rounded-md bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 text-xs font-mono text-[var(--color-success)] flex items-center gap-2"
+                    className="mt-2.5 p-3 rounded-lg bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 text-xs font-mono text-[var(--color-success)] flex items-start gap-2"
                     role="status"
                   >
-                    <span>✓</span>
-                    <span>Valid public host ({urlCheck.sanitizedUrl}) — SSRF Security Passed</span>
+                    <Check size={14} className="shrink-0 mt-0.5" />
+                    <div className="min-w-0 flex-1 break-all leading-relaxed">
+                      Valid public host ({urlCheck.sanitizedUrl}) — SSRF Check Passed
+                    </div>
                   </div>
                 ) : (
                   <div
-                    className="mt-2.5 p-3 rounded-md bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 text-xs font-mono text-[var(--color-danger)] flex items-start gap-2"
+                    className="mt-2.5 p-3 rounded-lg bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 text-xs font-mono text-[var(--color-danger)] flex items-start gap-2"
                     role="alert"
                   >
-                    <span className="font-bold">✕</span>
+                    <AlertTriangle size={15} className="shrink-0 mt-0.5" />
                     <div>
                       <div className="font-bold">DISALLOWED SOURCE REFUSED (SSRF Protection Active)</div>
                       <div className="text-[11px] mt-0.5 opacity-90">{urlCheck.reason}</div>
-                      <div className="text-[10px] mt-1 text-[var(--text-3)]">
-                        In accordance with SCRAPPY Constitution Rule 6 &amp; 7: Loopback addresses, RFC 1918 private subnets, cloud metadata IPs, and non-HTTP schemes are unconditionally refused.
-                      </div>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Preset Test Buttons for Quick Evaluation */}
-              <div className="pt-2">
+              {/* Preset Test Benchmarks */}
+              <div>
                 <span className="text-xs text-[var(--text-3)] font-mono block mb-2">
-                  TEST BENCHMARKS (CLICK TO VERIFY REFUSAL):
+                  SECURITY BENCHMARKS (TEST REFUSAL):
                 </span>
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
                     onClick={() => setTargetUrl("https://store.example.com/catalog/electronics")}
-                    className="px-2.5 py-1.5 rounded text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-2)] text-[var(--text-2)] hover:text-[var(--text-1)] min-h-[36px]"
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text-2)] hover:text-[var(--text-1)] min-h-[36px]"
                   >
                     Public Catalog (Allowed)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTargetUrl("http://169.254.169.254/latest/meta-data/")}
-                    className="px-2.5 py-1.5 rounded text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Test Cloud Metadata IP (Refused)
+                    Cloud Metadata (Refused)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTargetUrl("http://127.0.0.1:8080/admin")}
-                    className="px-2.5 py-1.5 rounded text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Test Loopback 127.0.0.1 (Refused)
+                    Loopback 127.0.0.1 (Refused)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTargetUrl("http://localhost:3000/internal")}
-                    className="px-2.5 py-1.5 rounded text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Test Localhost (Refused)
+                    Localhost (Refused)
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Politeness & Policy Telemetry */}
-            <div className="mt-6 pt-5 border-t border-[var(--border-subtle)] grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
-              <div className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+            <div className="pt-4 border-t border-[var(--border-subtle)] grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+              <div className="p-3 rounded-lg bg-[var(--surface-2)] border border-[var(--border)]">
                 <div className="text-[var(--text-3)] text-[11px] mb-1">ROBOTS.TXT STATUS</div>
                 <div className="text-[var(--color-success)] font-semibold">Allowed (Disallow: None)</div>
                 <div className="text-[10px] text-[var(--text-3)] mt-0.5">ScrappyBot/1.0 identified</div>
               </div>
-              <div className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+              <div className="p-3 rounded-lg bg-[var(--surface-2)] border border-[var(--border)]">
                 <div className="text-[var(--text-3)] text-[11px] mb-1">CRAWL BUDGET RATE</div>
                 <div className="text-[var(--text-1)] font-semibold">2 req/second (Polite)</div>
                 <div className="text-[10px] text-[var(--text-3)] mt-0.5">Adaptive backoff active</div>
               </div>
-              <div className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+              <div className="p-3 rounded-lg bg-[var(--surface-2)] border border-[var(--border)]">
                 <div className="text-[var(--text-3)] text-[11px] mb-1">EXTRACTION SANDBOX</div>
                 <div className="text-[var(--text-1)] font-semibold">Playwright Ephemeral</div>
                 <div className="text-[10px] text-[var(--text-3)] mt-0.5">Zero persistent state</div>
@@ -508,37 +525,37 @@ export default function ExtractStudioPage() {
             </div>
 
             {/* Stepper Footer Action */}
-            <div className="mt-6 flex justify-end">
+            <div className="flex justify-end pt-2">
               <Button
                 variant="primary"
                 onClick={() => setCurrentStep(2)}
                 disabled={!urlCheck.valid}
-                className="min-h-[44px]"
+                className="min-h-[40px] font-mono text-xs gap-1.5"
               >
-                Proceed to Schema Builder →
+                <span>Proceed to Schema Builder</span>
+                <ArrowRight size={14} />
               </Button>
             </div>
-          </Card>
+          </div>
         </div>
       )}
 
-      {/* ========================================================= */}
-      {/* STEP 2: SCHEMA & SELECTORS (POINT-AND-SELECT) */}
-      {/* ========================================================= */}
+      {/* STEP 2: SCHEMA & SELECTORS (SIGNATURE MOMENT A6 POINT-AND-SELECT) */}
       {currentStep === 2 && (
         <div className="space-y-6">
-          {/* Item Selector & Visual Inspector Header */}
-          <Card className="p-6">
-            <h2 className="text-base font-bold text-[var(--text-1)] mb-1">
-              Step 2: Point-and-Select Schema Builder
-            </h2>
-            <p className="text-xs text-[var(--text-3)] mb-6">
-              Define the repeating card boundary and calibrate resilient CSS/XPath selectors. Resilience scores automatically evaluate DOM stability.
-            </p>
+          <div className="p-6 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs space-y-6">
+            <div>
+              <h2 className="text-base font-display font-semibold text-[var(--text-1)] mb-1">
+                Step 2: Point-and-Select Schema Builder
+              </h2>
+              <p className="text-xs text-[var(--text-3)] font-sans">
+                Click any DOM node below to trigger the selector ripple and bind it to your schema field.
+              </p>
+            </div>
 
-            <div className="mb-6">
+            <div>
               <label htmlFor="item-selector-input" className="block text-xs font-mono text-[var(--text-2)] mb-1.5 font-medium">
-                REPEATING ITEM CONTAINER SELECTOR
+                REPEATING CONTAINER SELECTOR
               </label>
               <div className="flex gap-3">
                 <input
@@ -546,80 +563,101 @@ export default function ExtractStudioPage() {
                   type="text"
                   value={itemSelector}
                   onChange={(e) => setItemSelector(e.target.value)}
-                  className="flex-1 bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded-md px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                  className="flex-1 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-accent)] min-h-[40px]"
                 />
                 <Button
                   variant="secondary"
                   size="sm"
                   onClick={() => setItemSelector(".product-card")}
-                  className="min-h-[44px]"
+                  className="min-h-[40px] font-mono text-xs"
                 >
-                  Reset Default
+                  Reset
                 </Button>
               </div>
-              <span className="inline-block mt-1.5 text-[11px] font-mono text-[var(--text-3)]">
-                Matches 3 container cards in catalog DOM grid
+              <span className="inline-block mt-1 text-[11px] font-mono text-[var(--text-3)]">
+                Matches 3 container cards in catalog DOM
               </span>
             </div>
 
-            {/* Interactive Sample DOM Tree Preview */}
-            <div className="p-4 rounded-lg bg-[var(--bg-2)] border border-[var(--border-subtle)] mb-6">
-              <div className="flex items-center justify-between mb-3">
+            {/* Interactive Sample DOM Tree Preview (SIGNATURE MOMENT A6: RIPPLE EFFECT) */}
+            <div className="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] space-y-3">
+              <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-medium text-[var(--text-2)]">
-                  INTERACTIVE DOM PREVIEW (CLICK AN ELEMENT TO TEST SELECTOR)
+                  INTERACTIVE DOM PREVIEW (POINT-AND-SELECT)
                 </span>
-                <span className="text-[11px] font-mono text-[var(--color-primary)]">
-                  Item Container: {itemSelector}
+                <span className="text-[11px] font-mono text-[var(--color-accent)] font-semibold">
+                  Active: {itemSelector}
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {[
                   { title: "Apple MacBook Air M3 (16GB, 512GB SSD)", price: "₹1,34,900", mrp: "₹1,44,900", store: "Amazon" },
-                  { title: "Sony WH-1000XM5 Wireless Noise Cancelling", price: "₹29,990", mrp: "₹34,990", store: "Flipkart" },
-                  { title: "Samsung Galaxy S24 Ultra 5G (512GB)", price: "₹1,29,999", mrp: "₹1,39,999", store: "Amazon" },
+                  { title: "Sony WH-1000XM5 Wireless Headphones", price: "₹29,990", mrp: "₹34,990", store: "Flipkart" },
+                  { title: "Samsung Galaxy S24 Ultra (512GB)", price: "₹1,29,999", mrp: "₹1,39,999", store: "Amazon" },
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3 rounded border border-[var(--border-subtle)] bg-[var(--bg-1)] relative text-xs space-y-1.5"
+                    className="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--surface-1)] relative text-xs space-y-2 overflow-hidden"
                   >
                     <div className="text-[10px] font-mono text-[var(--text-3)]">Card #{idx + 1}</div>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPreviewField("title")}
-                      className={`block text-left font-bold transition-colors ${
-                        selectedPreviewField === "title"
-                          ? "text-[var(--color-primary)] underline"
-                          : "text-[var(--text-1)] hover:text-[var(--color-primary)]"
-                      }`}
-                    >
-                      {item.title}
-                    </button>
-                    <div className="flex items-center gap-2">
+
+                    {/* Title with Ripple Trigger */}
+                    <div className="relative">
                       <button
                         type="button"
-                        onClick={() => setSelectedPreviewField("pricePaise")}
-                        className={`font-mono font-bold ${
-                          selectedPreviewField === "pricePaise"
-                            ? "text-[var(--color-success)] underline"
-                            : "text-[var(--color-success)]"
+                        onClick={() => triggerNodeRipple("title")}
+                        className={`block text-left font-sans font-semibold transition-colors relative z-10 ${
+                          selectedPreviewField === "title"
+                            ? "text-[var(--color-accent)] underline"
+                            : "text-[var(--text-1)] hover:text-[var(--color-accent)]"
                         }`}
                       >
-                        {item.price}
+                        {item.title}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedPreviewField("mrpPaise")}
-                        className={`font-mono line-through text-[11px] ${
-                          selectedPreviewField === "mrpPaise"
-                            ? "text-[var(--text-1)] underline"
-                            : "text-[var(--text-3)]"
-                        }`}
-                      >
-                        {item.mrp}
-                      </button>
+                      {rippleTarget === "title" && (
+                        <span className="absolute inset-0 rounded bg-[var(--color-accent)]/20 animate-ping pointer-events-none" />
+                      )}
                     </div>
-                    <div className="text-[11px] font-mono text-[var(--text-3)]">
+
+                    {/* Prices with Ripple Trigger */}
+                    <div className="flex items-center gap-2.5">
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => triggerNodeRipple("pricePaise")}
+                          className={`font-mono font-bold tabular-nums relative z-10 ${
+                            selectedPreviewField === "pricePaise"
+                              ? "text-[var(--color-success)] underline"
+                              : "text-[var(--color-success)]"
+                          }`}
+                        >
+                          {item.price}
+                        </button>
+                        {rippleTarget === "pricePaise" && (
+                          <span className="absolute inset-0 rounded bg-[var(--color-success)]/30 animate-ping pointer-events-none" />
+                        )}
+                      </div>
+
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => triggerNodeRipple("mrpPaise")}
+                          className={`font-mono line-through text-[11px] tabular-nums relative z-10 ${
+                            selectedPreviewField === "mrpPaise"
+                              ? "text-[var(--text-1)] underline"
+                              : "text-[var(--text-3)]"
+                          }`}
+                        >
+                          {item.mrp}
+                        </button>
+                        {rippleTarget === "mrpPaise" && (
+                          <span className="absolute inset-0 rounded bg-[var(--color-accent)]/20 animate-ping pointer-events-none" />
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="text-[10px] font-mono text-[var(--text-3)]">
                       Vendor: {item.store}
                     </div>
                   </div>
@@ -628,73 +666,74 @@ export default function ExtractStudioPage() {
             </div>
 
             {/* Field Definitions Table */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-medium text-[var(--text-1)]">
-                  CONFIGURED EXTRACTION FIELDS ({fields.length})
+                  EXTRACTION SCHEMA FIELDS ({fields.length})
                 </span>
-                <Button variant="secondary" size="sm" onClick={handleAddField} className="min-h-[44px]">
-                  + Add New Field
+                <Button variant="secondary" size="sm" onClick={handleAddField} className="min-h-[36px] font-mono text-xs gap-1">
+                  <Plus size={13} />
+                  <span>Add Field</span>
                 </Button>
               </div>
 
-              <div className="overflow-x-auto rounded-lg border border-[var(--border-subtle)]">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[var(--bg-2)] text-[var(--text-3)] font-mono border-b border-[var(--border-subtle)]">
+              <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+                <table className="w-full text-left text-xs font-mono border-collapse">
+                  <thead className="bg-[var(--surface-2)] text-[10px] text-[var(--text-3)] uppercase tracking-wider border-b border-[var(--border)]">
                     <tr>
-                      <th className="py-2.5 px-3">Field Name</th>
+                      <th className="py-2.5 px-3">Field</th>
                       <th className="py-2.5 px-3">Type</th>
                       <th className="py-2.5 px-3">Primary Selector</th>
                       <th className="py-2.5 px-3">Resilience</th>
-                      <th className="py-2.5 px-3 text-right">Actions</th>
+                      <th className="py-2.5 px-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[var(--border-subtle)] bg-[var(--bg-1)]">
+                  <tbody className="divide-y divide-[var(--border-subtle)] bg-[var(--surface-1)]">
                     {fields.map((f) => {
                       const score = f.selectors.resilienceScore ?? 60;
                       return (
-                        <tr key={f.id} className="hover:bg-[var(--bg-2)]/50 transition-colors">
-                          <td className="py-3 px-3 font-mono font-medium text-[var(--text-1)]">
-                            <div className="flex items-center gap-1.5">
+                        <tr key={f.id} className="hover:bg-[var(--surface-2)]/40 transition-colors">
+                          <td className="py-2.5 px-3 font-medium text-[var(--text-1)]">
+                            <div className="flex items-center gap-1">
                               <span>{f.name}</span>
                               {f.required && (
                                 <span className="text-[10px] text-[var(--color-danger)] font-bold">*</span>
                               )}
                             </div>
                           </td>
-                          <td className="py-3 px-3 font-mono text-[var(--text-2)]">
+                          <td className="py-2.5 px-3 text-[var(--text-2)]">
                             {f.type}
                           </td>
-                          <td className="py-3 px-3">
+                          <td className="py-2.5 px-3">
                             <input
                               type="text"
                               aria-label={`Selector for ${f.name}`}
                               value={f.selectors.primary}
                               onChange={(e) => handleUpdateFieldSelector(f.id, e.target.value)}
-                              className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-2.5 py-1.5 text-xs font-mono text-[var(--text-1)] outline-none focus:border-[var(--color-primary)] min-h-[38px]"
+                              className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded px-2.5 py-1 text-xs font-mono text-[var(--text-1)] outline-none focus:border-[var(--color-accent)] min-h-[32px]"
                             />
                           </td>
-                          <td className="py-3 px-3">
+                          <td className="py-2.5 px-3">
                             <span
-                              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium ${
+                              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${
                                 score >= 80
-                                  ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
+                                  ? "bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20"
                                   : score >= 60
-                                  ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
-                                  : "bg-[var(--color-warn)]/10 text-[var(--color-warn)]"
+                                  ? "bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20"
+                                  : "bg-[var(--color-warning)]/10 text-[var(--color-warning)] border border-[var(--color-warning)]/20"
                               }`}
                             >
                               {score}% {score >= 80 ? "Robust" : score >= 60 ? "Moderate" : "Fragile"}
                             </span>
                           </td>
-                          <td className="py-3 px-3 text-right">
+                          <td className="py-2.5 px-3 text-right">
                             <button
                               type="button"
                               onClick={() => handleRemoveField(f.id)}
-                              className="text-xs text-[var(--color-danger)] hover:underline p-1 min-h-[44px] min-w-[44px] inline-flex items-center justify-center font-mono"
+                              className="text-xs text-[var(--color-danger)] hover:underline p-1 font-mono inline-flex items-center gap-1"
                               aria-label={`Remove field ${f.name}`}
                             >
-                              Remove
+                              <Trash2 size={13} />
                             </button>
                           </td>
                         </tr>
@@ -706,98 +745,98 @@ export default function ExtractStudioPage() {
             </div>
 
             {/* Stepper Navigation */}
-            <div className="mt-6 flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
-              <Button variant="secondary" onClick={() => setCurrentStep(1)} className="min-h-[44px]">
-                ← Back to Target
+            <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
+              <Button variant="secondary" onClick={() => setCurrentStep(1)} className="min-h-[40px] font-mono text-xs gap-1.5">
+                <ArrowLeft size={14} />
+                <span>Target</span>
               </Button>
-              <Button variant="primary" onClick={() => setCurrentStep(3)} className="min-h-[44px]">
-                Test &amp; Verify Extraction →
+              <Button variant="primary" onClick={() => setCurrentStep(3)} className="min-h-[40px] font-mono text-xs gap-1.5">
+                <span>Test &amp; Verify</span>
+                <ArrowRight size={14} />
               </Button>
             </div>
-          </Card>
+          </div>
         </div>
       )}
 
-      {/* ========================================================= */}
       {/* STEP 3: LIVE CONFIDENCE TEST & EXPORT */}
-      {/* ========================================================= */}
       {currentStep === 3 && (
         <div className="space-y-6">
-          {/* Confidence Score & Quality Summary */}
+          {/* Quality Metrics Strip */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Card className="p-5 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 flex items-center justify-center font-mono font-bold text-lg text-[var(--color-success)]">
+            <div className="p-4 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 flex items-center justify-center font-mono font-bold text-base text-[var(--color-success)] shrink-0">
                 {confidenceMetrics.confidencePercent}%
               </div>
               <div>
-                <div className="text-xs font-mono text-[var(--text-3)] uppercase">
-                  Confidence Score
+                <div className="text-[10px] font-mono text-[var(--text-3)] uppercase tracking-wider">
+                  Confidence
                 </div>
-                <div className="text-sm font-bold text-[var(--text-1)]">
+                <div className="text-sm font-display font-semibold text-[var(--text-1)]">
                   High Reliability
                 </div>
-                <div className="text-[11px] text-[var(--text-3)] font-mono">
-                  All required fields mapped
+                <div className="text-[11px] text-[var(--text-2)] font-mono">
+                  All mapped fields valid
                 </div>
               </div>
-            </Card>
+            </div>
 
-            <Card className="p-5 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 flex items-center justify-center font-mono font-bold text-lg text-[var(--color-primary)]">
+            <div className="p-4 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 flex items-center justify-center font-mono font-bold text-base text-[var(--color-accent)] shrink-0">
                 {confidenceMetrics.avgResilience}%
               </div>
               <div>
-                <div className="text-xs font-mono text-[var(--text-3)] uppercase">
-                  Avg Selector Resilience
+                <div className="text-[10px] font-mono text-[var(--text-3)] uppercase tracking-wider">
+                  Resilience
                 </div>
-                <div className="text-sm font-bold text-[var(--text-1)]">
-                  CSS Class &amp; Tag Chain
+                <div className="text-sm font-display font-semibold text-[var(--text-1)]">
+                  DOM Stable
                 </div>
-                <div className="text-[11px] text-[var(--text-3)] font-mono">
-                  Resistant to DOM restyling
+                <div className="text-[11px] text-[var(--text-2)] font-mono">
+                  Resistant to restyling
                 </div>
               </div>
-            </Card>
+            </div>
 
-            <Card className="p-5 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[var(--bg-2)] border border-[var(--border-subtle)] flex items-center justify-center font-mono font-bold text-lg text-[var(--text-1)]">
+            <div className="p-4 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex items-center justify-center font-mono font-bold text-base text-[var(--text-1)] shrink-0">
                 3/3
               </div>
               <div>
-                <div className="text-xs font-mono text-[var(--text-3)] uppercase">
-                  Catalog Records Parsed
+                <div className="text-[10px] font-mono text-[var(--text-3)] uppercase tracking-wider">
+                  Parsed Records
                 </div>
-                <div className="text-sm font-bold text-[var(--text-1)]">
-                  0 Extraction Faults
+                <div className="text-sm font-display font-semibold text-[var(--text-1)]">
+                  0 Faults
                 </div>
-                <div className="text-[11px] text-[var(--text-3)] font-mono">
-                  100% fill on title &amp; price
+                <div className="text-[11px] text-[var(--text-2)] font-mono">
+                  100% field fill rate
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
 
           {/* Test Action Bar */}
-          <Card className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-4 rounded-xl bg-[var(--surface-1)] border border-[var(--border)] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setPreviewTab("preview")}
-                className={`px-3 py-2 text-xs font-mono rounded min-h-[44px] transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors ${
                   previewTab === "preview"
-                    ? "bg-[var(--color-primary)] text-[var(--bg-0)] font-bold"
-                    : "bg-[var(--bg-2)] text-[var(--text-2)] hover:text-[var(--text-1)]"
+                    ? "bg-[var(--color-accent)] text-white font-semibold"
+                    : "bg-[var(--surface-2)] text-[var(--text-2)] hover:text-[var(--text-1)]"
                 }`}
               >
-                Extracted Records Table
+                Extracted Records
               </button>
               <button
                 type="button"
                 onClick={() => setPreviewTab("diagnostics")}
-                className={`px-3 py-2 text-xs font-mono rounded min-h-[44px] transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors ${
                   previewTab === "diagnostics"
-                    ? "bg-[var(--color-primary)] text-[var(--bg-0)] font-bold"
-                    : "bg-[var(--bg-2)] text-[var(--text-2)] hover:text-[var(--text-1)]"
+                    ? "bg-[var(--color-accent)] text-white font-semibold"
+                    : "bg-[var(--surface-2)] text-[var(--text-2)] hover:text-[var(--text-1)]"
                 }`}
               >
                 Diagnostics &amp; Audit
@@ -806,10 +845,10 @@ export default function ExtractStudioPage() {
 
             <div className="flex items-center gap-3">
               {activeRunId && (
-                <div className="flex items-center gap-2 font-mono text-[11px] text-[var(--text-2)] px-2.5 py-1 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 text-[11px] text-[var(--text-2)] px-2.5 py-1 rounded bg-[var(--surface-2)] border border-[var(--border-subtle)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)]" />
-                  <span>DB RUN: {activeRunId.slice(0, 8)}</span>
-                  {activeDatasetId && <span>(DS: {activeDatasetId.slice(0, 6)})</span>}
+                  <span>RUN: {activeRunId.slice(0, 8)}</span>
+                  {activeDatasetId && <span>• DS: {activeDatasetId.slice(0, 8)}</span>}
                   <span className="text-[var(--color-success)] uppercase font-semibold">{runStatus}</span>
                 </div>
               )}
@@ -818,12 +857,13 @@ export default function ExtractStudioPage() {
                 size="sm"
                 onClick={handleRunExtraction}
                 disabled={runStatus === "RUNNING"}
-                className="min-h-[44px]"
+                className="min-h-[38px] font-mono text-xs gap-1.5"
               >
-                {runStatus === "RUNNING" ? "Running Test..." : "Run Real Extraction"}
+                <Play size={13} />
+                <span>{runStatus === "RUNNING" ? "Running Test..." : "Run Real Extraction"}</span>
               </Button>
             </div>
-          </Card>
+          </div>
 
           {/* Results Preview Component */}
           <ExtractionResultsPreview
@@ -837,24 +877,23 @@ export default function ExtractStudioPage() {
 
           {/* Stepper Navigation */}
           <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
-            <Button variant="secondary" onClick={() => setCurrentStep(2)} className="min-h-[44px]">
-              ← Back to Schema Builder
+            <Button variant="secondary" onClick={() => setCurrentStep(2)} className="min-h-[40px] font-mono text-xs gap-1.5">
+              <ArrowLeft size={14} />
+              <span>Back to Schema</span>
             </Button>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  showToast({
-                    type: "success",
-                    title: "Recipe Saved",
-                    description: "Extraction recipe saved to workspace templates.",
-                  });
-                }}
-                className="min-h-[44px]"
-              >
-                Save Extractor Recipe
-              </Button>
-            </div>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                showToast({
+                  type: "success",
+                  title: "Recipe Saved",
+                  description: "Extraction recipe saved to workspace templates.",
+                });
+              }}
+              className="min-h-[40px] font-mono text-xs"
+            >
+              Save Extractor Recipe
+            </Button>
           </div>
         </div>
       )}

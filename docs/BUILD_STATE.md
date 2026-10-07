@@ -34,7 +34,7 @@
 | **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
-> **NEXT ACTION**: P5 Intelligence (`/intelligence`) — Rebuild Market-board bento: KPI strip, "Undercut radar" dot-strip, competitor gap table, 30d dry-run rule simulation, and word-budget compliance (<= 200 words).
+> **NEXT ACTION**: P7 Secondary Screens & States — Rebuild `/auth/login`, `/auth/signup`, `/onboarding`, `/pricing`, `/settings`, `/status`, and 404/500 error boundaries with Signal styling, tokens, and copy budgets.
 
 
 ---
