@@ -226,16 +226,55 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href="/compare" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Compare
                 </Link>
+                <Link href="/intelligence" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Intelligence
+                </Link>
+                <Link href="/extract" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Extract
+                </Link>
                 <Link href="/pricing" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Pricing
                 </Link>
-                <Link href="/extract" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
-                  Extract API
-                </Link>
-                <Link href="/dev/kit" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
-                  Design Kit
+                <Link href="/docs" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                  Docs
                 </Link>
               </nav>
+            )}
+
+            {/* App views product switcher (Compare | Intelligence | Extract segmented control) */}
+            {!isLanding && (
+              <div className="hidden lg:flex items-center p-0.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border-subtle)] font-mono text-xs ml-2">
+                <Link
+                  href="/compare"
+                  className={`px-2.5 py-1 rounded-[4px] transition-colors ${
+                    pathname?.startsWith("/compare")
+                      ? "bg-[var(--surface-1)] text-[var(--text-1)] font-semibold shadow-[var(--elevation-1)]"
+                      : "text-[var(--text-3)] hover:text-[var(--text-1)]"
+                  }`}
+                >
+                  Compare
+                </Link>
+                <Link
+                  href="/intelligence"
+                  className={`px-2.5 py-1 rounded-[4px] transition-colors ${
+                    pathname?.startsWith("/intelligence")
+                      ? "bg-[var(--surface-1)] text-[var(--text-1)] font-semibold shadow-[var(--elevation-1)]"
+                      : "text-[var(--text-3)] hover:text-[var(--text-1)]"
+                  }`}
+                >
+                  Intelligence
+                </Link>
+                <Link
+                  href="/extract"
+                  className={`px-2.5 py-1 rounded-[4px] transition-colors ${
+                    pathname?.startsWith("/extract")
+                      ? "bg-[var(--surface-1)] text-[var(--text-1)] font-semibold shadow-[var(--elevation-1)]"
+                      : "text-[var(--text-3)] hover:text-[var(--text-1)]"
+                  }`}
+                >
+                  Extract
+                </Link>
+              </div>
             )}
           </div>
 
