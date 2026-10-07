@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "@scrappy/brand": "workspace:*",
-    "@scrappy/core": "workspace:*"
+    "@scrappy/core": "workspace:*",
+    "lucide-react": "^1.52.0",
+    "motion": "^14.0.0"
   },
   "devDependencies": {
     "@scrappy/config": "workspace:*",

@@ -19,6 +19,8 @@
     "@scrappy/scraping": "workspace:*",
     "@scrappy/ui": "workspace:*",
     "@supabase/supabase-js": "^2.117.2",
+    "lucide-react": "^1.52.0",
+    "motion": "^14.0.0",
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
