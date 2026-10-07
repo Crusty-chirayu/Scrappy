@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "../components/auth-context";
 import { AppShell } from "../components/AppShell";
-import { fontUi, fontDisplay, fontMono } from "./fonts";
+import { fontUi, fontDisplay, fontMono, fontSerif } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontUi.variable} ${fontDisplay.variable} ${fontMono.variable}`}
+      className={`${fontUi.variable} ${fontDisplay.variable} ${fontMono.variable} ${fontSerif.variable}`}
     >
       <head>
         <script

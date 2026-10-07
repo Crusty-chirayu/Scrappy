@@ -34,7 +34,7 @@
 | **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
-> **NEXT ACTION**: COMPLETE — all quality gates green. See docs/GO_LIVE_CHECKLIST.md for go-live steps.
+> **NEXT ACTION**: P2 Shells — Build Signal marketing shell, app shell with animated active rail, command palette (⌘K), notification drawer, mobile bottom tab bar, and circular theme reveal transition.
 
 
 ---

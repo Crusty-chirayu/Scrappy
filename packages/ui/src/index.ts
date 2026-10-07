@@ -15,11 +15,14 @@ export * from "./components/Toast.js";
 export * from "./components/Skeleton.js";
 export * from "./components/Table.js";
 
-// Brand, Icons & Illustrations (Slice A)
+// Brand, Icons & Illustrations (Slice A & v2)
 export * from "./brand/ScrappyLogo.js";
+export * from "./brand/SignalLogo.js";
 export * from "./icons/icons.js";
 export * from "./icons/animated.js";
 export * from "./illustrations/illustrations.js";
+export * from "./illustrations/SpotIllustrations.js";
+export * from "./illustrations/ProductSilhouette.js";
 
 // Structural & Feedback Components
 export * from "./components/EmptyState.js";

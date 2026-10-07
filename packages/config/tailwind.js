@@ -61,8 +61,8 @@ module.exports = {
       fontFamily: {
         ui: ["var(--font-ui)", "system-ui", "sans-serif"],
         sans: ["var(--font-ui)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "serif"],
-        serif: ["var(--font-display)", "serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "monospace"],
       },
       borderRadius: {

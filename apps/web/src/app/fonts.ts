@@ -1,26 +1,25 @@
-import { Inter, JetBrains_Mono, Instrument_Serif } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
-export const fontUi = Inter({
-  subsets: ["latin"],
-  variable: "--font-ui",
-  display: "swap",
-  fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
-  adjustFontFallback: true,
-});
-
-export const fontDisplay = Instrument_Serif({
-  weight: ["400"],
+export const fontDisplay = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  weight: ["600"],
+  fallback: ["system-ui", "sans-serif"],
+  adjustFontFallback: true,
+});
+
+export const fontSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["400"],
+  style: ["italic", "normal"],
   fallback: ["Georgia", "serif"],
   adjustFontFallback: true,
 });
 
-export const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
-  adjustFontFallback: true,
-});
+export const fontUi = GeistSans;
+export const fontMono = GeistMono;
