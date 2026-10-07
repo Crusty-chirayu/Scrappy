@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Button, Card, useToast } from "@scrappy/ui";
+import { Check, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
 
 interface PersonaOption {
   id: string;
@@ -114,19 +115,17 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
       {/* Eyebrow & Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 mb-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
-          <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-primary)] font-bold">
-            Workspace Initialization
-          </span>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-mono font-medium mb-3">
+          <Sparkles size={12} />
+          <span>FIRST WATCH SETUP</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-1)] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)] tracking-tight">
           Welcome to SCRAPPY
         </h1>
-        <p className="text-xs sm:text-sm text-[var(--text-3)] mt-1.5 font-mono max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-[var(--text-3)] mt-2 font-mono max-w-lg mx-auto">
           Complete this 3-step setup to activate your first multi-retailer price tracking monitor.
         </p>
       </div>
@@ -134,7 +133,7 @@ export default function OnboardingPage() {
       {/* 3-Step Progress Indicator */}
       {step < 4 && (
         <nav aria-label="Onboarding Progress" className="mb-8">
-          <ol className="grid grid-cols-3 gap-2">
+          <ol className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               { num: 1, label: "Workspace Focus" },
               { num: 2, label: "First Product" },
@@ -142,27 +141,27 @@ export default function OnboardingPage() {
             ].map((s) => (
               <li key={s.num}>
                 <div
-                  className={`p-3 rounded-lg border text-left transition-all ${
+                  className={`p-3 rounded-xl border text-left transition-all ${
                     step === s.num
-                      ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-xs"
                       : step > s.num
                       ? "border-[var(--color-success)]/40 bg-[var(--color-success)]/5"
-                      : "border-[var(--border-subtle)] bg-[var(--bg-1)] opacity-60"
+                      : "border-[var(--border)] bg-[var(--surface-1)] opacity-60"
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
-                      className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-mono font-bold ${
+                      className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
                         step === s.num
-                          ? "bg-[var(--color-primary)] text-[var(--bg-0)]"
+                          ? "bg-[var(--color-accent)] text-white"
                           : step > s.num
-                          ? "bg-[var(--color-success)] text-[var(--bg-0)]"
-                          : "bg-[var(--bg-2)] text-[var(--text-3)]"
+                          ? "bg-[var(--color-success)] text-white"
+                          : "bg-[var(--surface-2)] text-[var(--text-3)]"
                       }`}
                     >
-                      {step > s.num ? "✓" : s.num}
+                      {step > s.num ? <Check size={11} /> : s.num}
                     </span>
-                    <span className="text-xs font-semibold text-[var(--text-1)] truncate">
+                    <span className="text-xs font-mono font-medium text-[var(--text-1)] truncate">
                       {s.label}
                     </span>
                   </div>
@@ -177,9 +176,9 @@ export default function OnboardingPage() {
       {/* STEP 1: WORKSPACE FOCUS / PERSONA */}
       {/* ========================================================= */}
       {step === 1 && (
-        <Card className="p-6 space-y-6">
+        <Card className="p-6 sm:p-8 space-y-6 bg-[var(--surface-1)] border-[var(--border)] rounded-2xl shadow-xs">
           <div>
-            <h2 className="text-lg font-bold text-[var(--text-1)]">
+            <h2 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Step 1: Choose Your Primary Focus
             </h2>
             <p className="text-xs text-[var(--text-3)] font-mono mt-1">
@@ -193,14 +192,14 @@ export default function OnboardingPage() {
                 key={p.id}
                 type="button"
                 onClick={() => setSelectedPersona(p.id)}
-                className={`p-4 rounded-lg border text-left transition-all min-h-[44px] ${
+                className={`p-4 rounded-xl border text-left transition-all min-h-[44px] ${
                   selectedPersona === p.id
-                    ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-sm"
-                    : "border-[var(--border-subtle)] bg-[var(--bg-2)] hover:border-[var(--text-3)]"
+                    ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-xs"
+                    : "border-[var(--border)] bg-[var(--surface-2)] hover:border-[var(--text-3)]"
                 }`}
               >
                 <div className="text-2xl mb-2" aria-hidden="true">{p.icon}</div>
-                <div className="text-sm font-bold text-[var(--text-1)] mb-1">
+                <div className="text-sm font-semibold text-[var(--text-1)] mb-1">
                   {p.title}
                 </div>
                 <div className="text-xs text-[var(--text-3)]">
@@ -214,9 +213,10 @@ export default function OnboardingPage() {
             <Button
               variant="primary"
               onClick={() => setStep(2)}
-              className="min-h-[44px] font-mono text-xs font-bold"
+              className="min-h-[44px] font-mono text-xs font-semibold gap-1.5"
             >
-              Continue to Product Selection →
+              <span>Continue to Product Selection</span>
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Card>
@@ -226,9 +226,9 @@ export default function OnboardingPage() {
       {/* STEP 2: CHOOSE FIRST TRACKED PRODUCT */}
       {/* ========================================================= */}
       {step === 2 && (
-        <Card className="p-6 space-y-6">
+        <Card className="p-6 sm:p-8 space-y-6 bg-[var(--surface-1)] border-[var(--border)] rounded-2xl shadow-xs">
           <div>
-            <h2 className="text-lg font-bold text-[var(--text-1)]">
+            <h2 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Step 2: Choose Your First Tracked Product
             </h2>
             <p className="text-xs text-[var(--text-3)] font-mono mt-1">
@@ -247,22 +247,22 @@ export default function OnboardingPage() {
                   key={prod.id}
                   type="button"
                   onClick={() => setSelectedProductId(prod.id)}
-                  className={`w-full p-4 rounded-lg border text-left transition-all min-h-[44px] flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                  className={`w-full p-4 rounded-xl border text-left transition-all min-h-[44px] flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                     isSelected
-                      ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-sm"
-                      : "border-[var(--border-subtle)] bg-[var(--bg-2)] hover:border-[var(--text-3)]"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-xs"
+                      : "border-[var(--border)] bg-[var(--surface-2)] hover:border-[var(--text-3)]"
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-[var(--color-primary)]">
+                      <span className="text-xs font-mono font-bold text-[var(--color-accent)]">
                         {prod.brand}
                       </span>
                       <span className="text-xs text-[var(--text-3)] font-mono">
                         · {prod.retailerCount} Merchants
                       </span>
                     </div>
-                    <div className="text-sm font-bold text-[var(--text-1)]">
+                    <div className="text-sm font-semibold text-[var(--text-1)]">
                       {prod.title}
                     </div>
                   </div>
@@ -277,13 +277,13 @@ export default function OnboardingPage() {
                       </div>
                     </div>
                     <div
-                      className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs font-bold ${
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs font-bold shrink-0 ${
                         isSelected
-                          ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--bg-0)]"
-                          : "border-[var(--border-subtle)]"
+                          ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white"
+                          : "border-[var(--border)]"
                       }`}
                     >
-                      {isSelected ? "✓" : ""}
+                      {isSelected ? <Check size={11} /> : null}
                     </div>
                   </div>
                 </button>
@@ -295,16 +295,18 @@ export default function OnboardingPage() {
             <Button
               variant="secondary"
               onClick={() => setStep(1)}
-              className="min-h-[44px] font-mono text-xs"
+              className="min-h-[44px] font-mono text-xs gap-1.5"
             >
-              ← Back
+              <ArrowLeft size={14} />
+              <span>Back</span>
             </Button>
             <Button
               variant="primary"
               onClick={() => setStep(3)}
-              className="min-h-[44px] font-mono text-xs font-bold"
+              className="min-h-[44px] font-mono text-xs font-semibold gap-1.5"
             >
-              Continue to Alert Trigger →
+              <span>Continue to Alert Trigger</span>
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Card>
@@ -314,9 +316,9 @@ export default function OnboardingPage() {
       {/* STEP 3: CONFIGURE ALERT TRIGGER */}
       {/* ========================================================= */}
       {step === 3 && (
-        <Card className="p-6 space-y-6">
+        <Card className="p-6 sm:p-8 space-y-6 bg-[var(--surface-1)] border-[var(--border)] rounded-2xl shadow-xs">
           <div>
-            <h2 className="text-lg font-bold text-[var(--text-1)]">
+            <h2 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Step 3: Configure Price Drop Alert Trigger
             </h2>
             <p className="text-xs text-[var(--text-3)] font-mono mt-1">
@@ -339,10 +341,10 @@ export default function OnboardingPage() {
                   key={t.id}
                   type="button"
                   onClick={() => setThresholdType(t.id as "5_percent" | "10_percent" | "all_time_low")}
-                  className={`p-3.5 rounded-lg border text-left transition-all min-h-[44px] ${
+                  className={`p-3.5 rounded-xl border text-left transition-all min-h-[44px] ${
                     thresholdType === t.id
-                      ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
-                      : "border-[var(--border-subtle)] bg-[var(--bg-2)] hover:border-[var(--text-3)]"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-xs"
+                      : "border-[var(--border)] bg-[var(--surface-2)] hover:border-[var(--text-3)]"
                   }`}
                 >
                   <div className="text-xs font-bold text-[var(--text-1)]">{t.label}</div>
@@ -358,15 +360,15 @@ export default function OnboardingPage() {
               NOTIFICATION CHANNELS
             </label>
             <div className="space-y-2">
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-2)] cursor-pointer min-h-[44px]">
+              <label className="flex items-center gap-3 p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-2)] cursor-pointer min-h-[44px]">
                 <input
                   type="checkbox"
                   checked={notifyEmail}
                   onChange={(e) => setNotifyEmail(e.target.checked)}
-                  className="w-4 h-4 rounded text-[var(--color-primary)]"
+                  className="w-4 h-4 rounded text-[var(--color-accent)] accent-[var(--color-accent)]"
                 />
                 <div>
-                  <div className="text-xs font-bold text-[var(--text-1)]">
+                  <div className="text-xs font-semibold text-[var(--text-1)]">
                     Email Notifications
                   </div>
                   <div className="text-[11px] text-[var(--text-3)] font-mono">
@@ -375,15 +377,15 @@ export default function OnboardingPage() {
                 </div>
               </label>
 
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-2)] cursor-pointer min-h-[44px]">
+              <label className="flex items-center gap-3 p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-2)] cursor-pointer min-h-[44px]">
                 <input
                   type="checkbox"
                   checked={notifyInApp}
                   onChange={(e) => setNotifyInApp(e.target.checked)}
-                  className="w-4 h-4 rounded text-[var(--color-primary)]"
+                  className="w-4 h-4 rounded text-[var(--color-accent)] accent-[var(--color-accent)]"
                 />
                 <div>
-                  <div className="text-xs font-bold text-[var(--text-1)]">
+                  <div className="text-xs font-semibold text-[var(--text-1)]">
                     In-App Notification Center
                   </div>
                   <div className="text-[11px] text-[var(--text-3)] font-mono">
@@ -398,16 +400,18 @@ export default function OnboardingPage() {
             <Button
               variant="secondary"
               onClick={() => setStep(2)}
-              className="min-h-[44px] font-mono text-xs"
+              className="min-h-[44px] font-mono text-xs gap-1.5"
             >
-              ← Back
+              <ArrowLeft size={14} />
+              <span>Back</span>
             </Button>
             <Button
               variant="primary"
               onClick={handleComplete}
-              className="min-h-[44px] font-mono text-xs font-bold"
+              className="min-h-[44px] font-mono text-xs font-semibold gap-1.5"
             >
-              Activate First Watch →
+              <span>Activate First Watch</span>
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Card>
@@ -417,16 +421,16 @@ export default function OnboardingPage() {
       {/* STEP 4: SUCCESS / COMPLETE SCREEN */}
       {/* ========================================================= */}
       {step === 4 && (
-        <Card className="p-8 text-center space-y-6">
+        <Card className="p-8 text-center space-y-6 bg-[var(--surface-1)] border-[var(--border)] rounded-2xl shadow-xs">
           <div className="w-14 h-14 rounded-full bg-[var(--color-success)]/10 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold text-2xl border border-[var(--color-success)]/30">
-            ✓
+            <Check size={28} />
           </div>
 
           <div>
             <span className="font-mono text-xs text-[var(--color-success)] font-bold uppercase tracking-wider">
               Setup Complete
             </span>
-            <h2 className="text-2xl font-bold text-[var(--text-1)] tracking-tight mt-1">
+            <h2 className="text-2xl font-display font-semibold text-[var(--text-1)] tracking-tight mt-1">
               Your Workspace is Live
             </h2>
             <p className="text-xs sm:text-sm text-[var(--text-3)] font-mono max-w-md mx-auto mt-2">
@@ -434,10 +438,10 @@ export default function OnboardingPage() {
             </p>
           </div>
 
-          <div className="p-4 rounded-lg bg-[var(--bg-2)] border border-[var(--border-subtle)] text-xs font-mono text-left max-w-md mx-auto space-y-2">
+          <div className="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono text-left max-w-md mx-auto space-y-2">
             <div className="flex justify-between">
               <span className="text-[var(--text-3)]">Active Rule:</span>
-              <span className="text-[var(--text-1)] font-bold">
+              <span className="text-[var(--text-1)] font-semibold">
                 {thresholdType === "5_percent" ? "5% Drop" : thresholdType === "10_percent" ? "10% Drop" : "All-Time Low"}
               </span>
             </div>
@@ -449,20 +453,21 @@ export default function OnboardingPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-[var(--text-3)]">Polling Frequency:</span>
-              <span className="text-[var(--color-primary)]">Every 15 minutes</span>
+              <span className="text-[var(--color-accent)] font-semibold">Every 15 minutes</span>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
               href="/watchlist"
-              className="w-full sm:w-auto px-6 py-3 rounded bg-[var(--color-primary)] text-[var(--bg-0)] font-mono text-xs font-bold min-h-[44px] flex items-center justify-center hover:opacity-90 transition-opacity"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[var(--color-accent)] text-white font-mono text-xs font-semibold min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
             >
-              View in Watchlist →
+              <span>View in Watchlist</span>
+              <ArrowRight size={14} />
             </Link>
             <Link
               href="/compare"
-              className="w-full sm:w-auto px-6 py-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)] text-[var(--text-1)] font-mono text-xs font-semibold min-h-[44px] flex items-center justify-center hover:border-[var(--text-3)] transition-colors"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text-1)] font-mono text-xs font-semibold min-h-[44px] flex items-center justify-center hover:border-[var(--text-3)] transition-colors"
             >
               Explore Full Catalog
             </Link>

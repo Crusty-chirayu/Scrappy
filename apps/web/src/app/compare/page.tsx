@@ -178,7 +178,7 @@ export default function ComparePage() {
                 </span>
                 <span className="text-[var(--text-3)] font-mono text-xs">·</span>
                 <span className="px-2 py-0.5 rounded bg-[var(--surface-2)] text-[var(--color-accent)] font-mono text-[11px] font-semibold">
-                  Demo data
+                  Sample data
                 </span>
                 <span className="text-[var(--text-3)] font-mono text-xs">·</span>
                 <span className="font-mono text-[11px] text-[var(--text-3)]">
@@ -186,10 +186,10 @@ export default function ComparePage() {
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-[var(--text-1)]">
-                Cross-Store Price Parity
+                Compare Prices Across Verified Stores
               </h1>
               <p className="text-xs sm:text-sm font-sans text-[var(--text-2)] mt-0.5 max-w-2xl">
-                Indexed from Amazon, Flipkart, Croma, and Reliance Digital. Zero false matches.
+                Indexed from Amazon India, Flipkart, Croma, and Reliance Digital. Zero false matches.
               </p>
             </div>
 
@@ -324,7 +324,7 @@ export default function ComparePage() {
                   aria-label="Sort products"
                   className="px-2.5 py-2 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] text-[var(--text-1)] font-mono text-xs focus:outline-none focus:border-[var(--color-accent)] min-h-[40px]"
                 >
-                  <option value="relevance">Relevance</option>
+                  <option value="relevance">Deal Score / Relevance</option>
                   <option value="price_asc">Price: Low to High</option>
                   <option value="price_desc">Price: High to Low</option>
                 </select>
@@ -569,7 +569,7 @@ export default function ComparePage() {
                           className="gap-1.5 font-mono text-xs min-h-[36px]"
                         >
                           <Scale size={14} />
-                          <span>{isCompared ? "In Tray" : "Compare"}</span>
+                          <span>{isCompared ? "In Tray" : "+ Add to Compare"}</span>
                         </Button>
 
                         <Button
@@ -591,7 +591,7 @@ export default function ComparePage() {
                           onClick={() => toggleExpand(product.id)}
                           className="px-2.5 py-1.5 text-xs text-[var(--text-2)] hover:text-[var(--text-1)] flex items-center gap-1 min-h-[36px]"
                         >
-                          <span>{isExpanded ? "Hide Stores" : "View Stores"}</span>
+                          <span>{isExpanded ? "Hide Stores" : "View All Stores"}</span>
                           <ChevronDown
                             size={14}
                             className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
@@ -600,7 +600,7 @@ export default function ComparePage() {
 
                         <Link href={`/compare/${product.id}`}>
                           <Button variant="ghost" size="sm" className="gap-1 font-mono text-xs min-h-[36px]">
-                            <span>Details</span>
+                            <span>Inspect History</span>
                             <ChevronRight size={14} />
                           </Button>
                         </Link>

@@ -34,7 +34,9 @@
 | **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
-> **NEXT ACTION**: P7 Secondary Screens & States — Rebuild `/auth/login`, `/auth/signup`, `/onboarding`, `/pricing`, `/settings`, `/status`, and 404/500 error boundaries with Signal styling, tokens, and copy budgets.
+| **P7** | Secondary Screens & States | Rebuilt /auth/login, /auth/signup, /onboarding, /pricing, /status, 404, 500 with Signal tokens, Bricolage Grotesque, mono figures, zero overflow | **DONE** | 100/100 | All secondary routes rebuilt, 12 screenshots captured, 0 horizontal pan on 360px |
+
+> **NEXT ACTION**: P8 Final Verification & Release Gates — Run full monorepo typecheck, full vitest test suites, and compile launch audit report.
 
 
 ---

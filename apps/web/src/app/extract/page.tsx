@@ -264,14 +264,14 @@ export default function ExtractStudioPage() {
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-              Point-and-Select Studio
+              SCRAPPY EXTRACT • Point-and-Select Studio
             </span>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--surface-2)] text-[var(--text-2)] border border-[var(--border-subtle)] font-semibold">
               Live Engine
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-[var(--text-1)]">
-            Visual Extraction Workbench
+            Visual Extraction Studio
           </h1>
           <p className="text-xs sm:text-sm text-[var(--text-2)] mt-0.5">
             Point-and-capture scraping with SSRF guardrails, selector resilience formulas, and verified webhooks.
@@ -470,7 +470,7 @@ export default function ExtractStudioPage() {
               {/* Preset Test Benchmarks */}
               <div>
                 <span className="text-xs text-[var(--text-3)] font-mono block mb-2">
-                  SECURITY BENCHMARKS (TEST REFUSAL):
+                  TEST BENCHMARKS (CLICK TO VERIFY REFUSAL)
                 </span>
                 <div className="flex flex-wrap gap-2">
                   <button
@@ -485,21 +485,21 @@ export default function ExtractStudioPage() {
                     onClick={() => setTargetUrl("http://169.254.169.254/latest/meta-data/")}
                     className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Cloud Metadata (Refused)
+                    Test Cloud Metadata IP (Refused)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTargetUrl("http://127.0.0.1:8080/admin")}
                     className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Loopback 127.0.0.1 (Refused)
+                    Test Loopback 127.0.0.1 (Refused)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTargetUrl("http://localhost:3000/internal")}
                     className="px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 text-[var(--color-danger)] min-h-[36px]"
                   >
-                    Localhost (Refused)
+                    Test Localhost (Refused)
                   </button>
                 </div>
               </div>
@@ -532,8 +532,7 @@ export default function ExtractStudioPage() {
                 disabled={!urlCheck.valid}
                 className="min-h-[40px] font-mono text-xs gap-1.5"
               >
-                <span>Proceed to Schema Builder</span>
-                <ArrowRight size={14} />
+                <span>Proceed to Schema Builder →</span>
               </Button>
             </div>
           </div>

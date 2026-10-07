@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getBrowserSupabase } from "../../../lib/supabase-client";
 import { Button } from "@scrappy/ui";
+import { Shield, KeyRound, Mail, ArrowRight, Check } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -72,25 +73,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-[var(--bg-1)] border border-[var(--border-subtle)] rounded-lg p-6 sm:p-8 shadow-sm">
+    <div className="max-w-md mx-auto px-4 py-16 sm:py-24">
+      <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-2xl p-6 sm:p-8 shadow-xs">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 mb-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
-            <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-primary)] font-bold">
-              Secure Authentication
-            </span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-mono font-medium mb-3">
+            <Shield size={12} />
+            <span>SECURE ACCESS</span>
           </div>
-          <h1 className="text-2xl font-bold text-[var(--text-1)] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)] tracking-tight">
             Sign In to SCRAPPY
           </h1>
-          <p className="text-xs text-[var(--text-3)] mt-1.5 font-mono">
-            Precision data instrument: Compare, Intelligence, and Extract
+          <p className="text-xs text-[var(--text-3)] mt-2 font-mono">
+            Compare, Intelligence, and Extract on one unified platform
           </p>
         </div>
 
         {/* Tab switch */}
-        <div className="flex border-b border-[var(--border-subtle)] mb-6 font-mono text-xs">
+        <div className="flex bg-[var(--surface-2)] p-1 rounded-xl mb-6 font-mono text-xs border border-[var(--border-subtle)]">
           <button
             type="button"
             id="tab-password"
@@ -98,13 +97,14 @@ export default function LoginPage() {
               setMode("password");
               setErrorMsg(null);
             }}
-            className={`flex-1 py-3 text-center border-b-2 transition-colors min-h-[44px] ${
+            className={`flex-1 py-2 text-center rounded-lg transition-all min-h-[36px] flex items-center justify-center gap-1.5 ${
               mode === "password"
-                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
-                : "border-transparent text-[var(--text-3)] hover:text-[var(--text-1)]"
+                ? "bg-[var(--surface-1)] text-[var(--text-1)] font-semibold shadow-xs"
+                : "text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
-            Password
+            <KeyRound size={13} />
+            <span>Password</span>
           </button>
           <button
             type="button"
@@ -113,20 +113,21 @@ export default function LoginPage() {
               setMode("magic");
               setErrorMsg(null);
             }}
-            className={`flex-1 py-3 text-center border-b-2 transition-colors min-h-[44px] ${
+            className={`flex-1 py-2 text-center rounded-lg transition-all min-h-[36px] flex items-center justify-center gap-1.5 ${
               mode === "magic"
-                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
-                : "border-transparent text-[var(--text-3)] hover:text-[var(--text-1)]"
+                ? "bg-[var(--surface-1)] text-[var(--text-1)] font-semibold shadow-xs"
+                : "text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
-            Magic Link
+            <Mail size={13} />
+            <span>Magic Link</span>
           </button>
         </div>
 
         {errorMsg && (
           <div
             role="alert"
-            className="mb-4 p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 rounded text-xs text-[var(--color-danger)] font-mono flex items-start gap-2"
+            className="mb-4 p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 rounded-xl text-xs text-[var(--color-danger)] font-mono flex items-start gap-2"
           >
             <span className="font-bold">✕</span>
             <span>{errorMsg}</span>
@@ -149,7 +150,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-accent)] min-h-[44px]"
               />
             </div>
 
@@ -167,7 +168,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-accent)] min-h-[44px]"
               />
             </div>
 
@@ -176,9 +177,10 @@ export default function LoginPage() {
               type="submit"
               variant="primary"
               disabled={loading}
-              className="w-full min-h-[44px] text-xs font-mono font-bold"
+              className="w-full min-h-[44px] text-xs font-mono font-semibold gap-1.5 justify-center"
             >
-              {loading ? "Authenticating..." : "Sign In →"}
+              <span>{loading ? "Authenticating..." : "Sign In"}</span>
+              <ArrowRight size={14} />
             </Button>
           </form>
         )}
@@ -186,9 +188,9 @@ export default function LoginPage() {
         {mode === "magic" && (
           <div>
             {magicSent ? (
-              <div className="p-4 bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 rounded text-center space-y-3">
-                <div className="w-8 h-8 rounded-full bg-[var(--color-success)]/20 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold">
-                  ✓
+              <div className="p-5 bg-[var(--color-success)]/10 border border-[var(--color-success)]/30 rounded-xl text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[var(--color-success)]/20 text-[var(--color-success)] mx-auto flex items-center justify-center font-bold">
+                  <Check size={18} />
                 </div>
                 <h2 className="text-xs font-mono font-bold text-[var(--text-1)]">
                   Check your email
@@ -204,7 +206,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={handleMagicLink}
-                    className="text-xs font-mono text-[var(--color-primary)] hover:underline min-h-[44px] inline-flex items-center"
+                    className="text-xs font-mono text-[var(--color-accent)] hover:underline min-h-[44px] inline-flex items-center"
                   >
                     Resend Magic Link
                   </button>
@@ -226,7 +228,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
-                    className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-primary)] min-h-[44px]"
+                    className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-1)] font-mono outline-none focus:border-[var(--color-accent)] min-h-[44px]"
                   />
                   <p className="text-[11px] text-[var(--text-3)] font-mono mt-1.5">
                     Passwordless authentication. We will email you a secure one-click link.
@@ -238,9 +240,10 @@ export default function LoginPage() {
                   type="submit"
                   variant="primary"
                   disabled={loading}
-                  className="w-full min-h-[44px] text-xs font-mono font-bold"
+                  className="w-full min-h-[44px] text-xs font-mono font-semibold gap-1.5 justify-center"
                 >
-                  {loading ? "Sending Link..." : "Send Magic Link →"}
+                  <span>{loading ? "Sending Link..." : "Send Magic Link"}</span>
+                  <ArrowRight size={14} />
                 </Button>
               </form>
             )}
@@ -251,7 +254,7 @@ export default function LoginPage() {
           Need an account?{" "}
           <Link
             href="/auth/signup"
-            className="text-[var(--color-primary)] hover:underline font-semibold"
+            className="text-[var(--color-accent)] hover:underline font-semibold"
           >
             Create workspace
           </Link>

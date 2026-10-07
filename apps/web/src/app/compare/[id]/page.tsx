@@ -270,7 +270,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs uppercase font-mono tracking-wider font-semibold text-[var(--text-3)]">
-                Lowest Price
+                Lowest Verified Price
               </span>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20 font-semibold">
                 BEST OFFER
@@ -383,7 +383,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div>
             <div className="flex items-center gap-2">
               <h2 id="offers-heading" className="text-base font-display font-semibold text-[var(--text-1)]">
-                Store Offers ({product.offers.length})
+                All Verified Store Offers ({product.offers.length})
               </h2>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--surface-1)] text-[var(--text-2)] border border-[var(--border-subtle)]">
                 Verified Feeds
@@ -410,9 +410,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <table className="w-full text-left text-sm border-collapse font-sans">
               <thead>
                 <tr className="border-b border-[var(--border)] bg-[var(--surface-1)] text-xs font-mono uppercase tracking-wider text-[var(--text-3)]">
-                  <th scope="col" className="py-3 px-4 sm:px-6">Store</th>
+                  <th scope="col" className="py-3 px-4 sm:px-6">Merchant Store</th>
                   <th scope="col" className="py-3 px-4">Price</th>
-                  <th scope="col" className="py-3 px-4">Stock</th>
+                  <th scope="col" className="py-3 px-4">Stock &amp; Delivery</th>
                   <th scope="col" className="py-3 px-4">Provenance</th>
                   <th scope="col" className="py-3 px-4 sm:px-6 text-right">Action</th>
                 </tr>
@@ -485,7 +485,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                           rel="noopener noreferrer"
                           className="min-h-[38px] inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-semibold rounded-lg bg-[var(--surface-2)] text-[var(--text-1)] border border-[var(--border)] hover:bg-[var(--color-accent)] hover:text-white hover:border-transparent transition-colors"
                         >
-                          <span>Store</span>
+                          <span>Visit</span>
                           <ExternalLink size={13} />
                         </a>
                       </td>
@@ -529,11 +529,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="flex items-center gap-2">
               <History size={16} className="text-[var(--color-accent)]" />
               <h3 className="text-sm font-display font-semibold text-[var(--text-1)]">
-                Price Drop History
+                Verified Price Drop History
               </h3>
             </div>
             <span className="text-[11px] font-mono text-[var(--color-success)] font-semibold">
-              90 Days Log
+              Past 90 Days
             </span>
           </div>
 

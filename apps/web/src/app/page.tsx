@@ -7,28 +7,19 @@ import {
   CheckIcon,
   ShieldIcon,
   ArrowRight,
-  TrendingDown,
   ChevronRight,
   Activity,
   Layers,
   Database,
+  ChevronDown,
 } from "lucide-react";
 import { ProductSilhouette } from "@scrappy/ui";
 
-/**
- * SIGNATURE MOMENT A1: LANDING "PRICE RADAR" HERO
- * - 0ms: dot-grid fades in, headline words rise with 60ms stagger
- * - 300ms: search input fades + scales .98 -> 1, example chips stagger
- * - 500ms: step-line draws left -> right with leading signal dot
- * - 1100-2200ms: 4 retailer chips arrive from right on spring arcs
- * - 2400ms: lowest chip highlighted with ring, deal verdict stamps in
- * - 3200ms+: idle pulse every 2.4s, live price roll
- */
-
 const EXAMPLE_SEARCH_QUERIES = [
-  "iPhone 15",
+  "iPhone 16 Pro",
+  "MacBook Air M3",
   "Sony WH-1000XM5",
-  "1.5 ton split AC",
+  "iPad Air M2",
 ];
 
 const RETAILER_CHIPS = [
@@ -38,12 +29,35 @@ const RETAILER_CHIPS = [
   { name: "Reliance Digital", price: "₹72,499", isLowest: false, verified: "8m ago" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Where does Scrappy get its price data?",
+    a: "Directly from live merchant product pages using dedicated responsible HTTP adapters with strict robots.txt and host rate limit compliance.",
+  },
+  {
+    q: "How fresh is the pricing information?",
+    a: "Every data point records exact provenance with timestamp and confidence rating. Polling frequencies range from 5 minutes to 24 hours depending on tier.",
+  },
+  {
+    q: "How does Scrappy detect fake discounts?",
+    a: "We compute true 90-day recorded medians and historical lowest prices, rejecting inflated MRP baselines used in holiday sale events.",
+  },
+  {
+    q: "What is your policy on scraping ethics and rate limits?",
+    a: "Scrappy never bypasses CAPTCHAs, does not scrape personal or login-walled data, identifies ScrappyBot in User-Agent, and honors automated crawl budgets.",
+  },
+  {
+    q: "Can developers extract data from custom ecommerce websites?",
+    a: "Yes. Use our Visual Extract Studio with point-and-select schema generation and webhook streaming, or consume our GET /api/v1/extract endpoints directly.",
+  },
+];
+
 export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [stage, setStage] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
-    // Stage orchestration
     const t1 = setTimeout(() => setStage(1), 300);
     const t2 = setTimeout(() => setStage(2), 500);
     const t3 = setTimeout(() => setStage(3), 1100);
@@ -58,7 +72,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-[var(--surface-0)] text-[var(--text-1)] overflow-hidden">
-      {/* Background radial gradient glow (pure CSS, no large blur filters) */}
+      {/* Background radial gradient glow */}
       <div
         className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-35"
         style={{
@@ -74,17 +88,17 @@ export default function LandingPage() {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface-1)] border border-[var(--border-strong)] text-xs font-mono text-[var(--text-2)] shadow-[var(--elevation-1)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)] animate-pulse" />
-                <span>Indexed 500+ Indian products</span>
+                <span>4 verified merchant adapters active</span>
                 <span className="text-[var(--text-3)]">·</span>
-                <span className="text-[var(--color-accent)] font-semibold">Demo data</span>
+                <span className="text-[var(--color-accent)] font-semibold">Sample data preview</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold tracking-tight text-[var(--text-1)] leading-[1.05]">
-                Every price. <span className="font-serif italic font-normal text-[var(--color-accent)]">One</span> truth.
+                The verified graph of products, merchants, and prices.
               </h1>
 
               <p className="text-base sm:text-lg text-[var(--text-2)] max-w-xl font-sans">
-                Live prices, matched and verified across Indian stores.
+                Live prices, matched and verified across Indian stores with true provenance and zero false matches.
               </p>
             </div>
 
@@ -111,11 +125,12 @@ export default function LandingPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search a product, model or paste a link"
-                  className="w-full h-[52px] pl-11 pr-28 rounded-lg bg-[var(--surface-1)] border border-[var(--border-strong)] focus:border-[var(--border-focus)] focus:ring-2 focus:ring-[var(--border-focus)]/30 text-sm font-sans text-[var(--text-1)] placeholder-[var(--text-3)] outline-none transition-all"
+                  aria-label="Search product or enter merchant URL"
+                  className="w-full h-[52px] pl-11 pr-28 rounded-xl bg-[var(--surface-1)] border border-[var(--border-strong)] focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 text-sm font-sans text-[var(--text-1)] placeholder-[var(--text-3)] outline-none transition-all"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 h-9 px-4 rounded-md bg-[var(--color-accent)] hover:opacity-95 text-[var(--color-accent-contrast)] text-xs font-mono font-medium transition-opacity flex items-center gap-1.5 shadow-sm"
+                  className="absolute right-2 h-9 px-4 rounded-lg bg-[var(--color-accent)] hover:opacity-95 text-white text-xs font-mono font-semibold transition-opacity flex items-center gap-1.5 shadow-sm"
                 >
                   <span>Search</span>
                   <ArrowRight size={13} />
@@ -140,6 +155,13 @@ export default function LandingPage() {
                 ))}
               </div>
             </div>
+
+            {/* Trust row */}
+            <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[var(--text-3)]">
+              <span>Amazon · Flipkart · Croma</span>
+              <span>·</span>
+              <span>90-day recorded median</span>
+            </div>
           </div>
 
           {/* Right Column: Signature Moment A1 "Price Radar" Visual */}
@@ -148,8 +170,8 @@ export default function LandingPage() {
               {/* Product header inside radar */}
               <div className="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-9 rounded-md overflow-hidden border border-[var(--border)] bg-[var(--surface-2)] flex items-center justify-center p-0.5">
-                    <ProductSilhouette category="phone" size={44} />
+                  <div className="w-12 h-9 rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--surface-2)] flex items-center justify-center p-0.5">
+                    <ProductSilhouette category="smartphones" size={44} />
                   </div>
                   <div>
                     <h2 className="text-sm font-sans font-semibold text-[var(--text-1)]">
@@ -161,26 +183,22 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[var(--surface-2)] font-mono text-xs text-[var(--color-success)] font-semibold border border-[var(--border-subtle)]">
-                  <TrendingDown size={14} />
-                  <span>-7.8%</span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[var(--surface-2)] font-mono text-xs text-[var(--color-success)] font-semibold border border-[var(--border-subtle)]">
+                  <span>Lowest Price</span>
+                  <span className="text-[10px] bg-[var(--color-success)]/20 px-1.5 py-0.5 rounded">₹69,999</span>
                 </div>
               </div>
 
-              {/* Animated SVG Step-line Chart */}
+              {/* Price Radar Chart */}
               <div className="relative h-44 w-full bg-[var(--surface-0)] rounded-xl border border-[var(--border)] p-4 flex flex-col justify-between">
                 <div className="flex justify-between text-[11px] font-mono text-[var(--text-3)]">
                   <span>90-Day Range</span>
-                  <span className="text-[var(--text-2)] font-medium">Median: ₹74,200</span>
+                  <span className="text-[var(--text-2)] font-medium">90-day recorded median: ₹74,200</span>
                 </div>
 
-                {/* Step line graphic */}
                 <svg className="w-full h-24 overflow-visible" viewBox="0 0 400 80" preserveAspectRatio="none">
-                  {/* Hairline axes */}
                   <line x1="0" y1="20" x2="400" y2="20" stroke="var(--border)" strokeDasharray="3 3" />
                   <line x1="0" y1="60" x2="400" y2="60" stroke="var(--border)" strokeDasharray="3 3" />
-
-                  {/* Step path */}
                   <path
                     d="M 0 20 L 90 20 L 90 35 L 180 35 L 180 25 L 280 25 L 280 58 L 400 58"
                     fill="none"
@@ -188,15 +206,11 @@ export default function LandingPage() {
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`transition-all duration-1000 ${
-                      stage >= 2 ? "opacity-100 stroke-dashoffset-0" : "opacity-0"
-                    }`}
+                    className={`transition-all duration-1000 ${stage >= 2 ? "opacity-100" : "opacity-0"}`}
                   />
-
-                  {/* Live pulsing coordinate node */}
                   {stage >= 2 && (
                     <g transform="translate(400, 58)">
-                      <circle cx="0" cy="0" r="10" fill="var(--color-accent)" opacity="0.25" className="animate-ping" />
+                      <circle cx="0" cy="0" r="10" fill="var(--color-accent)" opacity="0.3" className="animate-ping" />
                       <circle cx="0" cy="0" r="5" fill="var(--color-accent)" stroke="var(--surface-0)" strokeWidth="2" />
                     </g>
                   )}
@@ -214,7 +228,7 @@ export default function LandingPage() {
                 {RETAILER_CHIPS.map((chip, idx) => (
                   <div
                     key={chip.name}
-                    className={`p-3 rounded-lg border transition-all duration-500 flex items-center justify-between ${
+                    className={`p-3 rounded-xl border transition-all duration-500 flex items-center justify-between ${
                       stage >= 3 ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
                     } ${
                       chip.isLowest && stage >= 4
@@ -233,7 +247,7 @@ export default function LandingPage() {
                       </div>
                       {chip.isLowest && stage >= 4 && (
                         <span className="text-[9px] font-mono text-[var(--color-success)] font-semibold uppercase">
-                          Best Offer
+                          Deal Score 9.4
                         </span>
                       )}
                     </div>
@@ -241,53 +255,54 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              {/* Deal Verdict Stamp */}
-              <div
-                className={`transition-all duration-400 p-3 rounded-xl bg-[var(--surface-2)] border border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 ${
-                  stage >= 4 ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <ShieldIcon size={16} className="text-[var(--color-success)] shrink-0" />
-                  <span className="text-xs font-medium text-[var(--text-1)]">
-                    Good deal. ₹4,200 below the 90-day median.
-                  </span>
+              {/* Deal Verdict Stamp & Demo Table */}
+              <div className="pt-2 border-t border-[var(--border-subtle)] text-xs font-mono space-y-2">
+                <div className="flex justify-between items-center text-[var(--text-3)]">
+                  <span>Multi-merchant price graph with provenance</span>
+                  <span className="text-[var(--color-accent)] font-semibold">Deal Score 9.4</span>
                 </div>
-                <Link
-                  href="/compare"
-                  className="text-xs font-mono text-[var(--color-accent)] hover:underline inline-flex items-center gap-1 shrink-0 self-end sm:self-auto"
-                >
-                  <span>Explore</span>
-                  <ChevronRight size={13} />
-                </Link>
+                <div className="grid grid-cols-3 gap-2 text-[11px]">
+                  <div className="p-2 rounded bg-[var(--surface-2)] border border-[var(--border)]">
+                    <span className="text-[var(--text-3)] block text-[10px]">Merchant Store</span>
+                    <span className="font-semibold text-[var(--text-1)]">Amazon India</span>
+                  </div>
+                  <div className="p-2 rounded bg-[var(--surface-2)] border border-[var(--border)]">
+                    <span className="text-[var(--text-3)] block text-[10px]">Estimated Delivery</span>
+                    <span className="font-semibold text-[var(--text-1)]">Tomorrow</span>
+                  </div>
+                  <div className="p-2 rounded bg-[var(--surface-2)] border border-[var(--border)]">
+                    <span className="text-[var(--text-3)] block text-[10px]">Alt Stores</span>
+                    <span className="font-semibold text-[var(--text-1)]">Croma · Flipkart</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. BENTO GRID: THREE VIEWS ON ONE PLATFORM */}
+      {/* 2. THREE FEATURE BLOCKS: THREE LENSES INTO WEB DATA TRUTH */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 border-t border-[var(--border-subtle)] space-y-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)]">
-            One platform. Three operational views.
+          <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+            Operational Architecture
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)] mt-1">
+            Three lenses into web data truth
           </h2>
           <p className="text-sm font-sans text-[var(--text-2)] mt-1">
-            Deterministic data engine powers consumer comparison, merchant intelligence, and scraping infrastructure.
+            One deterministic engine powers consumer comparison, merchant intelligence, and scraping infrastructure.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Bento Tile 1: Compare */}
-          <Link
-            href="/compare"
-            className="group p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--color-accent)]/50 hover:ring-1 hover:ring-[var(--border-strong)] transition-all space-y-4 hover:shadow-[var(--elevation-2)]"
-          >
+          {/* Tile 1: Compare */}
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)]">
-                Compare View
+              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                Compare Lens
               </span>
-              <Activity size={18} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+              <Activity size={18} className="text-[var(--text-3)]" />
             </div>
             <h3 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Cross-store price parity
@@ -295,22 +310,24 @@ export default function LandingPage() {
             <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
               Scan identical products across Flipkart, Amazon, and Croma with real-time stock and delivery telemetry.
             </p>
-            <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--text-3)] group-hover:text-[var(--text-1)]">
-              <span>500+ Canonical Items</span>
-              <ChevronRight size={14} />
+            <div className="pt-3 border-t border-[var(--border-subtle)]">
+              <Link
+                href="/compare"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--color-accent)] hover:underline"
+              >
+                <span>Open Compare View</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
-          </Link>
+          </div>
 
-          {/* Bento Tile 2: Intelligence */}
-          <Link
-            href="/intelligence"
-            className="group p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--color-accent)]/50 hover:ring-1 hover:ring-[var(--border-strong)] transition-all space-y-4 hover:shadow-[var(--elevation-2)]"
-          >
+          {/* Tile 2: Intelligence */}
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)]">
-                Intelligence View
+              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                Intelligence Lens
               </span>
-              <Layers size={18} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+              <Layers size={18} className="text-[var(--text-3)]" />
             </div>
             <h3 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Market gap telemetry
@@ -318,42 +335,90 @@ export default function LandingPage() {
             <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
               Spot undercut opportunities, competitor price movements, and automated repricing simulations.
             </p>
-            <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--text-3)] group-hover:text-[var(--text-1)]">
-              <span>Undercut Radar</span>
-              <ChevronRight size={14} />
+            <div className="pt-3 border-t border-[var(--border-subtle)]">
+              <Link
+                href="/watchlist"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--color-accent)] hover:underline"
+              >
+                <span>Explore Watchlist</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
-          </Link>
+          </div>
 
-          {/* Bento Tile 3: Extract */}
-          <Link
-            href="/extract"
-            className="group p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--color-accent)]/50 hover:ring-1 hover:ring-[var(--border-strong)] transition-all space-y-4 hover:shadow-[var(--elevation-2)]"
-          >
+          {/* Tile 3: Extract */}
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)]">
-                Extract View
+              <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                Extract Lens
               </span>
-              <Database size={18} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+              <Database size={18} className="text-[var(--text-3)]" />
             </div>
             <h3 className="text-lg font-display font-semibold text-[var(--text-1)]">
               Point-and-capture scraping
             </h3>
             <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
-              Visual 3-step extraction workbench with instant confidence verification and webhook broadcasts.
+              Visual 3-step extraction workbench with instant confidence verification and <code className="text-[11px] font-mono text-[var(--color-accent)]">GET /api/v1/extract</code> endpoints.
             </p>
-            <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--text-3)] group-hover:text-[var(--text-1)]">
-              <span>Interactive Studio</span>
-              <ChevronRight size={14} />
+            <div className="pt-3 border-t border-[var(--border-subtle)]">
+              <Link
+                href="/extract"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--color-accent)] hover:underline"
+              >
+                <span>Launch Extract Studio</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
-          </Link>
+          </div>
         </div>
       </section>
 
-      {/* 3. "HOW WE KNOW" TRUST STRIP */}
+      {/* 3. 3-STEP WORKFLOW PIPELINE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 border-t border-[var(--border-subtle)] space-y-8">
+        <div>
+          <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+            Workflow Pipeline
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)] mt-1">
+            Step 1: Entity Resolution to Live Alerting
+          </h2>
+          <p className="text-sm font-sans text-[var(--text-2)] mt-1">
+            How Scrappy transforms raw HTML into high-confidence buying and pricing signals.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-2">
+            <span className="text-xs font-mono text-[var(--color-accent)] font-bold">1. Search &amp; Resolve</span>
+            <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Multi-Store Product Matching</h3>
+            <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
+              Normalizes UPC, EAN, and brand titles across four retailer catalogs with 98.4% precision.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-2">
+            <span className="text-xs font-mono text-[var(--color-accent)] font-bold">2. Set Watch Threshold</span>
+            <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Drop Percentage Rules</h3>
+            <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
+              Define target prices or percentage drops based on genuine historical medians.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] space-y-2">
+            <span className="text-xs font-mono text-[var(--color-accent)] font-bold">3. Verified Alert Dispatch</span>
+            <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Instant Webhooks &amp; Email</h3>
+            <p className="text-xs font-sans text-[var(--text-2)] leading-relaxed">
+              Receive cryptographically signed HMAC alerts the second an authentic deal drops.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. "HOW WE KNOW" TRUST STRIP */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-[var(--border-subtle)]">
-        <div className="p-8 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+        <div className="p-8 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] grid grid-cols-1 md:grid-cols-4 gap-6 items-center shadow-xs">
           <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)]">
+            <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
               Data Provenance
             </span>
             <h2 className="text-xl font-display font-semibold text-[var(--text-1)] mt-1">
@@ -396,7 +461,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 4. PRICING ROW: THREE TIERS */}
+      {/* 5. PRICING ROW: HONEST TIERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 border-t border-[var(--border-subtle)] space-y-8">
         <div className="text-center max-w-xl mx-auto space-y-2">
           <h2 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)]">
@@ -409,40 +474,42 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
           {/* Free Tier */}
-          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] flex flex-col justify-between space-y-6">
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] flex flex-col justify-between space-y-6 shadow-xs">
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-base font-sans font-bold text-[var(--text-1)]">Free</h3>
+                <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Free</h3>
                 <div className="text-2xl font-mono font-bold text-[var(--text-1)]">₹0</div>
                 <span className="text-[11px] font-mono text-[var(--text-3)]">Forever free</span>
               </div>
               <ul className="text-xs font-mono text-[var(--text-2)] space-y-2">
-                <li className="flex items-center gap-2">✓ 20 Active Product Watches</li>
+                <li className="flex items-center gap-2">✓ 20 active watches</li>
                 <li className="flex items-center gap-2">✓ 6-hour refresh rate</li>
                 <li className="flex items-center gap-2">✓ Email price drop alerts</li>
               </ul>
             </div>
             <Link
               href="/compare"
-              className="block w-full py-2.5 text-center rounded-lg bg-[var(--surface-2)] hover:bg-[var(--surface-3)] text-xs font-mono text-[var(--text-1)] transition-colors border border-[var(--border)] font-medium"
+              className="block w-full py-2.5 text-center rounded-xl bg-[var(--surface-2)] hover:bg-[var(--surface-3)] text-xs font-mono text-[var(--text-1)] transition-colors border border-[var(--border)] font-semibold"
             >
               Start Free
             </Link>
           </div>
 
           {/* Pro Tier (Featured) */}
-          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border-2 border-[var(--color-accent)] relative flex flex-col justify-between space-y-6 shadow-[var(--elevation-2)]">
-            <div className="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-[var(--color-accent)] text-[var(--color-accent-contrast)] text-[10px] font-mono font-bold uppercase">
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border-2 border-[var(--color-accent)] relative flex flex-col justify-between space-y-6 shadow-[var(--elevation-2)] ring-1 ring-[var(--color-accent)]/20">
+            <div className="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-[var(--color-accent)] text-white text-[10px] font-mono font-bold uppercase">
               Popular
             </div>
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-base font-sans font-bold text-[var(--text-1)]">Pro</h3>
-                <div className="text-2xl font-mono font-bold text-[var(--text-1)]">₹1,499<span className="text-xs font-normal text-[var(--text-3)]">/mo</span></div>
+                <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Pro</h3>
+                <div className="text-2xl font-mono font-bold text-[var(--text-1)]">
+                  ₹999<span className="text-xs font-normal text-[var(--text-3)]">/mo</span>
+                </div>
                 <span className="text-[11px] font-mono text-[var(--text-3)]">Billed monthly</span>
               </div>
               <ul className="text-xs font-mono text-[var(--text-2)] space-y-2">
-                <li className="flex items-center gap-2">✓ 250 Active Product Watches</li>
+                <li className="flex items-center gap-2">✓ 200 active watches</li>
                 <li className="flex items-center gap-2">✓ 15-minute refresh rate</li>
                 <li className="flex items-center gap-2">✓ Intelligence Market Board</li>
                 <li className="flex items-center gap-2">✓ Visual Extract Studio</li>
@@ -450,22 +517,24 @@ export default function LandingPage() {
             </div>
             <Link
               href="/pricing"
-              className="block w-full py-2.5 text-center rounded-lg bg-[var(--color-accent)] hover:opacity-95 text-xs font-mono text-[var(--color-accent-contrast)] font-medium transition-opacity"
+              className="block w-full py-2.5 text-center rounded-xl bg-[var(--color-accent)] hover:opacity-95 text-white text-xs font-mono font-semibold transition-opacity"
             >
               Upgrade to Pro
             </Link>
           </div>
 
-          {/* Business Tier */}
-          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] flex flex-col justify-between space-y-6">
+          {/* Team Tier */}
+          <div className="p-6 rounded-2xl bg-[var(--surface-1)] border border-[var(--border)] flex flex-col justify-between space-y-6 shadow-xs">
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-base font-sans font-bold text-[var(--text-1)]">Business</h3>
-                <div className="text-2xl font-mono font-bold text-[var(--text-1)]">₹4,999<span className="text-xs font-normal text-[var(--text-3)]">/mo</span></div>
+                <h3 className="text-base font-display font-semibold text-[var(--text-1)]">Team</h3>
+                <div className="text-2xl font-mono font-bold text-[var(--text-1)]">
+                  ₹4,999<span className="text-xs font-normal text-[var(--text-3)]">/mo</span>
+                </div>
                 <span className="text-[11px] font-mono text-[var(--text-3)]">Dedicated pipelines</span>
               </div>
               <ul className="text-xs font-mono text-[var(--text-2)] space-y-2">
-                <li className="flex items-center gap-2">✓ 2,000 Active Product Watches</li>
+                <li className="flex items-center gap-2">✓ Unlimited product watches</li>
                 <li className="flex items-center gap-2">✓ 5-minute real-time polling</li>
                 <li className="flex items-center gap-2">✓ HMAC signed webhooks</li>
                 <li className="flex items-center gap-2">✓ Multi-seat workspaces</li>
@@ -473,7 +542,7 @@ export default function LandingPage() {
             </div>
             <Link
               href="/pricing"
-              className="block w-full py-2.5 text-center rounded-lg bg-[var(--surface-2)] hover:bg-[var(--surface-3)] text-xs font-mono text-[var(--text-1)] transition-colors border border-[var(--border)] font-medium"
+              className="block w-full py-2.5 text-center rounded-xl bg-[var(--surface-2)] hover:bg-[var(--surface-3)] text-xs font-mono text-[var(--text-1)] transition-colors border border-[var(--border)] font-semibold"
             >
               Contact Sales
             </Link>
@@ -481,20 +550,70 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 5. COMPACT FOOTER */}
-      <footer className="border-t border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 sm:px-6 py-8">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--text-3)]">
-          <div className="flex items-center gap-2">
-            <span className="text-[var(--text-1)] font-bold">SCRAPPY</span>
-            <span>— The Web Product &amp; Price Graph</span>
+      {/* 6. FAQ ACCORDION */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 border-t border-[var(--border-subtle)] space-y-8">
+        <div className="text-center space-y-2">
+          <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+            Common Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-display font-semibold text-[var(--text-1)]">
+            Frequently asked questions
+          </h2>
+        </div>
+
+        <div className="space-y-3">
+          {FAQ_ITEMS.map((item, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div
+                key={idx}
+                className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] overflow-hidden shadow-xs transition-colors"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-sans font-semibold text-sm text-[var(--text-1)] hover:text-[var(--color-accent)] transition-colors min-h-[44px]"
+                >
+                  <span>{item.q}</span>
+                  <ChevronDown
+                    size={16}
+                    className={`shrink-0 text-[var(--text-3)] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs text-[var(--text-2)] font-sans leading-relaxed border-t border-[var(--border-subtle)] pt-3">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 7. STRUCTURED FOOTER */}
+      <footer className="border-t border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 sm:px-6 py-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-[var(--text-3)]">
+          <div className="space-y-1 text-center md:text-left">
+            <div className="flex items-center gap-2 justify-center md:justify-start">
+              <span className="text-[var(--text-1)] font-bold">SCRAPPY</span>
+              <span>— The Web Product &amp; Price Graph</span>
+            </div>
+            <div className="flex items-center gap-3 text-[11px] text-[var(--text-3)]">
+              <span>WCAG 2.2 AA Verified</span>
+              <span>·</span>
+              <span>Zero Fake Discounts</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-5">
             <Link href="/compare" className="hover:text-[var(--text-1)] transition-colors">Compare</Link>
             <Link href="/intelligence" className="hover:text-[var(--text-1)] transition-colors">Intelligence</Link>
             <Link href="/extract" className="hover:text-[var(--text-1)] transition-colors">Extract</Link>
-            <Link href="/legal/terms" className="hover:text-[var(--text-1)] transition-colors">Terms</Link>
-            <Link href="/legal/privacy" className="hover:text-[var(--text-1)] transition-colors">Privacy</Link>
+            <Link href="/legal/terms" className="hover:text-[var(--text-1)] transition-colors">Terms of Service</Link>
+            <Link href="/legal/privacy" className="hover:text-[var(--text-1)] transition-colors">Privacy Policy</Link>
+            <Link href="/legal/responsible-scraping" className="hover:text-[var(--text-1)] transition-colors">Scraping Ethics</Link>
+            <Link href="/status" className="hover:text-[var(--text-1)] transition-colors">Security Disclosures</Link>
           </div>
         </div>
       </footer>

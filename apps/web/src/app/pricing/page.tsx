@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button, Card, Badge, Dialog, DialogContent, DialogHeader, DialogTitle, useToast } from "@scrappy/ui";
+import { Check, Sparkles, ArrowRight, AlertTriangle } from "lucide-react";
 
 interface PricingTier {
   id: string;
@@ -188,33 +189,31 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 mb-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" aria-hidden="true" />
-          <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-primary)] font-bold">
-            Transparent Pricing
-          </span>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-mono font-medium mb-3">
+          <Sparkles size={12} />
+          <span>TRANSPARENT PRICING</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-1)] tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold text-[var(--text-1)] tracking-tight">
           Simple, Predictable Plans
         </h1>
-        <p className="text-sm sm:text-base text-[var(--text-3)] mt-2">
+        <p className="text-xs sm:text-sm text-[var(--text-3)] mt-2 font-mono">
           No hidden overage charges or artificial rate gates. Upgrade or cancel anytime with pro-rated billing.
         </p>
 
         {/* Current Active Plan Status */}
-        <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg-2)] border border-[var(--border-subtle)] text-xs font-mono">
+        <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono">
           <span className="text-[var(--text-3)]">Current Active Workspace Plan:</span>
-          <span className="font-bold text-[var(--color-primary)] uppercase">
+          <span className="font-semibold text-[var(--color-accent)] uppercase">
             {currentPlan}
           </span>
           {currentPlan !== "free" && (
             <button
               type="button"
               onClick={() => setShowCancelModal(true)}
-              className="text-[var(--color-danger)] underline ml-2 hover:opacity-80"
+              className="text-[var(--color-danger)] underline ml-2 hover:opacity-80 cursor-pointer"
             >
               Cancel / Downgrade
             </button>
@@ -229,10 +228,10 @@ export default function PricingPage() {
           return (
             <Card
               key={tier.id}
-              className={`p-6 sm:p-8 flex flex-col justify-between relative transition-all ${
+              className={`p-6 sm:p-8 flex flex-col justify-between relative transition-all rounded-2xl ${
                 tier.popular
-                  ? "border-[var(--color-primary)] shadow-md"
-                  : "border-[var(--border-subtle)] bg-[var(--bg-1)]"
+                  ? "border-[var(--color-accent)] bg-[var(--surface-1)] shadow-md ring-1 ring-[var(--color-accent)]/20"
+                  : "border-[var(--border)] bg-[var(--surface-1)] shadow-xs"
               }`}
             >
               {tier.badge && (
@@ -245,17 +244,17 @@ export default function PricingPage() {
 
               <div>
                 <div className="mb-4">
-                  <h2 className="text-xl font-bold text-[var(--text-1)]">
+                  <h2 className="text-xl font-display font-semibold text-[var(--text-1)]">
                     {tier.name}
                   </h2>
-                  <p className="text-xs text-[var(--text-3)] mt-1 min-h-[32px]">
+                  <p className="text-xs text-[var(--text-3)] mt-1.5 min-h-[32px]">
                     {tier.description}
                   </p>
                 </div>
 
                 <div className="mb-6 pb-6 border-b border-[var(--border-subtle)]">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl sm:text-4xl font-bold font-mono text-[var(--text-1)]">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl sm:text-4xl font-display font-bold text-[var(--text-1)]">
                       ₹{tier.priceINR.toLocaleString("en-IN")}
                     </span>
                     <span className="text-xs text-[var(--text-3)] font-mono">
@@ -265,7 +264,7 @@ export default function PricingPage() {
                 </div>
 
                 {/* Quota Limits Breakdown */}
-                <div className="space-y-2 mb-6 text-xs font-mono">
+                <div className="space-y-2.5 mb-6 text-xs font-mono">
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]/50">
                     <span className="text-[var(--text-3)]">Tracked Items:</span>
                     <span className="text-[var(--text-1)] font-semibold">{tier.limits.trackedProducts}</span>
@@ -289,13 +288,15 @@ export default function PricingPage() {
                 </div>
 
                 {/* Features List */}
-                <div className="space-y-2.5 mb-8">
-                  <div className="text-xs font-bold text-[var(--text-1)] uppercase font-mono">
+                <div className="space-y-2 mb-8">
+                  <div className="text-xs font-bold text-[var(--text-1)] uppercase font-mono tracking-wider">
                     Included Features
                   </div>
                   {tier.features.map((feat, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-xs text-[var(--text-2)]">
-                      <span className="text-[var(--color-success)] font-bold">✓</span>
+                      <span className="w-4 h-4 rounded-full bg-[var(--color-success)]/10 text-[var(--color-success)] flex items-center justify-center font-bold text-[10px] shrink-0">
+                        <Check size={10} />
+                      </span>
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -307,7 +308,7 @@ export default function PricingPage() {
                   variant={isCurrent ? "secondary" : tier.popular ? "primary" : "secondary"}
                   onClick={() => handleSelectTier(tier)}
                   disabled={isCurrent}
-                  className="w-full min-h-[44px] font-mono text-xs font-bold"
+                  className="w-full min-h-[44px] font-mono text-xs font-semibold"
                 >
                   {isCurrent ? "Current Active Plan" : tier.cta}
                 </Button>
@@ -318,8 +319,8 @@ export default function PricingPage() {
       </div>
 
       {/* Usage Meter Preview */}
-      <Card className="p-6 sm:p-8 mb-16">
-        <h3 className="text-lg font-bold text-[var(--text-1)] mb-1">
+      <Card className="p-6 sm:p-8 mb-16 bg-[var(--surface-1)] border-[var(--border)] rounded-2xl shadow-xs">
+        <h3 className="text-lg font-display font-semibold text-[var(--text-1)] mb-1">
           Workspace Quota &amp; Usage Meter
         </h3>
         <p className="text-xs text-[var(--text-3)] font-mono mb-6">
@@ -327,33 +328,33 @@ export default function PricingPage() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="p-4 rounded-lg bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]">
             <div className="flex justify-between text-xs font-mono mb-2">
               <span className="text-[var(--text-3)]">Tracked Items</span>
-              <span className="text-[var(--text-1)] font-bold">3 / 10 used</span>
+              <span className="text-[var(--text-1)] font-semibold">3 / 10 used</span>
             </div>
-            <div className="w-full bg-[var(--border-subtle)] h-2 rounded-full overflow-hidden">
-              <div className="bg-[var(--color-primary)] h-full" style={{ width: "30%" }} />
+            <div className="w-full bg-[var(--surface-3)] h-2 rounded-full overflow-hidden">
+              <div className="bg-[var(--color-accent)] h-full rounded-full" style={{ width: "30%" }} />
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]">
             <div className="flex justify-between text-xs font-mono mb-2">
               <span className="text-[var(--text-3)]">Browser Compute</span>
-              <span className="text-[var(--text-1)] font-bold">0.4 / 5.0 min</span>
+              <span className="text-[var(--text-1)] font-semibold">0.4 / 5.0 min</span>
             </div>
-            <div className="w-full bg-[var(--border-subtle)] h-2 rounded-full overflow-hidden">
-              <div className="bg-[var(--color-success)] h-full" style={{ width: "8%" }} />
+            <div className="w-full bg-[var(--surface-3)] h-2 rounded-full overflow-hidden">
+              <div className="bg-[var(--color-success)] h-full rounded-full" style={{ width: "8%" }} />
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[var(--bg-2)] border border-[var(--border-subtle)]">
+          <div className="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]">
             <div className="flex justify-between text-xs font-mono mb-2">
               <span className="text-[var(--text-3)]">API Requests</span>
-              <span className="text-[var(--text-1)] font-bold">120 / 60,000</span>
+              <span className="text-[var(--text-1)] font-semibold">120 / 60,000</span>
             </div>
-            <div className="w-full bg-[var(--border-subtle)] h-2 rounded-full overflow-hidden">
-              <div className="bg-[var(--color-primary)] h-full" style={{ width: "2%" }} />
+            <div className="w-full bg-[var(--surface-3)] h-2 rounded-full overflow-hidden">
+              <div className="bg-[var(--color-accent)] h-full rounded-full" style={{ width: "2%" }} />
             </div>
           </div>
         </div>
@@ -367,24 +368,26 @@ export default function PricingPage() {
         }}
       >
         {billingModalTier && (
-          <DialogContent className="max-w-md bg-[var(--bg-1)] border-[var(--border-subtle)]">
+          <DialogContent className="max-w-md bg-[var(--surface-1)] border-[var(--border)] rounded-2xl">
             <DialogHeader>
               <div className="flex items-center justify-between">
-                <DialogTitle>Subscribe to {billingModalTier.name}</DialogTitle>
+                <DialogTitle className="font-display font-semibold text-lg text-[var(--text-1)]">
+                  Subscribe to {billingModalTier.name}
+                </DialogTitle>
                 <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[var(--color-warn)]/10 text-[var(--color-warn)] border border-[var(--color-warn)]/30">
                   Test mode
                 </span>
               </div>
             </DialogHeader>
             <div className="space-y-4 text-xs font-mono mt-3">
-              <div className="p-3 rounded bg-[var(--bg-2)] border border-[var(--border-subtle)]">
-                <div className="flex justify-between mb-1">
+              <div className="p-3.5 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]">
+                <div className="flex justify-between mb-1.5">
                   <span className="text-[var(--text-3)]">Plan:</span>
-                  <span className="text-[var(--text-1)] font-bold">{billingModalTier.name}</span>
+                  <span className="text-[var(--text-1)] font-semibold">{billingModalTier.name}</span>
                 </div>
-                <div className="flex justify-between mb-1">
+                <div className="flex justify-between mb-1.5">
                   <span className="text-[var(--text-3)]">Billing Amount:</span>
-                  <span className="text-[var(--color-success)] font-bold">
+                  <span className="text-[var(--color-success)] font-semibold">
                     ₹{billingModalTier.priceINR.toLocaleString("en-IN")} / month
                   </span>
                 </div>
@@ -394,7 +397,7 @@ export default function PricingPage() {
                 </div>
               </div>
 
-              <p className="text-[var(--text-3)] text-xs">
+              <p className="text-[var(--text-3)] text-xs font-sans">
                 This checkout operates in test mode. Zero real currency will be charged. Clicking Confirm activates the tier immediately.
               </p>
 
@@ -402,7 +405,7 @@ export default function PricingPage() {
                 <Button
                   variant="secondary"
                   onClick={() => setBillingModalTier(null)}
-                  className="min-h-[44px]"
+                  className="min-h-[44px] font-mono text-xs"
                 >
                   Cancel
                 </Button>
@@ -410,9 +413,10 @@ export default function PricingPage() {
                   variant="primary"
                   onClick={handleConfirmSubscription}
                   disabled={isProcessing}
-                  className="min-h-[44px]"
+                  className="min-h-[44px] font-mono text-xs font-semibold gap-1.5"
                 >
-                  {isProcessing ? "Processing..." : "Confirm Subscription →"}
+                  <span>{isProcessing ? "Processing..." : "Confirm Subscription"}</span>
+                  <ArrowRight size={14} />
                 </Button>
               </div>
             </div>
@@ -425,13 +429,16 @@ export default function PricingPage() {
         open={showCancelModal}
         onOpenChange={(open) => setShowCancelModal(open)}
       >
-        <DialogContent className="max-w-md bg-[var(--bg-1)] border-[var(--border-subtle)]">
+        <DialogContent className="max-w-md bg-[var(--surface-1)] border-[var(--border)] rounded-2xl">
           <DialogHeader>
-            <DialogTitle>Downgrade to Community Tier</DialogTitle>
+            <DialogTitle className="font-display font-semibold text-lg text-[var(--text-1)]">
+              Downgrade to Community Tier
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 text-xs mt-3">
-            <div className="p-3 rounded bg-[var(--color-warn)]/10 border border-[var(--color-warn)]/30 text-[var(--color-warn)] font-mono">
-              ⚠️ Warning: Downgrading will reduce your tracked product limit to 10 and polling cadence to 24h.
+            <div className="p-3 rounded-xl bg-[var(--color-warn)]/10 border border-[var(--color-warn)]/30 text-[var(--color-warn)] font-mono flex items-start gap-2">
+              <AlertTriangle size={15} className="shrink-0 mt-0.5" />
+              <span>Warning: Downgrading will reduce your tracked product limit to 10 and polling cadence to 24h.</span>
             </div>
 
             <div>
@@ -442,7 +449,7 @@ export default function PricingPage() {
                 id="cancel-reason"
                 value={cancellationReason}
                 onChange={(e) => setCancellationReason(e.target.value)}
-                className="w-full bg-[var(--bg-2)] border border-[var(--border-subtle)] rounded px-3 py-2 text-xs text-[var(--text-1)] outline-none min-h-[44px]"
+                className="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-mono text-[var(--text-1)] outline-none min-h-[44px]"
               >
                 <option value="">Select a reason</option>
                 <option value="too_expensive">Pricing didn't fit budget</option>
@@ -456,14 +463,14 @@ export default function PricingPage() {
               <Button
                 variant="secondary"
                 onClick={() => setShowCancelModal(false)}
-                className="min-h-[44px]"
+                className="min-h-[44px] font-mono text-xs"
               >
                 Keep Current Plan
               </Button>
               <Button
                 variant="danger"
                 onClick={handleConfirmDowngrade}
-                className="min-h-[44px]"
+                className="min-h-[44px] font-mono text-xs font-semibold"
               >
                 Confirm Downgrade
               </Button>
