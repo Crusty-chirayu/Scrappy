@@ -29,14 +29,14 @@ export function SyntheticDataBanner({
   return (
     <div
       role="alert"
-      className={`w-full bg-[#1A1500] border-y border-[#FFB020]/40 px-4 py-2.5 text-xs text-[#FFE082] flex items-center justify-between gap-4 font-mono ${className}`}
+      className={`w-full bg-[#1A1500] border-y border-[#FFB020]/40 px-4 py-2.5 text-xs text-[#FFE082] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 font-mono ${className}`}
     >
-      <div className="flex items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-[#FFB020] flex-shrink-0 animate-ping" aria-hidden="true" />
         <span className="font-semibold tracking-wider text-[#FFB020] uppercase">[DATA PROVENANCE NOTICE]</span>
-        <span>{message}</span>
+        <span className="text-[11px] leading-relaxed">{message}</span>
       </div>
-      <span className="text-[10px] text-[#FFB020]/80 border border-[#FFB020]/30 rounded px-2 py-0.5 bg-[#FFB020]/5 whitespace-nowrap">
+      <span className="text-[10px] text-[#FFB020]/80 border border-[#FFB020]/30 rounded px-2 py-0.5 bg-[#FFB020]/5 whitespace-nowrap self-start sm:self-auto shrink-0">
         Constitution Rule 1 &amp; 3 Enforced
       </span>
     </div>

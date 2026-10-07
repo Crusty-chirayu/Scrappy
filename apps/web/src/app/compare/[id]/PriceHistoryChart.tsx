@@ -355,7 +355,7 @@ export function PriceHistoryChart({
               x={padding.left - 8}
               y={maxCoordY + 3}
               textAnchor="end"
-              className="fill-[var(--text-3)] text-[10px] font-mono"
+              className="fill-[var(--text-2)] text-[10px] font-mono font-medium"
             >
               ₹{Math.round(maxPrice / 100).toLocaleString("en-IN")}
             </text>
@@ -374,7 +374,7 @@ export function PriceHistoryChart({
               x={padding.left - 8}
               y={avgCoordY + 3}
               textAnchor="end"
-              className="fill-[var(--text-3)] text-[10px] font-mono"
+              className="fill-[var(--text-2)] text-[10px] font-mono font-medium"
             >
               Avg ₹{Math.round(avgPrice / 100).toLocaleString("en-IN")}
             </text>

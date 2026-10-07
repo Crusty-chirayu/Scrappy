@@ -34,7 +34,7 @@
 | **P3-10** | Human-label Tooling | CSV export/import in packages/matching/src/tooling/human-labels.ts, exports match pairs template, reports precision/recall, marks G8 PARTIAL until user labels | **DONE** | 100/100 | G8 PARTIAL until user labels |
 | **P3-11** | Go-Live Runbook & Hand-off | Updated docs/GO_LIVE_CHECKLIST.md with exact credentials, air-gapped apps/admin deployment, Supabase MFA AAL2 smoke tests, and rollback procedures | **DONE** | 100/100 | Complete runbook |
 
-> **NEXT ACTION**: P3 Landing — Build the signature "Price radar" animated hero, live catalog search with example chips, interactive bento grid, "How we know" trust strip, honest pricing tiers, and copy-budget compliance.
+> **NEXT ACTION**: P4 Compare (`/compare`) and Product Detail (`/compare/[id]`) — Rebuild `/compare` with sticky search, left facet rail (bottom sheet on 360px), dense row/grid toggle, NumberTick mono prices, floating compare tray, and spec diff modal. Rebuild `/compare/[id]` with Signature Moment A4 price chart scrub, deals verdict popover, multi-retailer offers table, and watch sheet.
 
 
 ---
