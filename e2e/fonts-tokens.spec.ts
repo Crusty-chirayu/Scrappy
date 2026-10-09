@@ -77,7 +77,7 @@ test.describe("Fonts and Tokens Verification", () => {
   });
 
   test("Computed font families on compare page: body=Geist, h1=Bricolage Grotesque, price=Geist Mono", async ({ page }) => {
-    await page.goto("/compare", { waitUntil: "networkidle" });
+    await page.goto("/compare", { waitUntil: "domcontentloaded" });
 
     const styles = await page.evaluate(() => {
       const bodyFont = window.getComputedStyle(document.body).fontFamily;
@@ -97,7 +97,7 @@ test.describe("Fonts and Tokens Verification", () => {
   });
 
   test("Computed font families on product page: body=Geist, h1=Bricolage Grotesque, price=Geist Mono", async ({ page }) => {
-    await page.goto("/compare/b2000000-0000-0000-0000-000000000001", { waitUntil: "networkidle" });
+    await page.goto("/compare/b2000000-0000-0000-0000-000000000001", { waitUntil: "domcontentloaded" });
 
     const styles = await page.evaluate(() => {
       const bodyFont = window.getComputedStyle(document.body).fontFamily;

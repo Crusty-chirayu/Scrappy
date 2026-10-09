@@ -223,19 +223,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {/* Landing page nav links */}
             {isLanding && (
               <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 ml-4 text-xs font-mono text-[var(--text-2)]">
-                <Link href="/compare" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                <Link href="/compare" className="inline-flex items-center min-h-[32px] px-2.5 py-1 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Compare
                 </Link>
-                <Link href="/intelligence" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                <Link href="/intelligence" className="inline-flex items-center min-h-[32px] px-2.5 py-1 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Intelligence
                 </Link>
-                <Link href="/extract" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                <Link href="/extract" className="inline-flex items-center min-h-[32px] px-2.5 py-1 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Extract
                 </Link>
-                <Link href="/pricing" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                <Link href="/pricing" className="inline-flex items-center min-h-[32px] px-2.5 py-1 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Pricing
                 </Link>
-                <Link href="/docs" className="px-2.5 py-1.5 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
+                <Link href="/docs" className="inline-flex items-center min-h-[32px] px-2.5 py-1 rounded-[var(--radius-sm)] hover:text-[var(--text-1)] hover:bg-[var(--surface-1)] transition-colors">
                   Docs
                 </Link>
               </nav>
@@ -294,7 +294,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {/* Plan / Usage Meter Pill */}
             <Link
               href="/pricing"
-              className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] font-mono text-[11px] text-[var(--text-2)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
+              className="hidden lg:flex items-center min-h-[32px] gap-2 px-2.5 py-1 rounded-[var(--radius-sm)] bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] font-mono text-[11px] text-[var(--text-2)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)]"
               aria-label="Plan usage: Free tier, 12 of 20 watches used"
             >
               <span className="font-semibold text-[var(--text-1)]">Free</span>

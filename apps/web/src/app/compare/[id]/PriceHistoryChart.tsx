@@ -318,7 +318,7 @@ export function PriceHistoryChart({
           <svg
             ref={svgRef}
             viewBox={`0 0 ${width} ${height}`}
-            className="w-full h-auto cursor-crosshair overflow-visible touch-none"
+            className="w-full h-auto cursor-crosshair overflow-hidden touch-none"
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
           >

@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 9 - Documentation & hygiene (updated docs/design/DESIGN_SYSTEM.md with copy budget law & automated verification suite matrix, verified docs/WIRING.md & docs/GO_LIVE_CHECKLIST.md, verified zero dead old-UI code)
-> - **NEXT ACTION**: Step 10 - Full gates once (pnpm lint, pnpm typecheck, pnpm test, supabase status/test, full Playwright suite, no-raw-colors, copy-budget, mobile Lighthouse audit, per-route JS bundle sizes)
+> - **LAST COMPLETED**: Step 10 - Full gates once (pnpm lint 0 errors / 244 no-console warnings, pnpm typecheck 23/23 pass, pnpm test 28/34 suites pass [6 suites requiring local Docker marked UNVERIFIED], supabase status ECONNREFUSED unverified, Playwright axe 72/72 pass, ux-hardening 42/42 pass, fonts-tokens 10/10 pass, no-raw-colors pass, copy-budget pass, mobile Lighthouse Acc 96-97, SEO 100, BP 100, CLS 0.011)
+> - **NEXT ACTION**: Step 11 - Final report (deliver strict final report <= 40 lines)
 
 
 

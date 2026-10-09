@@ -171,7 +171,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8 overflow-x-hidden">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"

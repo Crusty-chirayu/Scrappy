@@ -26,6 +26,7 @@ test.describe("UX Hardening Test Suite", () => {
 
     for (const route of ALL_ROUTES) {
       test(`Zero horizontal overflow on '${route}' at 360px`, async ({ page }) => {
+        await page.setViewportSize({ width: 360, height: 740 });
         await page.goto(route);
         await page.waitForLoadState("domcontentloaded");
         await page.waitForTimeout(300);
@@ -50,6 +51,7 @@ test.describe("UX Hardening Test Suite", () => {
     test.use({ viewport: { width: 360, height: 740 } });
 
     test("Primary action controls meet 44x44 CSS px touch target minimum", async ({ page }) => {
+      await page.setViewportSize({ width: 360, height: 740 });
       await page.goto("/");
       await page.waitForLoadState("domcontentloaded");
 
