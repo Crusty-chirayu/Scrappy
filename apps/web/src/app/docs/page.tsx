@@ -182,24 +182,24 @@ export default function DocsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#2FBF8A]" aria-hidden="true" />
-            <span className="text-xs uppercase tracking-wider font-mono text-[#2FBF8A]">
+            <span className="w-2 h-2 rounded-full bg-[var(--color-success)]" aria-hidden="true" />
+            <span className="text-xs uppercase tracking-wider font-mono text-[var(--color-success)]">
               Developer Platform
             </span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#D6DBE3]">
+          <h1 className="text-2xl font-display font-bold tracking-tight text-[var(--text-1)]">
             SCRAPPY PUBLIC REST API
           </h1>
-          <p className="text-xs text-[#98A2B3] mt-0.5">
+          <p className="text-xs text-[var(--text-3)] mt-0.5">
             Production-grade REST endpoints with strict schemas, provenance metadata, and zero fake discounts.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono px-3 py-1.5 rounded bg-[#141922] border border-[#262E3C] text-[#2FBF8A]">
+          <span className="text-xs font-mono px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border)] text-[var(--color-success)]">
             OPENAPI 3.1 SPEC
           </span>
-          <span className="text-xs font-mono px-3 py-1.5 rounded bg-[#141922] border border-[#262E3C] text-[#98A2B3]">
+          <span className="text-xs font-mono px-3 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text-3)]">
             BASE: http://localhost:4000
           </span>
         </div>
@@ -207,36 +207,36 @@ export default function DocsPage() {
 
       {/* Security & Authentication Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-xs font-mono">
-        <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-          <div className="text-[#5B677C] mb-1">TENANT ISOLATION</div>
-          <div className="text-[#D6DBE3]">Enforced via Row-Level Security</div>
-          <div className="text-[#98A2B3] mt-1 text-[11px]">Header: x-workspace-id</div>
+        <div className="p-4 rounded-[var(--radius-lg)] bg-[var(--surface-1)] border border-[var(--border)]">
+          <div className="text-[var(--text-3)] mb-1">TENANT ISOLATION</div>
+          <div className="text-[var(--text-1)]">Enforced via Row-Level Security</div>
+          <div className="text-[var(--text-3)] mt-1 text-[11px]">Header: x-workspace-id</div>
         </div>
 
-        <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-          <div className="text-[#5B677C] mb-1">SSRF RESTRICTION</div>
-          <div className="text-[#2FBF8A]">Active IPv4/IPv6 CIDR Filtering</div>
-          <div className="text-[#98A2B3] mt-1 text-[11px]">Loopback & cloud metadata blocked</div>
+        <div className="p-4 rounded-[var(--radius-lg)] bg-[var(--surface-1)] border border-[var(--border)]">
+          <div className="text-[var(--text-3)] mb-1">SSRF RESTRICTION</div>
+          <div className="text-[var(--color-success)]">Active IPv4/IPv6 CIDR Filtering</div>
+          <div className="text-[var(--text-3)] mt-1 text-[11px]">Loopback &amp; cloud metadata blocked</div>
         </div>
 
-        <div className="p-4 rounded-lg bg-[#0F1217] border border-[#262E3C]">
-          <div className="text-[#5B677C] mb-1">WEBHOOK SECURITY</div>
-          <div className="text-[#D6DBE3]">HMAC SHA-256 Signatures</div>
-          <div className="text-[#98A2B3] mt-1 text-[11px]">Header: x-scrappy-signature</div>
+        <div className="p-4 rounded-[var(--radius-lg)] bg-[var(--surface-1)] border border-[var(--border)]">
+          <div className="text-[var(--text-3)] mb-1">WEBHOOK SECURITY</div>
+          <div className="text-[var(--text-1)]">HMAC SHA-256 Signatures</div>
+          <div className="text-[var(--text-3)] mt-1 text-[11px]">Header: x-scrappy-signature</div>
         </div>
       </div>
 
       {/* Filter Tabs & Language Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-[#262E3C] pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-[var(--border)] pb-3">
         <div className="flex items-center gap-1 overflow-x-auto text-xs font-mono">
           {tags.map((tag) => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1.5 rounded transition-colors ${
+              className={`px-3 py-1.5 rounded-[var(--radius-sm)] transition-colors ${
                 selectedTag === tag
-                  ? "bg-[#2FBF8A] text-[#0A0C0F] font-bold"
-                  : "bg-transparent text-[#98A2B3] hover:text-white"
+                  ? "bg-[var(--color-success)] text-[var(--color-accent-contrast)] font-bold"
+                  : "bg-transparent text-[var(--text-3)] hover:text-[var(--text-1)]"
               }`}
             >
               {tag}
@@ -245,23 +245,23 @@ export default function DocsPage() {
         </div>
 
         <div className="flex items-center gap-2 text-xs font-mono">
-          <span className="text-[#5B677C]">Code Example:</span>
+          <span className="text-[var(--text-3)]">Code Example:</span>
           <button
             onClick={() => setCodeLanguage("curl")}
-            className={`px-2.5 py-1 rounded ${
+            className={`px-2.5 py-1 rounded-[var(--radius-sm)] ${
               codeLanguage === "curl"
-                ? "bg-[#141922] text-[#C6F135] border border-[#C6F135]/40 font-bold"
-                : "text-[#5B677C] hover:text-white"
+                ? "bg-[var(--surface-2)] text-[var(--color-accent)] border border-[var(--color-accent)]/40 font-bold"
+                : "text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
             cURL
           </button>
           <button
             onClick={() => setCodeLanguage("typescript")}
-            className={`px-2.5 py-1 rounded ${
+            className={`px-2.5 py-1 rounded-[var(--radius-sm)] ${
               codeLanguage === "typescript"
-                ? "bg-[#141922] text-[#C6F135] border border-[#C6F135]/40 font-bold"
-                : "text-[#5B677C] hover:text-white"
+                ? "bg-[var(--surface-2)] text-[var(--color-accent)] border border-[var(--color-accent)]/40 font-bold"
+                : "text-[var(--text-3)] hover:text-[var(--text-1)]"
             }`}
           >
             TypeScript
@@ -274,41 +274,41 @@ export default function DocsPage() {
         {filteredEndpoints.map((ep, idx) => (
           <div
             key={idx}
-            className="rounded-lg bg-[#0F1217] border border-[#262E3C] overflow-hidden"
+            className="rounded-[var(--radius-lg)] bg-[var(--surface-1)] border border-[var(--border)] overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 border-b border-[#262E3C] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="p-4 border-b border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-3">
                 <span
-                  className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${
+                  className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-[var(--radius-sm)] ${
                     ep.method === "GET"
-                      ? "bg-[#2FBF8A]/10 text-[#2FBF8A] border border-[#2FBF8A]/20"
-                      : "bg-[#5AA9FF]/10 text-[#5AA9FF] border border-[#5AA9FF]/20"
+                      ? "bg-[var(--color-success)]/10 text-[var(--color-success)] border border-[var(--color-success)]/20"
+                      : "bg-[var(--color-info)]/10 text-[var(--color-info)] border border-[var(--color-info)]/20"
                   }`}
                 >
                   {ep.method}
                 </span>
-                <span className="text-xs font-mono font-bold text-[#D6DBE3]">{ep.path}</span>
+                <span className="text-xs font-mono font-bold text-[var(--text-1)]">{ep.path}</span>
               </div>
-              <span className="text-xs text-[#98A2B3]">{ep.summary}</span>
+              <span className="text-xs text-[var(--text-3)]">{ep.summary}</span>
             </div>
 
             <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-[#98A2B3] mb-3">{ep.description}</p>
-                <div className="text-[10px] font-mono text-[#5B677C] uppercase mb-1">
+                <p className="text-xs text-[var(--text-2)] mb-3">{ep.description}</p>
+                <div className="text-[10px] font-mono text-[var(--text-3)] uppercase mb-1">
                   REQUEST ({codeLanguage.toUpperCase()})
                 </div>
-                <pre tabIndex={0} aria-label={`Request code example in ${codeLanguage}`} className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#D6DBE3] overflow-x-auto focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]">
+                <pre tabIndex={0} aria-label={`Request code example in ${codeLanguage}`} className="p-3 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono text-[var(--text-1)] overflow-x-auto focus-visible:ring-1 focus-visible:ring-[var(--border-focus)]">
                   {codeLanguage === "curl" ? ep.curl : ep.typescript}
                 </pre>
               </div>
 
               <div>
-                <div className="text-[10px] font-mono text-[#5B677C] uppercase mb-1">
+                <div className="text-[10px] font-mono text-[var(--text-3)] uppercase mb-1">
                   SAMPLE RESPONSE (200 OK)
                 </div>
-                <pre tabIndex={0} aria-label="Sample 200 OK JSON response" className="p-3 rounded bg-[#141922] border border-[#262E3C] text-xs font-mono text-[#C6F135] overflow-x-auto max-h-56 focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]">
+                <pre tabIndex={0} aria-label="Sample 200 OK JSON response" className="p-3 rounded-[var(--radius-sm)] bg-[var(--surface-2)] border border-[var(--border)] text-xs font-mono text-[var(--color-accent)] overflow-x-auto max-h-56 focus-visible:ring-1 focus-visible:ring-[var(--border-focus)]">
                   {ep.response}
                 </pre>
               </div>

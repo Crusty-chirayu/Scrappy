@@ -115,4 +115,30 @@ test.describe("Fonts and Tokens Verification", () => {
     expect(styles.priceFont.toLowerCase()).toMatch(/geist.*mono|geistmono/);
     expect(styles.priceFont.toLowerCase()).not.toContain("jetbrains mono");
   });
+
+  test("Theme toggle: toggles between dark and light, persists in localStorage and across navigation", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
+    const initialTheme = await page.evaluate(() => document.documentElement.getAttribute("data-theme") || "dark");
+    
+    // Toggle theme via theme-toggle button or 't' shortcut
+    const toggleBtn = page.locator('[data-testid="theme-toggle"]').first();
+    if (await toggleBtn.isVisible()) {
+      await toggleBtn.click();
+    } else {
+      await page.keyboard.press("t");
+    }
+
+    const expectedTheme = initialTheme === "dark" ? "light" : "dark";
+    await expect(page.locator("html")).toHaveAttribute("data-theme", expectedTheme);
+
+    const storedTheme = await page.evaluate(() => localStorage.getItem("scrappy-theme"));
+    expect(storedTheme).toBe(expectedTheme);
+
+    // Navigate to another route and verify persistence
+    await page.goto("/compare");
+    await page.waitForLoadState("domcontentloaded");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", expectedTheme);
+  });
 });
+

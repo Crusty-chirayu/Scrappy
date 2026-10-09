@@ -141,29 +141,46 @@ function renderMfaChallengeGateHtml(email = "admin@scrappy.in", errorMsg = ""): 
   <meta charset="UTF-8">
   <title>Scrappy Ops Console — MFA Gate</title>
   <style>
-    body { background: #0A0C0F; color: #D6DBE3; font-family: monospace; padding: 2rem; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
-    .card { background: #0F1217; border: 1px solid #262E3C; border-radius: 8px; padding: 2rem; width: 100%; max-width: 540px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-    h1 { color: #FFF; font-size: 1.25rem; margin-top: 0; margin-bottom: 0.5rem; }
-    p { font-size: 0.85rem; color: #98A2B3; line-height: 1.5; }
-    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; background: #172B4D; color: #7C8CFF; border: 1px solid #334E68; }
+    :root {
+      --surface-0: #07080d;
+      --surface-1: #0d0f17;
+      --surface-2: #12151f;
+      --text-1: #f4f5f8;
+      --text-2: #a3a9b8;
+      --text-3: #7c8397;
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --border-focus: #6c5cff;
+      --color-accent: #7c8cff;
+      --color-accent-hover: #94a1ff;
+      --color-success: #3dd68c;
+      --color-danger: #ff6b73;
+      --color-warn: #f0b24a;
+    }
+    body { background: var(--surface-0); color: var(--text-1); font-family: monospace; padding: 2rem; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
+    .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; width: 100%; max-width: 540px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    h1 { color: var(--text-1); font-size: 1.25rem; margin-top: 0; margin-bottom: 0.5rem; }
+    p { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; background: rgba(124, 140, 255, 0.15); color: var(--color-accent); border: 1px solid var(--border); }
+    .badge-test { background: rgba(240, 178, 74, 0.15); color: var(--color-warn); border-color: rgba(240, 178, 74, 0.4); }
     .field { margin-top: 1rem; }
-    label { display: block; font-size: 0.75rem; text-transform: uppercase; color: #98A2B3; margin-bottom: 0.4rem; }
-    input { width: 100%; box-sizing: border-box; background: #14181F; border: 1px solid #262E3C; color: #FFF; padding: 0.6rem 0.8rem; font-family: monospace; font-size: 0.9rem; border-radius: 4px; }
-    input:focus { border-color: #7C8CFF; outline: none; }
-    button { width: 100%; margin-top: 1.5rem; background: #7C8CFF; border: none; color: #0A0C0F; padding: 0.75rem; cursor: pointer; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 0.9rem; }
-    button:hover { background: #94A3FF; }
-    .enrollment { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #262E3C; }
-    .qr-box { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; background: #14181F; padding: 1rem; border-radius: 4px; border: 1px dashed #262E3C; }
-    .secret { font-size: 0.9rem; color: #70E000; font-weight: bold; letter-spacing: 0.1em; background: #0A0C0F; padding: 0.3rem 0.6rem; border-radius: 3px; display: inline-block; }
-    .error { color: #FF5A5A; background: #2D1414; border: 1px solid #6B2424; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-bottom: 1rem; }
-    .stubs { margin-top: 1rem; font-size: 0.75rem; color: #F38A3E; border: 1px solid #8A4F1D; padding: 0.6rem; border-radius: 4px; background: #2B1B10; }
+    label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; }
+    input { width: 100%; box-sizing: border-box; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-1); padding: 0.6rem 0.8rem; font-family: monospace; font-size: 0.9rem; border-radius: 4px; }
+    input:focus { border-color: var(--border-focus); outline: none; }
+    button { width: 100%; margin-top: 1.5rem; background: var(--color-accent); border: none; color: var(--surface-0); padding: 0.75rem; cursor: pointer; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 0.9rem; }
+    button:hover { background: var(--color-accent-hover); }
+    .enrollment { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .qr-box { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; background: var(--surface-2); padding: 1rem; border-radius: 4px; border: 1px dashed var(--border); }
+    .secret { font-size: 0.9rem; color: var(--color-success); font-weight: bold; letter-spacing: 0.1em; background: var(--surface-0); padding: 0.3rem 0.6rem; border-radius: 3px; display: inline-block; }
+    .error { color: var(--color-danger); background: rgba(255, 107, 115, 0.1); border: 1px solid rgba(255, 107, 115, 0.3); padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-bottom: 1rem; }
+    .stubs { margin-top: 1rem; font-size: 0.75rem; color: var(--color-warn); border: 1px solid rgba(240, 178, 74, 0.3); padding: 0.6rem; border-radius: 4px; background: rgba(240, 178, 74, 0.08); }
   </style>
 </head>
 <body>
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
       <h1>OPERATOR AUTHENTICATION</h1>
-      <span class="badge">AAL2 GATE</span>
+      <span class="badge badge-test">TEST MODE: STUB MFA</span>
     </div>
     <p>Access to Scrappy Internal Ops requires an allowlisted operator email and verified TOTP multi-factor token (AAL2 enforcement).</p>
 
@@ -178,7 +195,7 @@ function renderMfaChallengeGateHtml(email = "admin@scrappy.in", errorMsg = ""): 
         <label for="code">6-Digit TOTP Challenge Code</label>
         <input id="code" name="code" type="text" placeholder="e.g. 849201" pattern="[0-9]{6}" maxlength="6" required autofocus />
       </div>
-      <button type="submit">Verify MFA & Enter Console →</button>
+      <button type="submit">Verify MFA &amp; Enter Console →</button>
     </form>
 
     <div class="enrollment">
@@ -186,22 +203,22 @@ function renderMfaChallengeGateHtml(email = "admin@scrappy.in", errorMsg = ""): 
       <p style="margin: 0.3rem 0;">Scan via Google Authenticator or enter manual secret below:</p>
       <div class="qr-box">
         <!-- Minimal SVG QR Representation -->
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:#FFF; padding:4px; border-radius:4px;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:#FFF; color:#07080d; padding:4px; border-radius:4px;">
           <rect x="3" y="3" width="7" height="7"></rect>
           <rect x="14" y="3" width="7" height="7"></rect>
           <rect x="14" y="14" width="7" height="7"></rect>
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
         <div>
-          <div style="font-size:0.75rem; color:#98A2B3; margin-bottom:0.2rem;">TOTP Key (Base32):</div>
+          <div style="font-size:0.75rem; color:var(--text-3); margin-bottom:0.2rem;">TOTP Key (Base32):</div>
           <span class="secret">${totpSecret}</span>
-          <div style="font-size:0.7rem; color:#98A2B3; margin-top:0.3rem;">URI: <code style="word-break:break-all;">${otpauthUri.slice(0, 32)}...</code></div>
+          <div style="font-size:0.7rem; color:var(--text-3); margin-top:0.3rem;">URI: <code style="word-break:break-all;">${otpauthUri.slice(0, 32)}...</code></div>
         </div>
       </div>
     </div>
 
     <div class="stubs">
-      <strong>STUB DISCLOSURES:</strong>
+      <strong>TEST MODE DISCLOSURE / KNOWN STUBS:</strong>
       <ul style="margin:0.3rem 0 0 1rem; padding:0;">
         <li>TOTP verification accepts configured test codes (<code>849201</code>, <code>123456</code>) in local development.</li>
         <li>Croma and Reliance Digital source adapters are STUBS.</li>
@@ -220,38 +237,56 @@ function renderAdminHtml(operatorEmail: string): string {
   <meta charset="UTF-8">
   <title>Scrappy Ops Console (Isolated)</title>
   <style>
-    body { background: #0A0C0F; color: #D6DBE3; font-family: monospace; padding: 2rem; margin: 0; }
-    h1 { color: #FFF; font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; background: #132A13; color: #70E000; border: 1px solid #2D6A4F; }
-    .mfa-badge { background: #172B4D; color: #7C8CFF; border: 1px solid #334E68; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 2rem; background: #0F1217; border: 1px solid #262E3C; }
-    th, td { padding: 0.75rem 1rem; border-bottom: 1px solid #262E3C; text-align: left; font-size: 0.85rem; }
-    th { background: #14181F; color: #98A2B3; }
-    button { background: #14181F; border: 1px solid #262E3C; color: #7C8CFF; padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 4px; font-family: monospace; }
-    button:hover { background: #262E3C; }
-    .danger { color: #FF5A5A; border-color: #6B2424; }
-    .success { color: #70E000; border-color: #2D6A4F; }
-    .stubs-banner { background: #2B1B10; border: 1px solid #8A4F1D; color: #F38A3E; padding: 0.8rem 1rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 1.5rem; line-height: 1.5; }
+    :root {
+      --surface-0: #07080d;
+      --surface-1: #0d0f17;
+      --surface-2: #12151f;
+      --text-1: #f4f5f8;
+      --text-2: #a3a9b8;
+      --text-3: #7c8397;
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --border-focus: #6c5cff;
+      --color-accent: #7c8cff;
+      --color-accent-hover: #94a1ff;
+      --color-success: #3dd68c;
+      --color-danger: #ff6b73;
+      --color-warn: #f0b24a;
+    }
+    body { background: var(--surface-0); color: var(--text-1); font-family: monospace; padding: 2rem; margin: 0; }
+    h1 { color: var(--text-1); font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; background: rgba(61, 214, 140, 0.15); color: var(--color-success); border: 1px solid rgba(61, 214, 140, 0.3); }
+    .mfa-badge { background: rgba(124, 140, 255, 0.15); color: var(--color-accent); border: 1px solid rgba(124, 140, 255, 0.3); }
+    .test-badge { background: rgba(240, 178, 74, 0.15); color: var(--color-warn); border: 1px solid rgba(240, 178, 74, 0.3); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 2rem; background: var(--surface-1); border: 1px solid var(--border); }
+    th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.85rem; }
+    th { background: var(--surface-2); color: var(--text-2); }
+    button { background: var(--surface-2); border: 1px solid var(--border); color: var(--color-accent); padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 4px; font-family: monospace; }
+    button:hover { background: var(--border-strong); }
+    .danger { color: var(--color-danger); border-color: rgba(255, 107, 115, 0.4); }
+    .success { color: var(--color-success); border-color: rgba(61, 214, 140, 0.4); }
+    .stubs-banner { background: rgba(240, 178, 74, 0.1); border: 1px solid rgba(240, 178, 74, 0.3); color: var(--color-warn); padding: 0.8rem 1rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 1.5rem; line-height: 1.5; }
   </style>
 </head>
 <body>
-  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid #262E3C; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem;">
     <div>
       <h1>SCRAPPY INTERNAL OPS CONSOLE</h1>
-      <div style="color:#98A2B3; font-size:0.8rem;">Isolated Service • Port ${env.PORT} • Air-Gapped from Public Web Bundle</div>
+      <div style="color:var(--text-3); font-size:0.8rem;">Isolated Service • Port ${env.PORT} • Air-Gapped from Public Web Bundle</div>
     </div>
     <div style="display:flex; align-items:center; gap:0.6rem;">
-      <span class="badge mfa-badge">AAL2: SUPABASE MFA VERIFIED</span>
+      <span class="badge test-badge">TEST MODE: STUB MFA (849201)</span>
+      <span class="badge mfa-badge">AAL2: VERIFIED</span>
       <span class="badge">OPERATOR: ${operatorEmail}</span>
       <form method="POST" action="/auth/logout" style="display:inline; margin:0;">
-        <button type="submit" style="color:#FF5A5A;">Log Out</button>
+        <button type="submit" style="color:var(--color-danger);">Log Out</button>
       </form>
     </div>
   </div>
 
   <div class="stubs-banner">
-    <strong>DISCLOSURE / KNOWN STUBS:</strong>
-    <span>Croma and Reliance Digital source adapters are STUBS. Amazon India and Flipkart adapters are fixture-only recorded mocks. Match review queue is backed by staging test fixtures.</span>
+    <strong>TEST MODE DISCLOSURE / KNOWN STUBS:</strong>
+    <span>Croma and Reliance Digital source adapters are STUBS. Amazon.in and Flipkart adapters are fixture-only recorded mocks. Match review queue is backed by staging test fixtures.</span>
   </div>
 
   <h2>1. Source Adapters & Circuit Breakers</h2>

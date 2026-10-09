@@ -9,11 +9,11 @@ export default function Loading() {
       data-testid="root-loading-skeleton"
       className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6"
     >
-      <div className="flex items-center gap-3 p-3 rounded bg-[#0F1217] border border-[#262E3C] max-w-sm">
+      <div className="flex items-center gap-3 p-3 rounded bg-[var(--surface-1)] border border-[var(--border)] max-w-sm">
         <ScrappyLogo state="loading" size={28} showLabel={false} />
         <div>
-          <div className="text-xs font-mono font-bold text-white tracking-wider">RESOLVING GRAPH STATE</div>
-          <div className="text-[11px] font-mono text-[#98A2B3]">Syncing real-time offers and telemetry...</div>
+          <div className="text-xs font-mono font-bold text-[var(--text-1)] tracking-wider">RESOLVING GRAPH STATE</div>
+          <div className="text-[11px] font-mono text-[var(--text-3)]">Syncing real-time offers and telemetry...</div>
         </div>
       </div>
 

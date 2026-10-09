@@ -34,19 +34,19 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="max-w-md mx-auto px-4 py-24 text-center">
-      <div className="bg-[#141820] border border-[#262E3C] rounded-lg p-8 shadow-2xl">
+      <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-[var(--radius-lg)] p-8 shadow-[var(--elevation-2)]">
         {errorMsg ? (
-          <div role="alert" className="text-xs text-[#F43F5E] font-mono">
+          <div role="alert" className="text-xs text-[var(--color-danger)] font-mono">
             <p className="font-semibold mb-2">Authentication Error</p>
             <p>{errorMsg}</p>
-            <a href="/auth/login" className="inline-block mt-4 text-[#C6F135] underline">
+            <a href="/auth/login" className="inline-block mt-4 text-[var(--color-accent)] underline">
               Return to Login
             </a>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <span className="w-6 h-6 border-2 border-[#C6F135] border-t-transparent rounded-full animate-spin" />
-            <p className="text-xs font-mono text-[#98A2B3]">Authenticating session...</p>
+            <span className="w-6 h-6 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin" />
+            <p className="text-xs font-mono text-[var(--text-3)]">Authenticating session...</p>
           </div>
         )}
       </div>

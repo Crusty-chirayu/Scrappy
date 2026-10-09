@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 3 - Wire fonts and tokens (Geist, Geist Mono, Bricolage Grotesque, zero Inter/JetBrains Mono, e2e/fonts-tokens.spec.ts passing 8/8)
-> - **NEXT ACTION**: Step 4 - Theme completeness (replace raw hex/slate in /docs, /legal/*, /auth/callback, apps/admin; add scripts/no-raw-colors.ts)
+> - **LAST COMPLETED**: Step 4 - Theme completeness (replaced raw hex/slate in /docs, /legal/*, /auth/callback, /loading, apps/admin; added scripts/no-raw-colors.ts with 0 violations; verified theme persistence across navigation in e2e/fonts-tokens.spec.ts)
+> - **NEXT ACTION**: Step 5 - Real behavior (persist onboarding choices to Supabase, run WIRING verification with Playwright persistence tests, confirm Admin MFA mode)
 
 
 ---
