@@ -1,3 +1,4 @@
+"use client";
 
 export type SourceHealth = "healthy" | "degraded" | "broken" | "unavailable";
 

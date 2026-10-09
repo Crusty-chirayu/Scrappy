@@ -1,3 +1,5 @@
+"use client";
+
 import React, { forwardRef, type ButtonHTMLAttributes } from "react";
 
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";

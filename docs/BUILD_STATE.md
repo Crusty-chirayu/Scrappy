@@ -40,10 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **CURRENT HEAD**: `4984fa9`
-> - **LAST COMPLETED PHASE**: Phase P8 + Hotfix `4984fa9`
-> - **WORKING TREE**: Clean
-> - **NEXT RECOMMENDED ACTION**: Owner manually reviews the running UI (`pnpm dev` at `http://localhost:3000`) before any further implementation or git merges.
+> - **LAST COMPLETED**: Step 1 - Triage and commit use client directives from external edits (`ui-v2-pre-hardening` tag created)
+> - **NEXT ACTION**: Step 2 - Restore test integrity (api.test.ts exact assertions, vitest timeouts, playwright config)
 
 
 ---

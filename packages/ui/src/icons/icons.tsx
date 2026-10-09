@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 export type IconSize = 16 | 20 | 24 | 32;

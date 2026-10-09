@@ -1,3 +1,5 @@
+"use client";
+
 import React, { type HTMLAttributes } from "react";
 
 export type CardVariant = "default" | "elevated" | "interactive";

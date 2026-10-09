@@ -1,3 +1,5 @@
+"use client";
+
 import type { HTMLAttributes } from "react";
 
 export type BadgeVariant = "default" | "accent" | "success" | "warn" | "danger" | "info" | "outline";

@@ -1,3 +1,4 @@
+"use client";
 
 export interface DataFreshnessProps {
   fetchedAt: string | Date;

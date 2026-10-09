@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
 export type IconButtonVariant = "default" | "primary" | "secondary" | "outline" | "ghost";

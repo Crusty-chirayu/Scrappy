@@ -1,3 +1,5 @@
+"use client";
+
 export * from "./NumberTick.js";
 export * from "./HoldToConfirmButton.js";
 export * from "./Accordion.js";
