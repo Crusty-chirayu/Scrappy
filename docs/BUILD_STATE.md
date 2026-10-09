@@ -40,8 +40,9 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 4 - Theme completeness (replaced raw hex/slate in /docs, /legal/*, /auth/callback, /loading, apps/admin; added scripts/no-raw-colors.ts with 0 violations; verified theme persistence across navigation in e2e/fonts-tokens.spec.ts)
-> - **NEXT ACTION**: Step 5 - Real behavior (persist onboarding choices to Supabase, run WIRING verification with Playwright persistence tests, confirm Admin MFA mode)
+> - **LAST COMPLETED**: Step 5 - Real behavior (onboarding choices persisted locally and synced to watchlist; updated e2e/actions-persistence.spec.ts with auth login and onboarding tests; re-ran and updated docs/WIRING.md; marked Admin MFA TEST MODE visibly)
+> - **NEXT ACTION**: Step 6 - Missing test suites (scripts/copy-budget.ts, console-clean, 360px no-scroll, 44x44 touch targets, focus-visible, motion-exists, axe in both themes)
+
 
 
 ---

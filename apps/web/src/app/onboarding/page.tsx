@@ -51,38 +51,38 @@ interface SpecimenProduct {
 
 const SPECIMEN_PRODUCTS: SpecimenProduct[] = [
   {
-    id: "p1",
-    title: "Apple MacBook Air M3 (16GB RAM, 512GB SSD)",
+    id: "b2000000-0000-0000-0000-000000000006",
+    title: "Apple MacBook Air M3 (13.6-inch, 16GB, 512GB) - Space Gray",
     brand: "Apple",
-    currentLowestPaise: 13490000,
-    mrpPaise: 14490000,
+    currentLowestPaise: 12883000,
+    mrpPaise: 15513500,
     dealScore: 92,
-    retailerCount: 4,
-  },
-  {
-    id: "p2",
-    title: "Sony WH-1000XM5 Wireless Noise Cancelling",
-    brand: "Sony",
-    currentLowestPaise: 2999000,
-    mrpPaise: 3499000,
-    dealScore: 88,
     retailerCount: 3,
   },
   {
-    id: "p3",
-    title: "Samsung Galaxy S24 Ultra 5G (512GB)",
-    brand: "Samsung",
-    currentLowestPaise: 12999900,
-    mrpPaise: 13999900,
-    dealScore: 94,
-    retailerCount: 4,
+    id: "b2000000-0000-0000-0000-000000000009",
+    title: "Sony WH-1000XM5 Wireless Noise Cancelling Headphones - Black",
+    brand: "Sony",
+    currentLowestPaise: 2879000,
+    mrpPaise: 3448900,
+    dealScore: 92,
+    retailerCount: 3,
   },
   {
-    id: "p4",
-    title: "Dyson V12 Detect Slim Cordless Vacuum",
-    brand: "Dyson",
-    currentLowestPaise: 4990000,
-    mrpPaise: 5590000,
+    id: "b2000000-0000-0000-0000-000000000003",
+    title: "Samsung Galaxy S24 Ultra 5G (256 GB) - Titanium Gray",
+    brand: "Samsung",
+    currentLowestPaise: 12739900,
+    mrpPaise: 14949900,
+    dealScore: 92,
+    retailerCount: 3,
+  },
+  {
+    id: "b2000000-0000-0000-0000-000000000001",
+    title: "Apple iPhone 15 (128 GB) - Black",
+    brand: "Apple",
+    currentLowestPaise: 7199900,
+    mrpPaise: 8279900,
     dealScore: 85,
     retailerCount: 3,
   },
@@ -96,16 +96,60 @@ export default function OnboardingPage() {
   const [selectedPersona, setSelectedPersona] = useState<string>("consumer_tech");
 
   // Step 2: Selected Product
-  const [selectedProductId, setSelectedProductId] = useState<string>("p1");
+  const [selectedProductId, setSelectedProductId] = useState<string>("b2000000-0000-0000-0000-000000000006");
 
   // Step 3: Alert Configuration
   const [thresholdType, setThresholdType] = useState<"5_percent" | "10_percent" | "all_time_low">("10_percent");
   const [notifyEmail, setNotifyEmail] = useState(true);
   const [notifyInApp, setNotifyInApp] = useState(true);
 
+  // Persistence status
+  const [persistedStatus, setPersistedStatus] = useState<"pending" | "saved" | "synced">("pending");
+
+  React.useEffect(() => {
+    try {
+      const savedPersona = localStorage.getItem("scrappy-onboarding-persona");
+      const savedProduct = localStorage.getItem("scrappy-onboarding-product");
+      const savedThreshold = localStorage.getItem("scrappy-onboarding-threshold") as "5_percent" | "10_percent" | "all_time_low" | null;
+      const completed = localStorage.getItem("scrappy-onboarding-completed");
+      if (savedPersona) setSelectedPersona(savedPersona);
+      if (savedProduct && SPECIMEN_PRODUCTS.some((p) => p.id === savedProduct)) setSelectedProductId(savedProduct);
+      if (savedThreshold) setThresholdType(savedThreshold);
+      if (completed === "true") {
+        setStep(4);
+        setPersistedStatus("saved");
+      }
+    } catch {
+      // Ignore during SSR
+    }
+  }, []);
+
   const selectedProduct: SpecimenProduct = SPECIMEN_PRODUCTS.find((p) => p.id === selectedProductId) ?? SPECIMEN_PRODUCTS[0]!;
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    try {
+      localStorage.setItem("scrappy-onboarding-persona", selectedPersona);
+      localStorage.setItem("scrappy-onboarding-product", selectedProductId);
+      localStorage.setItem("scrappy-onboarding-threshold", thresholdType);
+      localStorage.setItem("scrappy-onboarding-completed", "true");
+      setPersistedStatus("saved");
+    } catch {
+      // Ignored
+    }
+
+    try {
+      const res = await fetch("/api/watchlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: selectedProductId }),
+      });
+      if (res.ok) {
+        setPersistedStatus("synced");
+      }
+    } catch {
+      // Saved on device honestly
+    }
+
     setStep(4);
     showToast({
       type: "success",
@@ -454,6 +498,14 @@ export default function OnboardingPage() {
             <div className="flex justify-between">
               <span className="text-[var(--text-3)]">Polling Frequency:</span>
               <span className="text-[var(--color-accent)] font-semibold">Every 15 minutes</span>
+            </div>
+            <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-center gap-1.5 text-xs text-[var(--color-success)] font-mono">
+              <Check size={13} />
+              <span>
+                {persistedStatus === "synced"
+                  ? "Saved on this device & synced with workspace watchlist"
+                  : "Saved on this device"}
+              </span>
             </div>
           </div>
 

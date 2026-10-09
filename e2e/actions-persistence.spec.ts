@@ -117,6 +117,70 @@ test.describe("Real Behavior & Database Persistence Tests", () => {
     await page.reload();
     await page.waitForLoadState("domcontentloaded");
     await expect(page.locator("#auth-login-link")).toBeVisible();
+
+    // 3. Log in with the newly created account and verify session persistence
+    await page.goto("http://localhost:3005/auth/login");
+    await page.waitForLoadState("domcontentloaded");
+    await page.fill("#login-email", testEmail);
+    await page.fill("#login-password", testPassword);
+    await page.click("#login-submit-btn");
+
+    await page.waitForURL("**/compare", { timeout: 15000 });
+    await expect(page).toHaveURL(/.*compare/);
+
+    // Session persists across reload
+    await page.reload();
+    await page.waitForLoadState("domcontentloaded");
+    await expect(page.locator("#auth-logout-btn")).toBeVisible({ timeout: 5000 });
+  });
+
+  test("Onboarding wizard choices persist on device and sync to Supabase watchlist across reload", async ({ page }) => {
+    const specimenProductId = "b2000000-0000-0000-0000-000000000006";
+    const workspaceId = "e0000000-0000-0000-0000-000000000001";
+    const { createClient } = await import("@supabase/supabase-js");
+    const admin = createClient(
+      "http://127.0.0.1:55321",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+    );
+
+    // Clean existing watch for specimen product in default workspace
+    await admin.from("watchlists").delete().eq("workspace_id", workspaceId).eq("product_id", specimenProductId);
+
+    await page.goto("http://localhost:3005/onboarding");
+    await page.waitForLoadState("domcontentloaded");
+
+    // Step 1: Select persona and continue
+    const continueToStep2 = page.getByRole("button", { name: /Continue to Product Selection/i });
+    await expect(continueToStep2).toBeVisible();
+    await continueToStep2.click();
+
+    // Step 2: Select first product and continue
+    const continueToStep3 = page.getByRole("button", { name: /Continue to Alert Trigger/i });
+    await expect(continueToStep3).toBeVisible();
+    await continueToStep3.click();
+
+    // Step 3: Activate first watch
+    const activateBtn = page.getByRole("button", { name: /Activate First Watch/i });
+    await expect(activateBtn).toBeVisible();
+    await activateBtn.click();
+
+    // Step 4: Setup Complete displayed with persistence disclosure
+    await expect(page.getByText(/Saved on this device & synced with workspace watchlist/i)).toBeVisible();
+
+    // Assert row in Supabase watchlists table
+    const dbRow = await admin
+      .from("watchlists")
+      .select("id, product_id")
+      .eq("workspace_id", workspaceId)
+      .eq("product_id", specimenProductId)
+      .maybeSingle();
+    expect(dbRow.data).not.toBeNull();
+    expect(dbRow.data?.product_id).toBe(specimenProductId);
+
+    // Reload /onboarding and verify choices and completed state persist
+    await page.reload();
+    await page.waitForLoadState("domcontentloaded");
+    await expect(page.getByText(/Your Workspace is Live/i)).toBeVisible();
   });
 
   test("Add to watchlist and remove from watchlist persist in Supabase across reload", async ({ page }) => {
