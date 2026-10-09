@@ -24,10 +24,10 @@ export function WorkspaceSwitcher() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-2)]">
-        <span className="w-2 h-2 rounded-full bg-[var(--border-strong)] animate-pulse" />
-        <span>Loading...</span>
-      </div>
+      <div
+        className="w-9 h-8 rounded bg-[var(--surface-2)] border border-[var(--border-subtle)] animate-pulse"
+        aria-hidden="true"
+      />
     );
   }
 

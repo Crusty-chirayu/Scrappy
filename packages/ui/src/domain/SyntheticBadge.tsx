@@ -31,14 +31,14 @@ export function SyntheticDataBanner({
   return (
     <div
       role="alert"
-      className={`w-full bg-[#1A1500] border-y border-[#FFB020]/40 px-4 py-2.5 text-xs text-[#FFE082] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 font-mono ${className}`}
+      className={`w-full bg-[var(--surface-1)] border border-[var(--border-strong)] px-4 py-2.5 text-xs text-[var(--text-1)] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 font-mono shadow-xs ${className}`}
     >
       <div className="flex flex-wrap items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-[#FFB020] flex-shrink-0 animate-ping" aria-hidden="true" />
-        <span className="font-semibold tracking-wider text-[#FFB020] uppercase">[DATA PROVENANCE NOTICE]</span>
-        <span className="text-[11px] leading-relaxed">{message}</span>
+        <span className="w-2 h-2 rounded-full bg-[var(--color-warning)] flex-shrink-0 animate-pulse" aria-hidden="true" />
+        <span className="font-semibold tracking-wider text-[var(--color-warning)] uppercase">[DATA PROVENANCE NOTICE]</span>
+        <span className="text-[11px] leading-relaxed text-[var(--text-2)]">{message}</span>
       </div>
-      <span className="text-[10px] text-[#FFB020]/80 border border-[#FFB020]/30 rounded px-2 py-0.5 bg-[#FFB020]/5 whitespace-nowrap self-start sm:self-auto shrink-0">
+      <span className="text-[10px] text-[var(--text-3)] border border-[var(--border-subtle)] rounded px-2 py-0.5 bg-[var(--surface-2)] whitespace-nowrap self-start sm:self-auto shrink-0">
         Constitution Rule 1 &amp; 3 Enforced
       </span>
     </div>

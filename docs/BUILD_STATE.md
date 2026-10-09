@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 6 - Missing test suites (added scripts/copy-budget.ts with strict ceilings passing all routes; created e2e/ux-hardening.spec.ts testing 360px overflow across 17 routes, 44x44 touch targets, focus-visible, and motion existence/reduction; expanded e2e/axe.spec.ts across dark & light themes; fixed mobile header collapse and hero search touch target)
-> - **NEXT ACTION**: Step 7 - Visual quality loop on landing, /compare, product, /intelligence, /extract (capture 360 & 1440 in dark & light, run 12-point rubric in docs/REVIEW.md, hero filmstrip)
+> - **LAST COMPLETED**: Step 7 - Visual quality loop on landing, /compare, product, /intelligence, /extract (captured 360 & 1440 in dark & light, captured landing hero filmstrip at 0/400/1200/2400ms, evaluated 12-point rubric in docs/REVIEW.md, resolved 5 concrete weaknesses)
+> - **NEXT ACTION**: Step 8 - Production hygiene (prove /dev/* absent from production build, verify git env files and repo visibility, ensure all seed rows are is_synthetic with demo indicators)
 
 
 

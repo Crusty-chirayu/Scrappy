@@ -12,8 +12,10 @@ async function captureFilmstrip() {
     fs.mkdirSync(screensDir, { recursive: true });
   }
 
+  const port = process.env.PORT || "3005";
+  const baseUrl = `http://localhost:${port}`;
   const browser = await chromium.launch({ headless: true });
-  const delays = [0, 250, 600, 1200];
+  const delays = [0, 400, 1200, 2400];
   const frames: Buffer[] = [];
 
   for (const ms of delays) {
@@ -22,7 +24,7 @@ async function captureFilmstrip() {
     });
     const page = await context.newPage();
 
-    await page.goto("http://localhost:3000/dev/brand", { waitUntil: "domcontentloaded" });
+    await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
     if (ms > 0) {
       await page.waitForTimeout(ms);
     }
@@ -47,21 +49,21 @@ async function captureFilmstrip() {
   </style>
 </head>
 <body>
-  <h2>MOTION FILMSTRIP: /dev/brand ENTRANCE PROGRESSION (0, 250, 600, 1200 ms)</h2>
+  <h2>MOTION FILMSTRIP: LANDING HERO ENTRANCE PROGRESSION (0, 400, 1200, 2400 ms)</h2>
   <div class="strip">
     <div class="frame-container"><span class="label">T = 0 ms</span><img src="${b64Frames[0]}" alt="0ms" /></div>
-    <div class="frame-container"><span class="label">T = 250 ms</span><img src="${b64Frames[1]}" alt="250ms" /></div>
-    <div class="frame-container"><span class="label">T = 600 ms</span><img src="${b64Frames[2]}" alt="600ms" /></div>
-    <div class="frame-container"><span class="label">T = 1200 ms</span><img src="${b64Frames[3]}" alt="1200ms" /></div>
+    <div class="frame-container"><span class="label">T = 400 ms</span><img src="${b64Frames[1]}" alt="400ms" /></div>
+    <div class="frame-container"><span class="label">T = 1200 ms</span><img src="${b64Frames[2]}" alt="1200ms" /></div>
+    <div class="frame-container"><span class="label">T = 2400 ms</span><img src="${b64Frames[3]}" alt="2400ms" /></div>
   </div>
 </body>
 </html>
 `;
 
   // Render and save the filmstrip as an image
-  const page = await browser.newPage({ viewport: { width: 1440, height: 420 } });
+  const page = await browser.newPage({ viewport: { width: 1480, height: 420 } });
   await page.setContent(filmstripHtml);
-  const filmstripPath = path.join(screensDir, "filmstrip-brand-entrance.png");
+  const filmstripPath = path.join(screensDir, "filmstrip-landing-hero.png");
   await page.screenshot({ path: filmstripPath, fullPage: true });
   console.log(`Saved filmstrip: ${filmstripPath}`);
 
