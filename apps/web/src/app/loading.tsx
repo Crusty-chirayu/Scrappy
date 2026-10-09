@@ -1,3 +1,5 @@
+"use client";
+
 import { Skeleton, SkeletonCard, ScrappyLogo } from "@scrappy/ui";
 
 export default function Loading() {

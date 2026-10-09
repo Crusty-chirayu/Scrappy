@@ -1,5 +1,3 @@
-"use client";
-
 export * from "./tokens.js";
 
 // Core Primitives (Rebuilt Phase 0)
