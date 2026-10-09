@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 5 - Real behavior (onboarding choices persisted locally and synced to watchlist; updated e2e/actions-persistence.spec.ts with auth login and onboarding tests; re-ran and updated docs/WIRING.md; marked Admin MFA TEST MODE visibly)
-> - **NEXT ACTION**: Step 6 - Missing test suites (scripts/copy-budget.ts, console-clean, 360px no-scroll, 44x44 touch targets, focus-visible, motion-exists, axe in both themes)
+> - **LAST COMPLETED**: Step 6 - Missing test suites (added scripts/copy-budget.ts with strict ceilings passing all routes; created e2e/ux-hardening.spec.ts testing 360px overflow across 17 routes, 44x44 touch targets, focus-visible, and motion existence/reduction; expanded e2e/axe.spec.ts across dark & light themes; fixed mobile header collapse and hero search touch target)
+> - **NEXT ACTION**: Step 7 - Visual quality loop on landing, /compare, product, /intelligence, /extract (capture 360 & 1440 in dark & light, run 12-point rubric in docs/REVIEW.md, hero filmstrip)
 
 
 

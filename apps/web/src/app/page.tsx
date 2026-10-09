@@ -126,11 +126,11 @@ export default function LandingPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search a product, model or paste a link"
                   aria-label="Search product or enter merchant URL"
-                  className="w-full h-[52px] pl-11 pr-28 rounded-xl bg-[var(--surface-1)] border border-[var(--border-strong)] focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 text-sm font-sans text-[var(--text-1)] placeholder-[var(--text-3)] outline-none transition-all"
+                  className="w-full h-[56px] pl-11 pr-28 rounded-xl bg-[var(--surface-1)] border border-[var(--border-strong)] focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 text-sm font-sans text-[var(--text-1)] placeholder-[var(--text-3)] outline-none transition-all"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 h-9 px-4 rounded-lg bg-[var(--color-accent)] hover:opacity-95 text-white text-xs font-mono font-semibold transition-opacity flex items-center gap-1.5 shadow-sm"
+                  className="absolute right-2 h-11 min-h-[44px] px-4 rounded-lg bg-[var(--color-accent)] hover:opacity-95 text-white text-xs font-mono font-semibold transition-opacity flex items-center gap-1.5 shadow-sm"
                 >
                   <span>Search</span>
                   <ArrowRight size={13} />
@@ -148,7 +148,7 @@ export default function LandingPage() {
                       setSearchQuery(q);
                       window.location.href = `/compare?q=${encodeURIComponent(q)}`;
                     }}
-                    className="px-2.5 py-1 rounded-full bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
+                    className="px-3 py-2 min-h-[38px] inline-flex items-center rounded-full bg-[var(--surface-1)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
                   >
                     {q}
                   </button>

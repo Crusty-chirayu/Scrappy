@@ -15,24 +15,33 @@ const PAGES = [
   { name: "Legal Privacy Policy", path: "/legal/privacy" },
   { name: "Legal Terms of Service", path: "/legal/terms" },
   { name: "Legal Responsible Scraping", path: "/legal/responsible-scraping" },
+  { name: "Onboarding Wizard", path: "/onboarding" },
+  { name: "Pricing & Plans", path: "/pricing" },
+  { name: "Watchlist", path: "/watchlist" },
+  { name: "Alerts", path: "/alerts" },
   { name: "404 Not Found", path: "/not-found-page-route" },
 ];
 
 test.describe("WCAG 2.2 AA Accessibility Audits", () => {
-  for (const p of PAGES) {
-    test(`Axe scan: ${p.name}`, async ({ page }) => {
-      test.setTimeout(60000);
-      await page.goto(p.path);
-      await page.waitForLoadState("domcontentloaded");
-      // Allow dynamic elements to hydrate
-      await page.waitForTimeout(300);
+  for (const theme of ["dark", "light"] as const) {
+    for (const p of PAGES) {
+      test(`Axe scan: ${p.name} [theme=${theme}]`, async ({ page }) => {
+        test.setTimeout(60000);
+        await page.goto(p.path);
+        await page.waitForLoadState("domcontentloaded");
+        await page.evaluate((t) => {
+          document.documentElement.setAttribute("data-theme", t);
+        }, theme);
+        // Allow dynamic elements to hydrate
+        await page.waitForTimeout(300);
 
-      const accessibilityScanResults = await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
-        .disableRules(["color-contrast"])
-        .analyze();
+        const accessibilityScanResults = await new AxeBuilder({ page })
+          .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+          .disableRules(["color-contrast"])
+          .analyze();
 
-      expect(accessibilityScanResults.violations).toEqual([]);
-    });
+        expect(accessibilityScanResults.violations).toEqual([]);
+      });
+    }
   }
 });

@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 const ROUTES = [
   { path: "/", name: "Home" },
   { path: "/compare", name: "Search & Compare" },
-  { path: "/compare/prod_101", name: "Product Detail" },
+  { path: "/compare/b2000000-0000-0000-0000-000000000001", name: "Product Detail" },
   { path: "/extract", name: "Extract" },
   { path: "/intelligence", name: "Intelligence" },
   { path: "/settings", name: "Settings" },

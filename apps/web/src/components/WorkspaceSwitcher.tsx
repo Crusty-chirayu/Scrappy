@@ -68,10 +68,10 @@ export function WorkspaceSwitcher() {
         className="flex items-center gap-2 px-2.5 py-1 text-xs font-mono bg-[var(--surface-1)] border border-[var(--border)] rounded hover:border-[var(--border-strong)] text-[var(--text-1)] transition-colors focus:outline-none focus:ring-1 focus:ring-[var(--border-focus)]"
       >
         <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
-        <span className="max-w-[130px] truncate font-medium">
+        <span className="hidden sm:inline max-w-[130px] truncate font-medium">
           {activeWorkspace?.name || "Workspace"}
         </span>
-        <span className="px-1 py-0.2 bg-[var(--surface-3)] text-[10px] text-[var(--color-accent)] uppercase rounded">
+        <span className="hidden sm:inline px-1 py-0.2 bg-[var(--surface-3)] text-[10px] text-[var(--color-accent)] uppercase rounded">
           {activeWorkspace?.plan || "free"}
         </span>
         <svg

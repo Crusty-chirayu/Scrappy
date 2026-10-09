@@ -18,6 +18,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,md,yml,yaml}\"",
     "no-raw-colors": "tsx scripts/no-raw-colors.ts",
+    "copy-budget": "tsx scripts/copy-budget.ts",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
     "prepare": "husky || true"
   },

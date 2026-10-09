@@ -279,7 +279,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Center Search / Command Palette Trigger */}
-          <div className="flex-1 max-w-md mx-2 sm:mx-6">
+          <div className="hidden sm:block flex-1 max-w-md mx-2 sm:mx-6">
             <CommandPalette />
           </div>
 

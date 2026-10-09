@@ -108,7 +108,7 @@ export function ThemeToggle() {
             <MoonIcon size={16} className="text-[var(--color-accent)]" />
           )}
         </span>
-        <span className="text-[11px] font-medium tracking-wide uppercase">
+        <span className="hidden sm:inline text-[11px] font-medium tracking-wide uppercase">
           {theme === "dark" ? "Midnight" : "Daylight"}
         </span>
       </div>
