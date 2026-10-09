@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 7 - Visual quality loop on landing, /compare, product, /intelligence, /extract (captured 360 & 1440 in dark & light, captured landing hero filmstrip at 0/400/1200/2400ms, evaluated 12-point rubric in docs/REVIEW.md, resolved 5 concrete weaknesses)
-> - **NEXT ACTION**: Step 8 - Production hygiene (prove /dev/* absent from production build, verify git env files and repo visibility, ensure all seed rows are is_synthetic with demo indicators)
+> - **LAST COMPLETED**: Step 8 - Production hygiene (proved /dev/* routes and chunks absent from .next production build; verified git tracked env files show only .env.example; verified gh repo is PRIVATE; verified seed rows is_synthetic and quiet demo indicators)
+> - **NEXT ACTION**: Step 9 - Documentation & hygiene (update docs/design/DESIGN_SYSTEM.md, docs/WIRING.md, docs/GO_LIVE_CHECKLIST.md, and remove dead code)
 
 
 
