@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 1 - Triage and commit use client directives from external edits (`ui-v2-pre-hardening` tag created)
-> - **NEXT ACTION**: Step 2 - Restore test integrity (api.test.ts exact assertions, vitest timeouts, playwright config)
+> - **LAST COMPLETED**: Step 2 - Restore test integrity (exact merchant & strict confidence assertions restored, default vitest timeouts restored, env-driven playwright config with webServer block)
+> - **NEXT ACTION**: Step 3 - Wire fonts and tokens (--font-sans to Geist, --font-mono to Geist Mono, --font-display to Bricolage Grotesque, remove Inter and JetBrains Mono references)
 
 
 ---

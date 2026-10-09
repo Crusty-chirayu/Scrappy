@@ -40,7 +40,7 @@ describe("Scrappy REST API", () => {
       expect(data.items[0].title).toContain("Apple");
       expect(data.total).toBeGreaterThan(0);
       expect(data.items[0].lowestPricePaise).toBeGreaterThan(0);
-      expect(data.items[0].merchants.some((m: string) => m.toLowerCase().includes("amazon"))).toBe(true);
+      expect(data.items[0].merchants).toContain("Amazon.in");
     });
 
     it("GET /v1/search/autocomplete returns prefix recommendations", async () => {
@@ -271,7 +271,7 @@ describe("Scrappy REST API", () => {
       expect(res.statusCode).toBe(200);
       const data = res.json();
       expect(data.decision).toBeDefined();
-      expect(["verified", "matched", "possible_match"]).toContain(data.decision.confidenceLevel);
+      expect(["verified", "matched"]).toContain(data.decision.confidenceLevel);
       expect(data.candidateCount).toBeGreaterThan(0);
     });
 

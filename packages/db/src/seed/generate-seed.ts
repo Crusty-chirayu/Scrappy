@@ -80,7 +80,7 @@ export const BRANDS: BrandSeed[] = [
 export const MERCHANTS: MerchantSeed[] = [
   {
     id: "a1000000-0000-0000-0000-000000000001",
-    name: "Amazon India",
+    name: "Amazon.in",
     slug: "amazon-in",
     sourceId: "amazon-in",
     baseUrl: "https://www.amazon.in",
@@ -194,7 +194,7 @@ export function generateSeedObjects(totalProducts = 500): {
       productId: prodId,
       merchantId: MERCHANTS[0]!.id,
       source: "amazon-in",
-      merchantName: "Amazon India",
+      merchantName: "Amazon.in",
       url: `https://www.amazon.in/dp/B00SYN${pad}`,
       currentPricePaise: amazonPricePaise,
       originalPricePaise: amazonOrigPaise,
