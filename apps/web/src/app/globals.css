@@ -1,6 +1,4 @@
 @import "@fontsource-variable/bricolage-grotesque";
-@import "@fontsource/instrument-serif";
-@import "@fontsource/instrument-serif/400-italic.css";
 @import "../../../../packages/ui/src/tokens.css";
 
 @tailwind base;
@@ -8,8 +6,11 @@
 @tailwind utilities;
 
 :root {
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-ui: var(--font-sans);
   --font-display: "Bricolage Grotesque Variable", system-ui, -apple-system, sans-serif;
   --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 
@@ -18,7 +19,7 @@ html,
 body {
   background-color: var(--surface-0);
   color: var(--text-1);
-  font-family: var(--font-ui, Inter, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
@@ -37,14 +38,19 @@ body {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1, "zero" 1;
+  font-family: var(--font-mono);
 }
 
 .font-display {
-  font-family: var(--font-display), "Instrument Serif", Georgia, serif;
+  font-family: var(--font-display);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
 }
 
 .font-mono {
-  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 /* Touch targets: Constitution Rule 9 & WCAG 2.2 AA (min 44x44px for primary tap areas) */

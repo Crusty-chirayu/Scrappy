@@ -59,11 +59,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        ui: ["var(--font-ui)", "system-ui", "sans-serif"],
-        sans: ["var(--font-ui)", "system-ui", "sans-serif"],
+        ui: ["var(--font-sans)", "var(--font-geist-sans)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "var(--font-geist-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        mono: ["var(--font-mono)", "var(--font-geist-mono)", "monospace"],
       },
       borderRadius: {
         none: "var(--radius-none)",

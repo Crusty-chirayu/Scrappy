@@ -144,9 +144,9 @@ export const Z_INDEX = {
 
 export const TYPOGRAPHY = {
   fonts: {
-    ui: 'var(--font-ui, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif)',
-    display: 'var(--font-display, "Instrument Serif", Georgia, serif)',
-    mono: 'var(--font-mono, "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace)',
+    ui: 'var(--font-sans, var(--font-geist-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif))',
+    display: 'var(--font-display, "Bricolage Grotesque Variable", system-ui, sans-serif)',
+    mono: 'var(--font-mono, var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace))',
   },
   tabularNums: {
     fontVariantNumeric: "tabular-nums",

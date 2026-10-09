@@ -203,10 +203,10 @@ function KitContent() {
           <h3 className="text-xs font-mono uppercase tracking-wider text-[var(--text-2)]">Typography Scale</h3>
           <div className="space-y-2">
             <p className="text-3xl font-display text-[var(--text-1)]">
-              Display Headline — Instrument Serif (Hero Scale)
+              Display Headline — Bricolage Grotesque (Display Scale)
             </p>
             <p className="text-lg font-semibold text-[var(--text-1)]">
-              UI Section Title — Inter UI Medium (Text LG)
+              UI Section Title — Geist Sans Medium (Text LG)
             </p>
             <p className="text-sm text-[var(--text-2)]">
               Body Copy — Balanced readability with 1.5 line height across dark and light palettes.

@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 2 - Restore test integrity (exact merchant & strict confidence assertions restored, default vitest timeouts restored, env-driven playwright config with webServer block)
-> - **NEXT ACTION**: Step 3 - Wire fonts and tokens (--font-sans to Geist, --font-mono to Geist Mono, --font-display to Bricolage Grotesque, remove Inter and JetBrains Mono references)
+> - **LAST COMPLETED**: Step 3 - Wire fonts and tokens (Geist, Geist Mono, Bricolage Grotesque, zero Inter/JetBrains Mono, e2e/fonts-tokens.spec.ts passing 8/8)
+> - **NEXT ACTION**: Step 4 - Theme completeness (replace raw hex/slate in /docs, /legal/*, /auth/callback, apps/admin; add scripts/no-raw-colors.ts)
 
 
 ---

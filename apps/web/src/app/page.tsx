@@ -94,7 +94,7 @@ export default function LandingPage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold tracking-tight text-[var(--text-1)] leading-[1.05]">
-                The verified graph of products, merchants, and prices.
+                The verified graph of products, merchants, and <span className="font-serif italic font-normal">prices</span>.
               </h1>
 
               <p className="text-base sm:text-lg text-[var(--text-2)] max-w-xl font-sans">
