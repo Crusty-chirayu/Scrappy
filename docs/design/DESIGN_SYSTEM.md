@@ -109,3 +109,25 @@ Vector silhouettes built from 3–5 geometric shapes with top-left directional l
 6. `Footwear`: Streamlined midsole curve, upper contour, collar opening.
 7. `Appliances`: Structured chassis, display module, rotary adjustment dial.
 8. `Grocery Staples`: Standing gusset pouch, heat-sealed header, certification seal.
+
+---
+
+## 7. Copy Budget & Word Density Law
+Strict word ceilings enforced per route by automated CI gate `scripts/copy-budget.ts`:
+- Landing (`/`): ≤ 350 words
+- Compare (`/compare`): ≤ 160 words
+- Product Detail (`/compare/[id]`): ≤ 240 words
+- Intelligence (`/intelligence`): ≤ 220 words
+- Extract Studio (`/extract`): ≤ 220 words
+- Auth (`/auth/login`, `/auth/signup`): ≤ 80 words
+- Settings (`/settings`): ≤ 200 words
+
+---
+
+## 8. Automated Verification Suite Matrix
+- `e2e/fonts-tokens.spec.ts`: Asserts body=Geist Sans, h1=Bricolage Grotesque, price=Geist Mono, zero Inter/JetBrains Mono traces, ≤ 3 font file requests on landing, theme toggle persistence across navigation.
+- `scripts/no-raw-colors.ts`: Audits all 56 `.tsx` route files; guarantees 0 raw hex color violations.
+- `scripts/copy-budget.ts`: Enforces strict route copy word ceilings.
+- `e2e/ux-hardening.spec.ts`: Audits 360px zero horizontal overflow across 17 routes, 44x44 CSS px touch target minimum, keyboard focus-visible indicator ring, and motion suppressions under reduced motion.
+- `e2e/axe.spec.ts`: Automated WCAG 2.2 AA audit on every route across Midnight (Dark) and Daylight (Light) themes.
+

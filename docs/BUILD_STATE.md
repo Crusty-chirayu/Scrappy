@@ -40,8 +40,8 @@
 
 > **RESUME POINT**:
 > - **CURRENT BRANCH**: `ui-v2`
-> - **LAST COMPLETED**: Step 8 - Production hygiene (proved /dev/* routes and chunks absent from .next production build; verified git tracked env files show only .env.example; verified gh repo is PRIVATE; verified seed rows is_synthetic and quiet demo indicators)
-> - **NEXT ACTION**: Step 9 - Documentation & hygiene (update docs/design/DESIGN_SYSTEM.md, docs/WIRING.md, docs/GO_LIVE_CHECKLIST.md, and remove dead code)
+> - **LAST COMPLETED**: Step 9 - Documentation & hygiene (updated docs/design/DESIGN_SYSTEM.md with copy budget law & automated verification suite matrix, verified docs/WIRING.md & docs/GO_LIVE_CHECKLIST.md, verified zero dead old-UI code)
+> - **NEXT ACTION**: Step 10 - Full gates once (pnpm lint, pnpm typecheck, pnpm test, supabase status/test, full Playwright suite, no-raw-colors, copy-budget, mobile Lighthouse audit, per-route JS bundle sizes)
 
 
 
