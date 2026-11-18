@@ -15,8 +15,10 @@ try {
     fs.renameSync(devDir, catalogDir);
     moved = true;
   }
-} catch (err) {
-  console.warn("[build] Dev route rename bypassed (file watcher active); dev layout returns notFound() in production.");
+} catch {
+  console.warn(
+    "[build] Dev route rename bypassed (file watcher active); dev layout returns notFound() in production.",
+  );
 }
 
 try {
